@@ -792,6 +792,53 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase-client.js"></script>
 <script>
+// Slack Incoming Webhook URL — admin/settings.html에서 설정
+const SLACK_WEBHOOK_URL = (() => {
+  try { return JSON.parse(localStorage.getItem('ssentif_slack') || '{}').webhook || ''; } catch { return ''; }
+})();
+
+async function sendSlackNotification(p) {
+  if (!SLACK_WEBHOOK_URL) return;
+  const planText = p.plan || '미정';
+  const sizeText = p.center_size || '미기재';
+  const msgText  = p.message ? `\n> ${p.message.replace(/\n/g, '\n> ')}` : '';
+  const body = {
+    blocks: [
+      {
+        type: 'header',
+        text: { type: 'plain_text', text: '📬 새 상담 문의가 접수됐습니다', emoji: true }
+      },
+      {
+        type: 'section',
+        fields: [
+          { type: 'mrkdwn', text: `*성함*\n${p.name}${p.role ? ` (${p.role})` : ''}` },
+          { type: 'mrkdwn', text: `*센터명*\n${p.center_name}` },
+          { type: 'mrkdwn', text: `*연락처*\n${p.phone}` },
+          { type: 'mrkdwn', text: `*이메일*\n${p.email || '—'}` },
+          { type: 'mrkdwn', text: `*센터 규모*\n${sizeText}` },
+          { type: 'mrkdwn', text: `*관심 플랜*\n${planText}` },
+        ]
+      },
+      ...(p.message ? [{
+        type: 'section',
+        text: { type: 'mrkdwn', text: `*문의 내용*${msgText}` }
+      }] : []),
+      { type: 'divider' },
+      {
+        type: 'context',
+        elements: [{ type: 'mrkdwn', text: `접수 시각: ${new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' })}` }]
+      }
+    ]
+  };
+  try {
+    await fetch(SLACK_WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+  } catch (_) { /* 알림 실패가 폼 제출을 막지 않도록 */ }
+}
+
 const nav = document.getElementById('mainNav');
 window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 20));
 
@@ -859,6 +906,8 @@ consultForm.addEventListener('submit', async (e) => {
   try {
     const { error } = await db.from('inquiries').insert([payload]);
     if (error) throw error;
+
+    sendSlackNotification(payload); // fire-and-forget
 
     // 요약 카드 채우기
     const name = payload.name;

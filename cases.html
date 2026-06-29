@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>고객 사례 — SSENTIF</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.cases-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+@media (max-width: 900px) { .cases-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 600px) { .cases-grid { grid-template-columns: 1fr; } }
+
+.case-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.case-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); }
+.case-card-img { aspect-ratio: 3/2; overflow: hidden; background: var(--gray-100); }
+.case-card-img img { width:100%;height:100%;object-fit:cover;transition:transform 0.3s; }
+.case-card:hover .case-card-img img { transform: scale(1.04); }
+.case-card-body { padding: 24px; }
+.case-tag {
+  display: inline-block; font-size: 11px; font-weight: 700;
+  padding: 3px 10px; border-radius: 100px; margin-bottom: 12px;
+  background: var(--accent-light); color: var(--accent-dark);
+}
+.case-card-body h4 { font-size: 17px; margin-bottom: 8px; line-height: 1.4; }
+.case-card-body p { font-size: 13.5px; }
+.case-stats { display: flex; gap: 16px; margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--border); }
+.case-stat .num { font-size: 22px; font-weight: 800; color: var(--accent-dark); }
+.case-stat .desc { font-size: 11.5px; color: var(--gray-400); margin-top: 2px; }
+
+.featured-case {
+  background: var(--gray-50);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 56px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  margin-bottom: 60px;
+}
+@media (max-width: 768px) {
+  .featured-case { grid-template-columns: 1fr; padding: 32px; gap: 32px; }
+}
+.featured-case-quote {
+  font-size: 1.25rem;
+  line-height: 1.75;
+  color: var(--gray-800);
+  font-style: italic;
+  margin-bottom: 28px;
+}
+.featured-case-author { display: flex; align-items: center; gap: 14px; }
+.featured-case-avatar {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  background: var(--accent-light);
+  flex-shrink: 0;
+}
+.featured-case-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.fc-stat { text-align: center; }
+.fc-stat .num { font-size: 2.4rem; font-weight: 900; color: var(--accent-dark); letter-spacing: -0.03em; }
+.fc-stat .label { font-size: 13px; color: var(--gray-500); margin-top: 4px; }
+
+.filter-tabs {
+  display: flex; gap: 8px; justify-content: center;
+  margin-bottom: 48px; flex-wrap: wrap;
+}
+.filter-tab {
+  padding: 8px 20px; border-radius: 100px;
+  font-size: 14px; font-weight: 600;
+  background: var(--gray-100); color: var(--gray-600);
+  cursor: pointer; border: 1.5px solid transparent;
+  transition: all 0.15s;
+}
+.filter-tab.active { background: var(--black); color: var(--white); }
+.filter-tab:hover:not(.active) { background: var(--gray-200); }
+</style>
+</head>
+<body>
+
+<nav class="nav" id="mainNav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">SSEN<span>TIF</span></a>
+    <div class="nav-links">
+      <a href="product.html">제품</a>
+      <a href="cases.html" class="active">고객 사례</a>
+      <a href="pricing.html">요금제</a>
+      <a href="consulting.html">맞춤 도입</a>
+      <a href="lab.html">운영지원실</a>
+    </div>
+    <div class="nav-actions">
+      <a href="product.html" class="nav-ghost">기능 둘러보기</a>
+      <a href="consulting.html" class="nav-cta-btn">맞춤 상담 받기</a>
+    </div>
+    <button class="nav-hamburger" id="navHamburger" aria-label="메뉴 열기">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="nav-mobile-menu" id="navMobileMenu">
+  <a href="product.html">제품</a>
+  <a href="index.html#cases">고객 사례</a>
+  <a href="pricing.html">요금제</a>
+  <a href="consulting.html">맞춤 도입</a>
+  <a href="lab.html">운영지원실</a>
+  <div class="nav-mobile-divider"></div>
+  <a href="consulting.html" class="nav-mobile-cta">맞춤 상담 받기</a>
+</div>
+
+
+<div class="page-hero">
+  <div class="container">
+    <div class="label">고객 사례</div>
+    <h1>실제 센터의 변화를<br>직접 확인하세요</h1>
+    <p class="lead">전국 20개 이상의 피트니스 센터가 센티프로 운영을 바꿨습니다.<br>데이터로 증명된 성과를 확인해보세요.</p>
+  </div>
+</div>
+
+
+<section class="section">
+  <div class="container">
+
+    <!-- Featured Case -->
+    <div class="featured-case fade-up">
+      <div>
+        <div class="label" style="margin-bottom:16px">특집 사례</div>
+        <p class="featured-case-quote">"센티프 도입 3개월 만에 재등록률이 12% 올랐어요. 회원별 데이터를 보면서 맞춤 상담을 할 수 있게 된 게 결정적이었습니다. 이제는 데이터 없이는 운영을 못 하겠더라고요."</p>
+        <div class="featured-case-author">
+          <div class="featured-case-avatar"></div>
+          <div>
+            <div style="font-size:15px;font-weight:700">이수연 원장</div>
+            <div style="font-size:13px;color:var(--gray-400);margin-top:2px">BODY LAB · 부산 해운대 · PT 전문 센터</div>
+          </div>
+        </div>
+      </div>
+      <div class="featured-case-stats">
+        <div class="fc-stat">
+          <div class="num">+12%</div>
+          <div class="label">재등록률 상승</div>
+        </div>
+        <div class="fc-stat">
+          <div class="num">-65%</div>
+          <div class="label">일지 작성 시간 감소</div>
+        </div>
+        <div class="fc-stat">
+          <div class="num">+28%</div>
+          <div class="label">월 매출 증가</div>
+        </div>
+        <div class="fc-stat">
+          <div class="num">95%</div>
+          <div class="label">트레이너 만족도</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filter -->
+    <div class="filter-tabs fade-up">
+      <button class="filter-tab active">전체</button>
+      <button class="filter-tab">PT 센터</button>
+      <button class="filter-tab">필라테스</button>
+      <button class="filter-tab">헬스장</button>
+      <button class="filter-tab">크로스핏</button>
+    </div>
+
+    <!-- Cases Grid -->
+    <div class="cases-grid">
+      <div class="case-card fade-up">
+        <div class="case-card-img"><img src="https://images.unsplash.com/photo-1581009137042-c552e485697a?w=600&auto=format&fit=crop" alt="센터"></div>
+        <div class="case-card-body">
+          <div class="case-tag">PT 센터</div>
+          <h4>수업일지 자동화로 회원 케어 시간 2배 확보</h4>
+          <p>하루 30분씩 쓰던 일지 작성을 5분으로 줄였습니다. 남은 시간을 회원 상담에 투자한 결과, 만족도가 크게 올랐습니다.</p>
+          <div class="case-stats">
+            <div class="case-stat"><div class="num">+18%</div><div class="desc">재등록률</div></div>
+            <div class="case-stat"><div class="num">-83%</div><div class="desc">일지 작성 시간</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="case-card fade-up">
+        <div class="case-card-img"><img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&auto=format&fit=crop" alt="센터"></div>
+        <div class="case-card-body">
+          <div class="case-tag">헬스장</div>
+          <h4>매출 분석으로 비수기 전략 수립 성공</h4>
+          <p>월별 매출 데이터를 분석해 비수기 프로모션 타이밍을 정확히 잡았습니다. 비수기 매출이 전년 대비 22% 성장했습니다.</p>
+          <div class="case-stats">
+            <div class="case-stat"><div class="num">+22%</div><div class="desc">비수기 매출</div></div>
+            <div class="case-stat"><div class="num">3배</div><div class="desc">ROI</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="case-card fade-up">
+        <div class="case-card-img"><img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&auto=format&fit=crop" alt="센터"></div>
+        <div class="case-card-body">
+          <div class="case-tag">PT 센터</div>
+          <h4>식단 관리 기능으로 회원 목표 달성률 향상</h4>
+          <p>운동과 식단을 함께 관리하면서 회원 목표 달성 속도가 빨라졌고, 자연스럽게 추가 세션 구매로 이어졌습니다.</p>
+          <div class="case-stats">
+            <div class="case-stat"><div class="num">+31%</div><div class="desc">회원 목표 달성률</div></div>
+            <div class="case-stat"><div class="num">+15%</div><div class="desc">추가 구매 전환</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="case-card fade-up">
+        <div class="case-card-img"><img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=600&auto=format&fit=crop" alt="센터"></div>
+        <div class="case-card-body">
+          <div class="case-tag">필라테스</div>
+          <h4>자동 재등록 알림으로 이탈 회원 선제 방어</h4>
+          <p>만료 2주 전 자동 알림이 발송되면서, 원장님이 직접 연락하지 않아도 재등록률이 유지되기 시작했습니다.</p>
+          <div class="case-stats">
+            <div class="case-stat"><div class="num">92%</div><div class="desc">재등록률 유지</div></div>
+            <div class="case-stat"><div class="num">-100%</div><div class="desc">수동 리마인더</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="case-card fade-up">
+        <div class="case-card-img"><img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&auto=format&fit=crop" alt="센터"></div>
+        <div class="case-card-body">
+          <div class="case-tag">헬스장</div>
+          <h4>트레이너 성과 관리로 팀 생산성 20% 향상</h4>
+          <p>트레이너별 성과 리포트를 공유하면서 건전한 경쟁 문화가 형성됐고, 전체 팀의 수업 건수가 꾸준히 증가했습니다.</p>
+          <div class="case-stats">
+            <div class="case-stat"><div class="num">+20%</div><div class="desc">팀 생산성</div></div>
+            <div class="case-stat"><div class="num">+35%</div><div class="desc">수업 건수</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="case-card fade-up">
+        <div class="case-card-img"><img src="https://images.unsplash.com/photo-1581009137042-c552e485697a?w=600&auto=format&fit=crop&q=80&crop=entropy" alt="센터"></div>
+        <div class="case-card-body">
+          <div class="case-tag">크로스핏</div>
+          <h4>운동 루틴 공유로 회원 커뮤니티 활성화</h4>
+          <p>회원들이 앱에서 서로의 기록을 확인하면서 자연스럽게 커뮤니티가 형성됐고, 친구 소개 신규 등록이 늘었습니다.</p>
+          <div class="case-stats">
+            <div class="case-stat"><div class="num">+40%</div><div class="desc">앱 사용률</div></div>
+            <div class="case-stat"><div class="num">+25%</div><div class="desc">지인 소개 등록</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- TESTIMONIAL QUOTES -->
+<section class="section" style="background:var(--gray-50)">
+  <div class="container">
+    <div class="section-head fade-up">
+      <div class="label">트레이너 & 원장님 후기</div>
+      <h2>현장의 목소리</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:24px">
+      <div class="testimonial-card fade-up">
+        <div class="star-row">★★★★★</div>
+        <p class="testimonial-quote">"수업일지 작성이 이렇게 쉬워질 줄 몰랐어요. 이제는 수업 끝나고 1분이면 다 정리됩니다."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar"></div>
+          <div><div class="testimonial-name">김민준 트레이너</div><div class="testimonial-role">FIT STUDIO A · 서울 강남</div></div>
+        </div>
+      </div>
+      <div class="testimonial-card fade-up">
+        <div class="star-row">★★★★★</div>
+        <p class="testimonial-quote">"월말 정산하느라 엑셀과 씨름하던 시간이 없어졌어요. 대시보드 열면 다 나오니까요."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:#E0F2FE"></div>
+          <div><div class="testimonial-name">박지훈 원장</div><div class="testimonial-role">PRIME PT · 서울 마포</div></div>
+        </div>
+      </div>
+      <div class="testimonial-card fade-up">
+        <div class="star-row">★★★★★</div>
+        <p class="testimonial-quote">"식단까지 한 앱에서 관리되니까 회원들이 굉장히 좋아해요. 다른 센터와 차별화되는 느낌이에요."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:#FEF3C7"></div>
+          <div><div class="testimonial-name">최유진 트레이너</div><div class="testimonial-role">CORE FITNESS · 대구</div></div>
+        </div>
+      </div>
+      <div class="testimonial-card fade-up">
+        <div class="star-row">★★★★★</div>
+        <p class="testimonial-quote">"재등록 임박 알림 덕에 이탈할 뻔한 회원 여러 명을 잡았어요. 이게 진짜 자동화구나 싶었습니다."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:#FCE7F3"></div>
+          <div><div class="testimonial-name">이정은 원장</div><div class="testimonial-role">MOVE WELL · 인천</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="cta-band">
+  <div class="container">
+    <h2>우리 센터, 얼마나 바뀔 수 있는지<br>직접 확인해보세요</h2>
+    <p>지금 맞춤 상담을 신청하면, 전담 매니저가 센터에 맞는 도입 플랜을 제안해드립니다.</p>
+    <a href="consulting.html" class="btn btn-primary btn-lg">맞춤 상담 받기</a>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand"><div class="logo">SSEN<span>TIF</span></div><p>피트니스 센터를 위한<br>AI 운영 워크스페이스</p></div>
+    <div class="footer-col"><h5>제품</h5><ul><li><a href="product.html">주요 기능</a></li><li><a href="pricing.html">요금제</a></li></ul></div>
+    <div class="footer-col"><h5>회사</h5><ul><li><a href="cases.html">고객 사례</a></li><li><a href="consulting.html">맞춤 도입</a></li><li><a href="lab.html">운영지원실</a></li></ul></div>
+    <div class="footer-col"><h5>지원</h5><ul><li><a href="#">사용 가이드</a></li><li><a href="https://ssentif-manager.kr/" target="_blank">매니저 로그인</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><p>© 2025 SSENTIF. All rights reserved.</p><p>개인정보처리방침 · 이용약관</p></div>
+</footer>
+
+<script>
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 20));
+const observer = new IntersectionObserver(e => e.forEach(x => { if(x.isIntersecting){x.target.classList.add('visible');observer.unobserve(x.target);} }), {threshold:0.12});
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// Filter tabs (visual only)
+document.querySelectorAll('.filter-tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+
+// 햄버거 메뉴
+const hamburger = document.getElementById('navHamburger');
+const mobileMenu = document.getElementById('navMobileMenu');
+if (hamburger) {
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.nav') && !e.target.closest('.nav-mobile-menu')) {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+    }
+  });
+}
+</script>
+</body>
+</html>

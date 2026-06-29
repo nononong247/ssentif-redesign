@@ -1,0 +1,1627 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>제품 기능 — SSENTIF</title>
+<link rel="stylesheet" href="style.css">
+<style>
+
+/* ════════════════════════════════
+   히어로
+════════════════════════════════ */
+.product-hero {
+  background: linear-gradient(180deg, #E8FAF6 0%, #F4FCFA 50%, #FFFFFF 100%);
+  padding: 130px 24px 80px;
+  text-align: center;
+  position: relative; overflow: hidden;
+}
+.product-hero::before {
+  content:''; position:absolute; top:-160px; left:50%; transform:translateX(-50%);
+  width:700px; height:700px;
+  background: radial-gradient(ellipse, rgba(31,219,168,0.1) 0%, transparent 70%);
+  pointer-events:none;
+}
+.ph-pill {
+  display:inline-flex; align-items:center; gap:8px;
+  background:rgba(31,219,168,0.1); border:1px solid rgba(31,219,168,0.25);
+  border-radius:100px; padding:6px 16px;
+  font-size:12px; font-weight:700; color:var(--accent-dark);
+  margin-bottom:24px; position:relative; z-index:1;
+}
+.product-hero h1 {
+  font-size:clamp(2.4rem,4.5vw,3.8rem); font-weight:900;
+  line-height:1.1; letter-spacing:-0.035em; color:var(--black);
+  margin-bottom:18px; position:relative; z-index:1;
+}
+.product-hero h1 .hl {
+  background:linear-gradient(135deg,#1FDBA8,#0CB589);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+}
+.ph-sub {
+  font-size:clamp(1rem,1.6vw,1.1rem); color:var(--gray-500);
+  line-height:1.8; max-width:520px; margin:0 auto 52px;
+  position:relative; z-index:1;
+}
+
+.target-cards {
+  display:flex; gap:20px; justify-content:center; flex-wrap:wrap;
+  position:relative; z-index:1; max-width:880px; margin:0 auto;
+}
+.target-card {
+  background:var(--white); border:2px solid var(--border);
+  border-radius:20px; padding:28px 28px 24px; flex:1; min-width:220px; max-width:270px;
+  cursor:pointer; text-decoration:none;
+  transition: all 0.25s cubic-bezier(0.34,1.56,0.64,1); text-align:left;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+}
+.target-card:hover { transform:translateY(-6px) scale(1.02); }
+.target-card.manager:hover { border-color:#6366F1; box-shadow:0 16px 48px rgba(99,102,241,0.15); }
+.target-card.trainer:hover { border-color:#F59E0B; box-shadow:0 16px 48px rgba(245,158,11,0.15); }
+.target-card.member:hover  { border-color:var(--accent); box-shadow:0 16px 48px rgba(31,219,168,0.15); }
+.tc-icon { font-size:30px; margin-bottom:14px; display:block; }
+.tc-role { font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:7px; }
+.target-card.manager .tc-role { color:#6366F1; }
+.target-card.trainer .tc-role { color:#D97706; }
+.target-card.member  .tc-role { color:var(--accent-dark); }
+.tc-title { font-size:17px; font-weight:900; color:var(--black); margin-bottom:9px; line-height:1.3; }
+.tc-desc  { font-size:13px; color:var(--gray-500); line-height:1.6; margin:0 0 14px; }
+.tc-arrow { font-size:12px; font-weight:700; display:flex; align-items:center; gap:5px; }
+.target-card.manager .tc-arrow { color:#6366F1; }
+.target-card.trainer .tc-arrow { color:#D97706; }
+.target-card.member  .tc-arrow { color:var(--accent-dark); }
+
+/* 스티키 탭 */
+.target-nav {
+  position:sticky; top:64px; z-index:50;
+  background:rgba(255,255,255,0.92); backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+}
+.target-nav-inner { max-width:1200px; margin:0 auto; padding:0 48px; display:flex; gap:0; }
+.tn-tab {
+  padding:14px 26px; font-size:14px; font-weight:700;
+  color:var(--gray-400); cursor:pointer; text-decoration:none;
+  border-bottom:2px solid transparent; transition:all 0.15s;
+  display:flex; align-items:center; gap:7px;
+}
+.tn-tab:hover { color:var(--black); }
+.tn-tab.manager.active { color:#4F46E5; border-bottom-color:#6366F1; }
+.tn-tab.trainer.active { color:#D97706; border-bottom-color:#F59E0B; }
+.tn-tab.member.active  { color:var(--accent-dark); border-bottom-color:var(--accent); }
+
+/* 공통 귀결 배너 */
+.outcome-banner {
+  margin: 60px 48px 0;
+  max-width: 1120px;
+  margin-left: auto; margin-right: auto;
+  background: linear-gradient(135deg, rgba(31,219,168,0.08), rgba(12,181,137,0.04));
+  border: 1px solid rgba(31,219,168,0.2);
+  border-radius: 16px; padding: 20px 28px;
+  display: flex; align-items: center; gap: 16px;
+}
+.ob-icon { font-size:24px; flex-shrink:0; }
+.ob-text { font-size:14.5px; color:var(--gray-700); line-height:1.65; }
+.ob-text strong { color:var(--accent-dark); font-weight:800; }
+
+
+/* ════════════════════════════════
+   관리자 섹션 — 다크 + 3D 플로팅
+════════════════════════════════ */
+.manager-section {
+  background: #080A0D;
+  padding: 100px 0 80px;
+  position: relative; overflow: hidden;
+}
+.manager-section::before {
+  content:''; position:absolute; top:0; left:50%; transform:translateX(-50%);
+  width:1000px; height:600px;
+  background: radial-gradient(ellipse at 50% 0%, rgba(99,102,241,0.18) 0%, transparent 65%);
+  pointer-events:none;
+}
+.manager-section::after {
+  content:''; position:absolute; bottom:0; right:0;
+  width:500px; height:500px;
+  background: radial-gradient(ellipse at 100% 100%, rgba(31,219,168,0.1) 0%, transparent 60%);
+  pointer-events:none;
+}
+.ms-head {
+  max-width:1120px; margin:0 auto; padding:0 48px 60px;
+  text-align:center;
+}
+.ms-badge {
+  display:inline-flex; align-items:center; gap:8px;
+  background:rgba(99,102,241,0.15); border:1px solid rgba(99,102,241,0.3);
+  border-radius:100px; padding:6px 16px; margin-bottom:20px;
+  font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#A5B4FC;
+}
+.ms-head h2 {
+  font-size:clamp(2rem,3.5vw,3rem); font-weight:900; line-height:1.1;
+  letter-spacing:-0.03em; color:var(--white); margin-bottom:14px;
+}
+.ms-head h2 em { font-style:normal; color:#A5B4FC; }
+.ms-head p { font-size:15px; color:rgba(255,255,255,0.45); line-height:1.75; max-width:500px; margin:0 auto; }
+
+/* 3D 카드 그리드 */
+.ms-3d-scene {
+  perspective: 1400px;
+  padding: 0 48px;
+  max-width:1120px; margin:0 auto;
+}
+.ms-3d-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  transform: rotateX(12deg) translateY(20px);
+  transform-origin: top center;
+  transition: transform 0.6s ease;
+  will-change: transform;
+}
+.ms-3d-grid.flat { transform: rotateX(0deg) translateY(0px); }
+@media(max-width:900px){ .ms-3d-grid{ grid-template-columns:1fr 1fr; } }
+@media(max-width:600px){ .ms-3d-grid{ grid-template-columns:1fr; } }
+
+.ms-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 18px; padding: 22px 24px;
+  backdrop-filter: blur(8px);
+  transform: translateY(30px); opacity: 0;
+  transition: transform 0.5s ease, opacity 0.5s ease, box-shadow 0.2s;
+}
+.ms-card.appeared { transform: translateY(0); opacity: 1; }
+.ms-card:hover {
+  border-color: rgba(99,102,241,0.3);
+  box-shadow: 0 0 40px rgba(99,102,241,0.1);
+}
+.ms-card.accent-card {
+  background: linear-gradient(135deg, rgba(99,102,241,0.15), rgba(99,102,241,0.06));
+  border-color: rgba(99,102,241,0.25);
+  grid-column: span 2;
+}
+@media(max-width:600px){ .ms-card.accent-card{ grid-column:span 1; } }
+
+.ms-card-icon { font-size:20px; margin-bottom:12px; }
+.ms-card-tag {
+  font-size:10px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase;
+  color:#A5B4FC; margin-bottom:8px;
+}
+.ms-card h3 { font-size:15px; font-weight:800; color:var(--white); margin-bottom:8px; }
+.ms-card p  { font-size:13px; color:rgba(255,255,255,0.45); line-height:1.6; margin:0; }
+
+/* 카운터 영역 */
+.ms-stats-row {
+  display:flex; gap:0;
+  max-width:1120px; margin:48px auto 0; padding:0 48px;
+  border-top:1px solid rgba(255,255,255,0.06);
+  padding-top:40px;
+}
+.ms-stat {
+  flex:1; text-align:center; padding:0 20px;
+  border-right:1px solid rgba(255,255,255,0.06);
+}
+.ms-stat:last-child { border-right:none; }
+.ms-stat-num {
+  font-size:clamp(2rem,3.5vw,2.8rem); font-weight:900;
+  color:var(--white); letter-spacing:-0.03em; line-height:1;
+  margin-bottom:6px;
+}
+.ms-stat-num em { color:#A5B4FC; font-style:normal; font-size:60%; }
+.ms-stat-label { font-size:12px; color:rgba(255,255,255,0.35); font-weight:600; }
+
+/* 관리자 전용 목업 (wide) */
+.ms-dashboard {
+  max-width:1120px; margin:40px auto 0; padding:0 48px;
+}
+.ms-dash-inner {
+  background: rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.07);
+  border-radius:20px; overflow:hidden;
+  transform:translateY(40px); opacity:0;
+  transition:transform 0.7s ease, opacity 0.7s ease;
+}
+.ms-dash-inner.appeared { transform:translateY(0); opacity:1; }
+.ms-dash-topbar {
+  display:flex; align-items:center; gap:8px;
+  padding:12px 18px; border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.ms-dot { width:9px; height:9px; border-radius:50%; }
+.ms-dot:nth-child(1){background:#FF5F57;} .ms-dot:nth-child(2){background:#FFBD2E;} .ms-dot:nth-child(3){background:#28CA41;}
+.ms-dash-title { margin-left:8px; font-size:12px; font-weight:600; color:rgba(255,255,255,0.3); }
+.ms-dash-body {
+  display:grid; grid-template-columns:repeat(4,1fr); gap:12px; padding:16px;
+}
+@media(max-width:768px){.ms-dash-body{grid-template-columns:repeat(2,1fr);}}
+.ms-kpi {
+  background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.07);
+  border-radius:12px; padding:14px 16px;
+}
+.ms-kpi .n { font-size:22px; font-weight:900; color:var(--white); }
+.ms-kpi .n em { color:var(--accent); font-style:normal; font-size:13px; }
+.ms-kpi .l { font-size:11px; color:rgba(255,255,255,0.32); margin-top:3px; }
+.ms-kpi .d { font-size:11.5px; font-weight:700; color:var(--accent); margin-top:4px; }
+
+/* 관리자 outcome banner (dark) */
+.ms-outcome {
+  max-width:1120px; margin:40px auto 0; padding:0 48px;
+}
+.ms-outcome-inner {
+  background:linear-gradient(135deg,rgba(31,219,168,0.1),rgba(31,219,168,0.04));
+  border:1px solid rgba(31,219,168,0.2); border-radius:16px;
+  padding:22px 28px; display:flex; align-items:center; gap:14px;
+}
+.ms-outcome-inner p { font-size:14.5px; color:rgba(255,255,255,0.7); line-height:1.65; margin:0; }
+.ms-outcome-inner strong { color:var(--accent); font-weight:800; }
+
+
+/* ════════════════════════════════
+   강사 섹션 — 웜 타임라인
+════════════════════════════════ */
+.trainer-section {
+  background: #FFFBF5;
+  padding: 100px 0 80px;
+  position: relative; overflow:hidden;
+}
+.trainer-section::before {
+  content:''; position:absolute; top:-200px; right:-100px;
+  width:600px; height:600px;
+  background: radial-gradient(ellipse, rgba(245,158,11,0.06) 0%, transparent 70%);
+  pointer-events:none;
+}
+.tr-head {
+  max-width:1120px; margin:0 auto; padding:0 48px 70px;
+}
+.tr-badge {
+  display:inline-flex; align-items:center; gap:8px;
+  background:rgba(245,158,11,0.1); border:1px solid rgba(245,158,11,0.25);
+  border-radius:100px; padding:6px 16px; margin-bottom:20px;
+  font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#D97706;
+}
+.tr-head h2 {
+  font-size:clamp(2rem,3.5vw,2.8rem); font-weight:900; line-height:1.15;
+  letter-spacing:-0.03em; color:var(--black); margin-bottom:12px;
+}
+.tr-head h2 em { font-style:normal; color:#D97706; }
+.tr-head p { font-size:15px; color:var(--gray-500); line-height:1.75; max-width:500px; }
+
+/* 타임라인 */
+.tr-timeline {
+  max-width:960px; margin:0 auto; padding:0 48px;
+  position:relative;
+}
+.tr-timeline::before {
+  content:''; position:absolute; left:calc(48px + 28px); top:0; bottom:0;
+  width:2px; background:linear-gradient(to bottom, rgba(245,158,11,0.4), rgba(245,158,11,0.1));
+}
+@media(max-width:600px){
+  .tr-timeline::before { left:calc(24px + 22px); }
+  .tr-timeline { padding:0 24px; }
+}
+
+.tr-item {
+  display:flex; gap:32px; margin-bottom:48px; align-items:flex-start;
+  opacity:0; transform:translateX(-30px);
+  transition:opacity 0.5s ease, transform 0.5s ease;
+}
+.tr-item.appeared { opacity:1; transform:translateX(0); }
+.tr-item:last-child { margin-bottom:0; }
+
+.tr-node {
+  flex-shrink:0; width:56px; height:56px; border-radius:50%;
+  background:var(--white); border:2px solid rgba(245,158,11,0.3);
+  display:flex; align-items:center; justify-content:center;
+  font-size:20px; position:relative; z-index:1;
+  box-shadow:0 4px 16px rgba(245,158,11,0.12);
+  transition:border-color 0.3s, box-shadow 0.3s;
+}
+.tr-item.appeared .tr-node {
+  border-color:rgba(245,158,11,0.7);
+  box-shadow:0 4px 20px rgba(245,158,11,0.2);
+}
+
+.tr-content { flex:1; }
+.tr-time { font-size:11px; font-weight:700; color:#D97706; letter-spacing:0.06em; margin-bottom:6px; }
+.tr-card {
+  background:var(--white); border:1px solid rgba(245,158,11,0.15);
+  border-radius:16px; padding:20px 22px;
+  box-shadow:0 4px 20px rgba(0,0,0,0.05);
+}
+.tr-card h3 { font-size:15px; font-weight:800; color:var(--black); margin-bottom:6px; }
+.tr-card p  { font-size:13.5px; color:var(--gray-600); line-height:1.65; margin:0; }
+
+/* 시간 절감 비교 */
+.tr-time-compare {
+  max-width:960px; margin:56px auto 0; padding:0 48px;
+  display:grid; grid-template-columns:1fr auto 1fr; gap:20px; align-items:center;
+  opacity:0; transform:translateY(24px);
+  transition:opacity 0.6s ease, transform 0.6s ease;
+}
+.tr-time-compare.appeared { opacity:1; transform:translateY(0); }
+@media(max-width:700px){
+  .tr-time-compare { grid-template-columns:1fr; padding:0 24px; }
+}
+.tr-before, .tr-after {
+  background:var(--white); border-radius:16px; padding:22px 24px;
+  border:1px solid var(--border);
+}
+.tr-before { border-top:3px solid #EF4444; }
+.tr-after  { border-top:3px solid var(--accent); }
+.tr-compare-label {
+  font-size:10.5px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase;
+  margin-bottom:10px;
+}
+.tr-before .tr-compare-label { color:#EF4444; }
+.tr-after  .tr-compare-label { color:var(--accent-dark); }
+.tr-compare-time {
+  font-size:2rem; font-weight:900; letter-spacing:-0.03em; margin-bottom:4px;
+}
+.tr-before .tr-compare-time { color:#EF4444; }
+.tr-after  .tr-compare-time { color:var(--accent-dark); }
+.tr-compare-desc { font-size:13px; color:var(--gray-500); }
+.tr-arrow-mid { font-size:28px; color:var(--gray-300); text-align:center; }
+
+/* 강사→관리자 귀결 */
+.tr-outcome {
+  max-width:960px; margin:40px auto 0; padding:0 48px;
+  opacity:0; transform:translateY(20px);
+  transition:opacity 0.5s ease, transform 0.5s ease;
+}
+.tr-outcome.appeared { opacity:1; transform:translateY(0); }
+.tr-outcome-inner {
+  background:linear-gradient(135deg,rgba(245,158,11,0.06),rgba(245,158,11,0.02));
+  border:1px solid rgba(245,158,11,0.2); border-radius:16px;
+  padding:20px 26px; display:flex; align-items:center; gap:14px;
+}
+.tr-outcome-inner p { font-size:14px; color:var(--gray-700); line-height:1.65; margin:0; }
+.tr-outcome-inner strong { color:#D97706; font-weight:800; }
+
+
+/* ════════════════════════════════
+   회원 섹션 — 폰 + 성장 애니메이션
+════════════════════════════════ */
+.member-section {
+  background: var(--white);
+  padding: 100px 0 80px;
+  position:relative; overflow:hidden;
+}
+.member-section::before {
+  content:''; position:absolute; bottom:-200px; left:-100px;
+  width:600px; height:600px;
+  background:radial-gradient(ellipse, rgba(31,219,168,0.06) 0%, transparent 70%);
+  pointer-events:none;
+}
+.mb-head {
+  max-width:1120px; margin:0 auto; padding:0 48px 60px;
+  text-align:center;
+}
+.mb-badge {
+  display:inline-flex; align-items:center; gap:8px;
+  background:rgba(31,219,168,0.1); border:1px solid rgba(31,219,168,0.25);
+  border-radius:100px; padding:6px 16px; margin-bottom:20px;
+  font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent-dark);
+}
+.mb-head h2 {
+  font-size:clamp(2rem,3.5vw,2.8rem); font-weight:900; line-height:1.15;
+  letter-spacing:-0.03em; color:var(--black); margin-bottom:12px;
+}
+.mb-head h2 em { font-style:normal; color:var(--accent-dark); }
+.mb-head p { font-size:15px; color:var(--gray-500); line-height:1.75; max-width:480px; margin:0 auto; }
+
+/* 폰 + 기능 카드 레이아웃 */
+.mb-layout {
+  max-width:1120px; margin:0 auto; padding:0 48px;
+  display:grid; grid-template-columns:380px 1fr; gap:60px; align-items:start;
+}
+@media(max-width:900px){ .mb-layout{ grid-template-columns:1fr; padding:0 24px; } }
+
+/* 폰 프레임 */
+.mb-phone-wrap {
+  position:sticky; top:120px;
+  opacity:0; transform:translateY(30px) scale(0.97);
+  transition:opacity 0.6s ease, transform 0.6s ease;
+}
+.mb-phone-wrap.appeared { opacity:1; transform:translateY(0) scale(1); }
+@media(max-width:900px){ .mb-phone-wrap{ position:relative; top:0; max-width:320px; margin:0 auto 40px; } }
+.mb-phone {
+  background:#0D0F12; border-radius:44px; padding:10px;
+  box-shadow:
+    0 60px 120px rgba(0,0,0,0.18),
+    0 0 0 1px rgba(255,255,255,0.06),
+    inset 0 0 0 1px rgba(255,255,255,0.04);
+  position:relative;
+}
+.mb-phone::before {
+  content:''; position:absolute; top:14px; left:50%; transform:translateX(-50%);
+  width:80px; height:6px; background:rgba(255,255,255,0.15); border-radius:100px;
+}
+.mb-phone-inner {
+  background:#111418; border-radius:36px; overflow:hidden; padding:36px 16px 0;
+}
+.mb-phone-status {
+  display:flex; justify-content:space-between; margin-bottom:10px;
+  font-size:11px; color:rgba(255,255,255,0.35); font-weight:600;
+}
+.mb-phone-logo {
+  font-size:14px; font-weight:900; color:var(--white); letter-spacing:-0.02em; text-align:center;
+  margin-bottom:14px;
+}
+.mb-phone-logo span { color:var(--accent); }
+
+/* 웰니스 링 카드 */
+.mb-wellness-card {
+  background: linear-gradient(135deg, #1B4F6E 0%, #0D2B3E 100%);
+  border-radius:16px; padding:16px; margin-bottom:10px;
+  display:flex; align-items:center; gap:14px;
+}
+.mb-wellness-ring {
+  position:relative; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+}
+.mb-wellness-ring svg { transform:rotate(-90deg); }
+.mb-ring-score {
+  position:absolute; font-size:16px; font-weight:900; color:var(--white); letter-spacing:-0.02em;
+}
+.mb-wellness-checks { flex:1; }
+.mb-wellness-title { font-size:10px; font-weight:700; color:rgba(255,255,255,0.4); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px; }
+.mb-wcheck {
+  font-size:11.5px; font-weight:600; color:rgba(255,255,255,0.4);
+  margin-bottom:4px; display:flex; align-items:center; gap:5px;
+}
+.mb-wcheck.checked { color:rgba(255,255,255,0.85); }
+.mb-wcheck.checked::before { content:''; display:inline-block; width:6px; height:6px; border-radius:50%; background:var(--accent); flex-shrink:0; }
+.mb-wcheck:not(.checked)::before { content:''; display:inline-block; width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,0.15); flex-shrink:0; }
+
+/* 오늘 PT 배너 */
+.mb-pt-banner {
+  background:rgba(99,102,241,0.12); border:1px solid rgba(99,102,241,0.25);
+  border-radius:12px; padding:12px 14px; margin-bottom:10px;
+  display:flex; align-items:center; gap:10px;
+}
+.mb-pt-icon { font-size:16px; flex-shrink:0; }
+.mb-pt-body { flex:1; }
+.mb-pt-label { font-size:10px; font-weight:700; color:#A5B4FC; letter-spacing:0.06em; text-transform:uppercase; margin-bottom:2px; }
+.mb-pt-info { font-size:12px; color:rgba(255,255,255,0.8); font-weight:600; }
+.mb-pt-action { font-size:11px; color:#A5B4FC; font-weight:700; flex-shrink:0; }
+
+/* 퀵 트래커 그리드 */
+.mb-quick-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:10px; }
+.mb-quick {
+  background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.07);
+  border-radius:10px; padding:10px 12px;
+}
+.mb-q-val { font-size:15px; font-weight:900; color:var(--white); }
+.mb-q-label { font-size:10px; color:rgba(255,255,255,0.32); margin-top:2px; }
+
+/* 바텀 내비 */
+.mb-bottom-nav {
+  display:grid; grid-template-columns:repeat(4,1fr);
+  border-top:1px solid rgba(255,255,255,0.06);
+  padding:10px 0 14px; margin:0 -16px;
+}
+.mb-bnav {
+  text-align:center; font-size:9px; font-weight:700; color:rgba(255,255,255,0.28);
+  padding:6px 0; line-height:1.5; letter-spacing:0.02em; cursor:pointer;
+}
+.mb-bnav.active { color:var(--accent); }
+.mb-bnav-icon { font-size:15px; display:block; margin-bottom:3px; }
+
+.mb-phone-bar { margin-bottom:10px; }
+.mb-phone-bar-top { display:flex; justify-content:space-between; margin-bottom:4px; }
+.mb-phone-bar-top span { font-size:11px; color:rgba(255,255,255,0.45); }
+.mb-phone-bar-top strong { font-size:11px; color:var(--white); }
+.mb-pbar-track { height:5px; background:rgba(255,255,255,0.08); border-radius:100px; overflow:hidden; }
+.mb-pbar-fill { height:100%; border-radius:100px; background:linear-gradient(90deg,var(--accent),#0CB589); width:0; transition:width 1.2s cubic-bezier(0.25,1,0.5,1); }
+
+/* 성장 기능 카드들 */
+.mb-feat-list { display:flex; flex-direction:column; gap:20px; }
+.mb-feat-item {
+  border-left:3px solid rgba(31,219,168,0.2);
+  padding:0 0 0 22px;
+  opacity:0; transform:translateX(24px);
+  transition:opacity 0.5s ease, transform 0.5s ease, border-color 0.3s;
+}
+.mb-feat-item.appeared { opacity:1; transform:translateX(0); }
+.mb-feat-item.appeared { border-left-color:var(--accent); }
+.mb-feat-num { font-size:11px; font-weight:700; color:var(--accent); letter-spacing:0.1em; margin-bottom:8px; }
+.mb-feat-item h3 { font-size:16px; font-weight:900; color:var(--black); margin-bottom:6px; }
+.mb-feat-item p  { font-size:13.5px; color:var(--gray-600); line-height:1.7; margin:0 0 12px; }
+.mb-progress-demo { }
+.mb-prog-row { display:flex; align-items:center; gap:10px; margin-bottom:7px; }
+.mb-prog-row:last-child { margin-bottom:0; }
+.mb-prog-label { font-size:12px; color:var(--gray-600); min-width:80px; }
+.mb-prog-track { flex:1; height:6px; background:var(--gray-100); border-radius:100px; overflow:hidden; }
+.mb-prog-fill { height:100%; border-radius:100px; background:linear-gradient(90deg,var(--accent),#0CB589); width:0; transition:width 1.4s cubic-bezier(0.25,1,0.5,1); }
+.mb-prog-val { font-size:12px; font-weight:700; color:var(--accent-dark); min-width:36px; text-align:right; }
+
+/* 회원→관리자 귀결 */
+.mb-outcome {
+  max-width:1120px; margin:60px auto 0; padding:0 48px;
+  opacity:0; transform:translateY(20px);
+  transition:opacity 0.6s ease, transform 0.6s ease;
+}
+.mb-outcome.appeared { opacity:1; transform:translateY(0); }
+@media(max-width:900px){ .mb-outcome{ padding:0 24px; } }
+.mb-outcome-inner {
+  background:linear-gradient(135deg,rgba(31,219,168,0.08),rgba(31,219,168,0.02));
+  border:1px solid rgba(31,219,168,0.2); border-radius:16px;
+  padding:24px 32px;
+}
+.mb-outcome-grid {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:24px;
+}
+@media(max-width:700px){ .mb-outcome-grid{ grid-template-columns:1fr; gap:12px; } }
+.mb-og-item { text-align:center; }
+.mb-og-num { font-size:2rem; font-weight:900; color:var(--accent-dark); letter-spacing:-0.03em; }
+.mb-og-label { font-size:12.5px; color:var(--gray-600); margin-top:4px; line-height:1.5; }
+.mb-og-divider { font-size:24px; color:rgba(31,219,168,0.25); align-self:center; text-align:center; }
+.mb-outcome-foot {
+  text-align:center; margin-top:20px; padding-top:20px;
+  border-top:1px solid rgba(31,219,168,0.12);
+  font-size:14.5px; color:var(--gray-700); font-weight:600;
+}
+.mb-outcome-foot strong { color:var(--accent-dark); }
+
+
+/* ════════════════════════════════
+   기능 전체 그리드 (공통)
+════════════════════════════════ */
+.feat-more {
+  max-width:1120px; margin:56px auto 0; padding:0 48px;
+  opacity:0; transform:translateY(20px);
+  transition:opacity 0.5s ease, transform 0.5s ease;
+}
+.feat-more.appeared { opacity:1; transform:translateY(0); }
+@media(max-width:900px){ .feat-more{ padding:0 24px; } }
+.member-section .feat-more { padding:0 48px; }
+@media(max-width:900px){ .member-section .feat-more{ padding:0 24px; } }
+
+.feat-more-head {
+  font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase;
+  margin-bottom:20px; display:flex; align-items:center; gap:10px;
+}
+.feat-more-head::after { content:''; flex:1; height:1px; }
+
+/* 관리자용 (다크) */
+.manager-section .feat-more-head { color:rgba(255,255,255,0.25); }
+.manager-section .feat-more-head::after { background:rgba(255,255,255,0.06); }
+/* 강사 */
+.trainer-section .feat-more-head { color:rgba(215,119,0,0.6); }
+.trainer-section .feat-more-head::after { background:rgba(245,158,11,0.15); }
+/* 회원 */
+.member-section .feat-more-head { color:rgba(31,219,168,0.5); }
+.member-section .feat-more-head::after { background:rgba(31,219,168,0.12); }
+
+/* 피처 카드 그리드 */
+.feat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+@media(max-width:900px){ .feat-grid{ grid-template-columns:repeat(2,1fr); } }
+@media(max-width:560px){ .feat-grid{ grid-template-columns:1fr; } }
+
+.feat-grid-item {
+  display: flex; gap: 13px; align-items: flex-start;
+  padding: 14px 16px; border-radius: 12px;
+  transition: all 0.18s;
+}
+.feat-grid-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+.feat-grid-body { }
+.feat-grid-name { font-size: 13px; font-weight: 800; line-height: 1.35; }
+.feat-grid-desc { font-size: 12px; line-height: 1.55; margin-top: 3px; }
+
+/* 관리자 카드 */
+.manager-section .feat-grid-item {
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07);
+}
+.manager-section .feat-grid-item:hover {
+  background: rgba(99,102,241,0.1); border-color: rgba(99,102,241,0.25);
+}
+.manager-section .feat-grid-name { color: rgba(255,255,255,0.85); }
+.manager-section .feat-grid-desc { color: rgba(255,255,255,0.38); }
+.manager-section .feat-grid-item:hover .feat-grid-name { color: #C7D2FE; }
+.manager-section .feat-grid-item:hover .feat-grid-desc { color: rgba(165,180,252,0.6); }
+
+/* 강사 카드 */
+.trainer-section .feat-grid-item {
+  background: var(--white); border: 1px solid rgba(245,158,11,0.15);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+.trainer-section .feat-grid-item:hover {
+  background: rgba(245,158,11,0.05); border-color: rgba(245,158,11,0.35);
+}
+.trainer-section .feat-grid-name { color: var(--black); }
+.trainer-section .feat-grid-desc { color: var(--gray-500); }
+.trainer-section .feat-grid-item:hover .feat-grid-name { color: #D97706; }
+
+/* 회원 카드 */
+.member-section .feat-grid-item {
+  background: var(--white); border: 1px solid rgba(31,219,168,0.15);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+.member-section .feat-grid-item:hover {
+  background: rgba(31,219,168,0.05); border-color: rgba(31,219,168,0.3);
+}
+.member-section .feat-grid-name { color: var(--black); }
+.member-section .feat-grid-desc { color: var(--gray-500); }
+.member-section .feat-grid-item:hover .feat-grid-name { color: var(--accent-dark); }
+
+/* ════════════════════════════════
+   최종 귀결 CTA
+════════════════════════════════ */
+.final-cta {
+  background:linear-gradient(135deg,#0D0F12,#111827);
+  padding:100px 48px; text-align:center; position:relative; overflow:hidden;
+}
+.final-cta::before {
+  content:''; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  width:800px; height:800px;
+  background:radial-gradient(ellipse, rgba(31,219,168,0.12) 0%, transparent 60%);
+  pointer-events:none;
+}
+.final-cta-inner { position:relative; z-index:1; max-width:680px; margin:0 auto; }
+.final-cta-label {
+  display:inline-flex; align-items:center; gap:7px;
+  background:rgba(31,219,168,0.12); border:1px solid rgba(31,219,168,0.25);
+  border-radius:100px; padding:6px 16px; margin-bottom:24px;
+  font-size:11.5px; font-weight:700; color:var(--accent); letter-spacing:0.05em;
+}
+.final-cta h2 {
+  font-size:clamp(1.9rem,3.5vw,2.8rem); font-weight:900; color:var(--white);
+  line-height:1.15; letter-spacing:-0.025em; margin-bottom:14px;
+}
+.final-cta h2 em { font-style:normal; color:var(--accent); }
+.final-cta p { font-size:15px; color:rgba(255,255,255,0.45); line-height:1.75; margin-bottom:36px; }
+.final-cta-btns { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+
+</style>
+</head>
+<body>
+
+<nav class="nav" id="mainNav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">SSEN<span>TIF</span></a>
+    <div class="nav-links">
+      <a href="product.html" class="active">제품</a>
+      <a href="index.html#cases">고객 사례</a>
+      <a href="pricing.html">요금제</a>
+      <a href="consulting.html">맞춤 도입</a>
+      <a href="lab.html">운영지원실</a>
+    </div>
+    <div class="nav-actions">
+      <a href="product.html" class="nav-ghost">기능 둘러보기</a>
+      <a href="consulting.html" class="nav-cta-btn">맞춤 상담 받기</a>
+    </div>
+    <button class="nav-hamburger" id="navHamburger" aria-label="메뉴 열기">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="nav-mobile-menu" id="navMobileMenu">
+  <a href="product.html">제품</a>
+  <a href="index.html#cases">고객 사례</a>
+  <a href="pricing.html">요금제</a>
+  <a href="consulting.html">맞춤 도입</a>
+  <a href="lab.html">운영지원실</a>
+  <div class="nav-mobile-divider"></div>
+  <a href="consulting.html" class="nav-mobile-cta">맞춤 상담 받기</a>
+</div>
+
+
+<!-- ════ 히어로 ════ -->
+<section class="product-hero">
+  <div class="ph-pill">제품 소개</div>
+  <h1>원장님이 도입하면,<br><span class="hl">센터 전체가 바뀝니다</span></h1>
+  <p class="ph-sub">강사는 기록에 덜 쓰고 수업에 더 집중하고, 회원은 성장을 느끼고, 원장님은 데이터로 판단합니다. 모든 결과가 재등록률로 돌아옵니다.</p>
+  <div class="target-cards fade-up">
+    <a class="target-card manager" href="#manager" onclick="smoothScroll(event,'manager')">
+      <span class="tc-icon">🏢</span>
+      <div class="tc-role">관리자</div>
+      <div class="tc-title">센터 전체를<br>데이터로 운영</div>
+      <p class="tc-desc">이탈 감지, 페이롤, AI 분석을 한 곳에서.</p>
+      <div class="tc-arrow">자세히 보기 →</div>
+    </a>
+    <a class="target-card trainer" href="#trainer" onclick="smoothScroll(event,'trainer')">
+      <span class="tc-icon">🏋️</span>
+      <div class="tc-role">강사</div>
+      <div class="tc-title">기록은 빠르게<br>수업은 깊게</div>
+      <p class="tc-desc">수업일지, 루틴 처방, 스케줄을 쉽게.</p>
+      <div class="tc-arrow">자세히 보기 →</div>
+    </a>
+    <a class="target-card member" href="#member" onclick="smoothScroll(event,'member')">
+      <span class="tc-icon">👤</span>
+      <div class="tc-role">회원</div>
+      <div class="tc-title">내 성장을<br>직접 확인</div>
+      <p class="tc-desc">운동 기록, 체성분 변화, AI 루틴을 앱에서.</p>
+      <div class="tc-arrow">자세히 보기 →</div>
+    </a>
+  </div>
+</section>
+
+<!-- 스티키 탭 -->
+<nav class="target-nav" id="targetNav">
+  <div class="target-nav-inner">
+    <a class="tn-tab manager" href="#manager" onclick="smoothScroll(event,'manager')">🏢 관리자</a>
+    <a class="tn-tab trainer" href="#trainer" onclick="smoothScroll(event,'trainer')">🏋️ 강사</a>
+    <a class="tn-tab member"  href="#member"  onclick="smoothScroll(event,'member')">👤 회원</a>
+  </div>
+</nav>
+
+
+<!-- ════ 관리자 섹션 — DARK 3D ════ -->
+<section class="manager-section" id="manager">
+
+  <div class="ms-head fade-in-up">
+    <div class="ms-badge">🏢 관리자를 위한 기능</div>
+    <h2>감이 아닌 데이터로,<br><em>AI가 함께 운영합니다</em></h2>
+    <p>원장님이 직접 확인하고, 판단하고, 행동해야 했던 모든 것을 센티프가 자동화합니다.</p>
+  </div>
+
+  <!-- 모드 전환 UX 예시 -->
+  <div style="max-width:1120px;margin:0 auto 48px;padding:0 48px;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap">
+    <div style="display:inline-flex;align-items:center;gap:0;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:100px;padding:4px">
+      <div style="background:rgba(99,102,241,0.8);border-radius:100px;padding:7px 22px;font-size:12px;font-weight:800;color:#fff;letter-spacing:0.04em">관리자 모드</div>
+      <div style="padding:7px 22px;font-size:12px;font-weight:700;color:rgba(255,255,255,0.35);letter-spacing:0.04em">강사 모드</div>
+    </div>
+    <div style="font-size:12.5px;color:rgba(255,255,255,0.35);line-height:1.6;max-width:360px">원장님·부원장님은 <span style="color:rgba(165,180,252,0.9)">관리자↔강사 모드를 자유롭게 전환</span>합니다. 일반 강사는 강사 모드만 이용합니다.</div>
+  </div>
+
+  <div class="ms-3d-scene">
+    <div class="ms-3d-grid" id="ms3dGrid">
+      <div class="ms-card" style="transition-delay:0s">
+        <div class="ms-card-icon">📊</div>
+        <div class="ms-card-tag">수업일지 감독</div>
+        <h3>강사 작성률 실시간 모니터링</h3>
+        <p>누가 쓰고 누가 안 쓰는지 한눈에. 미작성 시 자동 알림 발송.</p>
+      </div>
+      <div class="ms-card" style="transition-delay:0.08s">
+        <div class="ms-card-icon">💰</div>
+        <div class="ms-card-tag">페이롤 자동 정산</div>
+        <h3>수업 건수 기반 자동 계산</h3>
+        <p>매달 3시간짜리 엑셀 작업이 5분으로. 오차 없이, 투명하게.</p>
+      </div>
+      <div class="ms-card" style="transition-delay:0.16s">
+        <div class="ms-card-icon">🔔</div>
+        <div class="ms-card-tag">이탈 방지 CRM</div>
+        <h3>AI가 이탈 신호를 먼저 감지</h3>
+        <p>출석 패턴 이상 감지 → 리텐션 액션 자동 제안.</p>
+      </div>
+      <div class="ms-card accent-card" style="transition-delay:0.24s">
+        <div class="ms-card-icon">🤖</div>
+        <div class="ms-card-tag">AI 운영 어시스턴트</div>
+        <h3>"이번 달 매출 왜 줄었어?" — 물어보면 즉시 답합니다</h3>
+        <p>매출 분석, 전략 수립, 블로그 초안까지. 판단만 하세요.</p>
+      </div>
+      <div class="ms-card" style="transition-delay:0.32s">
+        <div class="ms-card-icon">📢</div>
+        <div class="ms-card-tag">공지·피드 관리</div>
+        <h3>팀 공지 및 우선순위 배정</h3>
+        <p>강사 전체 공지 발송, 미팅 일정, 업무 우선순위 모드로 팀을 조율합니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- KPI 카운터 -->
+  <div class="ms-stats-row">
+    <div class="ms-stat">
+      <div class="ms-stat-num" data-target="89" data-suffix="%">0%</div>
+      <div class="ms-stat-label">평균 재등록률 달성</div>
+    </div>
+    <div class="ms-stat">
+      <div class="ms-stat-num" data-target="90" data-suffix="%">0%</div>
+      <div class="ms-stat-label">페이롤 정산 시간 단축</div>
+    </div>
+    <div class="ms-stat">
+      <div class="ms-stat-num" data-target="3" data-suffix="배">0배</div>
+      <div class="ms-stat-label">이탈 방지 성공률 향상</div>
+    </div>
+    <div class="ms-stat">
+      <div class="ms-stat-num" data-target="20" data-suffix="+">0+</div>
+      <div class="ms-stat-label">도입 피트니스 센터</div>
+    </div>
+  </div>
+
+  <!-- 대시보드 목업 -->
+  <div class="ms-dashboard">
+    <div class="ms-dash-inner" id="msDash">
+      <div class="ms-dash-topbar">
+        <div class="ms-dot"></div><div class="ms-dot"></div><div class="ms-dot"></div>
+        <span class="ms-dash-title">SSENTIF — 운영 대시보드</span>
+      </div>
+      <div class="ms-dash-body">
+        <div class="ms-kpi"><div class="n">89<em>%</em></div><div class="l">재등록률</div><div class="d">↑ 전월 +8%</div></div>
+        <div class="ms-kpi"><div class="n">₩8.4<em>M</em></div><div class="l">이번 달 매출</div><div class="d">↑ 전월 +12%</div></div>
+        <div class="ms-kpi"><div class="n">147<em>건</em></div><div class="l">총 수업</div><div class="d">평균 4.9건/일</div></div>
+        <div class="ms-kpi"><div class="n" style="color:#F59E0B">3<em>명</em></div><div class="l">이탈 위험</div><div class="d" style="color:#F59E0B">즉시 액션 필요</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="feat-more" id="msFeatMore">
+    <div class="feat-more-head">전체 관리자 기능</div>
+    <div class="feat-grid">
+      <div class="feat-grid-item">
+        <div class="feat-grid-icon">📊</div>
+        <div class="feat-grid-body">
+          <div class="feat-grid-name">센터 대시보드</div>
+          <div class="feat-grid-desc">재등록률·매출·수업·이탈 위험을 한 화면에서 실시간 확인</div>
+        </div>
+      </div>
+      <div class="feat-grid-item">
+        <div class="feat-grid-icon">💰</div>
+        <div class="feat-grid-body">
+          <div class="feat-grid-name">페이롤 자동 정산</div>
+          <div class="feat-grid-desc">수업 건수 기반 급여 계산 및 강사별 명세서 즉시 발송</div>
+        </div>
+      </div>
+      <div class="feat-grid-item">
+        <div class="feat-grid-icon">🔔</div>
+        <div class="feat-grid-body">
+          <div class="feat-grid-name">이탈 위험 감지 CRM</div>
+          <div class="feat-grid-desc">출석 패턴 이상 자동 감지 → AI 리텐션 액션 제안</div>
+        </div>
+      </div>
+      <div class="feat-grid-item">
+        <div class="feat-grid-icon">📑</div>
+        <div class="feat-grid-body">
+          <div class="feat-grid-name">월간 리포트 (PDF)</div>
+          <div class="feat-grid-desc">운영 현황 자동 요약, 다운로드 및 공유 가능</div>
+        </div>
+      </div>
+      <div class="feat-grid-item">
+        <div class="feat-grid-icon">🏆</div>
+        <div class="feat-grid-body">
+          <div class="feat-grid-name">강사별 성과 비교</div>
+          <div class="feat-grid-desc">수업 건수·회원 만족도·수업일지 작성률 나란히 비교</div>
+        </div>
+      </div>
+      <div class="feat-grid-item">
+        <div class="feat-grid-icon">⏰</div>
+        <div class="feat-grid-body">
+          <div class="feat-grid-name">계약 만료 D-day 알림</div>
+          <div class="feat-grid-desc">갱신 타이밍 자동 알림으로 재등록 기회를 놓치지 않음</div>
+        </div>
+      </div>
+      <div class="feat-grid-item">
+        <div class="feat-grid-icon">✍️</div>
+        <div class="feat-grid-body">
+          <div class="feat-grid-name">AI 마케팅 콘텐츠</div>
+          <div class="feat-grid-desc">블로그·SNS·이벤트 안내 초안을 AI가 먼저 작성</div>
+        </div>
+      </div>
+      <div class="feat-grid-item">
+        <div class="feat-grid-icon">👥</div>
+        <div class="feat-grid-body">
+          <div class="feat-grid-name">전체 회원 DB</div>
+          <div class="feat-grid-desc">계약 상태·수업 이력·담당 강사를 한 곳에서 관리</div>
+        </div>
+      </div>
+      <div class="feat-grid-item">
+        <div class="feat-grid-icon">📊</div>
+        <div class="feat-grid-body">
+          <div class="feat-grid-name">신규 유입 경로 분석</div>
+          <div class="feat-grid-desc">어떤 채널에서 회원이 오는지 추적해 마케팅 효율 최적화</div>
+        </div>
+      </div>
+      <div class="feat-grid-item">
+        <div class="feat-grid-icon">💬</div>
+        <div class="feat-grid-body">
+          <div class="feat-grid-name">회원 일괄 메시지</div>
+          <div class="feat-grid-desc">조건 필터로 타깃 회원에게 일괄 발송</div>
+        </div>
+      </div>
+      <div class="feat-grid-item">
+        <div class="feat-grid-icon">📅</div>
+        <div class="feat-grid-body">
+          <div class="feat-grid-name">센터 전체 캘린더</div>
+          <div class="feat-grid-desc">강사별 수업 일정 통합 관리 및 공백 파악</div>
+        </div>
+      </div>
+      <div class="feat-grid-item">
+        <div class="feat-grid-icon">🔐</div>
+        <div class="feat-grid-body">
+          <div class="feat-grid-name">강사 계정·권한 관리</div>
+          <div class="feat-grid-desc">초대 링크 발송, 역할 설정, 퇴사 처리 및 기록 보존</div>
+        </div>
+      </div>
+      <div class="feat-grid-item">
+        <div class="feat-grid-icon">📈</div>
+        <div class="feat-grid-body">
+          <div class="feat-grid-name">PT 상품별 매출 분석</div>
+          <div class="feat-grid-desc">어떤 상품이 잘 팔리는지 데이터로 추적</div>
+        </div>
+      </div>
+      <div class="feat-grid-item">
+        <div class="feat-grid-icon">💳</div>
+        <div class="feat-grid-body">
+          <div class="feat-grid-name">잠재부채 현황</div>
+          <div class="feat-grid-desc">미소진 수업권·선불 잔액 실시간 파악으로 현금흐름 관리</div>
+        </div>
+      </div>
+      <div class="feat-grid-item">
+        <div class="feat-grid-icon">📢</div>
+        <div class="feat-grid-body">
+          <div class="feat-grid-name">공지·업무 우선순위 설정</div>
+          <div class="feat-grid-desc">팀 전체 공지 발행 및 이번 주 핵심 업무 강조</div>
+        </div>
+      </div>
+      <div class="feat-grid-item">
+        <div class="feat-grid-icon">🗂️</div>
+        <div class="feat-grid-body">
+          <div class="feat-grid-name">수업 유형별 통계</div>
+          <div class="feat-grid-desc">그룹·개인·PT 등 수업 형태별 현황 분석</div>
+        </div>
+      </div>
+      <div class="feat-grid-item">
+        <div class="feat-grid-icon">🔄</div>
+        <div class="feat-grid-body">
+          <div class="feat-grid-name">관리자↔강사 모드 전환</div>
+          <div class="feat-grid-desc">원장님·부원장님은 한 계정에서 두 가지 시선으로 운영</div>
+        </div>
+      </div>
+      <div class="feat-grid-item">
+        <div class="feat-grid-icon">🤖</div>
+        <div class="feat-grid-body">
+          <div class="feat-grid-name">AI 운영 어시스턴트</div>
+          <div class="feat-grid-desc">"이번 달 매출 왜 줄었어?" 자연어로 물으면 즉시 분석·답변</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ms-outcome">
+    <div class="ms-outcome-inner">
+      <span style="font-size:22px">✦</span>
+      <p>센티프를 도입한 원장님들은 <strong>운영 업무 시간을 주 평균 8시간 절감</strong>했습니다. 그 시간을 신규 회원 유치와 재등록 상담에 투자합니다.</p>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- ════ 강사 섹션 — WARM TIMELINE ════ -->
+<section class="trainer-section" id="trainer">
+
+  <div class="tr-head fade-in-up">
+    <div class="tr-badge">🏋️ 강사를 위한 기능</div>
+    <h2>강사가 수업에만<br><em>집중할 수 있도록</em></h2>
+    <p>기록, 정산 확인, 루틴 준비에 쓰던 시간을 센티프가 돌려드립니다. 강사의 전문성이 빛날 때 회원이 머뭅니다.</p>
+  </div>
+
+  <div class="tr-timeline">
+
+    <div class="tr-item" data-delay="0">
+      <div class="tr-node">📅</div>
+      <div class="tr-content">
+        <div class="tr-time">오전 8:50 — 수업 시작 전</div>
+        <div class="tr-card">
+          <h3>오늘 스케줄을 한눈에</h3>
+          <p>앱 홈에 오늘 수업 목록과 회원 정보가 정리되어 있습니다. 예약 변경·취소 알림도 실시간으로 수신됩니다.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tr-item" data-delay="100">
+      <div class="tr-node">💪</div>
+      <div class="tr-content">
+        <div class="tr-time">수업 준비 — 루틴 처방</div>
+        <div class="tr-card">
+          <h3>AI가 회원 맞춤 루틴을 제안합니다</h3>
+          <p>500+ 운동 DB와 AI를 활용해 회원 목표와 컨디션에 맞는 루틴 초안을 생성합니다. 완성되면 회원 앱으로 즉시 전달되어 동작 영상과 세트/랩스 카운터로 바로 따라할 수 있습니다.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tr-item" data-delay="200">
+      <div class="tr-node">📝</div>
+      <div class="tr-content">
+        <div class="tr-time">수업 직후 — 수업일지</div>
+        <div class="tr-card">
+          <h3>수업 후 1분 안에 일지 완성</h3>
+          <p>템플릿 기반 빠른 입력 UI로 수업 내용을 기록합니다. 사진, 메모, 체성분 변화도 한 번에. 미작성 시 알림이 옵니다.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tr-item" data-delay="300">
+      <div class="tr-node">💰</div>
+      <div class="tr-content">
+        <div class="tr-time">월말 — 급여 확인</div>
+        <div class="tr-card">
+          <h3>내 수업 건수와 예상 급여를 실시간으로</h3>
+          <p>이번 달 수업 건수, 예상 급여가 앱에서 실시간 확인됩니다. 정산 결과에 이의 제기도 간편하게 가능합니다.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 시간 비교 -->
+  <div class="tr-time-compare" id="trCompare">
+    <div class="tr-before">
+      <div class="tr-compare-label">센티프 도입 전</div>
+      <div class="tr-compare-time">3시간</div>
+      <div class="tr-compare-desc">수업일지, 루틴 준비, 정산 확인에 소요되는 하루 평균 시간</div>
+    </div>
+    <div class="tr-arrow-mid">→</div>
+    <div class="tr-after">
+      <div class="tr-compare-label">센티프 도입 후</div>
+      <div class="tr-compare-time">30분</div>
+      <div class="tr-compare-desc">동일한 업무를 처리하는 데 걸리는 시간. 나머지 시간은 수업 퀄리티에 투자됩니다.</div>
+    </div>
+  </div>
+
+  <div class="feat-more" id="trFeatMore" style="max-width:960px;">
+    <div class="feat-more-head">전체 강사 기능</div>
+    <div class="feat-grid">
+      <div class="feat-grid-item">
+        <div class="feat-grid-icon">🏠</div>
+        <div class="feat-grid-body">
+          <div class="feat-grid-name">수업 홈 대시보드</div>
+          <div class="feat-grid-desc">오늘 수업 목록·회원 정보·예약 변경 알림을 한눈에</div>
+        </div>
+      </div>
+      <div class="feat-grid-item">
+        <div class="feat-grid-icon">👥</div>
+        <div class="feat-grid-body">
+          <div class="feat-grid-name">배정 회원 목록</div>
+          <div class="feat-grid-desc">담당 회원 전체 현황, 계약 상태, 다음 수업 일정 관리</div>
+        </div>
+      </div>
+      <div class="feat-grid-item">
+        <div class="feat-grid-icon">📅</div>
+        <div class="feat-grid-body">
+          <div class="feat-grid-name">스케줄러·캘린더</div>
+          <div class="feat-grid-desc">수업 일정 확인 및 변경·취소 처리, 예약 알림 수신</div>
+        </div>
+      </div>
+      <div class="feat-grid-item">
+        <div class="feat-grid-icon">📝</div>
+        <div class="feat-grid-body">
+          <div class="feat-grid-name">수업일지 빠른 작성</div>
+          <div class="feat-grid-desc">템플릿 기반 UI로 수업 후 1분 안에 기록 완성</div>
+        </div>
+      </div>
+      <div class="feat-grid-item">
+        <div class="feat-grid-icon">🤖</div>
+        <div class="feat-grid-body">
+          <div class="feat-grid-name">AI 루틴 처방</div>
+          <div class="feat-grid-desc">500+ 운동 DB + AI로 회원 목표·컨디션 맞춤 루틴 초안 생성</div>
+        </div>
+      </div>
+      <div class="feat-grid-item">
+        <div class="feat-grid-icon">📷</div>
+        <div class="feat-grid-body">
+          <div class="feat-grid-name">사진·메모 첨부</div>
+          <div class="feat-grid-desc">수업 중 눈바디·특이사항·메모를 바로 기록</div>
+        </div>
+      </div>
+      <div class="feat-grid-item">
+        <div class="feat-grid-icon">🍽️</div>
+        <div class="feat-grid-body">
+          <div class="feat-grid-name">식단 실시간 피드백</div>
+          <div class="feat-grid-desc">회원이 올린 식단 사진에 코멘트·이모지 리액션 남기기</div>
+        </div>
+      </div>
+      <div class="feat-grid-item">
+        <div class="feat-grid-icon">💬</div>
+        <div class="feat-grid-body">
+          <div class="feat-grid-name">1:1 인앱 채팅</div>
+          <div class="feat-grid-desc">회원과 실시간 메시지 소통, 일정 변경 요청 처리</div>
+        </div>
+      </div>
+      <div class="feat-grid-item">
+        <div class="feat-grid-icon">📊</div>
+        <div class="feat-grid-body">
+          <div class="feat-grid-name">체성분 변화 추적</div>
+          <div class="feat-grid-desc">담당 회원 인바디 데이터 시계열 시각화 및 분석</div>
+        </div>
+      </div>
+      <div class="feat-grid-item">
+        <div class="feat-grid-icon">⭐</div>
+        <div class="feat-grid-body">
+          <div class="feat-grid-name">회원 만족도 확인</div>
+          <div class="feat-grid-desc">수업 후 자동 피드백 수집, 평점 및 코멘트 열람</div>
+        </div>
+      </div>
+      <div class="feat-grid-item">
+        <div class="feat-grid-icon">💰</div>
+        <div class="feat-grid-body">
+          <div class="feat-grid-name">수업 건수·예상 급여</div>
+          <div class="feat-grid-desc">이번 달 수업 건수와 예상 급여를 실시간으로 확인</div>
+        </div>
+      </div>
+      <div class="feat-grid-item">
+        <div class="feat-grid-icon">🎯</div>
+        <div class="feat-grid-body">
+          <div class="feat-grid-name">목표별 루틴 템플릿</div>
+          <div class="feat-grid-desc">다이어트·벌크업·재활 등 목표별 루틴 저장 및 재활용</div>
+        </div>
+      </div>
+      <div class="feat-grid-item">
+        <div class="feat-grid-icon">🔄</div>
+        <div class="feat-grid-body">
+          <div class="feat-grid-name">수업 취소·변경 처리</div>
+          <div class="feat-grid-desc">회원 요청 수락·거절·일정 조율을 원클릭으로</div>
+        </div>
+      </div>
+      <div class="feat-grid-item">
+        <div class="feat-grid-icon">📋</div>
+        <div class="feat-grid-body">
+          <div class="feat-grid-name">수업 전 히스토리 조회</div>
+          <div class="feat-grid-desc">이전 수업 기록·컨디션·특이사항을 수업 시작 전 빠르게 확인</div>
+        </div>
+      </div>
+      <div class="feat-grid-item">
+        <div class="feat-grid-icon">🗒️</div>
+        <div class="feat-grid-body">
+          <div class="feat-grid-name">회원 상담 기록</div>
+          <div class="feat-grid-desc">첫 상담부터 목표·특이사항까지 누적 기록 관리</div>
+        </div>
+      </div>
+      <div class="feat-grid-item">
+        <div class="feat-grid-icon">🔔</div>
+        <div class="feat-grid-body">
+          <div class="feat-grid-name">통합 알림 센터</div>
+          <div class="feat-grid-desc">일정 변경·미작성 경고·회원 메시지를 한 곳에서 수신</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tr-outcome" id="trOutcome">
+    <div class="tr-outcome-inner">
+      <span style="font-size:22px">🔄</span>
+      <p>강사가 수업에만 집중할 수 있을 때, <strong>수업 품질이 올라가고 회원 만족도가 높아집니다.</strong> 그 결과는 재등록률로 원장님께 돌아옵니다.</p>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- ════ 회원 섹션 — PHONE + GROWTH ════ -->
+<section class="member-section" id="member">
+
+  <div class="mb-head fade-in-up">
+    <div class="mb-badge">👤 회원을 위한 기능</div>
+    <h2>회원이 <em>성장을 느끼면</em><br>센터를 떠나지 않습니다</h2>
+    <p>체성분 변화, 운동 이력, AI 추천 루틴. 회원이 앱을 열 이유를 만들어 드립니다.</p>
+  </div>
+
+  <div class="mb-layout">
+
+    <!-- 폰 프레임 -->
+    <div class="mb-phone-wrap" id="mbPhone">
+      <div class="mb-phone">
+        <div class="mb-phone-inner">
+          <div class="mb-phone-status"><span>9:41</span><span>●●●</span></div>
+          <div class="mb-phone-logo">SSEN<span>TIF</span></div>
+
+          <!-- 웰니스 링 카드 -->
+          <div class="mb-wellness-card">
+            <div class="mb-wellness-ring">
+              <svg width="64" height="64" viewBox="0 0 64 64">
+                <circle cx="32" cy="32" r="26" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="5.5"/>
+                <circle cx="32" cy="32" r="26" fill="none" stroke="#1FDBA8" stroke-width="5.5"
+                  stroke-dasharray="163.4" stroke-dashoffset="41" stroke-linecap="round"/>
+              </svg>
+              <div class="mb-ring-score">75</div>
+            </div>
+            <div class="mb-wellness-checks">
+              <div class="mb-wellness-title">오늘의 웰니스</div>
+              <div class="mb-wcheck checked">컨디션 기록</div>
+              <div class="mb-wcheck checked">운동 완료</div>
+              <div class="mb-wcheck checked">식단 업로드</div>
+              <div class="mb-wcheck">체성분 미기록</div>
+            </div>
+          </div>
+
+          <!-- 오늘 PT 배너 -->
+          <div class="mb-pt-banner">
+            <div class="mb-pt-icon">⏰</div>
+            <div class="mb-pt-body">
+              <div class="mb-pt-label">오늘 일정</div>
+              <div class="mb-pt-info">오후 7:00 · 박준형 트레이너</div>
+            </div>
+            <div class="mb-pt-action">준비완료 →</div>
+          </div>
+
+          <!-- 퀵 트래커 -->
+          <div class="mb-quick-grid">
+            <div class="mb-quick">
+              <div class="mb-q-val">1,500</div>
+              <div class="mb-q-label">💧 수분 (ml)</div>
+            </div>
+            <div class="mb-quick">
+              <div class="mb-q-val">7,240</div>
+              <div class="mb-q-label">👟 걸음 수</div>
+            </div>
+          </div>
+
+          <!-- 바텀 내비 -->
+          <div class="mb-bottom-nav">
+            <div class="mb-bnav active"><span class="mb-bnav-icon">🏠</span>홈</div>
+            <div class="mb-bnav"><span class="mb-bnav-icon">📅</span>캘린더</div>
+            <div class="mb-bnav"><span class="mb-bnav-icon">💬</span>채팅</div>
+            <div class="mb-bnav"><span class="mb-bnav-icon">📊</span>리포트</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 기능 리스트 -->
+    <div class="mb-feat-list">
+
+      <div class="mb-feat-item" data-delay="0">
+        <div class="mb-feat-num">01 — 웰니스 데일리 로그</div>
+        <h3>매일 기록하는 것만으로 성취감이 쌓입니다</h3>
+        <p>컨디션·운동·식단·체성분을 체크하면 링 게이지 점수가 오릅니다. 작은 기록이 쌓여 운동 습관이 됩니다.</p>
+        <div class="mb-progress-demo">
+          <div class="mb-prog-row">
+            <span class="mb-prog-label">이번 주 기록</span>
+            <div class="mb-prog-track"><div class="mb-prog-fill" data-width="86"></div></div>
+            <span class="mb-prog-val">86%</span>
+          </div>
+          <div class="mb-prog-row">
+            <span class="mb-prog-label">연속 출석</span>
+            <div class="mb-prog-track"><div class="mb-prog-fill" data-width="72"></div></div>
+            <span class="mb-prog-val">18일</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-feat-item" data-delay="100">
+        <div class="mb-feat-num">02 — 강사 처방 루틴</div>
+        <h3>강사가 AI로 설계한 루틴이 앱으로 도착합니다</h3>
+        <p>동작 영상, 세트/랩스 카운터, 강사 메모까지. 운동 중 화면 모드로 스스로 따라할 수 있습니다.</p>
+        <div class="mb-progress-demo">
+          <div class="mb-prog-row">
+            <span class="mb-prog-label">루틴 완료율</span>
+            <div class="mb-prog-track"><div class="mb-prog-fill" data-width="88"></div></div>
+            <span class="mb-prog-val">88%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-feat-item" data-delay="200">
+        <div class="mb-feat-num">03 — 강사와 실시간 소통</div>
+        <h3>식단 사진을 올리면 강사가 바로 피드백합니다</h3>
+        <p>식단·눈바디를 업로드하면 강사가 코멘트를 남깁니다. 이모지 리액션으로 가볍게 소통하며 동기를 유지합니다.</p>
+        <div class="mb-progress-demo">
+          <div class="mb-prog-row">
+            <span class="mb-prog-label">단백질 달성</span>
+            <div class="mb-prog-track"><div class="mb-prog-fill" data-width="94"></div></div>
+            <span class="mb-prog-val">132g</span>
+          </div>
+          <div class="mb-prog-row">
+            <span class="mb-prog-label">칼로리</span>
+            <div class="mb-prog-track"><div class="mb-prog-fill" data-width="82"></div></div>
+            <span class="mb-prog-val">1,840</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-feat-item" data-delay="300">
+        <div class="mb-feat-num">04 — AI 리포트</div>
+        <h3>인스타그램 스토리처럼 보기 좋은 성장 리포트</h3>
+        <p>강사가 발송한 주간·월간 리포트를 앱에서 받습니다. 체성분 변화, 운동량, AI 분석을 한 장 카드로 확인하고 SNS에 바로 공유할 수 있습니다.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 회원→관리자 귀결 -->
+  <div class="feat-more" id="mbFeatMore" style="margin-top:56px">
+    <div class="feat-more-head">전체 회원 기능</div>
+    <div class="feat-grid">
+      <div class="feat-grid-item">
+        <div class="feat-grid-icon">💚</div>
+        <div class="feat-grid-body">
+          <div class="feat-grid-name">웰니스 링 게이지</div>
+          <div class="feat-grid-desc">컨디션·운동·식단·체성분 체크 수에 따라 오늘의 건강 점수 시각화</div>
+        </div>
+      </div>
+      <div class="feat-grid-item">
+        <div class="feat-grid-icon">💧</div>
+        <div class="feat-grid-body">
+          <div class="feat-grid-name">수분 트래커</div>
+          <div class="feat-grid-desc">하루 목표 수분 섭취량을 탭 한 번으로 빠르게 기록</div>
+        </div>
+      </div>
+      <div class="feat-grid-item">
+        <div class="feat-grid-icon">👟</div>
+        <div class="feat-grid-body">
+          <div class="feat-grid-name">걸음수 트래커</div>
+          <div class="feat-grid-desc">오늘 걸음 목표 달성 현황을 실시간으로 확인</div>
+        </div>
+      </div>
+      <div class="feat-grid-item">
+        <div class="feat-grid-icon">🧘</div>
+        <div class="feat-grid-body">
+          <div class="feat-grid-name">마음챙김 호흡 타이머</div>
+          <div class="feat-grid-desc">3초 들숨·날숨 가이드 타이머로 운동 전후 루틴 관리</div>
+        </div>
+      </div>
+      <div class="feat-grid-item">
+        <div class="feat-grid-icon">💪</div>
+        <div class="feat-grid-body">
+          <div class="feat-grid-name">강사 처방 루틴 실행</div>
+          <div class="feat-grid-desc">동작 영상·세트/랩스 카운터로 스스로 운동 가능</div>
+        </div>
+      </div>
+      <div class="feat-grid-item">
+        <div class="feat-grid-icon">📅</div>
+        <div class="feat-grid-body">
+          <div class="feat-grid-name">PT 일정 캘린더</div>
+          <div class="feat-grid-desc">수업 예약·취소·변경을 앱에서 직접, 채팅으로 변경 요청</div>
+        </div>
+      </div>
+      <div class="feat-grid-item">
+        <div class="feat-grid-icon">💬</div>
+        <div class="feat-grid-body">
+          <div class="feat-grid-name">강사 1:1 채팅</div>
+          <div class="feat-grid-desc">질문·일정 요청·격려 메시지를 인앱 채팅으로 간편하게</div>
+        </div>
+      </div>
+      <div class="feat-grid-item">
+        <div class="feat-grid-icon">🍽️</div>
+        <div class="feat-grid-body">
+          <div class="feat-grid-name">식단 업로드 & 영양 분석</div>
+          <div class="feat-grid-desc">사진 찍으면 AI가 칼로리·단백질·영양소 자동 분석</div>
+        </div>
+      </div>
+      <div class="feat-grid-item">
+        <div class="feat-grid-icon">🔥</div>
+        <div class="feat-grid-body">
+          <div class="feat-grid-name">강사 피드백 이모지 리액션</div>
+          <div class="feat-grid-desc">식단·눈바디에 강사 코멘트+이모지(🔥❤️)로 가벼운 상호작용</div>
+        </div>
+      </div>
+      <div class="feat-grid-item">
+        <div class="feat-grid-icon">⚖️</div>
+        <div class="feat-grid-body">
+          <div class="feat-grid-name">체성분 변화 그래프</div>
+          <div class="feat-grid-desc">수업마다 기록된 인바디 데이터를 시계열로 시각화</div>
+        </div>
+      </div>
+      <div class="feat-grid-item">
+        <div class="feat-grid-icon">📊</div>
+        <div class="feat-grid-body">
+          <div class="feat-grid-name">AI 주간·월간 리포트</div>
+          <div class="feat-grid-desc">인스타그램 스토리처럼 보기 좋은 성장 리포트, SNS 공유 가능</div>
+        </div>
+      </div>
+      <div class="feat-grid-item">
+        <div class="feat-grid-icon">📅</div>
+        <div class="feat-grid-body">
+          <div class="feat-grid-name">출석 현황 & 남은 횟수</div>
+          <div class="feat-grid-desc">이번 달 출석 기록과 남은 수업권 횟수를 항상 확인</div>
+        </div>
+      </div>
+      <div class="feat-grid-item">
+        <div class="feat-grid-icon">🔔</div>
+        <div class="feat-grid-body">
+          <div class="feat-grid-name">만료·재등록 알림</div>
+          <div class="feat-grid-desc">수업권 만료 전 알림 + 재등록 특별 혜택 안내 자동 수신</div>
+        </div>
+      </div>
+      <div class="feat-grid-item">
+        <div class="feat-grid-icon">🏅</div>
+        <div class="feat-grid-body">
+          <div class="feat-grid-name">출석 달성 뱃지</div>
+          <div class="feat-grid-desc">연속 출석·목표 달성 뱃지로 운동 습관 동기 유지</div>
+        </div>
+      </div>
+      <div class="feat-grid-item">
+        <div class="feat-grid-icon">🎥</div>
+        <div class="feat-grid-body">
+          <div class="feat-grid-name">운동 동작 영상 가이드</div>
+          <div class="feat-grid-desc">올바른 자세와 실수 포인트를 영상으로 직접 확인</div>
+        </div>
+      </div>
+      <div class="feat-grid-item">
+        <div class="feat-grid-icon">⭐</div>
+        <div class="feat-grid-body">
+          <div class="feat-grid-name">수업 후기 작성</div>
+          <div class="feat-grid-desc">수업 만족도·좋았던 점·개선 요청을 강사에게 직접 전달</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-outcome" id="mbOutcome">
+    <div class="mb-outcome-inner">
+      <div class="mb-outcome-grid">
+        <div class="mb-og-item">
+          <div class="mb-og-num" data-target="89" data-suffix="%">0%</div>
+          <div class="mb-og-label">회원 앱 활성 사용률</div>
+        </div>
+        <div class="mb-og-divider">→</div>
+        <div class="mb-og-item">
+          <div class="mb-og-num" data-target="10" data-suffix="%+">0%+</div>
+          <div class="mb-og-label">재등록률 평균 상승</div>
+        </div>
+        <div class="mb-og-divider">→</div>
+        <div class="mb-og-item">
+          <div class="mb-og-num" data-target="20" data-suffix="%+">0%+</div>
+          <div class="mb-og-label">PT 재계약 증가</div>
+        </div>
+      </div>
+      <div class="mb-outcome-foot">
+        회원이 성장을 느끼고 앱을 자주 열수록, <strong>센터를 떠날 이유가 사라집니다.</strong>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- ════ 최종 CTA ════ -->
+<section class="final-cta">
+  <div class="final-cta-inner fade-in-up">
+    <div class="final-cta-label">✦ 트레이너 3~5명 센터 전용</div>
+    <h2>지금 맞춤 상담으로<br><em>우리 센터에 맞는</em> 시작을 해보세요</h2>
+    <p>강사가 체계적으로 움직이고, 회원이 성장을 느끼면, 원장님의 재등록률은 자연스럽게 올라갑니다. 카드 등록 없이 14일 무료 체험 가능합니다.</p>
+    <div class="final-cta-btns">
+      <a href="consulting.html" class="btn btn-primary btn-lg">맞춤 상담 받기</a>
+      <a href="pricing.html" class="btn btn-outline btn-lg" style="color:var(--white);border-color:rgba(255,255,255,0.25)">요금제 보기</a>
+    </div>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo">SSEN<span>TIF</span></div>
+      <p>피트니스 센터를 위한<br>AI 운영 워크스페이스</p>
+    </div>
+    <div class="footer-col"><h5>제품</h5><ul><li><a href="product.html">주요 기능</a></li><li><a href="pricing.html">요금제</a></li></ul></div>
+    <div class="footer-col"><h5>회사</h5><ul><li><a href="index.html#cases">고객 사례</a></li><li><a href="consulting.html">맞춤 도입</a></li><li><a href="lab.html">운영지원실</a></li></ul></div>
+    <div class="footer-col"><h5>지원</h5><ul><li><a href="#">사용 가이드</a></li><li><a href="#">고객센터</a></li><li><a href="https://ssentif-manager.kr/" target="_blank">매니저 로그인</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 SSENTIF. All rights reserved.</p>
+    <p>개인정보처리방침 · 이용약관</p>
+  </div>
+</footer>
+
+
+<script>
+/* ── 네비 스크롤 ── */
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 20));
+
+/* ── 스무스 스크롤 ── */
+function smoothScroll(e, id) {
+  e.preventDefault();
+  const el = document.getElementById(id);
+  if(!el) return;
+  window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 120, behavior:'smooth' });
+}
+
+/* ── 스티키 탭 액티브 ── */
+const sections = ['manager','trainer','member'];
+const tabs = {
+  manager: document.querySelector('.tn-tab.manager'),
+  trainer: document.querySelector('.tn-tab.trainer'),
+  member:  document.querySelector('.tn-tab.member')
+};
+function updateActiveTab() {
+  const y = window.scrollY + 160;
+  let cur = null;
+  for(const id of sections){ const el=document.getElementById(id); if(el && el.offsetTop<=y) cur=id; }
+  Object.values(tabs).forEach(t=>t&&t.classList.remove('active'));
+  if(cur && tabs[cur]) tabs[cur].classList.add('active');
+}
+window.addEventListener('scroll', updateActiveTab, {passive:true});
+updateActiveTab();
+
+/* ── IntersectionObserver 헬퍼 ── */
+function observe(selector, cb, opts={}) {
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ cb(e.target); if(!opts.repeat) io.unobserve(e.target); } });
+  }, { threshold: opts.threshold||0.12 });
+  document.querySelectorAll(selector).forEach(el => io.observe(el));
+  return io;
+}
+
+/* ── fade-in-up (일반) ── */
+observe('.fade-in-up', el => el.classList.add('visible'));
+observe('.fade-up',    el => el.classList.add('visible'));
+
+/* ── 관리자: 3D 그리드 플래튼 ── */
+const grid = document.getElementById('ms3dGrid');
+if(grid) {
+  const io = new IntersectionObserver(([e]) => {
+    if(e.isIntersecting) {
+      grid.classList.add('flat');
+      grid.querySelectorAll('.ms-card').forEach((c,i) => {
+        setTimeout(() => c.classList.add('appeared'), i * 80);
+      });
+      io.unobserve(grid);
+    }
+  }, {threshold:0.15});
+  io.observe(grid);
+}
+
+/* ── 관리자: 대시보드 appear ── */
+observe('#msDash', el => el.classList.add('appeared'));
+
+/* ── 카운터 애니메이션 ── */
+function animateCount(el) {
+  const target = +el.dataset.target;
+  const suffix = el.dataset.suffix || '';
+  let start = 0;
+  const dur = 1400;
+  const step = 16;
+  const inc = target / (dur / step);
+  const run = setInterval(() => {
+    start += inc;
+    if(start >= target) { start = target; clearInterval(run); }
+    el.textContent = Math.floor(start) + suffix;
+  }, step);
+}
+observe('.ms-stat-num', el => animateCount(el), {repeat:false});
+observe('.mb-og-num',   el => animateCount(el), {repeat:false});
+
+/* ── 강사: 타임라인 아이템 ── */
+observe('.tr-item', el => {
+  const delay = +(el.dataset.delay||0);
+  setTimeout(() => el.classList.add('appeared'), delay);
+}, {threshold:0.2});
+observe('#trCompare', el => el.classList.add('appeared'));
+observe('#trOutcome',  el => el.classList.add('appeared'));
+
+/* ── 회원: 폰 등장 ── */
+observe('#mbPhone', el => {
+  el.classList.add('appeared');
+  // 프로그레스 바 애니메이션
+  setTimeout(() => {
+    document.getElementById('pbar1').style.width = '48%';
+    document.getElementById('pbar2').style.width = '80%';
+    document.getElementById('pbar3').style.width = '94%';
+  }, 400);
+}, {threshold:0.2});
+
+/* ── 회원: 기능 아이템 ── */
+observe('.mb-feat-item', el => {
+  const delay = +(el.dataset.delay||0);
+  setTimeout(() => {
+    el.classList.add('appeared');
+    // 해당 아이템 내 진행바 애니메이션
+    el.querySelectorAll('.mb-prog-fill').forEach(bar => {
+      bar.style.width = bar.dataset.width + '%';
+    });
+  }, delay);
+}, {threshold:0.2});
+
+/* ── 기능 더보기 그리드 등장 ── */
+observe('#msFeatMore',  el => el.classList.add('appeared'));
+observe('#trFeatMore',  el => el.classList.add('appeared'));
+observe('#mbFeatMore',  el => el.classList.add('appeared'));
+
+/* ── 회원: outcome 등장 ── */
+observe('#mbOutcome', el => el.classList.add('appeared'));
+
+
+// 햄버거 메뉴
+const hamburger = document.getElementById('navHamburger');
+const mobileMenu = document.getElementById('navMobileMenu');
+if (hamburger) {
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.nav') && !e.target.closest('.nav-mobile-menu')) {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+    }
+  });
+}
+</script>
+</body>
+</html>

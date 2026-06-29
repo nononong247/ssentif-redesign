@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>운영지원실 — SSENTIF</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.articles-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+@media (max-width: 900px) { .articles-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 600px) { .articles-grid { grid-template-columns: 1fr; } }
+
+.featured-article {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: center;
+  background: var(--gray-50);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  margin-bottom: 60px;
+}
+@media (max-width: 768px) { .featured-article { grid-template-columns: 1fr; } }
+.featured-article-img { aspect-ratio: 4/3; overflow: hidden; }
+.featured-article-img img { width:100%;height:100%;object-fit:cover;transition:transform 0.3s; }
+.featured-article:hover .featured-article-img img { transform: scale(1.04); }
+.featured-article-body { padding: 48px 48px 48px 0; }
+@media (max-width: 768px) { .featured-article-body { padding: 32px; } }
+
+.category-tabs {
+  display: flex; gap: 8px; margin-bottom: 40px; flex-wrap: wrap;
+}
+.cat-tab {
+  padding: 7px 18px; border-radius: 100px;
+  font-size: 13.5px; font-weight: 600;
+  background: var(--gray-100); color: var(--gray-600);
+  cursor: pointer; border: 1.5px solid transparent;
+  transition: all 0.15s;
+}
+.cat-tab.active { background: var(--black); color: var(--white); }
+.cat-tab:hover:not(.active) { background: var(--gray-200); }
+
+.newsletter-box {
+  background: var(--black);
+  border-radius: var(--radius-lg);
+  padding: 56px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+  margin-top: 72px;
+}
+@media (max-width: 768px) { .newsletter-box { grid-template-columns: 1fr; padding: 32px; gap: 28px; } }
+.newsletter-box h3 { color: var(--white); font-size: 1.6rem; margin-bottom: 10px; }
+.newsletter-box p { color: rgba(255,255,255,0.6); font-size: 14.5px; }
+.newsletter-form { display: flex; gap: 10px; }
+.newsletter-input {
+  flex: 1;
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1.5px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.08);
+  color: var(--white);
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.newsletter-input::placeholder { color: rgba(255,255,255,0.4); }
+.newsletter-input:focus { border-color: var(--accent); }
+</style>
+</head>
+<body>
+
+<nav class="nav" id="mainNav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">SSEN<span>TIF</span></a>
+    <div class="nav-links">
+      <a href="product.html">제품</a>
+      <a href="index.html#cases">고객 사례</a>
+      <a href="pricing.html">요금제</a>
+      <a href="consulting.html">맞춤 도입</a>
+      <a href="lab.html" class="active">운영지원실</a>
+    </div>
+    <div class="nav-actions">
+      <a href="product.html" class="nav-ghost">기능 둘러보기</a>
+      <a href="consulting.html" class="nav-cta-btn">맞춤 상담 받기</a>
+    </div>
+    <button class="nav-hamburger" id="navHamburger" aria-label="메뉴 열기">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="nav-mobile-menu" id="navMobileMenu">
+  <a href="product.html">제품</a>
+  <a href="index.html#cases">고객 사례</a>
+  <a href="pricing.html">요금제</a>
+  <a href="consulting.html">맞춤 도입</a>
+  <a href="lab.html">운영지원실</a>
+  <div class="nav-mobile-divider"></div>
+  <a href="consulting.html" class="nav-mobile-cta">맞춤 상담 받기</a>
+</div>
+
+
+<div class="page-hero">
+  <div class="container">
+    <div class="label">운영지원실</div>
+    <h1>피트니스 산업의<br>데이터와 인사이트</h1>
+    <p class="lead">센터 운영에 도움이 되는 데이터 분석, 트레이닝 인사이트,<br>운영 전략을 센티프 운영지원팀이 직접 작성합니다.</p>
+  </div>
+</div>
+
+
+<section class="section">
+  <div class="container">
+
+    <!-- Featured Article -->
+    <a href="#" class="featured-article fade-up" style="display:grid;text-decoration:none;color:inherit">
+      <div class="featured-article-img">
+        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&auto=format&fit=crop" alt="아티클">
+      </div>
+      <div class="featured-article-body">
+        <div class="article-tag" style="background:var(--accent-light);color:var(--accent-dark)">데이터 분석</div>
+        <h2 style="font-size:1.7rem;margin:12px 0 16px">재등록률 10%를 높인 센터들의<br>공통점은 무엇일까?</h2>
+        <p style="margin-bottom:20px">센티프를 도입한 20개 센터의 데이터를 분석해, 재등록률 상승과 직접적으로 연관된 운영 패턴 3가지를 발견했습니다.</p>
+        <div class="article-meta">
+          <span>2025년 11월 15일</span>
+          <span>·</span>
+          <span>읽는 시간 8분</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- Category Filter -->
+    <div class="category-tabs fade-up">
+      <button class="cat-tab active">전체</button>
+      <button class="cat-tab">운영 전략</button>
+      <button class="cat-tab">데이터 분석</button>
+      <button class="cat-tab">트레이너 팁</button>
+      <button class="cat-tab">식단 & 영양</button>
+      <button class="cat-tab">업계 트렌드</button>
+    </div>
+
+    <!-- Articles Grid -->
+    <div class="articles-grid">
+      <a href="#" class="article-card fade-up">
+        <div class="article-card-img">
+          <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&auto=format&fit=crop" alt="">
+        </div>
+        <div class="article-card-body">
+          <span class="article-tag">운영 전략</span>
+          <h4>비수기를 기회로 만드는 PT 센터 운영 전략 5가지</h4>
+          <p>여름과 겨울, 비수기에도 매출을 유지하는 센터들이 공통적으로 하는 것들.</p>
+          <div class="article-meta"><span>2025.10.28</span><span>·</span><span>6분</span></div>
+        </div>
+      </a>
+
+      <a href="#" class="article-card fade-up">
+        <div class="article-card-img">
+          <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&auto=format&fit=crop" alt="">
+        </div>
+        <div class="article-card-body">
+          <span class="article-tag">트레이너 팁</span>
+          <h4>첫 상담에서 회원을 사로잡는 PT 트레이너의 대화법</h4>
+          <p>첫 30분이 재등록률을 결정합니다. 신뢰를 쌓는 상담 스크립트 공개.</p>
+          <div class="article-meta"><span>2025.10.14</span><span>·</span><span>5분</span></div>
+        </div>
+      </a>
+
+      <a href="#" class="article-card fade-up">
+        <div class="article-card-img">
+          <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=600&auto=format&fit=crop" alt="">
+        </div>
+        <div class="article-card-body">
+          <span class="article-tag">식단 & 영양</span>
+          <h4>체중 감량 회원의 식단 관리, 트레이너가 꼭 알아야 할 것들</h4>
+          <p>칼로리 계산보다 더 중요한 지속 가능한 식단 습관 형성 방법.</p>
+          <div class="article-meta"><span>2025.09.30</span><span>·</span><span>7분</span></div>
+        </div>
+      </a>
+
+      <a href="#" class="article-card fade-up">
+        <div class="article-card-img">
+          <img src="https://images.unsplash.com/photo-1581009137042-c552e485697a?w=600&auto=format&fit=crop" alt="">
+        </div>
+        <div class="article-card-body">
+          <span class="article-tag">데이터 분석</span>
+          <h4>출석률 80% 이상 유지하는 센터의 비밀</h4>
+          <p>센티프 데이터로 분석한, 출석률과 재등록률의 상관관계 리포트.</p>
+          <div class="article-meta"><span>2025.09.15</span><span>·</span><span>9분</span></div>
+        </div>
+      </a>
+
+      <a href="#" class="article-card fade-up">
+        <div class="article-card-img">
+          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&auto=format&fit=crop&crop=right" alt="">
+        </div>
+        <div class="article-card-body">
+          <span class="article-tag">운영 전략</span>
+          <h4>PT 센터 SNS 마케팅, 실제로 효과 있는 방법만 정리했습니다</h4>
+          <p>인스타그램, 유튜브, 블로그 — 소규모 센터가 현실적으로 할 수 있는 것들.</p>
+          <div class="article-meta"><span>2025.09.02</span><span>·</span><span>10분</span></div>
+        </div>
+      </a>
+
+      <a href="#" class="article-card fade-up">
+        <div class="article-card-img">
+          <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&auto=format&fit=crop&crop=bottom" alt="">
+        </div>
+        <div class="article-card-body">
+          <span class="article-tag">업계 트렌드</span>
+          <h4>2025 피트니스 산업 트렌드: AI와 데이터가 바꾸는 센터 운영</h4>
+          <p>AI 식단 분석, 웨어러블 연동, 맞춤 루틴 자동화가 현실이 되고 있습니다.</p>
+          <div class="article-meta"><span>2025.08.20</span><span>·</span><span>12분</span></div>
+        </div>
+      </a>
+    </div>
+
+    <!-- Newsletter -->
+    <div class="newsletter-box fade-up">
+      <div>
+        <h3>운영 인사이트, 이메일로 받아보세요</h3>
+        <p>매월 2회, 원장님의 운영에 바로 쓸 수 있는 데이터와 전략을 보내드립니다.</p>
+      </div>
+      <div>
+        <div class="newsletter-form">
+          <input class="newsletter-input" type="email" placeholder="이메일 주소를 입력하세요">
+          <button class="btn btn-primary" style="border-radius:10px;white-space:nowrap">구독하기</button>
+        </div>
+        <p style="font-size:12px;color:rgba(255,255,255,0.35);margin-top:10px">언제든지 구독 취소 가능합니다.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand"><div class="logo">SSEN<span>TIF</span></div><p>피트니스 센터를 위한<br>AI 운영 워크스페이스</p></div>
+    <div class="footer-col"><h5>제품</h5><ul><li><a href="product.html">주요 기능</a></li><li><a href="pricing.html">요금제</a></li></ul></div>
+    <div class="footer-col"><h5>회사</h5><ul><li><a href="index.html#cases">고객 사례</a></li><li><a href="consulting.html">맞춤 도입</a></li><li><a href="lab.html">운영지원실</a></li></ul></div>
+    <div class="footer-col"><h5>지원</h5><ul><li><a href="#">사용 가이드</a></li><li><a href="https://ssentif-manager.kr/" target="_blank">매니저 로그인</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><p>© 2025 SSENTIF. All rights reserved.</p><p>개인정보처리방침 · 이용약관</p></div>
+</footer>
+
+<script>
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 20));
+const observer = new IntersectionObserver(e => e.forEach(x => { if(x.isIntersecting){x.target.classList.add('visible');observer.unobserve(x.target);} }), {threshold:0.12});
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+document.querySelectorAll('.cat-tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.cat-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+
+// 햄버거 메뉴
+const hamburger = document.getElementById('navHamburger');
+const mobileMenu = document.getElementById('navMobileMenu');
+if (hamburger) {
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.nav') && !e.target.closest('.nav-mobile-menu')) {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+    }
+  });
+}
+</script>
+</body>
+</html>

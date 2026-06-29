@@ -1,0 +1,2024 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SSENTIF — 데이터로 하는 센터 운영</title>
+<link rel="stylesheet" href="style.css">
+<style>
+/* ════════════════════════════════════════
+   HOME HERO  (PulseFit + Linko 스타일)
+════════════════════════════════════════ */
+.home-hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: linear-gradient(180deg, #E0F7F2 0%, #F2FBFA 55%, #FFFFFF 100%);
+}
+
+.home-hero-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 120px 24px 56px;
+  max-width: 860px;
+  margin: 0 auto;
+  width: 100%;
+  gap: 24px;
+}
+
+/* Linko style pill badge */
+.hero-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(21,184,142,0.1);
+  border: 1px solid rgba(21,184,142,0.25);
+  border-radius: 100px;
+  padding: 7px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent-dark);
+  letter-spacing: 0.01em;
+  margin-bottom: 20px;
+}
+.hero-pill-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+.home-hero h1 {
+  font-size: clamp(2.6rem, 6vw, 4.6rem);
+  font-weight: 900;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  color: var(--black);
+}
+.home-hero h1 .hl { color: var(--accent-dark); }
+
+.home-hero .lead {
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  color: var(--gray-600);
+  line-height: 1.75;
+  max-width: 520px;
+}
+
+/* Linko-style single big button + ghost */
+.hero-btns {
+  display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+  margin-top: 4px;
+}
+.hero-btns .btn-cta {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--black); color: var(--white);
+  padding: 16px 36px; font-size: 16px; border-radius: 100px;
+  font-weight: 700; transition: all 0.2s; border: none; cursor: pointer;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.18);
+  font-family: inherit;
+}
+.hero-btns .btn-cta:hover { background: var(--gray-800); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,0.22); }
+.hero-btns .btn-outline-ghost {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,0.7); color: var(--gray-700);
+  border: 1.5px solid var(--gray-200);
+  padding: 16px 32px; font-size: 16px; border-radius: 100px;
+  font-weight: 600; transition: all 0.2s; cursor: pointer;
+  backdrop-filter: blur(8px);
+  font-family: inherit;
+}
+.hero-btns .btn-outline-ghost:hover { border-color: var(--gray-400); background: var(--white); }
+
+.hero-disclaimer { font-size: 12.5px; color: var(--gray-400); font-style: italic; }
+
+.hero-social-proof { display: flex; align-items: center; gap: 12px; }
+.social-avatars { display: flex; }
+.social-avatars img {
+  width: 34px; height: 34px; border-radius: 50%;
+  border: 2.5px solid var(--white); object-fit: cover;
+  margin-left: -9px;
+}
+.social-avatars img:first-child { margin-left: 0; }
+.social-proof-text { font-size: 13.5px; font-weight: 600; color: var(--gray-600); }
+
+/* ─ Carousel ─ */
+.hero-carousel {
+  width: 100%; overflow: hidden; position: relative; padding: 0 0 64px;
+}
+.hero-carousel::before, .hero-carousel::after {
+  content: ''; position: absolute; top: 0; bottom: 0; width: 160px; z-index: 2; pointer-events: none;
+}
+.hero-carousel::before { left: 0; background: linear-gradient(90deg, #F2FBFA 0%, rgba(242,251,250,0) 100%); }
+.hero-carousel::after  { right: 0; background: linear-gradient(270deg, #ffffff 0%, rgba(255,255,255,0) 100%); }
+.carousel-track {
+  display: flex; gap: 20px; padding: 8px 24px;
+  animation: carousel-scroll 30s linear infinite;
+  width: max-content;
+}
+.carousel-track:hover { animation-play-state: paused; }
+@keyframes carousel-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+.prog-card {
+  flex-shrink: 0; width: 280px; height: 380px; border-radius: 20px;
+  overflow: hidden; position: relative;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12); cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.prog-card:hover { transform: scale(1.04) translateY(-8px); box-shadow: 0 16px 48px rgba(0,0,0,0.18); }
+.prog-card img { width:100%; height:100%; object-fit:cover; display:block; }
+.prog-card-overlay { position:absolute; inset:0; background: linear-gradient(180deg,rgba(0,0,0,0) 40%,rgba(0,0,0,0.72) 100%); }
+.prog-card-body { position:absolute; bottom:0; left:0; right:0; padding:22px; display:flex; flex-direction:column; gap:5px; }
+.prog-card-cat { font-size:10.5px; font-weight:600; color:rgba(255,255,255,0.7); letter-spacing:0.12em; text-transform:uppercase; }
+.prog-card-title { font-size:18px; font-weight:700; color:#fff; line-height:1.3; }
+
+/* ════════════════════════════════════════
+   LOGO MARQUEE
+════════════════════════════════════════ */
+.logo-marquee {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: var(--white);
+  padding: 22px 0;
+  overflow: hidden;
+  position: relative;
+}
+.logo-marquee::before,.logo-marquee::after {
+  content:''; position:absolute; top:0; bottom:0; width:80px; z-index:2; pointer-events:none;
+}
+.logo-marquee::before { left:0; background:linear-gradient(90deg,#fff,transparent); }
+.logo-marquee::after  { right:0; background:linear-gradient(270deg,#fff,transparent); }
+.marquee-track {
+  display:flex; align-items:center; gap:52px;
+  animation: marquee-scroll 22s linear infinite;
+  width: max-content;
+}
+@keyframes marquee-scroll { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+.marquee-label { font-size:11px; font-weight:700; color:var(--gray-300); letter-spacing:0.1em; text-transform:uppercase; white-space:nowrap; }
+.marquee-item  { font-size:13.5px; font-weight:700; color:var(--gray-300); letter-spacing:0.05em; white-space:nowrap; }
+
+/* ════════════════════════════════════════
+   STATS STRIP (light)
+════════════════════════════════════════ */
+.stats-light {
+  padding: 64px 0;
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+}
+.stats-light .container { display:flex; justify-content:center; gap:0; }
+.stat-light-item {
+  text-align:center; padding:0 56px;
+  border-right: 1px solid var(--border);
+}
+.stat-light-item:last-child { border-right:none; }
+.stat-light-num {
+  font-size: clamp(2rem,4vw,3rem);
+  font-weight:900; color:var(--black);
+  letter-spacing:-0.03em; line-height:1; margin-bottom:6px;
+}
+.stat-light-num em { color:var(--accent-dark); font-style:normal; }
+.stat-light-label { font-size:13px; color:var(--gray-500); font-weight:500; }
+@media(max-width:768px){
+  .stats-light .container{flex-wrap:wrap;gap:32px;}
+  .stat-light-item{border-right:none;padding:0 28px;}
+}
+
+/* ════════════════════════════════════════
+   BENTO GRID  (Linko 스타일)
+════════════════════════════════════════ */
+.bento-section {
+  padding: 96px 0;
+  background: var(--gray-50);
+}
+.bento-head { margin-bottom: 52px; }
+.bento-head .label { margin-bottom: 14px; }
+.bento-head h2 { font-size: clamp(1.9rem,3.5vw,2.8rem); }
+
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: auto;
+  gap: 16px;
+}
+
+/* card base */
+.bc {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.bc:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); }
+.bc-body { padding: 32px; }
+.bc-icon { font-size: 28px; margin-bottom: 16px; }
+.bc-tag {
+  display:inline-block; font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase;
+  color:var(--accent-dark); background:var(--accent-light); padding:4px 11px; border-radius:100px;
+  margin-bottom:14px;
+}
+.bc h3 { font-size:1.25rem; font-weight:800; margin-bottom:10px; line-height:1.3; }
+.bc p  { font-size:14px; color:var(--gray-600); line-height:1.7; }
+
+/* grid placements */
+.bc-1 { grid-column: 1 / 8;  grid-row: 1; }
+.bc-2 { grid-column: 8 / 13; grid-row: 1; }
+.bc-3 { grid-column: 1 / 5;  grid-row: 2; }
+.bc-4 { grid-column: 5 / 9;  grid-row: 2; }
+.bc-5 { grid-column: 9 / 13; grid-row: 2; }
+
+@media(max-width:960px){
+  .bento-grid { grid-template-columns:1fr 1fr; }
+  .bc-1,.bc-2,.bc-3,.bc-4,.bc-5 { grid-column:auto; grid-row:auto; }
+}
+@media(max-width:600px){
+  .bento-grid { grid-template-columns:1fr; }
+}
+
+/* card 1 – tall with image */
+.bc-1 .bc-inner {
+  display:grid; grid-template-columns:1fr 1fr; gap:0; height:320px;
+}
+.bc-1 .bc-text { padding:36px; display:flex; flex-direction:column; justify-content:center; }
+.bc-1 .bc-visual {
+  background: linear-gradient(135deg,#1FDBA8 0%,#0CB589 100%);
+  display:flex; align-items:center; justify-content:center; overflow:hidden;
+}
+.bc-1 .bc-visual img { width:100%; height:100%; object-fit:cover; opacity:0.85; }
+@media(max-width:960px){
+  .bc-1 .bc-inner{grid-template-columns:1fr; height:auto;}
+  .bc-1 .bc-visual{height:200px;}
+}
+
+/* card 2 – dark accent */
+.bc-2 {
+  background: var(--black);
+  color: var(--white);
+  display:flex; flex-direction:column; justify-content:space-between; padding:32px;
+  min-height:320px;
+}
+.bc-2 h3 { color:var(--white); font-size:1.3rem; margin-bottom:10px; }
+.bc-2 p  { color:rgba(255,255,255,0.55); font-size:14px; }
+.bc-2 .bc-big-num {
+  font-size:4rem; font-weight:900; color:var(--accent); letter-spacing:-0.04em; line-height:1;
+  margin-top:24px;
+}
+.bc-2 .bc-big-label { font-size:12px; color:rgba(255,255,255,0.4); margin-top:4px; }
+
+/* card 3, 4, 5 – standard */
+.bc-3,.bc-4,.bc-5 { min-height:220px; padding:32px; }
+
+/* card 5 – mint accent */
+.bc-5 {
+  background: linear-gradient(145deg, var(--accent-light) 0%, #FFFFFF 100%);
+  border-color: rgba(21,184,142,0.2);
+}
+
+/* ════════════════════════════════════════
+   DARK MOCKUP SECTION  (Linko 스타일)
+════════════════════════════════════════ */
+.mockup-section {
+  background: #0A0D0C;
+  padding: 96px 0;
+  overflow: hidden;
+  position: relative;
+}
+/* 배경 그리드 패턴 */
+.mockup-section::before {
+  content:'';
+  position:absolute; inset:0;
+  background-image:
+    linear-gradient(rgba(31,219,168,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(31,219,168,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events:none;
+}
+.mockup-inner {
+  position: relative; z-index:1;
+  display:grid; grid-template-columns:1fr 1fr;
+  align-items:center; gap:72px;
+  max-width:1160px; margin:0 auto; padding:0 40px;
+}
+@media(max-width:900px){
+  .mockup-inner{grid-template-columns:1fr;gap:48px;}
+}
+.mockup-text .label {
+  background:rgba(31,219,168,0.15); color:var(--accent); border:1px solid rgba(31,219,168,0.25);
+}
+.mockup-text h2 { color:var(--white); margin:16px 0; }
+.mockup-text p  { color:rgba(255,255,255,0.55); font-size:1.05rem; line-height:1.8; margin-bottom:28px; }
+.mockup-text .check-list li { color:rgba(255,255,255,0.7); font-size:14.5px; }
+.mockup-text .check-list li::before {
+  background:rgba(31,219,168,0.15);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M3 8l3.5 3.5L13 4.5' stroke='%231FDBA8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-size:16px; background-repeat:no-repeat; background-position:center;
+}
+.mockup-text .btn-cta-mock {
+  display:inline-flex; align-items:center; gap:8px;
+  background:var(--accent); color:var(--black);
+  padding:13px 28px; border-radius:100px; font-size:15px; font-weight:700;
+  border:none; cursor:pointer; transition:all 0.2s; font-family:inherit;
+}
+.mockup-text .btn-cta-mock:hover { background:var(--accent-dark); transform:translateY(-2px); }
+
+/* Phone frame */
+.phone-frame {
+  position: relative;
+  display: flex; justify-content: center;
+}
+.phone-wrap {
+  width: 300px;
+  background: #1A1D1C;
+  border-radius: 40px;
+  padding: 14px;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.08);
+  position: relative;
+}
+.phone-notch {
+  width: 90px; height: 26px; background: #0A0D0C;
+  border-radius: 100px; margin: 0 auto 12px;
+}
+.phone-screen {
+  background: #111614;
+  border-radius: 28px;
+  overflow: hidden;
+  min-height: 480px;
+  padding: 20px 16px;
+}
+/* Floating cards around phone */
+.float-card {
+  position: absolute;
+  background: var(--white);
+  border-radius: 14px;
+  padding: 14px 18px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+  font-size: 12.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--black);
+  z-index: 2;
+}
+.float-card .fc-num { font-size: 22px; font-weight: 900; color: var(--accent-dark); }
+.float-card .fc-label { font-size: 11px; color: var(--gray-500); margin-top: 2px; }
+.float-card-1 { top: 40px; left: -60px; }
+.float-card-2 { bottom: 80px; right: -60px; }
+.float-card-3 { top: 50%; left: -70px; transform: translateY(-50%); }
+@media(max-width:900px){
+  .float-card { display:none; }
+  .phone-wrap { width:260px; }
+}
+
+/* App UI inside phone */
+.app-ui-header {
+  display:flex; justify-content:space-between; align-items:center;
+  color:var(--white); margin-bottom:16px;
+}
+.app-ui-logo { font-size:16px; font-weight:800; letter-spacing:-0.03em; }
+.app-ui-logo span { color:var(--accent); }
+.app-ui-date { font-size:11px; color:rgba(255,255,255,0.4); }
+
+.app-stat-row {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:10px; margin-bottom:14px;
+}
+.app-stat-card {
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:12px; padding:14px;
+}
+.app-stat-card .n { font-size:22px; font-weight:900; color:var(--white); }
+.app-stat-card .n span { color:var(--accent); font-size:14px; }
+.app-stat-card .l { font-size:10.5px; color:rgba(255,255,255,0.4); margin-top:3px; }
+
+.app-list-item {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:11px 14px;
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.07);
+  border-radius:10px; margin-bottom:8px;
+}
+.app-list-left .name { font-size:13px; font-weight:600; color:var(--white); }
+.app-list-left .sub  { font-size:11px; color:rgba(255,255,255,0.4); margin-top:2px; }
+.app-badge {
+  font-size:10px; font-weight:700; padding:3px 8px; border-radius:6px;
+}
+.app-badge.green { background:rgba(31,219,168,0.15); color:var(--accent); }
+.app-badge.gray  { background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.5); }
+
+/* ════════════════════════════════════════
+   TESTIMONIALS
+════════════════════════════════════════ */
+.testimonial-grid {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:24px;
+}
+@media(max-width:768px){ .testimonial-grid{grid-template-columns:1fr;} }
+
+/* ════════════════════════════════════════
+   고객 사례 (cases)
+════════════════════════════════════════ */
+.cases-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+@media (max-width: 900px) { .cases-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 600px) { .cases-grid { grid-template-columns: 1fr; } }
+
+.case-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.case-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); }
+.case-card-img { aspect-ratio: 3/2; overflow: hidden; background: var(--gray-100); }
+.case-card-img img { width:100%;height:100%;object-fit:cover;transition:transform 0.3s; }
+.case-card:hover .case-card-img img { transform: scale(1.04); }
+.case-card-body { padding: 24px; }
+.case-tag {
+  display: inline-block; font-size: 11px; font-weight: 700;
+  padding: 3px 10px; border-radius: 100px; margin-bottom: 12px;
+  background: var(--accent-light); color: var(--accent-dark);
+}
+.case-card-body h4 { font-size: 17px; margin-bottom: 8px; line-height: 1.4; }
+.case-card-body p { font-size: 13.5px; }
+.case-stats { display: flex; gap: 16px; margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--border); }
+.case-stat .num { font-size: 22px; font-weight: 800; color: var(--accent-dark); }
+.case-stat .desc { font-size: 11.5px; color: var(--gray-400); margin-top: 2px; }
+
+.featured-case {
+  background: var(--gray-50);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 56px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  margin-bottom: 60px;
+}
+@media (max-width: 768px) {
+  .featured-case { grid-template-columns: 1fr; padding: 32px; gap: 32px; }
+}
+.featured-case-quote {
+  font-size: 1.2rem;
+  line-height: 1.75;
+  color: var(--gray-800);
+  font-style: italic;
+  margin-bottom: 28px;
+}
+.featured-case-author { display: flex; align-items: center; gap: 14px; }
+.featured-case-avatar {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  background: var(--accent-light);
+  flex-shrink: 0;
+}
+.featured-case-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.fc-stat { text-align: center; }
+.fc-stat .num { font-size: 2.4rem; font-weight: 900; color: var(--accent-dark); letter-spacing: -0.03em; }
+.fc-stat .label { font-size: 13px; color: var(--gray-500); margin-top: 4px; }
+
+.filter-tabs {
+  display: flex; gap: 8px; justify-content: center;
+  margin-bottom: 48px; flex-wrap: wrap;
+}
+.filter-tab {
+  padding: 8px 20px; border-radius: 100px;
+  font-size: 14px; font-weight: 600;
+  background: var(--gray-100); color: var(--gray-600);
+  cursor: pointer; border: 1.5px solid transparent;
+  transition: all 0.15s;
+}
+.filter-tab.active { background: var(--black); color: var(--white); }
+.filter-tab:hover:not(.active) { background: var(--gray-200); }
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav class="nav" id="mainNav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">SSEN<span>TIF</span></a>
+    <div class="nav-links">
+      <a href="product.html">제품</a>
+      <a href="#cases" onclick="smoothScrollTo('cases',event)">고객 사례</a>
+      <a href="pricing.html">요금제</a>
+      <a href="consulting.html">맞춤 도입</a>
+      <a href="lab.html">운영지원실</a>
+    </div>
+    <div class="nav-actions">
+      <a href="product.html" class="nav-ghost">기능 둘러보기</a>
+      <a href="consulting.html" class="nav-cta-btn">맞춤 상담 받기</a>
+    </div>
+    <button class="nav-hamburger" id="navHamburger" aria-label="메뉴 열기">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="nav-mobile-menu" id="navMobileMenu">
+  <a href="product.html">제품</a>
+  <a href="index.html#cases">고객 사례</a>
+  <a href="pricing.html">요금제</a>
+  <a href="consulting.html">맞춤 도입</a>
+  <a href="lab.html">운영지원실</a>
+  <div class="nav-mobile-divider"></div>
+  <a href="consulting.html" class="nav-mobile-cta">맞춤 상담 받기</a>
+</div>
+
+
+<!-- ══════════════════════
+     HERO (스크롤 애니메이션)
+══════════════════════ -->
+<section class="home-hero">
+<style>
+.home-hero {
+  background: linear-gradient(180deg, #E8FAF6 0%, #F4FCFA 40%, #FAFFFE 70%, #FFFFFF 100%);
+  overflow: hidden; position: relative;
+  padding: 0;
+}
+
+/* 배경 노이즈/빛 효과 */
+.home-hero::before {
+  content:'';
+  position:absolute; top:-200px; left:50%; transform:translateX(-50%);
+  width:800px; height:800px;
+  background: radial-gradient(ellipse, rgba(31,219,168,0.12) 0%, transparent 70%);
+  pointer-events:none; z-index:0;
+}
+
+/* 텍스트 영역 */
+.hero-scroll-container {
+  position: relative; z-index:1;
+  padding: 140px 24px 0;
+}
+.hero-scroll-title {
+  max-width: 780px; margin: 0 auto; text-align: center;
+}
+.hero-text h1 {
+  font-size: clamp(2.6rem, 5vw, 4.2rem);
+  font-weight: 900; line-height: 1.1;
+  letter-spacing: -0.035em; color: var(--black);
+  margin-bottom: 20px;
+}
+.hero-text h1 .hl {
+  background: linear-gradient(135deg, #1FDBA8, #0CB589);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-text .lead {
+  font-size: clamp(1rem,1.8vw,1.15rem);
+  color: var(--gray-500); line-height: 1.8; max-width: 560px; margin: 0 auto 32px;
+  word-break: keep-all;
+}
+.hero-text { display:flex; flex-direction:column; align-items:center; gap:0; }
+
+/* 카드 스크롤 씬 */
+.hero-card-scroll-scene {
+  perspective: 1200px;
+  padding: 0 24px 0;
+  margin-top: 60px;
+}
+.hero-card-scroll-wrap {
+  max-width: 900px; margin: 0 auto;
+  transform-origin: top center;
+  will-change: transform;
+}
+
+/* 카드 외부 프레임 */
+.hero-card-frame {
+  background: #1A1D1B;
+  border-radius: 24px;
+  padding: 6px;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.07),
+    0 50px 120px rgba(0,0,0,0.22),
+    0 20px 40px rgba(0,0,0,0.12);
+}
+.hero-card-frame-inner {
+  background: #0D0F12;
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* 카드 내부 그리드 */
+.hero-card-frame-inner::before {
+  content:'';
+  position:absolute; inset:0;
+  background-image:
+    linear-gradient(rgba(31,219,168,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(31,219,168,0.04) 1px, transparent 1px);
+  background-size:40px 40px;
+  pointer-events:none; z-index:0;
+}
+
+/* 카드 상단 탭바 */
+.hero-card-topbar {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:14px 20px;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  position:relative; z-index:1;
+}
+.hero-card-dots { display:flex; gap:6px; }
+.hero-card-dot { width:10px; height:10px; border-radius:50%; }
+.hero-card-dot:nth-child(1){ background:#FF5F57; }
+.hero-card-dot:nth-child(2){ background:#FFBD2E; }
+.hero-card-dot:nth-child(3){ background:#28CA41; }
+.hero-card-topbar-logo { font-size:14px; font-weight:800; color:rgba(255,255,255,0.8); letter-spacing:-0.02em; }
+.hero-card-topbar-logo span { color:var(--accent); }
+.hero-card-topbar-badge {
+  display:flex; align-items:center; gap:5px;
+  background:rgba(31,219,168,0.1); border:1px solid rgba(31,219,168,0.2);
+  border-radius:100px; padding:4px 10px;
+  font-size:11px; font-weight:700; color:var(--accent);
+}
+
+/* 카드 바디 */
+.hero-card-body {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:0; min-height:420px; position:relative; z-index:1;
+}
+@media(max-width:640px){ .hero-card-body{grid-template-columns:1fr;} }
+
+/* 좌: 채팅 패널 */
+.hero-chat-panel {
+  padding:24px;
+  border-right:1px solid rgba(255,255,255,0.05);
+}
+.hero-chat-label {
+  font-size:10px; font-weight:700; color:rgba(255,255,255,0.25);
+  letter-spacing:0.1em; text-transform:uppercase; margin-bottom:16px;
+}
+.hero-chat-msg {
+  display:flex; gap:10px; margin-bottom:14px; align-items:flex-start;
+}
+.hero-chat-avatar {
+  width:28px; height:28px; border-radius:50%; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  font-size:11px; font-weight:800;
+}
+.hero-chat-avatar.user { background:linear-gradient(135deg,#667eea,#764ba2); color:white; }
+.hero-chat-avatar.ai   { background:rgba(31,219,168,0.15); color:var(--accent); font-size:14px; }
+.hero-chat-bubble {
+  border-radius:4px 14px 14px 14px;
+  padding:11px 14px; font-size:12.5px; line-height:1.65;
+}
+.hero-chat-bubble.user {
+  background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.07);
+  color:rgba(255,255,255,0.6); border-radius:14px 4px 14px 14px;
+}
+.hero-chat-bubble.ai {
+  background:rgba(31,219,168,0.07); border:1px solid rgba(31,219,168,0.15);
+  color:rgba(255,255,255,0.8);
+}
+.hero-chat-bubble.ai .acc { color:var(--accent); font-weight:700; }
+
+/* 우: 통계 패널 */
+.hero-stats-panel {
+  padding:24px; display:flex; flex-direction:column; gap:12px;
+}
+.hero-stats-label {
+  font-size:10px; font-weight:700; color:rgba(255,255,255,0.25);
+  letter-spacing:0.1em; text-transform:uppercase; margin-bottom:4px;
+}
+.hero-stat-card {
+  background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.07);
+  border-radius:12px; padding:14px 16px;
+}
+.hero-stat-card .n { font-size:22px; font-weight:900; color:var(--white); }
+.hero-stat-card .n em { color:var(--accent); font-style:normal; font-size:14px; }
+.hero-stat-card .l { font-size:11px; color:rgba(255,255,255,0.35); margin-top:3px; }
+.hero-stat-bar {
+  height:4px; background:rgba(255,255,255,0.08); border-radius:100px; margin-top:10px; overflow:hidden;
+}
+.hero-stat-bar-fill {
+  height:100%; border-radius:100px;
+  background:linear-gradient(90deg, var(--accent), #0CB589);
+  transition: width 1.5s ease;
+}
+
+/* 빠른 실행 칩 */
+.hero-chip-row {
+  display:flex; gap:8px; padding:14px 24px;
+  border-top:1px solid rgba(255,255,255,0.05);
+  position:relative; z-index:1; flex-wrap:wrap;
+}
+.hero-chip {
+  background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.08);
+  border-radius:8px; padding:7px 12px;
+  font-size:11.5px; color:rgba(255,255,255,0.45);
+  cursor:pointer; transition:all 0.2s;
+  display:flex; align-items:center; gap:5px;
+}
+.hero-chip:hover { background:rgba(31,219,168,0.1); border-color:rgba(31,219,168,0.2); color:var(--accent); }
+
+/* 카드 하단 그라데이션 페이드 */
+.hero-card-scroll-fade {
+  height:120px; margin-top:-120px; position:relative; z-index:2; pointer-events:none;
+  background:linear-gradient(to bottom, transparent, #FFFFFF);
+}
+
+@media(max-width:900px){
+  .home-hero { padding:0; }
+  .hero-card-scroll-scene { margin-top:40px; padding:0 16px; }
+}
+</style>
+
+
+  <!-- 스크롤 애니메이션 히어로 -->
+  <div class="hero-scroll-container">
+
+    <!-- 상단 텍스트 -->
+    <div class="hero-scroll-title">
+      <div class="hero-text">
+        <div class="hero-pill">
+          <span class="hero-pill-dot"></span>
+          피트니스 AI 워크스페이스
+        </div>
+        <h1><span class="hl">만족도</span>는 높이고<br>운영은 <span class="hl">지속 가능하게</span></h1>
+        <p class="lead">회원 중심 운영의 새로운 기준.<br>현장 데이터에 기반하여 운영에 필요한 모든 업무를 하나로 연결합니다.</p>
+        <div class="hero-btns">
+          <a href="consulting.html" class="btn-cta">
+            맞춤 상담 받기
+            <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M7 10H13M13 10L10 7M13 10L10 13" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="product.html" class="btn-outline-ghost">기능 둘러보기</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 스크롤 애니메이션 카드 -->
+    <div class="hero-card-scroll-scene">
+      <div class="hero-card-scroll-wrap" id="heroCardScrollWrap">
+        <div class="hero-card-frame">
+          <div class="hero-card-frame-inner">
+
+            <!-- 맥 스타일 탑바 -->
+            <div class="hero-card-topbar">
+              <div class="hero-card-dots">
+                <div class="hero-card-dot"></div>
+                <div class="hero-card-dot"></div>
+                <div class="hero-card-dot"></div>
+              </div>
+              <div class="hero-card-topbar-logo">SSEN<span>TIF</span></div>
+              <div class="hero-card-topbar-badge">
+                <svg width="7" height="7" viewBox="0 0 8 8" fill="none"><circle cx="4" cy="4" r="4" fill="#1FDBA8"/></svg>
+                AI 분석 중
+              </div>
+            </div>
+
+            <!-- 바디: 채팅 | 통계 -->
+            <div class="hero-card-body">
+
+              <!-- 좌: AI 채팅 -->
+              <div class="hero-chat-panel">
+                <div class="hero-chat-label">AI 운영 어시스턴트</div>
+
+                <div class="hero-chat-msg">
+                  <div class="hero-chat-avatar user">원</div>
+                  <div class="hero-chat-bubble user">이번 달 운영 결과 요약해줘. 다음 달 전략도 짜줘.</div>
+                </div>
+
+                <div class="hero-chat-msg">
+                  <div class="hero-chat-avatar ai">✦</div>
+                  <div class="hero-chat-bubble ai">
+                    이번 달 재등록률 <span class="acc">89%</span>로 전월 대비 +8% 상승했습니다. 이탈 위험 회원 3명 중 2명 재등록 전환에 성공했습니다.<br><br>
+                    다음 달은 겨울 비수기 대비 <span class="acc">단기 집중 프로그램</span> 출시를 권장합니다.
+                  </div>
+                </div>
+
+                <div class="hero-chat-msg">
+                  <div class="hero-chat-avatar user">원</div>
+                  <div class="hero-chat-bubble user">페이롤 정산도 해줘.</div>
+                </div>
+
+                <div class="hero-chat-msg">
+                  <div class="hero-chat-avatar ai">✦</div>
+                  <div class="hero-chat-bubble ai">
+                    박준형 <span class="acc">₩840,000</span> / 김민지 <span class="acc">₩630,000</span> / 이서연 <span class="acc">₩735,000</span><br>
+                    총 인건비 <span class="acc">₩2,205,000</span> — 정산 완료됐습니다.
+                  </div>
+                </div>
+              </div>
+
+              <!-- 우: 통계 대시보드 -->
+              <div class="hero-stats-panel">
+                <div class="hero-stats-label">이번 달 운영 현황</div>
+
+                <div class="hero-stat-card">
+                  <div class="n">89<em>%</em></div>
+                  <div class="l">재등록률</div>
+                  <div class="hero-stat-bar"><div class="hero-stat-bar-fill" style="width:89%"></div></div>
+                </div>
+
+                <div class="hero-stat-card">
+                  <div class="n" style="color:var(--accent)">+8<em>%</em></div>
+                  <div class="l">전월 대비 재등록 상승</div>
+                  <div class="hero-stat-bar"><div class="hero-stat-bar-fill" style="width:60%"></div></div>
+                </div>
+
+                <div class="hero-stat-card">
+                  <div class="n">2<em>명</em></div>
+                  <div class="l">이탈 방지 성공 (3명 중)</div>
+                  <div class="hero-stat-bar"><div class="hero-stat-bar-fill" style="width:66%"></div></div>
+                </div>
+
+                <div class="hero-stat-card">
+                  <div class="n">₩2.2<em>M</em></div>
+                  <div class="l">페이롤 정산 완료</div>
+                  <div class="hero-stat-bar"><div class="hero-stat-bar-fill" style="width:100%"></div></div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- 빠른 실행 칩 -->
+            <div class="hero-chip-row">
+              <div class="hero-chip">📋 수업일지 작성</div>
+              <div class="hero-chip">💰 페이롤 정산</div>
+              <div class="hero-chip">🔔 이탈 위험 감지</div>
+              <div class="hero-chip">📊 월간 리포트</div>
+              <div class="hero-chip">💪 루틴 처방</div>
+              <div class="hero-chip">📅 스케줄 관리</div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-card-scroll-fade"></div>
+  </div>
+</section>
+
+<script>
+// ── 히어로 스크롤 애니메이션 (ContainerScroll 방식) ──
+(function(){
+  const wrap = document.getElementById('heroCardScrollWrap');
+  if(!wrap) return;
+
+  function lerp(a, b, t){ return a + (b - a) * t; }
+  function clamp(v, min, max){ return Math.min(Math.max(v, min), max); }
+
+  function onScroll(){
+    const hero = wrap.closest('.home-hero');
+    if(!hero) return;
+    const rect = hero.getBoundingClientRect();
+    const heroH = hero.offsetHeight;
+    // 0 = 히어로 top이 뷰포트 top에 닿을 때, 1 = 히어로가 완전히 지나갔을 때
+    const progress = clamp(-rect.top / (heroH * 0.55), 0, 1);
+    const rotateX  = lerp(20, 0, progress);
+    const scale    = lerp(1.05, 1, progress);
+    wrap.style.transform = `rotateX(${rotateX}deg) scale(${scale})`;
+  }
+
+  // 초기 상태
+  wrap.style.transform = 'rotateX(20deg) scale(1.05)';
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
+
+
+
+
+
+
+<!-- ══════════════════════
+     RESULT CARDS
+══════════════════════ -->
+<section class="result-cards-section">
+  <div class="container">
+    <div class="result-cards-grid">
+
+      <div class="result-card fade-up">
+        <div class="rc-icon">
+          <img src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@latest/assets/Chart%20increasing/3D/chart_increasing_3d.png" alt="신규 유입 증가" width="52" height="52">
+        </div>
+        <h4 class="rc-title">신규 유입 증가</h4>
+        <div class="rc-bar"></div>
+        <p class="rc-desc">마케팅 효과를 분석하고,<br>더 많은 신규 회원을 유치하세요.</p>
+      </div>
+
+      <div class="result-card fade-up" style="transition-delay:0.1s">
+        <div class="rc-icon">
+          <img src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@latest/assets/Bullseye/3D/bullseye_3d.png" alt="재등록률 향상" width="52" height="52">
+        </div>
+        <h4 class="rc-title">재등록률 향상</h4>
+        <div class="rc-bar"></div>
+        <p class="rc-desc">이탈 신호를 미리 파악하고,<br>회원의 재등록을 이끌어내세요.</p>
+      </div>
+
+      <div class="result-card fade-up" style="transition-delay:0.2s">
+        <div class="rc-icon">
+          <img src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@latest/assets/Star-struck/3D/star-struck_3d.png" alt="회원 만족도 상승" width="52" height="52">
+        </div>
+        <h4 class="rc-title">회원 만족도 상승</h4>
+        <div class="rc-bar"></div>
+        <p class="rc-desc">맞춤형 수업 관리와 소통으로<br>회원 경험을 높이세요.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+<style>
+.result-cards-section {
+  padding: 72px 0;
+  background: var(--white);
+}
+.result-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.result-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 40px 36px;
+  text-align: center;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.result-card:hover {
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+  transform: translateY(-2px);
+}
+.rc-icon {
+  width: 72px; height: 72px;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 20px;
+}
+.rc-icon img {
+  width: 64px; height: 64px; object-fit: contain;
+  filter: drop-shadow(0 8px 16px rgba(0,0,0,0.12));
+}
+.rc-title {
+  font-size: 1.15rem; font-weight: 700; color: var(--black);
+  letter-spacing: -0.02em; margin-bottom: 12px;
+}
+.rc-bar {
+  width: 32px; height: 2.5px;
+  background: var(--accent);
+  border-radius: 2px;
+  margin: 0 auto 16px;
+}
+.rc-desc {
+  font-size: 14px; color: var(--gray-500); line-height: 1.75;
+}
+@media(max-width:768px){
+  .result-cards-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+}
+</style>
+
+<!-- ══════════════════════
+     MEMBER MANAGEMENT
+══════════════════════ -->
+<section class="mm-section">
+  <div class="container">
+    <div class="mm-inner">
+
+      <div class="mm-text fade-up">
+        <div class="label">차별화된 회원관리</div>
+        <h2>수업일지 공유부터<br>식단·운동 피드백까지<br><span class="hl">더 체계적인 회원관리</span></h2>
+        <p class="mm-lead">트레이너와 회원이 함께 기록하고 공유하는 하나의 공간.<br>회원의 변화를 데이터로 추적하고, 피드백으로 연결합니다.</p>
+        <ul class="mm-list">
+          <li>
+            <span class="mm-dot"></span>
+            <div>
+              <strong>수업일지 공유</strong>
+              <span>수업 후 트레이너가 작성한 일지가 회원에게 바로 전달</span>
+            </div>
+          </li>
+          <li>
+            <span class="mm-dot"></span>
+            <div>
+              <strong>식단 피드백</strong>
+              <span>회원이 업로드한 식사 사진에 트레이너가 직접 코멘트</span>
+            </div>
+          </li>
+          <li>
+            <span class="mm-dot"></span>
+            <div>
+              <strong>개인운동 피드백</strong>
+              <span>센터 밖 운동도 기록하고 다음 수업에 반영</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="mm-visual fade-up" style="transition-delay:0.15s">
+        <!-- TODO: 실제 앱 스크린샷으로 교체 -->
+        <div class="mm-mockup">
+          <div class="mm-phone">
+            <div class="mm-phone-bar"></div>
+            <div class="mm-phone-content">
+              <div class="mock-header">
+                <div class="mock-avatar"></div>
+                <div>
+                  <div class="mock-name"></div>
+                  <div class="mock-sub"></div>
+                </div>
+              </div>
+              <div class="mock-card">
+                <div class="mock-tag">수업일지</div>
+                <div class="mock-line w80"></div>
+                <div class="mock-line w60"></div>
+                <div class="mock-line w70"></div>
+              </div>
+              <div class="mock-card accent">
+                <div class="mock-tag accent">식단 피드백</div>
+                <div class="mock-img-placeholder"></div>
+                <div class="mock-line w90"></div>
+                <div class="mock-line w50"></div>
+              </div>
+              <div class="mock-card">
+                <div class="mock-tag">개인운동</div>
+                <div class="mock-line w70"></div>
+                <div class="mock-line w55"></div>
+              </div>
+            </div>
+          </div>
+          <div class="mm-phone mm-phone-back">
+            <div class="mm-phone-bar"></div>
+            <div class="mm-phone-content">
+              <div class="mock-stat-row">
+                <div class="mock-stat"><div class="mock-stat-num">12</div><div class="mock-stat-label">수업일지</div></div>
+                <div class="mock-stat"><div class="mock-stat-num">87%</div><div class="mock-stat-label">출석률</div></div>
+                <div class="mock-stat"><div class="mock-stat-num">24</div><div class="mock-stat-label">피드백</div></div>
+              </div>
+              <div class="mock-chart">
+                <div class="mock-bar" style="height:55%"></div>
+                <div class="mock-bar" style="height:70%"></div>
+                <div class="mock-bar" style="height:48%"></div>
+                <div class="mock-bar" style="height:85%"></div>
+                <div class="mock-bar" style="height:62%"></div>
+                <div class="mock-bar accent" style="height:90%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<style>
+.mm-section { padding: 100px 0; background: var(--gray-50); overflow: hidden; }
+.mm-inner {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 80px; align-items: center;
+}
+@media(max-width:900px){ .mm-inner { grid-template-columns: 1fr; } }
+
+.mm-text h2 { font-size: clamp(1.6rem,3vw,2.2rem); line-height: 1.3; margin: 12px 0 20px; word-break: keep-all; }
+.mm-lead { font-size: 15px; color: var(--gray-500); line-height: 1.8; margin-bottom: 32px; word-break: keep-all; }
+
+.mm-list { list-style: none; display: flex; flex-direction: column; gap: 20px; }
+.mm-list li { display: flex; gap: 14px; align-items: flex-start; }
+.mm-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--accent); flex-shrink: 0; margin-top: 6px;
+}
+.mm-list strong { display: block; font-size: 15px; font-weight: 700; color: var(--black); margin-bottom: 2px; }
+.mm-list span { font-size: 13.5px; color: var(--gray-500); line-height: 1.6; }
+
+/* Mockup */
+.mm-visual { display: flex; justify-content: center; align-items: center; }
+.mm-mockup { position: relative; width: 260px; height: 480px; }
+.mm-phone {
+  position: absolute;
+  width: 220px; height: 420px;
+  background: var(--white);
+  border-radius: 28px;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.13);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.mm-phone:first-child { top: 0; left: 0; z-index: 2; }
+.mm-phone-back { top: 40px; left: 50px; z-index: 1; filter: blur(1px); opacity: 0.6; }
+.mm-phone-bar { height: 28px; background: var(--black); display: flex; align-items: center; padding: 0 16px; gap: 6px; }
+.mm-phone-bar::before, .mm-phone-bar::after { content:''; display:block; }
+.mm-phone-bar::before { width: 40px; height: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; }
+.mm-phone-bar::after { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; margin-left: auto; }
+.mm-phone-content { padding: 14px; display: flex; flex-direction: column; gap: 10px; overflow: hidden; }
+.mock-header { display: flex; gap: 10px; align-items: center; margin-bottom: 4px; }
+.mock-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--accent-light); flex-shrink: 0; }
+.mock-name { width: 70px; height: 9px; background: var(--gray-200); border-radius: 4px; margin-bottom: 5px; }
+.mock-sub { width: 50px; height: 7px; background: var(--gray-100); border-radius: 4px; }
+.mock-card { background: var(--gray-50); border: 1px solid var(--border); border-radius: 10px; padding: 10px; }
+.mock-card.accent { background: var(--accent-light); border-color: transparent; }
+.mock-tag { font-size: 9px; font-weight: 700; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 7px; }
+.mock-tag.accent { color: var(--accent-dark); }
+.mock-line { height: 7px; background: var(--gray-200); border-radius: 3px; margin-bottom: 5px; }
+.mock-card.accent .mock-line { background: rgba(31,219,168,0.25); }
+.w90{ width:90% } .w80{ width:80% } .w70{ width:70% } .w60{ width:60% } .w55{ width:55% } .w50{ width:50% }
+.mock-img-placeholder { height: 52px; background: rgba(31,219,168,0.15); border-radius: 6px; margin-bottom: 8px; }
+.mock-stat-row { display: flex; justify-content: space-around; background: var(--gray-50); border-radius: 10px; padding: 12px 8px; margin-bottom: 8px; }
+.mock-stat { text-align: center; }
+.mock-stat-num { font-size: 14px; font-weight: 800; color: var(--black); }
+.mock-stat-label { font-size: 8px; color: var(--gray-500); margin-top: 2px; }
+.mock-chart { display: flex; align-items: flex-end; gap: 6px; height: 80px; padding: 0 8px; }
+.mock-bar { flex: 1; background: var(--gray-100); border-radius: 4px 4px 0 0; }
+.mock-bar.accent { background: var(--accent); }
+</style>
+
+
+<!-- ══════════════════════
+     SOCIAL PROOF
+══════════════════════ -->
+<section class="proof-section">
+  <div class="proof-head container fade-up">
+    <div class="label" style="color:rgba(255,255,255,0.5)">실제 회원 반응</div>
+    <h2>이미 수백 명의 회원이<br><span class="hl">직접 경험했습니다</span></h2>
+    <p class="proof-sub">실제 센티프 회원들의 반응. 데이터가 아닌 사람으로 증명합니다.</p>
+  </div>
+
+  <!-- Row 1: scroll left -->
+  <div class="proof-track-wrap">
+    <div class="proof-track">
+      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=300&h=380&fit=crop&crop=face" alt=""></div>
+      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1534367610401-9f5ed68180aa?w=300&h=380&fit=crop&crop=face" alt=""></div>
+      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?w=300&h=380&fit=crop&crop=face" alt=""></div>
+      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=300&h=380&fit=crop&crop=face" alt=""></div>
+      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1549060279-7e168fcee0c2?w=300&h=380&fit=crop&crop=face" alt=""></div>
+      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=300&h=380&fit=crop&crop=face" alt=""></div>
+      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=300&h=380&fit=crop&crop=face" alt=""></div>
+      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=300&h=380&fit=crop&crop=face" alt=""></div>
+      <!-- duplicate for seamless loop -->
+      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=300&h=380&fit=crop&crop=face" alt=""></div>
+      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1534367610401-9f5ed68180aa?w=300&h=380&fit=crop&crop=face" alt=""></div>
+      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?w=300&h=380&fit=crop&crop=face" alt=""></div>
+      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=300&h=380&fit=crop&crop=face" alt=""></div>
+      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1549060279-7e168fcee0c2?w=300&h=380&fit=crop&crop=face" alt=""></div>
+      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=300&h=380&fit=crop&crop=face" alt=""></div>
+      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=300&h=380&fit=crop&crop=face" alt=""></div>
+      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=300&h=380&fit=crop&crop=face" alt=""></div>
+    </div>
+  </div>
+
+  <!-- Row 2: scroll right -->
+  <div class="proof-track-wrap">
+    <div class="proof-track reverse">
+      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=300&h=380&fit=crop&crop=face" alt=""></div>
+      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1594381898411-846e7d193883?w=300&h=380&fit=crop&crop=face" alt=""></div>
+      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1599058917765-a780eda07a3e?w=300&h=380&fit=crop&crop=face" alt=""></div>
+      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1611672585731-fa10603fb9e0?w=300&h=380&fit=crop&crop=face" alt=""></div>
+      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1590487988256-9ed24133863e?w=300&h=380&fit=crop&crop=face" alt=""></div>
+      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1618355776464-8666794d2520?w=300&h=380&fit=crop&crop=face" alt=""></div>
+      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1605296867304-46d5465a13f1?w=300&h=380&fit=crop&crop=face" alt=""></div>
+      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=300&h=380&fit=crop&crop=face" alt=""></div>
+      <!-- duplicate -->
+      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=300&h=380&fit=crop&crop=face" alt=""></div>
+      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1594381898411-846e7d193883?w=300&h=380&fit=crop&crop=face" alt=""></div>
+      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1599058917765-a780eda07a3e?w=300&h=380&fit=crop&crop=face" alt=""></div>
+      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1611672585731-fa10603fb9e0?w=300&h=380&fit=crop&crop=face" alt=""></div>
+      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1590487988256-9ed24133863e?w=300&h=380&fit=crop&crop=face" alt=""></div>
+      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1618355776464-8666794d2520?w=300&h=380&fit=crop&crop=face" alt=""></div>
+      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1605296867304-46d5465a13f1?w=300&h=380&fit=crop&crop=face" alt=""></div>
+      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=300&h=380&fit=crop&crop=face" alt=""></div>
+    </div>
+  </div>
+  <!-- Stats Bento -->
+  <div class="proof-stats container fade-up">
+    <div class="ps-grid">
+
+      <!-- Card 1: 누적 회원 수 (full width) -->
+      <div class="ps-card ps-big">
+        <p class="ps-label">센티프로 관리받은 누적 회원</p>
+        <div class="ps-num"><span class="countup" data-target="59297">0</span><span>명</span></div>
+      </div>
+
+      <!-- Card 2: 회원 만족도 -->
+      <div class="ps-card ps-accent">
+        <div class="ps-pct">95%<span>+</span></div>
+        <p class="ps-meta">회원 만족도</p>
+      </div>
+
+      <!-- Card 3: 회원 만족도 인용 -->
+      <div class="ps-card ps-dark">
+        <p class="ps-quote large">"확실히 이 센터는<br>회원관리가<br>체계적이에요."</p>
+      </div>
+
+      <!-- Card 3: PT 서비스 편의성 -->
+      <div class="ps-card ps-muted">
+        <div class="ps-pct">60%<span>+</span></div>
+        <p class="ps-meta">PT 서비스 편의성</p>
+      </div>
+
+      <!-- Card 4: 강사 신뢰도 -->
+      <div class="ps-card ps-dark">
+        <div class="ps-pct white">75%<span>+</span></div>
+        <p class="ps-meta">강사 신뢰도</p>
+      </div>
+
+      <!-- Card 5: 인용 (full width) -->
+      <div class="ps-card ps-quote-card">
+        <p class="ps-quote large">"관리 시스템이 갖춰져 있으니 등록 전에도 믿음이 가요."</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+<style>
+.proof-section {
+  background: #0A0D0C;
+  padding: 80px 0 0;
+  overflow: hidden;
+}
+.proof-head { text-align: center; margin-bottom: 56px; }
+.proof-head h2 { font-size: clamp(1.7rem,3.5vw,2.4rem); color: var(--white); margin: 12px 0 16px; line-height: 1.3; word-break: keep-all; }
+.proof-sub { color: rgba(255,255,255,0.45); font-size: 15px; }
+
+.proof-track-wrap {
+  overflow: hidden;
+  margin-bottom: 16px;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+.proof-track {
+  display: flex; gap: 12px;
+  width: max-content;
+  animation: scrollLeft 30s linear infinite;
+}
+.proof-track.reverse { animation: scrollRight 28s linear infinite; }
+@keyframes scrollLeft  { from { transform: translateX(0) } to { transform: translateX(-50%) } }
+@keyframes scrollRight { from { transform: translateX(-50%) } to { transform: translateX(0) } }
+.proof-track-wrap:hover .proof-track { animation-play-state: paused; }
+
+/* Stats Bento */
+.proof-stats { padding: 56px 0 80px; }
+.ps-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+@media(max-width:640px){ .ps-grid { grid-template-columns: 1fr; } }
+
+.ps-card {
+  border-radius: 20px;
+  padding: 36px 40px;
+  display: flex; flex-direction: column; gap: 14px;
+}
+
+/* 카드 배치 */
+.ps-big        { grid-column: 1 / -1; flex-direction: row; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+.ps-tall       { grid-row: span 2; justify-content: space-between; }
+.ps-quote-card { grid-column: 1 / -1; }
+
+/* 카드 색상 */
+.ps-big        { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); }
+.ps-accent     { background: var(--accent); }
+.ps-muted      { background: rgba(31,219,168,0.12); border: 1px solid rgba(31,219,168,0.2); }
+.ps-dark       { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); }
+.ps-quote-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); }
+
+/* 숫자 */
+.ps-num { font-size: clamp(2.4rem,5vw,3.4rem); font-weight: 900; color: var(--white); letter-spacing: -0.03em; line-height: 1; }
+.ps-num span { font-size: 0.45em; font-weight: 700; margin-left: 4px; color: rgba(255,255,255,0.6); }
+
+.ps-pct { font-size: clamp(2rem,4.5vw,2.8rem); font-weight: 900; letter-spacing: -0.03em; line-height: 1; color: var(--accent); }
+.ps-pct span { font-size: 0.5em; font-weight: 700; }
+.ps-accent .ps-pct { color: var(--black); }
+.ps-pct.white { color: var(--white); }
+
+/* 텍스트 */
+.ps-label { font-size: 14px; color: rgba(255,255,255,0.45); font-weight: 500; }
+.ps-meta  { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.5); letter-spacing: 0.01em; }
+.ps-accent .ps-meta { color: rgba(0,0,0,0.5); }
+
+.ps-quote { font-size: 15px; line-height: 1.7; color: rgba(255,255,255,0.7); font-weight: 500; word-break: keep-all; }
+.ps-accent .ps-quote { color: rgba(0,0,0,0.65); }
+.ps-quote.large { font-size: clamp(1.1rem,2vw,1.35rem); font-weight: 700; color: var(--white); line-height: 1.55; }
+
+.proof-photo {
+  width: 180px; height: 220px; flex-shrink: 0;
+  border-radius: 14px; overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.07);
+}
+.proof-photo img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.4s;
+}
+.proof-photo:hover img { transform: scale(1.05); }
+</style>
+
+
+<!-- ══════════════════════
+     BENTO GRID
+══════════════════════ -->
+<section class="bento-section">
+  <div class="container">
+    <div class="bento-head fade-up">
+      <div class="label">왜 센티프인가</div>
+      <h2>흩어진 운영, 이제<br>보면서 하세요.</h2>
+    </div>
+
+    <div class="bento-grid">
+
+      <!-- Card 1: 수업일지 & 회원 만족도 (wide, image) -->
+      <div class="bc bc-1 fade-up">
+        <div class="bc-inner">
+          <div class="bc-text">
+            <div class="bc-tag">수업 관리</div>
+            <h3>수업일지가 쌓이면,<br>만족도가 보입니다</h3>
+            <p>기록할수록 드러나는 패턴. 어떤 수업이 회원을 머물게 하는지 데이터가 말해줍니다.</p>
+          </div>
+          <div class="bc-visual">
+            <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&auto=format&fit=crop" alt="">
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: 잠재부채 (dark, big number) -->
+      <div class="bc bc-2 fade-up">
+        <div class="bc-tag" style="background:rgba(31,219,168,0.15);color:var(--accent)">경영 관리</div>
+        <h3>아직 소진 안 된<br>수업, 몇 개입니까?</h3>
+        <p>잠재부채를 실시간으로 파악하면<br>현금흐름이 다르게 보입니다.</p>
+        <div class="bc-big-num">₩<span style="font-size:2rem">잠재부채</span></div>
+        <div class="bc-big-label">미소진 수업권 · 선불 잔액 한눈에 확인</div>
+      </div>
+
+      <!-- Card 3: AI 비서 -->
+      <div class="bc bc-3 fade-up">
+        <div class="bc-icon">✨</div>
+        <div class="bc-tag">AI 비서</div>
+        <h3>블로그도, 전략도<br>AI가 먼저 씁니다</h3>
+        <p>블로그 작성 · 운영 점검 · 다음 달 전략까지. 더 빠르게, 더 전문적으로.</p>
+      </div>
+
+      <!-- Card 4: 모드 전환 -->
+      <div class="bc bc-4 fade-up">
+        <div class="bc-icon">🔄</div>
+        <div class="bc-tag">관리자 · 강사 모드</div>
+        <h3>원장님은 두 가지<br>시선으로 봅니다</h3>
+        <p>원장 모드에서는 전체 센터 대시보드를, 강사 모드에서는 내 수업과 회원만 봅니다. 한 계정, 두 역할.</p>
+      </div>
+
+      <!-- Card 5: 페이롤 (mint) -->
+      <div class="bc bc-5 fade-up">
+        <div class="bc-icon">💰</div>
+        <div class="bc-tag">페이롤</div>
+        <h3>강사별 급여,<br>명세서까지 자동</h3>
+        <p>수업 건수 기반으로 자동 계산. 급여 명세서는 바로 발송됩니다.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════
+     BEFORE / AFTER 섹션
+══════════════════════ -->
+<section class="mockup-section">
+<style>
+.ba-wrap {
+  position: relative; z-index: 1;
+  max-width: 860px; margin: 0 auto; padding: 0 40px;
+}
+.ba-head {
+  text-align: center; margin-bottom: 56px;
+}
+.ba-head h2 { color: var(--white); font-size: clamp(1.9rem,3.5vw,2.8rem); }
+.ba-head p  { color: rgba(255,255,255,0.5); margin-top: 12px; font-size: 1rem; }
+
+.ba-cols {
+  display: grid;
+  grid-template-columns: 1fr 48px 1fr;
+  gap: 0;
+  align-items: stretch;
+}
+.ba-col-head {
+  text-align: center;
+  font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 12px 0 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  margin-bottom: 12px;
+}
+.ba-col-head.before { color: rgba(255,255,255,0.35); }
+.ba-col-head.after  { color: var(--accent); }
+.ba-divider-head {
+  display: flex; align-items: center; justify-content: center;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  margin-bottom: 12px;
+  color: rgba(255,255,255,0.15); font-size: 18px;
+}
+
+.ba-row {
+  display: contents;
+}
+.ba-cell {
+  padding: 16px 20px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.ba-cell.before {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  color: rgba(255,255,255,0.45);
+  display: flex; align-items: center; gap: 10px;
+}
+.ba-cell.before::before {
+  content: '✕';
+  font-size: 12px; font-weight: 700;
+  color: rgba(239,68,68,0.6);
+  flex-shrink: 0;
+}
+.ba-cell.after {
+  background: rgba(31,219,168,0.07);
+  border: 1px solid rgba(31,219,168,0.15);
+  color: rgba(255,255,255,0.85);
+  display: flex; align-items: center; gap: 10px;
+}
+.ba-cell.after::before {
+  content: '✓';
+  font-size: 13px; font-weight: 800;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+.ba-arrow {
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 10px;
+  color: rgba(255,255,255,0.15);
+  font-size: 16px;
+}
+
+.ba-cta {
+  text-align: center; margin-top: 48px;
+}
+
+@media(max-width:640px){
+  .ba-cols { grid-template-columns: 1fr; }
+  .ba-cell.after { margin-top: -6px; }
+  .ba-arrow { display: none; }
+  .ba-divider-head { display: none; }
+}
+</style>
+
+  <div class="ba-wrap">
+    <div class="ba-head fade-up">
+      <div class="label" style="background:rgba(31,219,168,0.15);color:var(--accent);border:1px solid rgba(31,219,168,0.25);display:inline-block;margin-bottom:16px">도입 전 vs 후</div>
+      <h2>센티프 도입 후,<br>이렇게 달라집니다</h2>
+      <p>같은 센터, 다른 운영. 차이는 시스템입니다.</p>
+    </div>
+
+    <div class="ba-cols fade-up">
+      <!-- 헤더 -->
+      <div class="ba-col-head before">도입 전</div>
+      <div class="ba-divider-head">→</div>
+      <div class="ba-col-head after">도입 후</div>
+
+      <!-- Row 1: 페이롤 -->
+      <div class="ba-cell before">페이롤 정산에 매달 3시간 이상 소요</div>
+      <div class="ba-arrow">→</div>
+      <div class="ba-cell after">수업 건수 기반 자동 계산, 5분으로 끝</div>
+
+      <!-- Row 2: 강사 관리 -->
+      <div class="ba-cell before">강사가 수업일지 쓰는지 알 수 없음</div>
+      <div class="ba-arrow">→</div>
+      <div class="ba-cell after">작성률 실시간 확인, 미작성 자동 알림</div>
+
+      <!-- Row 3: 이탈 -->
+      <div class="ba-cell before">회원이 나가고 나서야 이탈을 인지</div>
+      <div class="ba-arrow">→</div>
+      <div class="ba-cell after">출석 감소 신호 AI가 먼저 감지해 알림</div>
+
+      <!-- Row 4: 데이터 -->
+      <div class="ba-cell before">매출·운영 현황을 감으로 파악</div>
+      <div class="ba-arrow">→</div>
+      <div class="ba-cell after">실시간 대시보드로 데이터 기반 결정</div>
+
+      <!-- Row 5: 마케팅 -->
+      <div class="ba-cell before">블로그·마케팅 혼자 다 써야 함</div>
+      <div class="ba-arrow">→</div>
+      <div class="ba-cell after">AI가 초안 작성, 원장님은 검토만</div>
+    </div>
+
+    <div class="ba-cta fade-up">
+      <a href="consulting.html" class="btn-cta-mock">
+        지금 무료로 시작하기
+        <svg width="15" height="15" viewBox="0 0 20 20" fill="none"><path d="M7 10H13M13 10L10 7M13 10L10 13" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════
+     기능 상세 섹션
+══════════════════════ -->
+<section class="features-detail-section">
+<style>
+.features-detail-section {
+  padding: 96px 0;
+  background: var(--white);
+}
+.fd-head {
+  text-align: center;
+  margin-bottom: 80px;
+}
+.fd-head h2 { font-size: clamp(1.9rem,3.5vw,2.8rem); }
+.fd-head p  { font-size: 1.05rem; color: var(--gray-500); margin-top: 12px; }
+
+.fd-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  margin-bottom: 100px;
+}
+.fd-item:last-child { margin-bottom: 0; }
+.fd-item.reverse { direction: rtl; }
+.fd-item.reverse > * { direction: ltr; }
+
+.fd-text .fd-tag {
+  display: inline-block;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--accent-dark); background: var(--accent-light);
+  padding: 4px 12px; border-radius: 100px; margin-bottom: 18px;
+}
+.fd-text h3 {
+  font-size: clamp(1.5rem,2.5vw,2rem);
+  font-weight: 900; line-height: 1.25;
+  margin-bottom: 16px;
+}
+.fd-text p {
+  font-size: 15px; color: var(--gray-600); line-height: 1.8;
+  margin-bottom: 24px;
+}
+.fd-text .check-list { margin-bottom: 0; }
+
+/* 목업 카드 공통 */
+.fd-visual {
+  background: var(--gray-50);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 32px;
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.fd-visual-dark {
+  background: var(--black);
+  border-color: rgba(255,255,255,0.08);
+}
+
+/* 목업 UI 공통 요소 */
+.mock-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 16px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  font-size: 13.5px;
+}
+.mock-row-dark {
+  background: rgba(255,255,255,0.05);
+  border-color: rgba(255,255,255,0.08);
+}
+.mock-row-dark .mock-name { color: var(--white); }
+.mock-row-dark .mock-sub  { color: rgba(255,255,255,0.4); }
+.mock-name { font-weight: 700; font-size: 13.5px; }
+.mock-sub  { font-size: 11.5px; color: var(--gray-400); margin-top: 2px; }
+.mock-badge {
+  font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 8px;
+}
+.mock-badge.green  { background: rgba(31,219,168,0.15); color: var(--accent-dark); }
+.mock-badge.red    { background: rgba(239,68,68,0.1);   color: #DC2626; }
+.mock-badge.gray   { background: var(--gray-100);        color: var(--gray-500); }
+.mock-badge.yellow { background: rgba(251,191,36,0.15);  color: #D97706; }
+
+.mock-title {
+  font-size: 11px; font-weight: 700; color: var(--gray-400);
+  letter-spacing: 0.08em; text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.mock-title-dark { color: rgba(255,255,255,0.3); }
+
+.mock-stat-row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+}
+.mock-stat {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+}
+.mock-stat .n { font-size: 24px; font-weight: 900; color: var(--black); }
+.mock-stat .n em { color: var(--accent-dark); font-style: normal; }
+.mock-stat .l { font-size: 11px; color: var(--gray-400); margin-top: 3px; }
+
+.mock-ai-bubble {
+  background: rgba(31,219,168,0.1);
+  border: 1px solid rgba(31,219,168,0.2);
+  border-radius: 14px;
+  padding: 14px 16px;
+  font-size: 13px; color: var(--black); line-height: 1.6;
+}
+.mock-ai-label {
+  font-size: 10.5px; font-weight: 700; color: var(--accent-dark);
+  letter-spacing: 0.06em; text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+@media(max-width:860px){
+  .fd-item { grid-template-columns:1fr; gap:40px; }
+  .fd-item.reverse { direction:ltr; }
+}
+</style>
+
+  <div class="container">
+    <div class="fd-head fade-up">
+      <div class="label">주요 기능</div>
+      <h2>원장님이 가장 원하던<br>기능들만 담았습니다</h2>
+    </div>
+
+    <!-- 1. 강사 회원관리 감독 -->
+    <div class="fd-item fade-up">
+      <div class="fd-text">
+        <div class="fd-tag">감독 & 관리</div>
+        <h3>강사가 제대로 하고 있는지,<br>이제 보입니다</h3>
+        <p>강사별 수업일지 작성률, 회원 접촉 현황, 미작성 알림까지. 원장님이 직접 뛰지 않아도 센터가 돌아갑니다.</p>
+        <ul class="check-list">
+          <li>강사별 수업일지 작성률 실시간 확인</li>
+          <li>미작성 강사 자동 알림</li>
+          <li>회원별 담당 강사 접촉 이력</li>
+        </ul>
+      </div>
+      <div class="fd-visual">
+        <div class="mock-title">강사별 수업일지 현황</div>
+        <div class="mock-row">
+          <div><div class="mock-name">박준형 트레이너</div><div class="mock-sub">이번 달 수업 24건</div></div>
+          <div class="mock-badge green">작성률 100%</div>
+        </div>
+        <div class="mock-row">
+          <div><div class="mock-name">김민지 트레이너</div><div class="mock-sub">이번 달 수업 18건</div></div>
+          <div class="mock-badge yellow">작성률 72%</div>
+        </div>
+        <div class="mock-row">
+          <div><div class="mock-name">이서연 트레이너</div><div class="mock-sub">이번 달 수업 21건</div></div>
+          <div class="mock-badge red">작성률 38%</div>
+        </div>
+        <div style="margin-top:8px;padding:12px 16px;background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.15);border-radius:12px;font-size:13px;color:#DC2626;font-weight:600">
+          ⚠️ 이서연 트레이너 미작성 수업 13건 — 알림 발송됨
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. 페이롤 자동 정산 -->
+    <div class="fd-item reverse fade-up">
+      <div class="fd-text">
+        <div class="fd-tag">페이롤</div>
+        <h3>매달 반복되는 정산,<br>이제 5분이면 끝납니다</h3>
+        <p>수업 건수 기반으로 급여가 자동 계산됩니다. 강사별 명세서는 버튼 하나로 즉시 발송.</p>
+        <ul class="check-list">
+          <li>수업 건수 기반 급여 자동 계산</li>
+          <li>강사별 급여 명세서 즉시 발송</li>
+          <li>월별 인건비 추이 리포트</li>
+        </ul>
+      </div>
+      <div class="fd-visual fd-visual-dark">
+        <div class="mock-title mock-title-dark">11월 페이롤 정산</div>
+        <div class="mock-row mock-row-dark">
+          <div><div class="mock-name">박준형 트레이너</div><div class="mock-sub">24건 × ₩35,000</div></div>
+          <div style="font-weight:800;font-size:15px;color:var(--accent)">₩840,000</div>
+        </div>
+        <div class="mock-row mock-row-dark">
+          <div><div class="mock-name">김민지 트레이너</div><div class="mock-sub">18건 × ₩35,000</div></div>
+          <div style="font-weight:800;font-size:15px;color:var(--accent)">₩630,000</div>
+        </div>
+        <div class="mock-row mock-row-dark">
+          <div><div class="mock-name">이서연 트레이너</div><div class="mock-sub">21건 × ₩35,000</div></div>
+          <div style="font-weight:800;font-size:15px;color:var(--accent)">₩735,000</div>
+        </div>
+        <div style="margin-top:8px;padding:14px 16px;background:rgba(31,219,168,0.1);border:1px solid rgba(31,219,168,0.2);border-radius:12px;display:flex;justify-content:space-between;align-items:center">
+          <span style="font-size:13px;font-weight:700;color:rgba(255,255,255,0.8)">이번 달 총 인건비</span>
+          <span style="font-size:20px;font-weight:900;color:var(--accent)">₩2,205,000</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. 이탈 예측 알림 -->
+    <div class="fd-item fade-up">
+      <div class="fd-text">
+        <div class="fd-tag">이탈 방지</div>
+        <h3>떠나기 전에<br>먼저 알려드립니다</h3>
+        <p>출석이 줄어든 회원, 재등록을 미루는 회원을 AI가 먼저 감지합니다. 타이밍을 놓치지 마세요.</p>
+        <ul class="check-list">
+          <li>출석 감소 회원 자동 감지 & 알림</li>
+          <li>재등록 임박 회원 우선순위 표시</li>
+          <li>이탈 위험도 점수 제공</li>
+        </ul>
+      </div>
+      <div class="fd-visual">
+        <div class="mock-title">이탈 위험 회원</div>
+        <div class="mock-row">
+          <div><div class="mock-name">최유진 회원</div><div class="mock-sub">최근 2주 출석 0회 · 만료 D-7</div></div>
+          <div class="mock-badge red">위험</div>
+        </div>
+        <div class="mock-row">
+          <div><div class="mock-name">강도현 회원</div><div class="mock-sub">출석률 40% 감소 · 만료 D-14</div></div>
+          <div class="mock-badge yellow">주의</div>
+        </div>
+        <div class="mock-row">
+          <div><div class="mock-name">윤서영 회원</div><div class="mock-sub">3회 연속 노쇼 · 재등록 미신청</div></div>
+          <div class="mock-badge yellow">주의</div>
+        </div>
+        <div style="margin-top:8px;padding:12px 16px;background:var(--accent-light);border:1px solid rgba(21,184,142,0.2);border-radius:12px;font-size:13px;color:var(--accent-dark);font-weight:600">
+          💬 최유진 회원에게 재등록 메시지 보내기 →
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. AI 운영 비서 -->
+    <div class="fd-item reverse fade-up">
+      <div class="fd-text">
+        <div class="fd-tag">AI 비서</div>
+        <h3>블로그, 운영 점검, 전략 수립<br>혼자 다 안 해도 됩니다</h3>
+        <p>AI가 먼저 초안을 쓰고, 원장님은 검토만 합니다. 마케팅과 운영에 쓰던 시간을 돌려받으세요.</p>
+        <ul class="check-list">
+          <li>센터 블로그 콘텐츠 AI 자동 작성</li>
+          <li>월간 운영 현황 자동 점검 리포트</li>
+          <li>다음 달 운영 전략 초안 제안</li>
+        </ul>
+      </div>
+      <div class="fd-visual fd-visual-dark">
+        <div class="mock-title mock-title-dark">AI 비서</div>
+        <div class="mock-ai-bubble">
+          <div class="mock-ai-label">✨ 11월 운영 점검 리포트</div>
+          이번 달 재등록률은 지난달 대비 8% 상승했습니다. 출석률이 높은 회원군에서 재등록 전환율이 특히 높았으며, 박준형 트레이너 담당 회원의 만족도가 가장 높게 나타났습니다.
+        </div>
+        <div class="mock-ai-bubble" style="margin-top:4px">
+          <div class="mock-ai-label">✨ 12월 운영 전략 제안</div>
+          겨울 비수기 대비 단기 집중 프로그램 출시를 권장합니다. 체험 PT 이벤트로 신규 유입을 늘리고...
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══════════════════════
+     고객 사례 (cases.html 통합)
+══════════════════════ -->
+<section class="section" id="cases">
+  <div class="container">
+    <div class="section-head fade-up">
+      <div class="label">고객 사례</div>
+      <h2>실제 센터의 변화,<br>데이터로 증명됩니다</h2>
+    </div>
+
+    <!-- 특집 사례 -->
+    <div class="featured-case fade-up">
+      <div>
+        <div class="label" style="margin-bottom:16px">특집 사례</div>
+        <p class="featured-case-quote">"센티프 도입 3개월 만에 재등록률이 12% 올랐어요. 회원별 데이터를 보면서 맞춤 상담을 할 수 있게 된 게 결정적이었습니다. 이제는 데이터 없이는 운영을 못 하겠더라고요."</p>
+        <div class="featured-case-author">
+          <div class="featured-case-avatar"></div>
+          <div>
+            <div style="font-size:15px;font-weight:700">이수연 원장</div>
+            <div style="font-size:13px;color:var(--gray-400);margin-top:2px">BODY LAB · 부산 해운대 · PT 전문 센터</div>
+          </div>
+        </div>
+      </div>
+      <div class="featured-case-stats">
+        <div class="fc-stat"><div class="num">+12%</div><div class="label">재등록률 상승</div></div>
+        <div class="fc-stat"><div class="num">-65%</div><div class="label">일지 작성 시간 감소</div></div>
+        <div class="fc-stat"><div class="num">+28%</div><div class="label">월 매출 증가</div></div>
+        <div class="fc-stat"><div class="num">95%</div><div class="label">트레이너 만족도</div></div>
+      </div>
+    </div>
+
+    <!-- 필터 탭 -->
+    <div class="filter-tabs fade-up">
+      <button class="filter-tab active">전체</button>
+      <button class="filter-tab">PT 센터</button>
+      <button class="filter-tab">필라테스</button>
+      <button class="filter-tab">헬스장</button>
+      <button class="filter-tab">크로스핏</button>
+    </div>
+
+    <!-- 케이스 그리드 -->
+    <div class="cases-grid">
+      <div class="case-card fade-up">
+        <div class="case-card-img"><img src="https://images.unsplash.com/photo-1581009137042-c552e485697a?w=600&auto=format&fit=crop" alt="센터"></div>
+        <div class="case-card-body">
+          <div class="case-tag">PT 센터</div>
+          <h4>수업일지 자동화로 회원 케어 시간 2배 확보</h4>
+          <p>하루 30분씩 쓰던 일지 작성을 5분으로 줄였습니다. 남은 시간을 회원 상담에 투자한 결과, 만족도가 크게 올랐습니다.</p>
+          <div class="case-stats">
+            <div class="case-stat"><div class="num">+18%</div><div class="desc">재등록률</div></div>
+            <div class="case-stat"><div class="num">-83%</div><div class="desc">일지 작성 시간</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="case-card fade-up">
+        <div class="case-card-img"><img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&auto=format&fit=crop" alt="센터"></div>
+        <div class="case-card-body">
+          <div class="case-tag">헬스장</div>
+          <h4>매출 분석으로 비수기 전략 수립 성공</h4>
+          <p>월별 매출 데이터를 분석해 비수기 프로모션 타이밍을 정확히 잡았습니다. 비수기 매출이 전년 대비 22% 성장했습니다.</p>
+          <div class="case-stats">
+            <div class="case-stat"><div class="num">+22%</div><div class="desc">비수기 매출</div></div>
+            <div class="case-stat"><div class="num">3배</div><div class="desc">ROI</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="case-card fade-up">
+        <div class="case-card-img"><img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&auto=format&fit=crop" alt="센터"></div>
+        <div class="case-card-body">
+          <div class="case-tag">PT 센터</div>
+          <h4>식단 관리 기능으로 회원 목표 달성률 향상</h4>
+          <p>운동과 식단을 함께 관리하면서 회원 목표 달성 속도가 빨라졌고, 자연스럽게 추가 세션 구매로 이어졌습니다.</p>
+          <div class="case-stats">
+            <div class="case-stat"><div class="num">+31%</div><div class="desc">회원 목표 달성률</div></div>
+            <div class="case-stat"><div class="num">+15%</div><div class="desc">추가 구매 전환</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="case-card fade-up">
+        <div class="case-card-img"><img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=600&auto=format&fit=crop" alt="센터"></div>
+        <div class="case-card-body">
+          <div class="case-tag">필라테스</div>
+          <h4>자동 재등록 알림으로 이탈 회원 선제 방어</h4>
+          <p>만료 2주 전 자동 알림이 발송되면서, 원장님이 직접 연락하지 않아도 재등록률이 유지되기 시작했습니다.</p>
+          <div class="case-stats">
+            <div class="case-stat"><div class="num">92%</div><div class="desc">재등록률 유지</div></div>
+            <div class="case-stat"><div class="num">-100%</div><div class="desc">수동 리마인더</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="case-card fade-up">
+        <div class="case-card-img"><img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&auto=format&fit=crop" alt="센터"></div>
+        <div class="case-card-body">
+          <div class="case-tag">헬스장</div>
+          <h4>트레이너 성과 관리로 팀 생산성 20% 향상</h4>
+          <p>트레이너별 성과 리포트를 공유하면서 건전한 경쟁 문화가 형성됐고, 전체 팀의 수업 건수가 꾸준히 증가했습니다.</p>
+          <div class="case-stats">
+            <div class="case-stat"><div class="num">+20%</div><div class="desc">팀 생산성</div></div>
+            <div class="case-stat"><div class="num">+35%</div><div class="desc">수업 건수</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="case-card fade-up">
+        <div class="case-card-img"><img src="https://images.unsplash.com/photo-1581009137042-c552e485697a?w=600&auto=format&fit=crop&q=80&crop=entropy" alt="센터"></div>
+        <div class="case-card-body">
+          <div class="case-tag">크로스핏</div>
+          <h4>운동 루틴 공유로 회원 커뮤니티 활성화</h4>
+          <p>회원들이 앱에서 서로의 기록을 확인하면서 자연스럽게 커뮤니티가 형성됐고, 친구 소개 신규 등록이 늘었습니다.</p>
+          <div class="case-stats">
+            <div class="case-stat"><div class="num">+40%</div><div class="desc">앱 사용률</div></div>
+            <div class="case-stat"><div class="num">+25%</div><div class="desc">지인 소개 등록</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+<!-- ══════════════════════
+     CTA BAND
+══════════════════════ -->
+<section class="cta-band">
+  <div class="container">
+    <div class="hero-pill" style="background:rgba(31,219,168,0.15);color:var(--accent);border-color:rgba(31,219,168,0.25);margin-bottom:20px">
+      <span class="hero-pill-dot"></span>현장 데이터 기반 운영
+    </div>
+    <h2>우리 센터, 얼마나 바뀔 수 있는지<br>확인해보세요</h2>
+    <p>카드 등록 없이 14일, 무료로 직접 경험하세요.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:8px">
+      <a href="consulting.html" class="btn btn-primary btn-lg">맞춤 상담 받기</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo">SSEN<span>TIF</span></div>
+      <p>피트니스 센터를 위한<br>AI 운영 워크스페이스</p>
+    </div>
+    <div class="footer-col">
+      <h5>제품</h5>
+      <ul>
+        <li><a href="product.html">주요 기능</a></li>
+        <li><a href="product.html#trainer">트레이너 기능</a></li>
+        <li><a href="product.html#manager">관리자 기능</a></li>
+        <li><a href="pricing.html">요금제</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>회사</h5>
+      <ul>
+        <li><a href="#cases" onclick="smoothScrollTo('cases',event)">고객 사례</a></li>
+        <li><a href="consulting.html">맞춤 도입</a></li>
+        <li><a href="lab.html">운영지원실</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>지원</h5>
+      <ul>
+        <li><a href="#">사용 가이드</a></li>
+        <li><a href="#">고객센터</a></li>
+        <li><a href="https://ssentif-manager.kr/" target="_blank">매니저 로그인</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 SSENTIF. All rights reserved.</p>
+    <p>사업자등록번호: 000-00-00000 · 개인정보처리방침 · 이용약관</p>
+  </div>
+</footer>
+
+
+<script>
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 20));
+
+function smoothScrollTo(id, e) {
+  if (e) e.preventDefault();
+  const el = document.getElementById(id);
+  if (!el) return;
+  window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+}
+
+// 다른 페이지에서 #cases 링크로 진입 시 자동 스크롤
+if (location.hash === '#cases') {
+  const doScroll = () => setTimeout(() => smoothScrollTo('cases'), 150);
+  if (document.readyState === 'complete') {
+    doScroll();
+  } else {
+    window.addEventListener('load', doScroll);
+  }
+}
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// Count-up animation
+const countupObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el = e.target;
+    const target = parseInt(el.dataset.target, 10);
+    const duration = 1800;
+    const start = performance.now();
+    const tick = now => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.floor(eased * target).toLocaleString('ko-KR');
+      if (progress < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+    countupObserver.unobserve(el);
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('.countup').forEach(el => countupObserver.observe(el));
+
+// 필터 탭 (시각적 토글)
+document.querySelectorAll('.filter-tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+
+// 햄버거 메뉴
+const hamburger = document.getElementById('navHamburger');
+const mobileMenu = document.getElementById('navMobileMenu');
+if (hamburger) {
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.nav') && !e.target.closest('.nav-mobile-menu')) {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+    }
+  });
+}
+</script>
+</body>
+</html>

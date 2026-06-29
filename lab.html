@@ -8,6 +8,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>운영지원실 — SSENTIF</title>
 <link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-client.js"></script>
 <style>
 .articles-grid {
   display: grid;
@@ -76,6 +78,31 @@
 }
 .newsletter-input::placeholder { color: rgba(255,255,255,0.4); }
 .newsletter-input:focus { border-color: var(--accent); }
+
+.articles-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 80px 0;
+  color: var(--gray-400);
+  font-size: 15px;
+}
+.articles-loading-spinner {
+  width: 20px; height: 20px;
+  border: 2.5px solid var(--gray-200);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.articles-empty {
+  text-align: center;
+  padding: 80px 0;
+  color: var(--gray-400);
+  font-size: 15px;
+}
 </style>
 </head>
 <body>
@@ -123,105 +150,19 @@
   <div class="container">
 
     <!-- Featured Article -->
-    <a href="#" class="featured-article fade-up" style="display:grid;text-decoration:none;color:inherit">
-      <div class="featured-article-img">
-        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&auto=format&fit=crop" alt="아티클">
-      </div>
-      <div class="featured-article-body">
-        <div class="article-tag" style="background:var(--accent-light);color:var(--accent-dark)">데이터 분석</div>
-        <h2 style="font-size:1.7rem;margin:12px 0 16px">재등록률 10%를 높인 센터들의<br>공통점은 무엇일까?</h2>
-        <p style="margin-bottom:20px">센티프를 도입한 20개 센터의 데이터를 분석해, 재등록률 상승과 직접적으로 연관된 운영 패턴 3가지를 발견했습니다.</p>
-        <div class="article-meta">
-          <span>2025년 11월 15일</span>
-          <span>·</span>
-          <span>읽는 시간 8분</span>
-        </div>
-      </div>
-    </a>
+    <div id="featuredArticle"></div>
 
     <!-- Category Filter -->
-    <div class="category-tabs fade-up">
-      <button class="cat-tab active">전체</button>
-      <button class="cat-tab">운영 전략</button>
-      <button class="cat-tab">데이터 분석</button>
-      <button class="cat-tab">트레이너 팁</button>
-      <button class="cat-tab">식단 & 영양</button>
-      <button class="cat-tab">업계 트렌드</button>
+    <div class="category-tabs fade-up" id="categoryTabs">
+      <button class="cat-tab active" data-cat="전체">전체</button>
     </div>
 
     <!-- Articles Grid -->
-    <div class="articles-grid">
-      <a href="#" class="article-card fade-up">
-        <div class="article-card-img">
-          <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&auto=format&fit=crop" alt="">
-        </div>
-        <div class="article-card-body">
-          <span class="article-tag">운영 전략</span>
-          <h4>비수기를 기회로 만드는 PT 센터 운영 전략 5가지</h4>
-          <p>여름과 겨울, 비수기에도 매출을 유지하는 센터들이 공통적으로 하는 것들.</p>
-          <div class="article-meta"><span>2025.10.28</span><span>·</span><span>6분</span></div>
-        </div>
-      </a>
-
-      <a href="#" class="article-card fade-up">
-        <div class="article-card-img">
-          <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&auto=format&fit=crop" alt="">
-        </div>
-        <div class="article-card-body">
-          <span class="article-tag">트레이너 팁</span>
-          <h4>첫 상담에서 회원을 사로잡는 PT 트레이너의 대화법</h4>
-          <p>첫 30분이 재등록률을 결정합니다. 신뢰를 쌓는 상담 스크립트 공개.</p>
-          <div class="article-meta"><span>2025.10.14</span><span>·</span><span>5분</span></div>
-        </div>
-      </a>
-
-      <a href="#" class="article-card fade-up">
-        <div class="article-card-img">
-          <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=600&auto=format&fit=crop" alt="">
-        </div>
-        <div class="article-card-body">
-          <span class="article-tag">식단 & 영양</span>
-          <h4>체중 감량 회원의 식단 관리, 트레이너가 꼭 알아야 할 것들</h4>
-          <p>칼로리 계산보다 더 중요한 지속 가능한 식단 습관 형성 방법.</p>
-          <div class="article-meta"><span>2025.09.30</span><span>·</span><span>7분</span></div>
-        </div>
-      </a>
-
-      <a href="#" class="article-card fade-up">
-        <div class="article-card-img">
-          <img src="https://images.unsplash.com/photo-1581009137042-c552e485697a?w=600&auto=format&fit=crop" alt="">
-        </div>
-        <div class="article-card-body">
-          <span class="article-tag">데이터 분석</span>
-          <h4>출석률 80% 이상 유지하는 센터의 비밀</h4>
-          <p>센티프 데이터로 분석한, 출석률과 재등록률의 상관관계 리포트.</p>
-          <div class="article-meta"><span>2025.09.15</span><span>·</span><span>9분</span></div>
-        </div>
-      </a>
-
-      <a href="#" class="article-card fade-up">
-        <div class="article-card-img">
-          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&auto=format&fit=crop&crop=right" alt="">
-        </div>
-        <div class="article-card-body">
-          <span class="article-tag">운영 전략</span>
-          <h4>PT 센터 SNS 마케팅, 실제로 효과 있는 방법만 정리했습니다</h4>
-          <p>인스타그램, 유튜브, 블로그 — 소규모 센터가 현실적으로 할 수 있는 것들.</p>
-          <div class="article-meta"><span>2025.09.02</span><span>·</span><span>10분</span></div>
-        </div>
-      </a>
-
-      <a href="#" class="article-card fade-up">
-        <div class="article-card-img">
-          <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&auto=format&fit=crop&crop=bottom" alt="">
-        </div>
-        <div class="article-card-body">
-          <span class="article-tag">업계 트렌드</span>
-          <h4>2025 피트니스 산업 트렌드: AI와 데이터가 바꾸는 센터 운영</h4>
-          <p>AI 식단 분석, 웨어러블 연동, 맞춤 루틴 자동화가 현실이 되고 있습니다.</p>
-          <div class="article-meta"><span>2025.08.20</span><span>·</span><span>12분</span></div>
-        </div>
-      </a>
+    <div id="articlesGrid">
+      <div class="articles-loading">
+        <div class="articles-loading-spinner"></div>
+        아티클을 불러오는 중입니다…
+      </div>
     </div>
 
     <!-- Newsletter -->
@@ -254,18 +195,14 @@
 </footer>
 
 <script>
+/* ── nav ── */
 const nav = document.getElementById('mainNav');
 window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 20));
-const observer = new IntersectionObserver(e => e.forEach(x => { if(x.isIntersecting){x.target.classList.add('visible');observer.unobserve(x.target);} }), {threshold:0.12});
-document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-document.querySelectorAll('.cat-tab').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.cat-tab').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-  });
-});
+const fadeObserver = new IntersectionObserver(e => e.forEach(x => {
+  if (x.isIntersecting) { x.target.classList.add('visible'); fadeObserver.unobserve(x.target); }
+}), { threshold: 0.12 });
+document.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
 
-// 햄버거 메뉴
 const hamburger = document.getElementById('navHamburger');
 const mobileMenu = document.getElementById('navMobileMenu');
 if (hamburger) {
@@ -280,6 +217,129 @@ if (hamburger) {
     }
   });
 }
+
+/* ── helpers ── */
+function formatDate(dateStr) {
+  if (!dateStr) return '';
+  const d = new Date(dateStr);
+  return `${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,'0')}.${String(d.getDate()).padStart(2,'0')}`;
+}
+
+function fallbackImg(category) {
+  const map = {
+    '데이터 분석': 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&auto=format&fit=crop',
+    '운영 전략':   'https://images.unsplash.com/photo-1581009137042-c552e485697a?w=600&auto=format&fit=crop',
+    '트레이너 팁': 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&auto=format&fit=crop',
+    '식단 & 영양': 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=600&auto=format&fit=crop',
+    '업계 트렌드': 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&auto=format&fit=crop',
+  };
+  return map[category] || 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&auto=format&fit=crop';
+}
+
+/* ── state ── */
+let allArticles = [];
+let activeCategory = '전체';
+
+/* ── render featured ── */
+function renderFeatured(article) {
+  const img = article.thumb_url || fallbackImg(article.category);
+  document.getElementById('featuredArticle').innerHTML = `
+    <a href="#" class="featured-article fade-up" style="display:grid;text-decoration:none;color:inherit">
+      <div class="featured-article-img">
+        <img src="${img}" alt="${article.title}" onerror="this.src='${fallbackImg(article.category)}'">
+      </div>
+      <div class="featured-article-body">
+        <div class="article-tag" style="background:var(--accent-light);color:var(--accent-dark)">${article.category || ''}</div>
+        <h2 style="font-size:1.7rem;margin:12px 0 16px">${article.title}</h2>
+        <p style="margin-bottom:20px">${article.summary || ''}</p>
+        <div class="article-meta">
+          <span>${formatDate(article.published_at)}</span>
+          <span>·</span>
+          <span>읽는 시간 ${article.read_time || 5}분</span>
+        </div>
+      </div>
+    </a>`;
+  document.querySelectorAll('#featuredArticle .fade-up').forEach(el => fadeObserver.observe(el));
+}
+
+/* ── render category tabs ── */
+function buildCategoryTabs(articles) {
+  const cats = ['전체', ...new Set(articles.map(a => a.category).filter(Boolean))];
+  const tabsEl = document.getElementById('categoryTabs');
+  tabsEl.innerHTML = cats.map(c =>
+    `<button class="cat-tab${c === activeCategory ? ' active' : ''}" data-cat="${c}">${c}</button>`
+  ).join('');
+  tabsEl.querySelectorAll('.cat-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      activeCategory = btn.dataset.cat;
+      tabsEl.querySelectorAll('.cat-tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderGrid();
+    });
+  });
+}
+
+/* ── render articles grid ── */
+function renderGrid() {
+  const gridEl = document.getElementById('articlesGrid');
+  const filtered = activeCategory === '전체'
+    ? allArticles
+    : allArticles.filter(a => a.category === activeCategory);
+
+  if (!filtered.length) {
+    gridEl.innerHTML = '<div class="articles-empty">해당 카테고리의 아티클이 없습니다.</div>';
+    return;
+  }
+
+  gridEl.innerHTML = `<div class="articles-grid">
+    ${filtered.map(a => {
+      const img = a.thumb_url || fallbackImg(a.category);
+      return `
+      <a href="#" class="article-card fade-up">
+        <div class="article-card-img">
+          <img src="${img}" alt="${a.title}" onerror="this.src='${fallbackImg(a.category)}'">
+        </div>
+        <div class="article-card-body">
+          <span class="article-tag">${a.category || ''}</span>
+          <h4>${a.title}</h4>
+          <p>${a.summary || ''}</p>
+          <div class="article-meta">
+            <span>${formatDate(a.published_at)}</span>
+            <span>·</span>
+            <span>${a.read_time || 5}분</span>
+          </div>
+        </div>
+      </a>`;
+    }).join('')}
+  </div>`;
+
+  gridEl.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
+}
+
+/* ── fetch from Supabase ── */
+async function loadArticles() {
+  const { data, error } = await db
+    .from('articles')
+    .select('id, title, category, summary, thumb_url, read_time, published_at, featured')
+    .eq('status', 'published')
+    .order('published_at', { ascending: false });
+
+  if (error || !data || data.length === 0) {
+    document.getElementById('featuredArticle').innerHTML = '';
+    document.getElementById('articlesGrid').innerHTML =
+      '<div class="articles-empty">아직 게시된 아티클이 없습니다.</div>';
+    return;
+  }
+
+  const featured = data.find(a => a.featured) || data[0];
+  allArticles = data.filter(a => a.id !== featured.id);
+
+  renderFeatured(featured);
+  buildCategoryTabs(allArticles);
+  renderGrid();
+}
+
+loadArticles();
 </script>
 </body>
 </html>

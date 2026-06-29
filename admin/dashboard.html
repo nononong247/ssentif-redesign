@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SSENTIF Admin — 대시보드</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; }
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: #F3F5F8;
+  color: #111318;
+  min-height: 100vh;
+  display: flex;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Sidebar ── */
+.sidebar {
+  width: 216px; flex-shrink: 0;
+  background: #111318;
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  position: fixed; top: 0; left: 0; bottom: 0;
+  z-index: 100;
+}
+.sidebar-logo {
+  padding: 16px 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  display: flex; align-items: center; gap: 9px;
+}
+.logo-mark {
+  width: 26px; height: 26px; flex-shrink: 0;
+  background: #1FDBA8; border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 900; color: #0D0F12;
+}
+.logo-text { font-size: 13px; font-weight: 800; color: #fff; letter-spacing: -0.02em; line-height: 1.2; }
+.logo-text em { color: #1FDBA8; font-style: normal; }
+.logo-sub { font-size: 9px; font-weight: 700; letter-spacing: 0.1em; color: rgba(31,219,168,0.5); text-transform: uppercase; }
+
+.sidebar-body { flex: 1; padding: 10px; display: flex; flex-direction: column; overflow-y: auto; }
+.nav-group { padding-top: 14px; }
+.nav-group:first-child { padding-top: 2px; }
+.nav-label {
+  font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(255,255,255,0.18); padding: 0 8px; margin-bottom: 3px;
+}
+.nav-item {
+  display: flex; align-items: center; gap: 8px;
+  padding: 7px 8px; border-radius: 6px;
+  font-size: 12.5px; font-weight: 500;
+  color: rgba(255,255,255,0.4);
+  cursor: pointer; transition: background 0.1s, color 0.1s;
+  text-decoration: none; user-select: none; margin-bottom: 1px;
+}
+.nav-item svg { flex-shrink: 0; transition: opacity 0.1s; }
+.nav-item:hover { background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.75); }
+.nav-item.active { background: rgba(31,219,168,0.1); color: #1FDBA8; font-weight: 600; }
+.nav-badge {
+  margin-left: auto; background: #1FDBA8; color: #0D0F12;
+  font-size: 9.5px; font-weight: 800; padding: 1px 6px; border-radius: 100px;
+}
+
+.sidebar-footer {
+  padding: 8px 10px 10px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.user-row {
+  display: flex; align-items: center; gap: 8px;
+  padding: 7px 8px; border-radius: 6px;
+  cursor: pointer; transition: background 0.1s;
+}
+.user-row:hover { background: rgba(255,255,255,0.05); }
+.user-avatar {
+  width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0;
+  background: linear-gradient(135deg, #1FDBA8, #0CB589);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 800; color: #0D0F12;
+}
+.user-name { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.65); }
+.user-email { font-size: 10px; color: rgba(255,255,255,0.28); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 110px; }
+.logout-btn {
+  margin-left: auto; color: rgba(255,255,255,0.2); cursor: pointer;
+  padding: 4px; transition: color 0.1s; display: flex;
+}
+.logout-btn:hover { color: rgba(255,255,255,0.55); }
+
+/* ── Main ── */
+.main { margin-left: 216px; flex: 1; min-height: 100vh; display: flex; flex-direction: column; }
+
+.topbar {
+  background: #fff; border-bottom: 1px solid #E5E8EC;
+  padding: 0 28px; height: 52px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 50;
+}
+.topbar-title { font-size: 13.5px; font-weight: 700; color: #111318; letter-spacing: -0.01em; }
+.topbar-right { display: flex; align-items: center; gap: 8px; }
+.topbar-date { font-size: 12px; color: #9CA3AF; font-variant-numeric: tabular-nums; }
+.topbar-icon-btn {
+  width: 30px; height: 30px; border-radius: 6px;
+  background: #F3F5F8; border: 1px solid #E5E8EC;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; position: relative; color: #6B7280; transition: all 0.1s;
+}
+.topbar-icon-btn:hover { background: #E8EBF0; }
+.notify-dot {
+  position: absolute; top: 5px; right: 5px;
+  width: 5.5px; height: 5.5px; border-radius: 50%;
+  background: #1FDBA8; border: 1.5px solid #fff;
+}
+
+.content { padding: 22px 28px; flex: 1; }
+
+/* ── Stat Cards ── */
+.stat-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
+  margin-bottom: 18px;
+}
+.stat-card {
+  background: #fff; border: 1px solid #E5E8EC; border-radius: 10px;
+  padding: 14px 16px; transition: box-shadow 0.15s;
+}
+.stat-card:hover { box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+.stat-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.stat-label { font-size: 11.5px; font-weight: 600; color: #9CA3AF; }
+.stat-icon {
+  width: 26px; height: 26px; border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+}
+.stat-icon.green { background: rgba(31,219,168,0.1); color: #0FB68A; }
+.stat-icon.blue  { background: rgba(66,153,225,0.1); color: #3B82F6; }
+.stat-icon.amber { background: rgba(245,158,11,0.1); color: #D97706; }
+.stat-icon.slate { background: #F3F5F8; color: #6B7280; }
+.stat-num { font-size: 24px; font-weight: 900; color: #111318; letter-spacing: -0.03em; line-height: 1; }
+.stat-change { font-size: 11px; font-weight: 600; margin-top: 5px; }
+.stat-change.up { color: #0FB68A; }
+.stat-change.flat { color: #9CA3AF; }
+
+/* ── Cards ── */
+.section-card {
+  background: #fff; border: 1px solid #E5E8EC; border-radius: 10px;
+  overflow: hidden; margin-bottom: 14px;
+}
+.card-header {
+  padding: 13px 18px 12px; border-bottom: 1px solid #F0F2F5;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.card-header h3 { font-size: 13px; font-weight: 700; color: #111318; }
+.card-link { font-size: 12px; font-weight: 600; color: #1FDBA8; text-decoration: none; }
+.card-link:hover { text-decoration: underline; }
+
+/* ── Table ── */
+table { width: 100%; border-collapse: collapse; }
+thead th {
+  padding: 9px 14px;
+  font-size: 10.5px; font-weight: 700; color: #9CA3AF;
+  text-align: left; letter-spacing: 0.06em; text-transform: uppercase;
+  background: #FAFBFC; border-bottom: 1px solid #E5E8EC;
+}
+tbody tr { border-bottom: 1px solid #F0F2F5; transition: background 0.1s; }
+tbody tr:last-child { border-bottom: none; }
+tbody tr:hover { background: #FAFFFE; }
+tbody td { padding: 10px 14px; font-size: 13px; color: #374151; vertical-align: middle; }
+.td-name { font-weight: 600; color: #111318; font-size: 13px; }
+.td-sub  { font-size: 11px; color: #9CA3AF; margin-top: 1px; }
+
+.badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 2px 7px; border-radius: 100px;
+  font-size: 10.5px; font-weight: 700;
+}
+.badge::before { content: ''; width: 4px; height: 4px; border-radius: 50%; }
+.badge.new     { background: rgba(31,219,168,0.1); color: #0A9E75; }
+.badge.new::before { background: #1FDBA8; }
+.badge.review  { background: rgba(245,158,11,0.1); color: #B45309; }
+.badge.review::before { background: #F59E0B; }
+.badge.done    { background: rgba(59,130,246,0.1); color: #1D4ED8; }
+.badge.done::before { background: #3B82F6; }
+.badge.hold    { background: #F3F5F8; color: #6B7280; }
+.badge.hold::before { background: #9CA3AF; }
+
+.plan-tag {
+  display: inline-block; font-size: 10px; font-weight: 700;
+  padding: 2px 7px; border-radius: 4px; letter-spacing: 0.02em;
+  background: #F3F5F8; color: #6B7280;
+}
+.plan-tag.pro { background: #111318; color: #1FDBA8; }
+.plan-tag.enterprise { background: #EFF6FF; color: #1D4ED8; }
+
+.action-btn {
+  padding: 4px 9px; border-radius: 5px; font-size: 11px; font-weight: 600;
+  border: 1px solid #E5E8EC; background: #fff; color: #6B7280;
+  cursor: pointer; font-family: inherit; transition: all 0.1s;
+}
+.action-btn:hover { border-color: #1FDBA8; color: #0FB68A; background: rgba(31,219,168,0.04); }
+
+/* ── Chart ── */
+.chart-area { padding: 14px 18px 18px; }
+.chart-bars { display: flex; align-items: flex-end; gap: 6px; height: 72px; margin-bottom: 6px; }
+.chart-col { display: flex; flex-direction: column; align-items: center; gap: 4px; flex: 1; }
+.chart-bar {
+  width: 100%; border-radius: 3px 3px 0 0;
+  background: #E8EBF0; min-height: 3px; cursor: pointer;
+  transition: background 0.15s;
+}
+.chart-bar:hover { background: #B2E8D6; }
+.chart-bar.accent { background: #1FDBA8; }
+.chart-lbl { font-size: 10px; color: #9CA3AF; font-weight: 500; }
+.chart-foot {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 10px; border-top: 1px solid #F0F2F5; margin-top: 8px;
+  font-size: 11.5px; color: #9CA3AF;
+}
+.chart-legend-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #1FDBA8; margin-right: 5px; }
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">S</div>
+    <div>
+      <div class="logo-text">SSEN<em>TIF</em></div>
+      <div class="logo-sub">Admin</div>
+    </div>
+  </div>
+
+  <div class="sidebar-body">
+    <div class="nav-group">
+      <div class="nav-label">메뉴</div>
+      <a href="dashboard.html" class="nav-item active">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="7.5" width="3" height="5.5" rx="1" fill="currentColor" opacity=".55"/><rect x="5.5" y="4.5" width="3" height="8.5" rx="1" fill="currentColor"/><rect x="10" y="1" width="3" height="12" rx="1" fill="currentColor" opacity=".75"/></svg>
+        대시보드
+      </a>
+      <a href="inquiries.html" class="nav-item">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1.5 9.5V3a1 1 0 0 1 1-1h9a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H4L2 12" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 5.5h6M4 7.5h3.5" stroke="currentColor" stroke-width="1.35" stroke-linecap="round"/></svg>
+        문의 내역
+        <span class="nav-badge">3</span>
+      </a>
+      <a href="lab.html" class="nav-item">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2.5 11.5 5 5 11.5H2.5V9L9 2.5z" stroke="currentColor" stroke-width="1.35" stroke-linejoin="round"/><path d="M7.5 4 10 6.5" stroke="currentColor" stroke-width="1.35" stroke-linecap="round"/></svg>
+        운영지원실
+      </a>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-label">설정</div>
+      <a href="settings.html" class="nav-item">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="1.8" stroke="currentColor" stroke-width="1.3"/><path d="M7 1.5v1.2M7 11.3v1.2M1.5 7h1.2M11.3 7h1.2M3.1 3.1l.85.85M10.05 10.05l.85.85M3.1 10.9l.85-.85M10.05 3.95l.85-.85" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+        알림 설정
+      </a>
+      <a href="../index.html" class="nav-item" target="_blank">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M6 2.5H3a1 1 0 0 0-1 1v7.5a1 1 0 0 0 1 1h7.5a1 1 0 0 0 1-1V8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M8.5 2H12v3.5M12 2 6.5 7.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        홈페이지 보기
+      </a>
+    </div>
+  </div>
+
+  <div class="sidebar-footer">
+    <div class="user-row">
+      <div class="user-avatar">A</div>
+      <div style="min-width:0;flex:1">
+        <div class="user-name">관리자</div>
+        <div class="user-email">admin@ssentif.com</div>
+      </div>
+      <div class="logout-btn" title="로그아웃" onclick="window.location.href='login.html'">
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M5 2.5H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2M8.5 9.5l3-3-3-3M11.5 6.5H5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<div class="main">
+  <div class="topbar">
+    <span class="topbar-title">대시보드</span>
+    <div class="topbar-right">
+      <span class="topbar-date" id="todayDate"></span>
+      <div class="topbar-icon-btn">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1.5C4.8 1.5 3 3.3 3 5.5c0 3-1.5 4.5-1.5 4.5h11S11 8.5 11 5.5c0-2.2-1.8-4-4-4z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M5.5 11a1.5 1.5 0 0 0 3 0" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+        <span class="notify-dot"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-top">
+          <span class="stat-label">전체 문의</span>
+          <div class="stat-icon green">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M1.5 9V3a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v4.5a1 1 0 0 1-1 1H4L2 11" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </div>
+        <div class="stat-num" id="stat-total">—</div>
+        <div class="stat-change flat" id="stat-total-sub">불러오는 중</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-top">
+          <span class="stat-label">신규</span>
+          <div class="stat-icon blue">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="4.5" stroke="currentColor" stroke-width="1.3"/><path d="M6.5 4.5v4M4.5 6.5h4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          </div>
+        </div>
+        <div class="stat-num" id="stat-new">—</div>
+        <div class="stat-change flat" id="stat-new-sub">미응대 문의</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-top">
+          <span class="stat-label">검토중</span>
+          <div class="stat-icon amber">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="4.5" stroke="currentColor" stroke-width="1.3"/><path d="M6.5 4v2.5 0l1.5 1.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </div>
+        <div class="stat-num" id="stat-review">—</div>
+        <div class="stat-change flat" id="stat-review-sub">응대 중인 문의</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-top">
+          <span class="stat-label">상담 완료</span>
+          <div class="stat-icon slate">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="4.5" stroke="currentColor" stroke-width="1.3"/><path d="M4.5 6.5l1.5 1.5 2.5-2.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </div>
+        <div class="stat-num" id="stat-done">—</div>
+        <div class="stat-change flat" id="stat-done-sub">완료된 문의</div>
+      </div>
+    </div>
+
+    <div class="section-card">
+      <div class="card-header">
+        <div style="display:flex;align-items:center;gap:8px">
+          <h3>신규 문의</h3>
+          <span id="newCount" style="display:none;background:rgba(31,219,168,0.1);color:#0A9E75;font-size:10.5px;font-weight:700;padding:1px 7px;border-radius:100px"></span>
+        </div>
+        <a href="inquiries.html?filter=new" class="card-link">전체 보기 →</a>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>신청자</th>
+            <th>센터명</th>
+            <th>플랜</th>
+            <th>접수일</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="newInquiriesBody">
+          <tr id="loadingRow">
+            <td colspan="5" style="text-align:center;padding:32px;color:#9CA3AF;font-size:12.5px">불러오는 중...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-card">
+      <div class="card-header">
+        <h3>월별 문의 추이</h3>
+        <span style="font-size:11.5px;color:#9CA3AF">최근 6개월</span>
+      </div>
+      <div class="chart-area">
+        <div class="chart-bars" id="chartBars">
+          <div class="chart-col"><div class="chart-bar" style="height:0%"></div><span class="chart-lbl">—</span></div>
+          <div class="chart-col"><div class="chart-bar" style="height:0%"></div><span class="chart-lbl">—</span></div>
+          <div class="chart-col"><div class="chart-bar" style="height:0%"></div><span class="chart-lbl">—</span></div>
+          <div class="chart-col"><div class="chart-bar" style="height:0%"></div><span class="chart-lbl">—</span></div>
+          <div class="chart-col"><div class="chart-bar" style="height:0%"></div><span class="chart-lbl">—</span></div>
+          <div class="chart-col"><div class="chart-bar accent" style="height:0%"></div><span class="chart-lbl">—</span></div>
+        </div>
+        <div class="chart-foot">
+          <span><span class="chart-legend-dot"></span>문의 건수</span>
+          <span id="chartFootText">불러오는 중...</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../supabase-client.js"></script>
+<script>
+const d = new Date();
+document.getElementById('todayDate').textContent =
+  `${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,'0')}.${String(d.getDate()).padStart(2,'0')}`;
+
+(async () => {
+  const { data: { session } } = await db.auth.getSession();
+  if (!session) { window.location.replace('login.html'); return; }
+  await loadDashboard();
+})();
+
+function planClass(p) {
+  if (p === 'Pro') return 'pro';
+  if (p === 'Enterprise') return 'enterprise';
+  return '';
+}
+
+async function loadDashboard() {
+  const { data, error } = await db
+    .from('inquiries')
+    .select('id, name, role, center_name, plan, status, submitted_at')
+    .order('submitted_at', { ascending: false });
+
+  if (error) {
+    document.getElementById('newInquiriesBody').innerHTML =
+      `<tr><td colspan="5" style="text-align:center;padding:32px;color:#9CA3AF;font-size:12.5px">데이터를 불러오지 못했습니다.</td></tr>`;
+    return;
+  }
+
+  const all = data || [];
+
+  // ── 스탯 카드 ──
+  const total   = all.length;
+  const newCnt  = all.filter(r => r.status === 'new').length;
+  const revCnt  = all.filter(r => r.status === 'review').length;
+  const doneCnt = all.filter(r => r.status === 'done').length;
+
+  document.getElementById('stat-total').textContent  = total;
+  document.getElementById('stat-new').textContent    = newCnt;
+  document.getElementById('stat-review').textContent = revCnt;
+  document.getElementById('stat-done').textContent   = doneCnt;
+
+  // 이번 달 신규 수
+  const thisMonth = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
+  const thisMonthTotal = all.filter(r => r.submitted_at?.startsWith(thisMonth)).length;
+  document.getElementById('stat-total-sub').textContent  = `이번 달 ${thisMonthTotal}건 접수`;
+  document.getElementById('stat-total-sub').className    = 'stat-change ' + (thisMonthTotal > 0 ? 'up' : 'flat');
+  document.getElementById('stat-new-sub').textContent    = `미응대 문의`;
+  document.getElementById('stat-review-sub').textContent = `응대 중인 문의`;
+  document.getElementById('stat-done-sub').textContent   = `완료된 문의`;
+
+  // 사이드바 뱃지
+  const navBadge = document.querySelector('.nav-badge');
+  if (navBadge) navBadge.textContent = newCnt;
+
+  // ── 신규 문의 테이블 ──
+  const newItems = all.filter(r => r.status === 'new');
+  const countEl  = document.getElementById('newCount');
+  if (newItems.length > 0) {
+    countEl.textContent    = `${newItems.length}건`;
+    countEl.style.display  = 'inline';
+  }
+
+  const tbody = document.getElementById('newInquiriesBody');
+  if (newItems.length === 0) {
+    tbody.innerHTML = `
+      <tr><td colspan="5" style="text-align:center;padding:36px;color:#9CA3AF;font-size:12.5px">
+        미응대 문의가 없습니다 ✓
+      </td></tr>`;
+  } else {
+    tbody.innerHTML = newItems.map(r => {
+      const date = r.submitted_at ? r.submitted_at.slice(0,10).replace(/-/g,'.') : '—';
+      return `
+        <tr style="cursor:pointer" onclick="location.href='inquiries.html'">
+          <td><div class="td-name">${r.name}</div><div class="td-sub">${r.role}</div></td>
+          <td>${r.center_name || '—'}</td>
+          <td><span class="plan-tag ${planClass(r.plan)}">${r.plan || '—'}</span></td>
+          <td style="color:#9CA3AF;font-size:11.5px;font-variant-numeric:tabular-nums">${date}</td>
+          <td><button class="action-btn" onclick="event.stopPropagation();location.href='inquiries.html'">상세</button></td>
+        </tr>`;
+    }).join('');
+  }
+
+  // ── 월별 차트 ──
+  // 최근 6개월 슬롯 생성
+  const months = [];
+  for (let i = 5; i >= 0; i--) {
+    const dt  = new Date(d.getFullYear(), d.getMonth() - i, 1);
+    const key = `${dt.getFullYear()}-${String(dt.getMonth()+1).padStart(2,'0')}`;
+    months.push({ key, label: `${dt.getMonth()+1}월`, count: 0 });
+  }
+
+  // 월별 건수 집계
+  all.forEach(r => {
+    if (!r.submitted_at) return;
+    const m = r.submitted_at.slice(0, 7);
+    const slot = months.find(s => s.key === m);
+    if (slot) slot.count++;
+  });
+
+  const maxCount = Math.max(...months.map(m => m.count), 1);
+  const lastMonth = months[months.length - 1];
+
+  // 차트 바 업데이트
+  const chartBars = document.getElementById('chartBars');
+  chartBars.innerHTML = months.map((m, i) => {
+    const heightPct = Math.max(Math.round((m.count / maxCount) * 90), m.count > 0 ? 4 : 0);
+    const isLast    = i === months.length - 1;
+    return `
+      <div class="chart-col">
+        <div class="chart-bar ${isLast ? 'accent' : ''}" style="height:${heightPct}%" title="${m.label} ${m.count}건"></div>
+        <span class="chart-lbl">${m.label}</span>
+      </div>`;
+  }).join('');
+
+  document.getElementById('chartFootText').innerHTML =
+    `${lastMonth.label} 현재 <strong style="color:#111318">${lastMonth.count}건</strong>`;
+}
+</script>
+</body>
+</html>

@@ -66,6 +66,109 @@
   margin-top: 8px;
 }
 .form-submit:hover { background: var(--gray-800); transform: translateY(-1px); }
+.form-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+.form-input.error, .form-select.error { border-color: #E53E3E; box-shadow: 0 0 0 3px rgba(229,62,62,0.1); }
+.form-error-msg { font-size: 12px; color: #E53E3E; margin-top: 5px; display: none; }
+.form-error-msg.show { display: block; }
+
+.form-success {
+  display: none;
+  flex-direction: column;
+  padding: 32px 0 8px;
+  gap: 0;
+}
+.form-success.show { display: flex; }
+
+.success-top {
+  text-align: center;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 28px;
+}
+.success-icon {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: var(--accent-light);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px; margin: 0 auto 16px;
+}
+.success-top h4 {
+  font-size: 1.2rem; font-weight: 800; color: var(--black);
+  margin-bottom: 8px; line-height: 1.4;
+}
+.success-top p { font-size: 14px; color: var(--gray-500); line-height: 1.75; margin: 0; }
+
+.success-summary {
+  background: var(--gray-50);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin-bottom: 28px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.summary-row {
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 13.5px;
+}
+.summary-row .label { color: var(--gray-400); font-weight: 500; }
+.summary-row .value { color: var(--gray-700); font-weight: 600; }
+.summary-row .value.plan {
+  background: var(--black); color: var(--accent);
+  font-size: 11.5px; padding: 2px 10px; border-radius: 6px;
+}
+
+.success-steps {
+  display: flex; flex-direction: column; gap: 0;
+  margin-bottom: 28px;
+}
+.success-step {
+  display: flex; gap: 14px; align-items: flex-start;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+}
+.success-step:last-child { border-bottom: none; }
+.step-num {
+  width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+  background: var(--accent-light);
+  color: var(--accent-dark);
+  font-size: 12px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  margin-top: 1px;
+}
+.step-body .step-title { font-size: 13.5px; font-weight: 700; color: var(--black); margin-bottom: 2px; }
+.step-body .step-desc  { font-size: 12.5px; color: var(--gray-500); line-height: 1.6; }
+
+.success-actions {
+  display: flex; gap: 10px;
+}
+.success-actions a {
+  flex: 1; padding: 12px;
+  border-radius: 10px;
+  font-size: 13.5px; font-weight: 700;
+  text-align: center; cursor: pointer;
+  transition: all 0.15s;
+  text-decoration: none;
+}
+.success-actions .btn-primary {
+  background: var(--black); color: var(--white); border: none;
+}
+.success-actions .btn-primary:hover { background: var(--gray-800); }
+.success-actions .btn-secondary {
+  background: var(--white); color: var(--gray-700);
+  border: 1.5px solid var(--border);
+}
+.success-actions .btn-secondary:hover { border-color: var(--gray-400); }
+
+.success-refill {
+  text-align: center; margin-top: 16px;
+  font-size: 12.5px; color: var(--gray-400);
+}
+.success-refill button {
+  background: none; border: none; color: var(--accent-dark);
+  font-size: 12.5px; font-weight: 600; cursor: pointer;
+  font-family: inherit; padding: 0;
+}
+.success-refill button:hover { text-decoration: underline; }
 
 .info-badge {
   display: flex; align-items: center; gap: 10px;
@@ -514,7 +617,7 @@
       </div>
 
       <!-- Right: Form -->
-      <div class="form-card fade-up">
+      <div class="form-card fade-up" id="consultFormCard">
         <h3>맞춤 상담 신청</h3>
         <p class="sub">영업일 1~2일 내로 담당자가 연락드립니다.</p>
 
@@ -522,63 +625,130 @@
           📅 평일 오전 10시 ~ 오후 6시 운영
         </div>
 
-        <form>
+        <form id="consultForm" novalidate>
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label">성함 *</label>
-              <input class="form-input" type="text" placeholder="홍길동">
+              <label class="form-label" for="f-name">성함 *</label>
+              <input class="form-input" id="f-name" name="name" type="text" placeholder="홍길동" autocomplete="name">
+              <p class="form-error-msg" id="err-name">성함을 입력해주세요.</p>
             </div>
             <div class="form-group">
-              <label class="form-label">직함</label>
-              <input class="form-input" type="text" placeholder="원장 / 트레이너">
+              <label class="form-label" for="f-role">직함</label>
+              <input class="form-input" id="f-role" name="role" type="text" placeholder="ex) 대표, 관리자, 트레이너">
             </div>
           </div>
 
           <div class="form-group">
-            <label class="form-label">연락처 *</label>
-            <input class="form-input" type="tel" placeholder="010-0000-0000">
+            <label class="form-label" for="f-phone">연락처 *</label>
+            <input class="form-input" id="f-phone" name="phone" type="tel" placeholder="010-0000-0000" autocomplete="tel">
+            <p class="form-error-msg" id="err-phone">연락처를 입력해주세요.</p>
           </div>
 
           <div class="form-group">
-            <label class="form-label">이메일</label>
-            <input class="form-input" type="email" placeholder="example@email.com">
+            <label class="form-label" for="f-email">이메일</label>
+            <input class="form-input" id="f-email" name="email" type="email" placeholder="example@email.com" autocomplete="email">
+            <p class="form-error-msg" id="err-email">올바른 이메일 형식으로 입력해주세요.</p>
           </div>
 
           <div class="form-group">
-            <label class="form-label">센터명 *</label>
-            <input class="form-input" type="text" placeholder="센터 이름을 입력해주세요">
+            <label class="form-label" for="f-center">센터명 *</label>
+            <input class="form-input" id="f-center" name="center_name" type="text" placeholder="센터 이름을 입력해주세요">
+            <p class="form-error-msg" id="err-center">센터명을 입력해주세요.</p>
           </div>
 
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label">센터 규모</label>
-              <select class="form-select">
+              <label class="form-label" for="f-size">센터 규모</label>
+              <select class="form-select" id="f-size" name="center_size">
                 <option value="">선택해주세요</option>
-                <option>1인 (원장 혼자)</option>
-                <option>2~5인</option>
-                <option>6~10인</option>
-                <option>11인 이상</option>
+                <option value="1인 (원장 혼자)">1인 (원장 혼자)</option>
+                <option value="2~5인">2~5인</option>
+                <option value="6~10인">6~10인</option>
+                <option value="11인 이상">11인 이상</option>
               </select>
             </div>
             <div class="form-group">
-              <label class="form-label">관심 플랜</label>
-              <select class="form-select">
+              <label class="form-label" for="f-plan">관심 플랜</label>
+              <select class="form-select" id="f-plan" name="plan">
                 <option value="">선택해주세요</option>
-                <option>Starter</option>
-                <option>Pro</option>
-                <option>Enterprise</option>
-                <option>아직 모르겠어요</option>
+                <option value="Starter">Starter</option>
+                <option value="Pro">Pro</option>
+                <option value="Enterprise">Enterprise</option>
+                <option value="아직 모르겠어요">아직 모르겠어요</option>
               </select>
             </div>
           </div>
 
           <div class="form-group">
-            <label class="form-label">문의 내용</label>
-            <textarea class="form-textarea" placeholder="궁금한 점이나 현재 운영 방식에 대해 자유롭게 적어주세요."></textarea>
+            <label class="form-label" for="f-message">문의 내용</label>
+            <textarea class="form-textarea" id="f-message" name="message" placeholder="궁금한 점이나 현재 운영 방식에 대해 자유롭게 적어주세요."></textarea>
           </div>
 
-          <button type="submit" class="form-submit">상담 신청하기 →</button>
+          <button type="submit" class="form-submit" id="consultSubmitBtn">상담 신청하기 →</button>
         </form>
+
+        <!-- 성공 화면 -->
+        <div class="form-success" id="formSuccess">
+
+          <div class="success-top">
+            <div class="success-icon">✅</div>
+            <h4 id="successHeading">신청이 완료됐습니다!</h4>
+            <p>영업일 1~2일 내로 담당자가<br>입력하신 연락처로 직접 연락드릴게요.</p>
+          </div>
+
+          <!-- 신청 요약 -->
+          <div class="success-summary">
+            <div class="summary-row">
+              <span class="label">센터명</span>
+              <span class="value" id="s-center">—</span>
+            </div>
+            <div class="summary-row">
+              <span class="label">연락처</span>
+              <span class="value" id="s-phone">—</span>
+            </div>
+            <div class="summary-row">
+              <span class="label">관심 플랜</span>
+              <span class="value" id="s-plan">—</span>
+            </div>
+          </div>
+
+          <!-- 다음 단계 -->
+          <div class="success-steps">
+            <div class="success-step">
+              <div class="step-num">1</div>
+              <div class="step-body">
+                <div class="step-title">담당자 연락</div>
+                <div class="step-desc">영업일 1~2일 내 입력하신 연락처로 연락드려요.</div>
+              </div>
+            </div>
+            <div class="success-step">
+              <div class="step-num">2</div>
+              <div class="step-body">
+                <div class="step-title">상담 일정 조율</div>
+                <div class="step-desc">센터 상황에 맞게 화상 또는 방문 상담 일정을 잡아드려요.</div>
+              </div>
+            </div>
+            <div class="success-step">
+              <div class="step-num">3</div>
+              <div class="step-body">
+                <div class="step-title">맞춤 온보딩 시작</div>
+                <div class="step-desc">전담 매니저가 데이터 이전부터 트레이너 교육까지 함께해요.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CTA -->
+          <div class="success-actions">
+            <a href="index.html" class="btn-secondary">홈으로</a>
+            <a href="lab.html" class="btn-primary">운영지원실 둘러보기 →</a>
+          </div>
+
+          <div class="success-refill">
+            다른 내용으로 문의하시겠어요?
+            <button onclick="resetForm()">다시 작성하기</button>
+          </div>
+
+        </div>
       </div>
     </div>
   </div>
@@ -619,9 +789,100 @@
   <div class="footer-bottom"><p>© 2025 SSENTIF. All rights reserved.</p><p>개인정보처리방침 · 이용약관</p></div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-client.js"></script>
 <script>
 const nav = document.getElementById('mainNav');
 window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 20));
+
+// ── 상담 신청 폼 ──
+const consultForm = document.getElementById('consultForm');
+const submitBtn   = document.getElementById('consultSubmitBtn');
+
+function clearErrors() {
+  document.querySelectorAll('.form-input.error, .form-select.error').forEach(el => el.classList.remove('error'));
+  document.querySelectorAll('.form-error-msg.show').forEach(el => el.classList.remove('show'));
+}
+
+function showError(inputId, errId) {
+  document.getElementById(inputId).classList.add('error');
+  document.getElementById(errId).classList.add('show');
+}
+
+function validate() {
+  clearErrors();
+  let valid = true;
+
+  const name  = document.getElementById('f-name');
+  const phone = document.getElementById('f-phone');
+  const center = document.getElementById('f-center');
+  const email = document.getElementById('f-email');
+
+  if (!name.value.trim()) { showError('f-name', 'err-name'); valid = false; }
+  if (!phone.value.trim()) { showError('f-phone', 'err-phone'); valid = false; }
+  if (!center.value.trim()) { showError('f-center', 'err-center'); valid = false; }
+  if (email.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+    showError('f-email', 'err-email'); valid = false;
+  }
+
+  return valid;
+}
+
+function resetForm() {
+  consultForm.reset();
+  clearErrors();
+  document.getElementById('formSuccess').classList.remove('show');
+  consultForm.style.display = '';
+  document.querySelector('#consultFormCard h3').style.display = '';
+  document.querySelector('#consultFormCard .sub').style.display = '';
+  document.querySelector('#consultFormCard .info-badge').style.display = '';
+}
+
+consultForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  if (!validate()) return;
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = '신청 중...';
+
+  const payload = {
+    name:        document.getElementById('f-name').value.trim(),
+    role:        document.getElementById('f-role').value.trim(),
+    phone:       document.getElementById('f-phone').value.trim(),
+    email:       document.getElementById('f-email').value.trim(),
+    center_name: document.getElementById('f-center').value.trim(),
+    center_size: document.getElementById('f-size').value,
+    plan:        document.getElementById('f-plan').value,
+    message:     document.getElementById('f-message').value.trim(),
+  };
+
+  try {
+    const { error } = await db.from('inquiries').insert([payload]);
+    if (error) throw error;
+
+    // 요약 카드 채우기
+    const name = payload.name;
+    const planLabel = payload.plan || '미정';
+    document.getElementById('successHeading').textContent = `${name}님, 신청이 완료됐습니다!`;
+    document.getElementById('s-center').textContent = payload.center_name;
+    document.getElementById('s-phone').textContent = payload.phone;
+    const planEl = document.getElementById('s-plan');
+    planEl.textContent = planLabel;
+    planEl.className = 'value' + (payload.plan && payload.plan !== '아직 모르겠어요' ? ' plan' : '');
+
+    consultForm.style.display = 'none';
+    document.querySelector('#consultFormCard h3').style.display = 'none';
+    document.querySelector('#consultFormCard .sub').style.display = 'none';
+    document.querySelector('#consultFormCard .info-badge').style.display = 'none';
+    document.getElementById('formSuccess').classList.add('show');
+
+  } catch (err) {
+    console.error(err);
+    alert('신청 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+    submitBtn.disabled = false;
+    submitBtn.textContent = '상담 신청하기 →';
+  }
+});
 
 // fade-up + ob-step 공통 IntersectionObserver
 const observer = new IntersectionObserver(entries => {

@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SSENTIF Admin — 운영지원실</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; }
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: #F3F5F8; color: #111318;
+  min-height: 100vh; display: flex;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Sidebar ── */
+.sidebar {
+  width: 216px; flex-shrink: 0; background: #111318;
+  min-height: 100vh; display: flex; flex-direction: column;
+  position: fixed; top: 0; left: 0; bottom: 0; z-index: 100;
+}
+.sidebar-logo {
+  padding: 16px 14px; border-bottom: 1px solid rgba(255,255,255,0.06);
+  display: flex; align-items: center; gap: 9px;
+}
+.logo-mark {
+  width: 26px; height: 26px; flex-shrink: 0; background: #1FDBA8; border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 900; color: #0D0F12;
+}
+.logo-text { font-size: 13px; font-weight: 800; color: #fff; letter-spacing: -0.02em; line-height: 1.2; }
+.logo-text em { color: #1FDBA8; font-style: normal; }
+.logo-sub { font-size: 9px; font-weight: 700; letter-spacing: 0.1em; color: rgba(31,219,168,0.5); text-transform: uppercase; }
+
+.sidebar-body { flex: 1; padding: 10px; display: flex; flex-direction: column; overflow-y: auto; }
+.nav-group { padding-top: 14px; }
+.nav-group:first-child { padding-top: 2px; }
+.nav-label {
+  font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(255,255,255,0.18); padding: 0 8px; margin-bottom: 3px;
+}
+.nav-item {
+  display: flex; align-items: center; gap: 8px; padding: 7px 8px; border-radius: 6px;
+  font-size: 12.5px; font-weight: 500; color: rgba(255,255,255,0.4);
+  cursor: pointer; transition: background 0.1s, color 0.1s;
+  text-decoration: none; user-select: none; margin-bottom: 1px;
+}
+.nav-item:hover { background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.75); }
+.nav-item.active { background: rgba(31,219,168,0.1); color: #1FDBA8; font-weight: 600; }
+.nav-badge { margin-left: auto; background: #1FDBA8; color: #0D0F12; font-size: 9.5px; font-weight: 800; padding: 1px 6px; border-radius: 100px; }
+.sidebar-footer { padding: 8px 10px 10px; border-top: 1px solid rgba(255,255,255,0.06); }
+.user-row {
+  display: flex; align-items: center; gap: 8px; padding: 7px 8px; border-radius: 6px;
+  cursor: pointer; transition: background 0.1s;
+}
+.user-row:hover { background: rgba(255,255,255,0.05); }
+.user-avatar {
+  width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0;
+  background: linear-gradient(135deg, #1FDBA8, #0CB589);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 800; color: #0D0F12;
+}
+.user-name { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.65); }
+.user-email { font-size: 10px; color: rgba(255,255,255,0.28); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 110px; }
+.logout-btn { margin-left: auto; color: rgba(255,255,255,0.2); cursor: pointer; padding: 4px; transition: color 0.1s; display: flex; }
+.logout-btn:hover { color: rgba(255,255,255,0.55); }
+
+/* ── Main ── */
+.main { margin-left: 216px; flex: 1; min-height: 100vh; display: flex; flex-direction: column; }
+.topbar {
+  background: #fff; border-bottom: 1px solid #E5E8EC;
+  padding: 0 28px; height: 52px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 50;
+}
+.topbar-title { font-size: 13.5px; font-weight: 700; color: #111318; letter-spacing: -0.01em; }
+.btn-new {
+  display: flex; align-items: center; gap: 6px;
+  padding: 6px 14px; border-radius: 6px;
+  background: #111318; color: #fff;
+  font-size: 12px; font-weight: 700;
+  border: none; cursor: pointer; font-family: inherit; transition: background 0.1s;
+}
+.btn-new:hover { background: #1E2433; }
+
+.content { padding: 20px 28px; flex: 1; }
+
+/* ── Mini stats ── */
+.mini-stats {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
+  margin-bottom: 16px;
+}
+.mini-stat {
+  background: #fff; border: 1px solid #E5E8EC; border-radius: 10px;
+  padding: 13px 15px;
+}
+.mini-stat-label { font-size: 11px; font-weight: 600; color: #9CA3AF; margin-bottom: 6px; }
+.mini-stat-num { font-size: 22px; font-weight: 900; color: #111318; letter-spacing: -0.03em; line-height: 1; }
+.mini-stat-num.accent { color: #1FDBA8; }
+
+/* ── Toolbar ── */
+.toolbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; gap: 10px; flex-wrap: wrap; }
+.filter-tabs { display: flex; gap: 4px; }
+.ftab {
+  padding: 5px 12px; border-radius: 100px; font-size: 12px; font-weight: 600;
+  background: #fff; color: #9CA3AF; border: 1px solid #E5E8EC;
+  cursor: pointer; transition: all 0.1s; display: flex; align-items: center; gap: 5px;
+}
+.ftab .cnt { font-size: 10px; background: #F3F5F8; color: #9CA3AF; padding: 0 5px; border-radius: 100px; }
+.ftab.active { background: #111318; color: #fff; border-color: #111318; }
+.ftab.active .cnt { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.7); }
+.search-wrap { position: relative; }
+.search-wrap input {
+  padding: 6px 12px 6px 32px; border: 1px solid #E5E8EC; border-radius: 7px;
+  font-size: 12.5px; font-family: inherit; color: #111318; background: #fff; outline: none;
+  width: 200px; transition: border-color 0.1s;
+}
+.search-wrap input:focus { border-color: #1FDBA8; box-shadow: 0 0 0 2px rgba(31,219,168,0.1); }
+.search-wrap input::placeholder { color: #9CA3AF; }
+.search-icon { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #9CA3AF; pointer-events: none; }
+
+/* ── Table ── */
+.table-card { background: #fff; border: 1px solid #E5E8EC; border-radius: 10px; overflow: hidden; }
+table { width: 100%; border-collapse: collapse; }
+thead th {
+  padding: 9px 14px; font-size: 10.5px; font-weight: 700; color: #9CA3AF;
+  text-align: left; letter-spacing: 0.06em; text-transform: uppercase;
+  background: #FAFBFC; border-bottom: 1px solid #E5E8EC; white-space: nowrap;
+}
+tbody tr { border-bottom: 1px solid #F0F2F5; transition: background 0.1s; }
+tbody tr:last-child { border-bottom: none; }
+tbody tr:hover { background: #FAFFFE; }
+tbody td { padding: 10px 14px; font-size: 12.5px; color: #374151; vertical-align: middle; }
+
+.td-thumb {
+  width: 48px; height: 34px; border-radius: 5px; object-fit: cover;
+  background: #F3F5F8; display: block;
+}
+.td-thumb-placeholder {
+  width: 48px; height: 34px; border-radius: 5px;
+  background: #F3F5F8; display: flex; align-items: center;
+  justify-content: center; font-size: 16px;
+}
+.td-title { font-weight: 600; color: #111318; font-size: 13px; max-width: 260px; }
+.td-title-sub { font-size: 11px; color: #9CA3AF; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 260px; }
+
+.cat-badge {
+  display: inline-block; font-size: 10px; font-weight: 700;
+  padding: 2px 7px; border-radius: 4px; white-space: nowrap;
+}
+.cat-badge.운영전략   { background: rgba(59,130,246,0.1); color: #1D4ED8; }
+.cat-badge.데이터분석 { background: rgba(31,219,168,0.1); color: #0A9E75; }
+.cat-badge.트레이너팁 { background: rgba(245,158,11,0.1); color: #B45309; }
+.cat-badge.식단영양   { background: rgba(72,187,120,0.1); color: #166534; }
+.cat-badge.업계트렌드 { background: rgba(139,92,246,0.1); color: #6D28D9; }
+
+.status-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 2px 7px; border-radius: 100px; font-size: 10.5px; font-weight: 700;
+}
+.status-badge::before { content: ''; width: 4px; height: 4px; border-radius: 50%; }
+.status-badge.published { background: rgba(31,219,168,0.1); color: #0A9E75; }
+.status-badge.published::before { background: #1FDBA8; }
+.status-badge.draft { background: #F3F5F8; color: #6B7280; }
+.status-badge.draft::before { background: #9CA3AF; }
+
+.featured-star {
+  font-size: 14px; cursor: pointer; opacity: 0.2; transition: opacity 0.1s; user-select: none;
+}
+.featured-star.on { opacity: 1; }
+
+.action-group { display: flex; gap: 4px; align-items: center; }
+.icon-btn {
+  width: 27px; height: 27px; border-radius: 6px; border: 1px solid #E5E8EC; background: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; cursor: pointer; transition: all 0.1s; color: #9CA3AF;
+}
+.icon-btn:hover.edit  { border-color: #1FDBA8; color: #0FB68A; background: rgba(31,219,168,0.04); }
+.icon-btn:hover.del   { border-color: #EF4444; color: #DC2626; background: rgba(239,68,68,0.04); }
+
+.pagination {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 11px 18px; border-top: 1px solid #F0F2F5; font-size: 12px; color: #9CA3AF;
+}
+.page-btns { display: flex; gap: 3px; }
+.page-btn {
+  width: 28px; height: 28px; border-radius: 6px; border: 1px solid #E5E8EC; background: #fff;
+  font-size: 12px; font-weight: 600; color: #374151;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: all 0.1s; font-family: inherit;
+}
+.page-btn.active { background: #111318; color: #fff; border-color: #111318; }
+
+/* ── Modal ── */
+.modal-overlay {
+  display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 200;
+  align-items: flex-start; justify-content: center; padding: 28px 20px; overflow-y: auto;
+}
+.modal-overlay.open { display: flex; }
+.modal {
+  background: #fff; border-radius: 14px; width: 660px; max-width: 100%;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.18); margin: auto;
+}
+.modal-header {
+  padding: 18px 22px 16px; border-bottom: 1px solid #F0F2F5;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.modal-header h3 { font-size: 15px; font-weight: 800; color: #111318; }
+.modal-close {
+  width: 28px; height: 28px; border-radius: 6px; border: 1px solid #E5E8EC; background: #fff;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: 14px; color: #9CA3AF; transition: all 0.1s;
+}
+.modal-close:hover { background: #F3F5F8; color: #111318; }
+.modal-body { padding: 18px 22px; display: flex; flex-direction: column; gap: 14px; }
+
+.form-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.form-group2 { display: flex; flex-direction: column; gap: 5px; }
+.form-label2 { font-size: 11.5px; font-weight: 700; color: #374151; }
+.form-input2, .form-select2 {
+  padding: 8px 11px; border: 1px solid #E5E8EC; border-radius: 7px;
+  font-size: 13px; font-family: inherit; color: #111318; background: #fff;
+  outline: none; transition: border-color 0.1s, box-shadow 0.1s; width: 100%;
+}
+.form-input2:focus, .form-select2:focus {
+  border-color: #1FDBA8; box-shadow: 0 0 0 2px rgba(31,219,168,0.1);
+}
+.form-textarea2 {
+  padding: 9px 11px; border: 1px solid #E5E8EC; border-radius: 7px;
+  font-size: 13px; font-family: inherit; color: #111318; background: #fff;
+  outline: none; resize: vertical; min-height: 180px; line-height: 1.7;
+  transition: border-color 0.1s;
+}
+.form-textarea2:focus { border-color: #1FDBA8; box-shadow: 0 0 0 2px rgba(31,219,168,0.1); }
+
+.thumb-preview {
+  height: 120px; border-radius: 8px; border: 1.5px dashed #E5E8EC;
+  background: #FAFBFC; display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 6px; cursor: pointer; transition: border-color 0.1s; overflow: hidden;
+}
+.thumb-preview:hover { border-color: #1FDBA8; }
+.thumb-preview img { width: 100%; height: 100%; object-fit: cover; }
+.thumb-preview-placeholder { font-size: 20px; }
+.thumb-preview-text { font-size: 11.5px; color: #9CA3AF; }
+
+.toggle-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 12px; background: #FAFBFC; border: 1px solid #E5E8EC; border-radius: 8px;
+}
+.toggle-label { font-size: 13px; font-weight: 600; color: #111318; }
+.toggle-desc  { font-size: 11px; color: #9CA3AF; margin-top: 2px; }
+.toggle { position: relative; width: 36px; height: 20px; }
+.toggle input { opacity: 0; width: 0; height: 0; }
+.toggle-slider {
+  position: absolute; cursor: pointer; inset: 0;
+  background: #E5E8EC; border-radius: 100px; transition: 0.15s;
+}
+.toggle-slider::before {
+  content: ''; position: absolute;
+  width: 14px; height: 14px; border-radius: 50%;
+  left: 3px; top: 3px; background: #fff; transition: 0.15s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+}
+.toggle input:checked + .toggle-slider { background: #1FDBA8; }
+.toggle input:checked + .toggle-slider::before { transform: translateX(16px); }
+
+.modal-footer {
+  padding: 14px 22px; border-top: 1px solid #F0F2F5;
+  display: flex; align-items: center; justify-content: flex-end; gap: 8px;
+}
+.btn-cancel {
+  padding: 7px 16px; border-radius: 7px; border: 1px solid #E5E8EC;
+  background: #fff; font-size: 12.5px; font-weight: 600; color: #374151;
+  cursor: pointer; font-family: inherit; transition: all 0.1s;
+}
+.btn-cancel:hover { border-color: #9CA3AF; }
+.btn-save-draft {
+  padding: 7px 16px; border-radius: 7px; border: 1px solid #E5E8EC;
+  background: #fff; font-size: 12.5px; font-weight: 600; color: #111318;
+  cursor: pointer; font-family: inherit; transition: all 0.1s;
+}
+.btn-save-draft:hover { background: #F3F5F8; }
+.btn-publish {
+  padding: 7px 18px; border-radius: 7px; border: none;
+  background: #111318; color: #fff; font-size: 12.5px; font-weight: 700;
+  cursor: pointer; font-family: inherit; transition: background 0.1s;
+}
+.btn-publish:hover { background: #1FDBA8; color: #111318; }
+
+/* ── Delete modal ── */
+.del-modal { width: 380px; }
+.del-modal .modal-body { padding: 20px 22px; gap: 8px; }
+.del-icon { font-size: 28px; text-align: center; }
+.del-title { font-size: 14px; font-weight: 800; color: #111318; text-align: center; }
+.del-desc { font-size: 12.5px; color: #9CA3AF; text-align: center; line-height: 1.6; }
+.btn-delete {
+  padding: 7px 18px; border-radius: 7px; border: none;
+  background: #EF4444; color: #fff; font-size: 12.5px; font-weight: 700;
+  cursor: pointer; font-family: inherit; transition: background 0.1s;
+}
+.btn-delete:hover { background: #DC2626; }
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">S</div>
+    <div>
+      <div class="logo-text">SSEN<em>TIF</em></div>
+      <div class="logo-sub">Admin</div>
+    </div>
+  </div>
+  <div class="sidebar-body">
+    <div class="nav-group">
+      <div class="nav-label">메뉴</div>
+      <a href="dashboard.html" class="nav-item">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="7.5" width="3" height="5.5" rx="1" fill="currentColor" opacity=".55"/><rect x="5.5" y="4.5" width="3" height="8.5" rx="1" fill="currentColor"/><rect x="10" y="1" width="3" height="12" rx="1" fill="currentColor" opacity=".75"/></svg>
+        대시보드
+      </a>
+      <a href="inquiries.html" class="nav-item">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1.5 9.5V3a1 1 0 0 1 1-1h9a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H4L2 12" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 5.5h6M4 7.5h3.5" stroke="currentColor" stroke-width="1.35" stroke-linecap="round"/></svg>
+        문의 내역
+        <span class="nav-badge">3</span>
+      </a>
+      <a href="lab.html" class="nav-item active">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2.5 11.5 5 5 11.5H2.5V9L9 2.5z" stroke="currentColor" stroke-width="1.35" stroke-linejoin="round"/><path d="M7.5 4 10 6.5" stroke="currentColor" stroke-width="1.35" stroke-linecap="round"/></svg>
+        운영지원실
+      </a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-label">설정</div>
+      <a href="settings.html" class="nav-item">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="1.8" stroke="currentColor" stroke-width="1.3"/><path d="M7 1.5v1.2M7 11.3v1.2M1.5 7h1.2M11.3 7h1.2M3.1 3.1l.85.85M10.05 10.05l.85.85M3.1 10.9l.85-.85M10.05 3.95l.85-.85" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+        알림 설정
+      </a>
+      <a href="../index.html" class="nav-item" target="_blank">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M6 2.5H3a1 1 0 0 0-1 1v7.5a1 1 0 0 0 1 1h7.5a1 1 0 0 0 1-1V8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M8.5 2H12v3.5M12 2 6.5 7.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        홈페이지 보기
+      </a>
+    </div>
+  </div>
+  <div class="sidebar-footer">
+    <div class="user-row">
+      <div class="user-avatar">A</div>
+      <div style="min-width:0;flex:1">
+        <div class="user-name">관리자</div>
+        <div class="user-email">admin@ssentif.com</div>
+      </div>
+      <div class="logout-btn" onclick="window.location.href='login.html'">
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M5 2.5H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2M8.5 9.5l3-3-3-3M11.5 6.5H5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<div class="main">
+  <div class="topbar">
+    <span class="topbar-title">운영지원실 콘텐츠 관리</span>
+    <button class="btn-new" onclick="openEditor()">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      새 아티클 작성
+    </button>
+  </div>
+
+  <div class="content">
+    <div class="mini-stats">
+      <div class="mini-stat">
+        <div class="mini-stat-label">전체 아티클</div>
+        <div class="mini-stat-num" id="cnt-all">—</div>
+      </div>
+      <div class="mini-stat">
+        <div class="mini-stat-label">발행됨</div>
+        <div class="mini-stat-num accent" id="cnt-pub">—</div>
+      </div>
+      <div class="mini-stat">
+        <div class="mini-stat-label">임시저장</div>
+        <div class="mini-stat-num" id="cnt-dft">—</div>
+      </div>
+      <div class="mini-stat">
+        <div class="mini-stat-label">대표 아티클</div>
+        <div class="mini-stat-num">1</div>
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <div class="filter-tabs">
+        <button class="ftab active" onclick="filterBy('all',this)">전체 <span class="cnt">—</span></button>
+        <button class="ftab" onclick="filterBy('published',this)">발행됨 <span class="cnt">—</span></button>
+        <button class="ftab" onclick="filterBy('draft',this)">임시저장 <span class="cnt">—</span></button>
+      </div>
+      <div class="search-wrap">
+        <span class="search-icon">
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="5.5" cy="5.5" r="4" stroke="currentColor" stroke-width="1.3"/><path d="M8.5 8.5l3 3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+        </span>
+        <input type="text" id="searchInput" placeholder="제목 검색..." oninput="renderTable()">
+      </div>
+    </div>
+
+    <div class="table-card">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:64px">썸네일</th>
+            <th>제목</th>
+            <th>카테고리</th>
+            <th>읽는 시간</th>
+            <th>발행일</th>
+            <th>대표</th>
+            <th>상태</th>
+            <th style="width:80px"></th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+      <div class="pagination">
+        <span id="pageInfo" style="font-size:12px;color:#9CA3AF">총 0건</span>
+        <div class="page-btns">
+          <button class="page-btn">‹</button>
+          <button class="page-btn active">1</button>
+          <button class="page-btn">›</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 작성/편집 모달 -->
+<div class="modal-overlay" id="editorModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="modalTitle">새 아티클 작성</h3>
+      <button class="modal-close" onclick="closeEditor()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group2">
+        <label class="form-label2">제목 *</label>
+        <input class="form-input2" id="e-title" type="text" placeholder="아티클 제목을 입력하세요">
+      </div>
+      <div class="form-row2">
+        <div class="form-group2">
+          <label class="form-label2">카테고리</label>
+          <select class="form-select2" id="e-category">
+            <option value="">선택해주세요</option>
+            <option value="운영 전략">운영 전략</option>
+            <option value="데이터 분석">데이터 분석</option>
+            <option value="트레이너 팁">트레이너 팁</option>
+            <option value="식단 & 영양">식단 & 영양</option>
+            <option value="업계 트렌드">업계 트렌드</option>
+          </select>
+        </div>
+        <div class="form-group2">
+          <label class="form-label2">읽는 시간 (분)</label>
+          <input class="form-input2" id="e-readtime" type="number" min="1" max="60" placeholder="예: 8">
+        </div>
+      </div>
+      <div class="form-group2">
+        <label class="form-label2">썸네일 이미지 URL</label>
+        <input class="form-input2" id="e-thumb" type="url" placeholder="https://..." oninput="previewThumb(this.value)">
+        <div class="thumb-preview" id="thumbPreview" style="margin-top:8px" onclick="document.getElementById('e-thumb').focus()">
+          <div class="thumb-preview-placeholder">🖼️</div>
+          <div class="thumb-preview-text">URL 입력 시 미리보기가 표시됩니다</div>
+        </div>
+      </div>
+      <div class="form-group2">
+        <label class="form-label2">요약 (카드에 표시)</label>
+        <input class="form-input2" id="e-summary" type="text" placeholder="아티클 내용을 한 줄로 요약해주세요">
+      </div>
+      <div class="form-group2">
+        <label class="form-label2">본문</label>
+        <textarea class="form-textarea2" id="e-content" placeholder="아티클 본문을 작성하세요."></textarea>
+      </div>
+      <div class="form-group2">
+        <label class="form-label2">발행일</label>
+        <input class="form-input2" id="e-date" type="date">
+      </div>
+      <div class="toggle-row">
+        <div>
+          <div class="toggle-label">⭐ 대표 아티클로 설정</div>
+          <div class="toggle-desc">운영지원실 최상단에 크게 노출됩니다</div>
+        </div>
+        <label class="toggle">
+          <input type="checkbox" id="e-featured">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closeEditor()">취소</button>
+      <button class="btn-save-draft" onclick="saveArticle('draft')">임시저장</button>
+      <button class="btn-publish" onclick="saveArticle('published')">발행하기</button>
+    </div>
+  </div>
+</div>
+
+<!-- 삭제 확인 모달 -->
+<div class="modal-overlay" id="deleteModal">
+  <div class="modal del-modal">
+    <div class="modal-header">
+      <h3>아티클 삭제</h3>
+      <button class="modal-close" onclick="closeDeleteModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="del-icon">🗑️</div>
+      <div class="del-title" id="deleteTitle">이 아티클을 삭제하시겠어요?</div>
+      <div class="del-desc">삭제된 아티클은 복구할 수 없습니다.<br>운영지원실에서도 즉시 내려갑니다.</div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closeDeleteModal()">취소</button>
+      <button class="btn-delete" onclick="confirmDelete()">삭제</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../supabase-client.js"></script>
+<script>
+(async () => {
+  const { data: { session } } = await db.auth.getSession();
+  if (!session) { window.location.replace('login.html'); return; }
+  await loadArticles();
+})();
+
+const CATEGORIES = {
+  '운영 전략': '운영전략',
+  '데이터 분석': '데이터분석',
+  '트레이너 팁': '트레이너팁',
+  '식단 & 영양': '식단영양',
+  '업계 트렌드': '업계트렌드',
+};
+
+let articles = [];
+let currentFilter = 'all';
+let editingId = null;
+let deletingId = null;
+
+function getFiltered() {
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  return articles.filter(a => {
+    const matchF = currentFilter === 'all' || a.status === currentFilter;
+    const matchQ = !q || a.title.toLowerCase().includes(q);
+    return matchF && matchQ;
+  });
+}
+
+function catClass(cat) { return (CATEGORIES[cat] || '').replace(/\s/g,''); }
+
+function renderTable() {
+  const data = getFiltered();
+  document.getElementById('cnt-all').textContent = articles.length;
+  document.getElementById('cnt-pub').textContent = articles.filter(a=>a.status==='published').length;
+  document.getElementById('cnt-dft').textContent = articles.filter(a=>a.status==='draft').length;
+  document.getElementById('pageInfo').textContent = `총 ${data.length}건`;
+
+  // update ftab counts
+  const tabs = document.querySelectorAll('.ftab .cnt');
+  if (tabs[0]) tabs[0].textContent = articles.length;
+  if (tabs[1]) tabs[1].textContent = articles.filter(a=>a.status==='published').length;
+  if (tabs[2]) tabs[2].textContent = articles.filter(a=>a.status==='draft').length;
+
+  const tbody = document.getElementById('tableBody');
+  tbody.innerHTML = data.map(a => `
+    <tr>
+      <td>
+        ${a.thumb
+          ? `<img class="td-thumb" src="${a.thumb}" alt="" onerror="this.style.display='none'">`
+          : `<div class="td-thumb-placeholder">📄</div>`}
+      </td>
+      <td>
+        <div class="td-title">${a.title}</div>
+        <div class="td-title-sub">${a.summary}</div>
+      </td>
+      <td><span class="cat-badge ${catClass(a.category)}">${a.category || '—'}</span></td>
+      <td style="font-size:12px;color:#9CA3AF">${a.readtime ? a.readtime + '분' : '—'}</td>
+      <td style="font-size:11.5px;color:#9CA3AF;font-variant-numeric:tabular-nums">${a.date || '—'}</td>
+      <td>
+        <span class="featured-star ${a.featured ? 'on' : ''}"
+          onclick="toggleFeatured(${a.id})" title="${a.featured ? '대표 해제' : '대표로 설정'}">⭐</span>
+      </td>
+      <td><span class="status-badge ${a.status}">${a.status === 'published' ? '발행됨' : '임시저장'}</span></td>
+      <td>
+        <div class="action-group">
+          <button class="icon-btn edit" title="편집" onclick="openEditor(${a.id})">✏️</button>
+          <button class="icon-btn del"  title="삭제" onclick="openDeleteModal(${a.id})">🗑️</button>
+        </div>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function filterBy(f, el) {
+  currentFilter = f;
+  document.querySelectorAll('.ftab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  renderTable();
+}
+
+async function toggleFeatured(id) {
+  articles.forEach(a => a.featured = false);
+  const a = articles.find(a => a.id === id);
+  if (a) a.featured = true;
+  renderTable();
+  const { error } = await db.from('articles').update({ featured: true }).eq('id', id);
+  if (error) console.error('대표 설정 실패:', error.message);
+}
+
+function openEditor(id) {
+  editingId = id || null;
+  const a = id ? articles.find(a => a.id === id) : null;
+  document.getElementById('modalTitle').textContent = a ? '아티클 편집' : '새 아티클 작성';
+  document.getElementById('e-title').value    = a?.title    || '';
+  document.getElementById('e-category').value = a?.category || '';
+  document.getElementById('e-readtime').value = a?.readtime || '';
+  document.getElementById('e-thumb').value    = a?.thumb    || '';
+  document.getElementById('e-summary').value  = a?.summary  || '';
+  document.getElementById('e-content').value  = a?.content  || '';
+  document.getElementById('e-date').value     = a?.date     || new Date().toISOString().slice(0,10);
+  document.getElementById('e-featured').checked = a?.featured || false;
+  previewThumb(a?.thumb || '');
+  document.getElementById('editorModal').classList.add('open');
+}
+
+function closeEditor() {
+  document.getElementById('editorModal').classList.remove('open');
+  editingId = null;
+}
+
+function previewThumb(url) {
+  const box = document.getElementById('thumbPreview');
+  if (url && url.startsWith('http')) {
+    box.innerHTML = `<img src="${url}" alt="" onerror="this.parentElement.innerHTML='<div class=\\'thumb-preview-placeholder\\'>❌</div><div class=\\'thumb-preview-text\\'>이미지를 불러올 수 없습니다</div>'">`;
+  } else {
+    box.innerHTML = `<div class="thumb-preview-placeholder">🖼️</div><div class="thumb-preview-text">URL 입력 시 미리보기가 표시됩니다</div>`;
+  }
+}
+
+async function saveArticle(status) {
+  const title = document.getElementById('e-title').value.trim();
+  if (!title) { alert('제목을 입력해주세요.'); return; }
+
+  const dbPayload = {
+    title,
+    category:     document.getElementById('e-category').value,
+    read_time:    parseInt(document.getElementById('e-readtime').value) || 0,
+    thumb_url:    document.getElementById('e-thumb').value.trim(),
+    summary:      document.getElementById('e-summary').value.trim(),
+    content:      document.getElementById('e-content').value.trim(),
+    published_at: document.getElementById('e-date').value || null,
+    featured:     document.getElementById('e-featured').checked,
+    status,
+  };
+
+  let error;
+  if (editingId) {
+    ({ error } = await db.from('articles').update(dbPayload).eq('id', editingId));
+  } else {
+    ({ error } = await db.from('articles').insert([dbPayload]));
+  }
+
+  if (error) { alert('저장 중 오류가 발생했습니다: ' + error.message); return; }
+  closeEditor();
+  await loadArticles();
+}
+
+function openDeleteModal(id) {
+  deletingId = id;
+  const a = articles.find(a => a.id === id);
+  document.getElementById('deleteTitle').textContent = `"${a?.title}" 아티클을 삭제하시겠어요?`;
+  document.getElementById('deleteModal').classList.add('open');
+}
+
+function closeDeleteModal() {
+  document.getElementById('deleteModal').classList.remove('open');
+  deletingId = null;
+}
+
+async function confirmDelete() {
+  const { error } = await db.from('articles').delete().eq('id', deletingId);
+  if (error) { alert('삭제 중 오류가 발생했습니다: ' + error.message); return; }
+  closeDeleteModal();
+  await loadArticles();
+}
+
+['editorModal','deleteModal'].forEach(id => {
+  document.getElementById(id).addEventListener('click', function(e) {
+    if (e.target === this) {
+      if (id === 'editorModal') closeEditor();
+      else closeDeleteModal();
+    }
+  });
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closeEditor(); closeDeleteModal(); }
+});
+
+async function loadArticles() {
+  const { data, error } = await db
+    .from('articles')
+    .select('*')
+    .order('created_at', { ascending: false });
+
+  if (error) { console.error('아티클 로드 실패:', error.message); return; }
+
+  articles = (data || []).map(a => ({
+    ...a,
+    thumb:   a.thumb_url   || '',
+    readtime: a.read_time  || 0,
+    date:    a.published_at || '',
+  }));
+  renderTable();
+}
+</script>
+</body>
+</html>

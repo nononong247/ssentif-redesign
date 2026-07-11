@@ -463,13 +463,15 @@ p  { color: var(--gray-600); line-height: 1.75; }
 
 /* ── CTA Band ── */
 .cta-band {
-  background: var(--black);
+  background: var(--accent);
   padding: 96px 0;
   text-align: center;
-  color: var(--white);
+  color: var(--black);
 }
-.cta-band h2 { color: var(--white); margin-bottom: 16px; }
-.cta-band p { color: rgba(255,255,255,0.6); font-size: 1.05rem; margin-bottom: 36px; }
+.cta-band h2 { color: var(--black); margin-bottom: 16px; }
+.cta-band p { color: rgba(0,0,0,0.6); font-size: 1.05rem; margin-bottom: 36px; }
+.cta-band .hero-pill { background: rgba(0,0,0,0.1) !important; color: var(--black) !important; border-color: rgba(0,0,0,0.15) !important; }
+.cta-band .hero-pill-dot { background: var(--black) !important; }
 .cta-band .btn-primary { font-size: 16px; padding: 15px 36px; }
 
 

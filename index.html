@@ -197,7 +197,7 @@
 ════════════════════════════════════════ */
 .bento-section {
   padding: 96px 0;
-  background: var(--white);
+  background: var(--gray-50);
 }
 .bento-head { margin-bottom: 52px; }
 .bento-head .label { margin-bottom: 14px; }
@@ -289,17 +289,18 @@
    DARK MOCKUP SECTION  (Linko 스타일)
 ════════════════════════════════════════ */
 .mockup-section {
-  background: var(--gray-50);
+  background: #0A0D0C;
   padding: 96px 0;
   overflow: hidden;
   position: relative;
 }
+/* 배경 그리드 패턴 */
 .mockup-section::before {
   content:'';
   position:absolute; inset:0;
   background-image:
-    linear-gradient(rgba(31,219,168,0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(31,219,168,0.06) 1px, transparent 1px);
+    linear-gradient(rgba(31,219,168,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(31,219,168,0.04) 1px, transparent 1px);
   background-size: 60px 60px;
   pointer-events:none;
 }
@@ -1293,25 +1294,6 @@
       <div class="proof-photo"><img src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=300&h=380&fit=crop&crop=face" alt=""></div>
     </div>
   </div>
-  <!-- Row 3: 텍스트 리뷰 마퀴 -->
-  <div class="proof-track-wrap proof-review-wrap">
-    <div class="proof-track" style="animation-duration:55s">
-      <div class="proof-review-card"><p class="prv-text">"수업 끝나고 일지가 바로 와요. 오늘 뭘 했는지 다시 볼 수 있어서 좋더라고요."</p><div class="prv-author">김민지 · PT 회원</div></div>
-      <div class="proof-review-card"><p class="prv-text">"밥 먹고 사진 올렸더니 트레이너가 바로 코멘트 달아줬어요. 진짜 관리받는 느낌이에요."</p><div class="prv-author">이수현 · PT 회원</div></div>
-      <div class="proof-review-card"><p class="prv-text">"혼자 운동한 거 올렸더니, 다음 수업에 트레이너가 반영해줬어요. 그게 진짜 신기했어요."</p><div class="prv-author">박준서 · 헬스 회원</div></div>
-      <div class="proof-review-card"><p class="prv-text">"확실히 이 센터는 회원관리가 체계적이에요. 다른 데 갈 이유가 없어요."</p><div class="prv-author">최유진 · PT 회원</div></div>
-      <div class="proof-review-card"><p class="prv-text">"트레이너 선생님이 매번 지난 수업 기억하고 연결해줘서 그 점이 제일 좋아요."</p><div class="prv-author">정소영 · 필라테스 회원</div></div>
-      <div class="proof-review-card"><p class="prv-text">"앱에서 내 수업 기록이랑 식단이 다 보이니까 스스로도 더 책임감이 생기더라고요."</p><div class="prv-author">한동훈 · PT 회원</div></div>
-      <!-- duplicate -->
-      <div class="proof-review-card"><p class="prv-text">"수업 끝나고 일지가 바로 와요. 오늘 뭘 했는지 다시 볼 수 있어서 좋더라고요."</p><div class="prv-author">김민지 · PT 회원</div></div>
-      <div class="proof-review-card"><p class="prv-text">"밥 먹고 사진 올렸더니 트레이너가 바로 코멘트 달아줬어요. 진짜 관리받는 느낌이에요."</p><div class="prv-author">이수현 · PT 회원</div></div>
-      <div class="proof-review-card"><p class="prv-text">"혼자 운동한 거 올렸더니, 다음 수업에 트레이너가 반영해줬어요. 그게 진짜 신기했어요."</p><div class="prv-author">박준서 · 헬스 회원</div></div>
-      <div class="proof-review-card"><p class="prv-text">"확실히 이 센터는 회원관리가 체계적이에요. 다른 데 갈 이유가 없어요."</p><div class="prv-author">최유진 · PT 회원</div></div>
-      <div class="proof-review-card"><p class="prv-text">"트레이너 선생님이 매번 지난 수업 기억하고 연결해줘서 그 점이 제일 좋아요."</p><div class="prv-author">정소영 · 필라테스 회원</div></div>
-      <div class="proof-review-card"><p class="prv-text">"앱에서 내 수업 기록이랑 식단이 다 보이니까 스스로도 더 책임감이 생기더라고요."</p><div class="prv-author">한동훈 · PT 회원</div></div>
-    </div>
-  </div>
-
   <!-- Stats Bento -->
   <div class="proof-stats container fade-up">
     <div class="ps-grid">
@@ -1378,25 +1360,6 @@
 @keyframes scrollLeft  { from { transform: translateX(0) } to { transform: translateX(-50%) } }
 @keyframes scrollRight { from { transform: translateX(-50%) } to { transform: translateX(0) } }
 .proof-track-wrap:hover .proof-track { animation-play-state: paused; }
-
-/* 텍스트 리뷰 마퀴 */
-.proof-review-wrap { margin-bottom: 40px; }
-.proof-review-card {
-  min-width: 300px; max-width: 300px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 16px;
-  padding: 20px 24px;
-  display: flex; flex-direction: column; gap: 12px;
-}
-.prv-text {
-  font-size: 13.5px; color: rgba(255,255,255,0.75);
-  line-height: 1.7; font-style: italic;
-}
-.prv-author {
-  font-size: 12px; font-weight: 700;
-  color: var(--accent); letter-spacing: 0.02em;
-}
 
 /* Stats Bento */
 .proof-stats { padding: 56px 0 80px; }
@@ -1533,8 +1496,8 @@
 .ba-head {
   text-align: center; margin-bottom: 56px;
 }
-.ba-head h2 { color: var(--black); font-size: clamp(1.9rem,3.5vw,2.8rem); }
-.ba-head p  { color: var(--gray-500); margin-top: 12px; font-size: 1rem; }
+.ba-head h2 { color: var(--white); font-size: clamp(1.9rem,3.5vw,2.8rem); }
+.ba-head p  { color: rgba(255,255,255,0.5); margin-top: 12px; font-size: 1rem; }
 
 .ba-cols {
   display: grid;
@@ -1546,17 +1509,17 @@
   text-align: center;
   font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
   padding: 12px 0 20px;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
   margin-bottom: 12px;
 }
-.ba-col-head.before { color: var(--gray-400); }
-.ba-col-head.after  { color: var(--accent-dark); }
+.ba-col-head.before { color: rgba(255,255,255,0.35); }
+.ba-col-head.after  { color: var(--accent); }
 .ba-divider-head {
   display: flex; align-items: center; justify-content: center;
   padding-bottom: 20px;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
   margin-bottom: 12px;
-  color: var(--gray-300); font-size: 18px;
+  color: rgba(255,255,255,0.15); font-size: 18px;
 }
 
 .ba-row {
@@ -1570,33 +1533,33 @@
   line-height: 1.5;
 }
 .ba-cell.before {
-  background: var(--gray-100);
-  border: 1px solid var(--border);
-  color: var(--gray-400);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  color: rgba(255,255,255,0.45);
   display: flex; align-items: center; gap: 10px;
 }
 .ba-cell.before::before {
   content: '✕';
   font-size: 12px; font-weight: 700;
-  color: #ef4444;
+  color: rgba(239,68,68,0.6);
   flex-shrink: 0;
 }
 .ba-cell.after {
-  background: rgba(31,219,168,0.1);
-  border: 1px solid rgba(31,219,168,0.25);
-  color: var(--black);
+  background: rgba(31,219,168,0.07);
+  border: 1px solid rgba(31,219,168,0.15);
+  color: rgba(255,255,255,0.85);
   display: flex; align-items: center; gap: 10px;
 }
 .ba-cell.after::before {
   content: '✓';
   font-size: 13px; font-weight: 800;
-  color: var(--accent-dark);
+  color: var(--accent);
   flex-shrink: 0;
 }
 .ba-arrow {
   display: flex; align-items: center; justify-content: center;
   margin-bottom: 10px;
-  color: var(--gray-300);
+  color: rgba(255,255,255,0.15);
   font-size: 16px;
 }
 
@@ -1652,7 +1615,7 @@
     </div>
 
     <div class="ba-cta fade-up">
-      <a href="consulting.html" class="btn btn-primary" style="border-radius:100px;padding:14px 32px;font-size:15px;display:inline-flex;align-items:center;gap:8px">
+      <a href="consulting.html" class="btn-cta-mock">
         지금 무료로 시작하기
         <svg width="15" height="15" viewBox="0 0 20 20" fill="none"><path d="M7 10H13M13 10L10 7M13 10L10 13" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
@@ -1717,7 +1680,7 @@
   gap: 12px;
 }
 .fd-visual-dark {
-  background: #111827;
+  background: var(--black);
   border-color: rgba(255,255,255,0.08);
 }
 
@@ -1918,115 +1881,6 @@
 
 
 <!-- ══════════════════════
-     컴팩트 기능 그리드
-══════════════════════ -->
-<section class="cf-section">
-<style>
-.cf-section {
-  padding: 96px 0;
-  background: var(--gray-50);
-}
-.cf-head {
-  text-align: center;
-  margin-bottom: 64px;
-}
-.cf-head h2 { font-size: clamp(1.7rem,3vw,2.2rem); margin-bottom: 12px; }
-.cf-head p  { font-size: 15px; color: var(--gray-500); }
-.cf-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2px;
-  background: var(--border);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  overflow: hidden;
-}
-@media(max-width:768px){ .cf-grid { grid-template-columns: 1fr 1fr; } }
-@media(max-width:480px){ .cf-grid { grid-template-columns: 1fr; } }
-.cf-item {
-  background: var(--white);
-  padding: 28px 28px;
-  display: flex; flex-direction: column; gap: 8px;
-  transition: background 0.15s;
-}
-.cf-item:hover { background: var(--gray-50); }
-.cf-icon { font-size: 24px; line-height: 1; margin-bottom: 4px; }
-.cf-name { font-size: 14.5px; font-weight: 700; color: var(--black); }
-.cf-desc { font-size: 13px; color: var(--gray-500); line-height: 1.55; }
-</style>
-  <div class="container">
-    <div class="cf-head fade-up">
-      <div class="label">전체 기능</div>
-      <h2>센티프가 하는 일</h2>
-      <p>이 모든 기능이 하나의 워크스페이스에 담겨 있습니다.</p>
-    </div>
-    <div class="cf-grid">
-      <div class="cf-item fade-up">
-        <div class="cf-icon">📋</div>
-        <div class="cf-name">수업일지 자동 전달</div>
-        <div class="cf-desc">수업 후 회원에게 즉시 공유</div>
-      </div>
-      <div class="cf-item fade-up">
-        <div class="cf-icon">📊</div>
-        <div class="cf-name">이탈 신호 감지</div>
-        <div class="cf-desc">출석 패턴 분석, 3주 전 알림</div>
-      </div>
-      <div class="cf-item fade-up">
-        <div class="cf-icon">💰</div>
-        <div class="cf-name">페이롤 자동 정산</div>
-        <div class="cf-desc">수업 건수 기반 급여 자동 계산</div>
-      </div>
-      <div class="cf-item fade-up">
-        <div class="cf-icon">🥗</div>
-        <div class="cf-name">식단 피드백 채널</div>
-        <div class="cf-desc">수업 외 시간도 회원과 연결</div>
-      </div>
-      <div class="cf-item fade-up">
-        <div class="cf-icon">📅</div>
-        <div class="cf-name">수업 일정 관리</div>
-        <div class="cf-desc">예약·변경·취소 한눈에</div>
-      </div>
-      <div class="cf-item fade-up">
-        <div class="cf-icon">🔔</div>
-        <div class="cf-name">재등록 자동 알림</div>
-        <div class="cf-desc">만료 2주 전 선제 알림</div>
-      </div>
-      <div class="cf-item fade-up">
-        <div class="cf-icon">🏋️</div>
-        <div class="cf-name">홈트 기록 공유</div>
-        <div class="cf-desc">수업 밖 운동도 데이터로 연결</div>
-      </div>
-      <div class="cf-item fade-up">
-        <div class="cf-icon">📈</div>
-        <div class="cf-name">매출 현황 대시보드</div>
-        <div class="cf-desc">잠재부채·수익 실시간 파악</div>
-      </div>
-      <div class="cf-item fade-up">
-        <div class="cf-icon">👥</div>
-        <div class="cf-name">트레이너별 관리</div>
-        <div class="cf-desc">성과 리포트·수업률 비교</div>
-      </div>
-      <div class="cf-item fade-up">
-        <div class="cf-icon">✨</div>
-        <div class="cf-name">AI 콘텐츠 작성</div>
-        <div class="cf-desc">블로그·SNS 초안 자동 생성</div>
-      </div>
-      <div class="cf-item fade-up">
-        <div class="cf-icon">🔄</div>
-        <div class="cf-name">관리자·강사 모드</div>
-        <div class="cf-desc">한 계정, 두 가지 시선</div>
-      </div>
-      <div class="cf-item fade-up">
-        <div class="cf-icon">📱</div>
-        <div class="cf-name">회원 전용 앱 연동</div>
-        <div class="cf-desc">회원이 직접 확인하는 내 기록</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- ══════════════════════
      고객 사례 (cases.html 통합)
 ══════════════════════ -->
 <section class="section" id="cases">
@@ -2152,13 +2006,13 @@
 ══════════════════════ -->
 <section class="cta-band">
   <div class="container">
-    <div class="hero-pill" style="background:rgba(0,0,0,0.1);color:var(--black);border-color:rgba(0,0,0,0.15);margin-bottom:20px">
-      <span class="hero-pill-dot" style="background:var(--black)"></span>현장 데이터 기반 운영
+    <div class="hero-pill" style="background:rgba(31,219,168,0.15);color:var(--accent);border-color:rgba(31,219,168,0.25);margin-bottom:20px">
+      <span class="hero-pill-dot"></span>현장 데이터 기반 운영
     </div>
     <h2>우리 센터, 얼마나 바뀔 수 있는지<br>확인해보세요</h2>
     <p>카드 등록 없이 14일, 무료로 직접 경험하세요.</p>
     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:8px">
-      <a href="consulting.html" class="btn btn-primary btn-lg" style="background:var(--black);border-color:var(--black);color:var(--white)">맞춤 상담 받기</a>
+      <a href="consulting.html" class="btn btn-primary btn-lg">맞춤 상담 받기</a>
     </div>
   </div>
 </section>

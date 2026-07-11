@@ -1887,84 +1887,180 @@
   <div class="container">
     <p class="extras-label">그리고 이런 것들도 기본으로 포함됩니다</p>
     <div class="extras-grid">
-      <div class="extras-card">
-        <div class="extras-icon">📊</div>
+
+      <!-- 매출 현황 -->
+      <div class="extras-card fade-up">
+        <div class="extras-visual">
+          <div class="exv-title">이번 달 매출</div>
+          <div class="exv-amount">₩2,850,000</div>
+          <div class="exv-bars">
+            <div class="exv-bar-wrap"><div class="exv-bar" style="height:40%"></div><span>8월</span></div>
+            <div class="exv-bar-wrap"><div class="exv-bar" style="height:60%"></div><span>9월</span></div>
+            <div class="exv-bar-wrap"><div class="exv-bar" style="height:75%"></div><span>10월</span></div>
+            <div class="exv-bar-wrap"><div class="exv-bar exv-bar-accent" style="height:100%"></div><span>11월</span></div>
+          </div>
+          <div class="exv-row">
+            <span class="exv-chip">미수금 ₩320,000</span>
+            <span class="exv-up">▲ 18%</span>
+          </div>
+        </div>
         <div class="extras-body">
           <div class="extras-name">매출 현황</div>
           <div class="extras-desc">이번 달 매출과 미수금을 한눈에</div>
         </div>
       </div>
-      <div class="extras-card">
-        <div class="extras-icon">📅</div>
+
+      <!-- 공유 캘린더 -->
+      <div class="extras-card fade-up" style="transition-delay:.07s">
+        <div class="extras-visual">
+          <div class="exv-title">11월 공유 캘린더</div>
+          <div class="exv-cal-days">
+            <span>월</span><span>화</span><span>수</span><span>목</span><span>금</span>
+          </div>
+          <div class="exv-cal-slots">
+            <div class="exv-slot exv-slot-a">박준형 · 09:00</div>
+            <div class="exv-slot exv-slot-b">김민지 · 10:00</div>
+            <div class="exv-slot exv-slot-a">박준형 · 11:00</div>
+            <div class="exv-slot exv-slot-c">이수진 · 13:00</div>
+            <div class="exv-slot exv-slot-b">김민지 · 15:00</div>
+          </div>
+        </div>
         <div class="extras-body">
           <div class="extras-name">공유 캘린더</div>
           <div class="extras-desc">트레이너 전원이 일정을 함께 봅니다</div>
         </div>
       </div>
-      <div class="extras-card">
-        <div class="extras-icon">📢</div>
+
+      <!-- 회원 전체공지 -->
+      <div class="extras-card fade-up" style="transition-delay:.14s">
+        <div class="extras-visual">
+          <div class="exv-title">전체 공지 발송</div>
+          <div class="exv-notice-box">
+            <div class="exv-notice-label">공지 제목</div>
+            <div class="exv-notice-input">12월 운영 시간 변경 안내</div>
+          </div>
+          <div class="exv-notice-box" style="margin-top:8px">
+            <div class="exv-notice-label">내용</div>
+            <div class="exv-notice-input exv-notice-tall">12월 24일(화)은 오후 6시에 조기 마감됩니다...</div>
+          </div>
+          <div class="exv-send-row">
+            <span class="exv-chip">전체 회원 128명</span>
+            <div class="exv-send-btn">발송</div>
+          </div>
+        </div>
         <div class="extras-body">
           <div class="extras-name">회원 전체공지</div>
           <div class="extras-desc">전체 회원에게 앱 푸시로 한 번에 전달</div>
         </div>
       </div>
-      <div class="extras-card">
-        <div class="extras-icon">💬</div>
+
+      <!-- 업무 채팅방 -->
+      <div class="extras-card fade-up" style="transition-delay:.21s">
+        <div class="extras-visual">
+          <div class="exv-title">팀 채팅</div>
+          <div class="exv-chat-row">
+            <div class="exv-avatar" style="background:#c8d6ff">박</div>
+            <div class="exv-bubble exv-bubble-left">오늘 3시 김민준 회원 보강 가능한가요?</div>
+          </div>
+          <div class="exv-chat-row exv-chat-right">
+            <div class="exv-bubble exv-bubble-right">네! 제가 할게요 😊</div>
+            <div class="exv-avatar" style="background:#b8f0e0">이</div>
+          </div>
+          <div class="exv-chat-row">
+            <div class="exv-avatar" style="background:#ffd6b8">김</div>
+            <div class="exv-bubble exv-bubble-left">확인했습니다 👍</div>
+          </div>
+        </div>
         <div class="extras-body">
           <div class="extras-name">업무 채팅방</div>
           <div class="extras-desc">팀 내 소통, 별도 앱 없이 바로</div>
         </div>
       </div>
+
     </div>
   </div>
 </section>
 <style>
+/* ── Extras Strip ── */
 .extras-strip {
-  padding: 48px 0;
+  padding: 80px 0;
   background: var(--gray-50);
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
 }
 .extras-label {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--gray-400);
-  text-align: center;
-  margin-bottom: 24px;
-  letter-spacing: 0.01em;
+  font-size: 13px; font-weight: 600;
+  color: var(--gray-400); text-align: center;
+  margin-bottom: 36px; letter-spacing: 0.02em;
 }
 .extras-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
+  gap: 16px;
 }
-@media (max-width: 768px) { .extras-grid { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 480px) { .extras-grid { grid-template-columns: 1fr; } }
+@media (max-width: 900px) { .extras-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 480px)  { .extras-grid { grid-template-columns: 1fr; } }
+
 .extras-card {
-  display: flex;
-  align-items: center;
-  gap: 14px;
   background: var(--white);
   border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 18px 20px;
+  border-radius: 18px;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+  transition: box-shadow 0.2s, transform 0.2s;
 }
-.extras-icon {
-  font-size: 22px;
-  line-height: 1;
-  flex-shrink: 0;
+.extras-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+
+/* Visual area */
+.extras-visual {
+  background: var(--gray-50);
+  border-bottom: 1px solid var(--border);
+  padding: 20px;
+  display: flex; flex-direction: column; gap: 10px;
+  min-height: 190px;
 }
-.extras-name {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--black);
-  margin-bottom: 3px;
-}
-.extras-desc {
-  font-size: 12.5px;
-  color: var(--gray-400);
-  line-height: 1.5;
-}
+.exv-title { font-size: 11px; font-weight: 700; color: var(--gray-400); letter-spacing: 0.05em; text-transform: uppercase; }
+
+/* 매출 현황 */
+.exv-amount { font-size: 1.4rem; font-weight: 900; color: var(--black); letter-spacing: -0.03em; }
+.exv-bars { display: flex; align-items: flex-end; gap: 6px; height: 52px; }
+.exv-bar-wrap { display: flex; flex-direction: column; align-items: center; gap: 4px; flex: 1; }
+.exv-bar { width: 100%; background: var(--gray-200); border-radius: 3px 3px 0 0; }
+.exv-bar-accent { background: var(--accent); }
+.exv-bar-wrap span { font-size: 9px; color: var(--gray-400); }
+.exv-row { display: flex; align-items: center; justify-content: space-between; }
+.exv-chip { font-size: 10.5px; font-weight: 600; background: var(--accent-light); color: var(--accent-dark); padding: 3px 8px; border-radius: 20px; }
+.exv-up { font-size: 11px; font-weight: 700; color: var(--accent-dark); }
+
+/* 공유 캘린더 */
+.exv-cal-days { display: flex; gap: 4px; }
+.exv-cal-days span { flex: 1; text-align: center; font-size: 9.5px; font-weight: 700; color: var(--gray-400); }
+.exv-cal-slots { display: flex; flex-direction: column; gap: 5px; }
+.exv-slot { font-size: 10px; font-weight: 600; padding: 5px 8px; border-radius: 6px; }
+.exv-slot-a { background: rgba(31,219,168,0.12); color: var(--accent-dark); }
+.exv-slot-b { background: rgba(99,102,241,0.1); color: #4f46e5; }
+.exv-slot-c { background: rgba(249,115,22,0.1); color: #ea580c; }
+
+/* 회원 전체공지 */
+.exv-notice-box { display: flex; flex-direction: column; gap: 4px; }
+.exv-notice-label { font-size: 9px; font-weight: 700; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.05em; }
+.exv-notice-input { font-size: 11px; color: var(--gray-700); background: var(--white); border: 1px solid var(--border); border-radius: 7px; padding: 7px 10px; line-height: 1.4; }
+.exv-notice-tall { min-height: 36px; color: var(--gray-400); }
+.exv-send-row { display: flex; align-items: center; justify-content: space-between; margin-top: 2px; }
+.exv-send-btn { font-size: 11px; font-weight: 700; background: var(--black); color: var(--white); padding: 5px 12px; border-radius: 20px; }
+
+/* 업무 채팅 */
+.exv-chat-row { display: flex; align-items: flex-end; gap: 7px; }
+.exv-chat-right { flex-direction: row-reverse; }
+.exv-avatar { width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0; font-size: 10px; font-weight: 700; color: var(--gray-700); display: flex; align-items: center; justify-content: center; }
+.exv-bubble { font-size: 10.5px; line-height: 1.5; padding: 7px 10px; border-radius: 12px; max-width: 80%; }
+.exv-bubble-left  { background: var(--white); border: 1px solid var(--border); color: var(--gray-700); border-radius: 4px 12px 12px 12px; }
+.exv-bubble-right { background: var(--accent); color: var(--black); border-radius: 12px 4px 12px 12px; }
+
+/* Body text */
+.extras-body { padding: 16px 20px; }
+.extras-name { font-size: 14px; font-weight: 700; color: var(--black); margin-bottom: 4px; }
+.extras-desc { font-size: 12.5px; color: var(--gray-400); line-height: 1.5; }
 </style>
 
 <!-- ══════════════════════

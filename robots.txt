@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+
+# 네이버 크롤러
+User-agent: Yeti
+Allow: /
+
+# 구글 크롤러
+User-agent: Googlebot
+Allow: /
+
+# 관리자 페이지 차단
+Disallow: /admin/
+
+Sitemap: https://ssentif-redesign.vercel.app/sitemap.xml

@@ -12,4 +12,4 @@ Allow: /
 # 관리자 페이지 차단
 Disallow: /admin/
 
-Sitemap: https://ssentif-redesign.vercel.app/sitemap.xml
+Sitemap: https://www.ssentif.kr/sitemap.xml

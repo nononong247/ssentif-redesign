@@ -139,22 +139,29 @@ p  { color: var(--gray-600); line-height: 1.75; }
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 100;
-  background: rgba(255,255,255,0.92);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border);
-  transition: box-shadow 0.2s;
+  padding: 16px 24px;
+  pointer-events: none;
 }
-.nav.scrolled { box-shadow: var(--shadow-sm); }
 
 .nav-inner {
   display: flex;
   align-items: center;
-  height: 64px;
-  max-width: 1160px;
+  height: 56px;
+  max-width: 1060px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 20px;
   gap: 40px;
+  background: rgba(255,255,255,0.82);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 20px;
+  box-shadow: 0 2px 24px rgba(0,0,0,0.07), 0 1px 4px rgba(0,0,0,0.04);
+  pointer-events: all;
+  transition: box-shadow 0.2s;
+}
+.nav.scrolled .nav-inner {
+  box-shadow: 0 4px 32px rgba(0,0,0,0.10), 0 1px 4px rgba(0,0,0,0.06);
 }
 
 .nav-logo {

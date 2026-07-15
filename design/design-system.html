@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<title>센티프 홈페이지 · 디자인 시스템</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<style>
+  :root {
+    --ink-900: #282828;
+    --ink-700: #45454A;
+    --ink-500: #707270;
+    --ink-300: #A8A8AA;
+    --ink-200: #EAEAEC;
+    --ink-100: #F1F1F3;
+    --ink-50:  #F4F4F5;
+    --surface: #FFFFFF;
+    --backdrop: #ECECEE;
+    --rule: #DDDDE0;
+
+    /* 문서화 대상 토큰 (스와치 전용) */
+    --accent: #1FDBA8; --accent-dark: #15B88E; --accent-light: #E6FBF5;
+    --black: #0D0F12;
+
+    --font: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont,
+      'Apple SD Gothic Neo', 'Malgun Gothic', 'Segoe UI', Roboto, sans-serif;
+    --mono: 'SF Mono', 'JetBrains Mono', 'D2Coding', ui-monospace, Menlo, monospace;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--backdrop);
+    color: var(--ink-900);
+    font-family: var(--font);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+    padding: 40px 20px 80px;
+  }
+  .wrap { max-width: 940px; margin: 0 auto; }
+
+  .doc-head { margin-bottom: 40px; }
+  .eyebrow {
+    font-size: 11.5px; font-weight: 700; letter-spacing: .22em;
+    color: var(--ink-500); text-transform: uppercase; margin-bottom: 12px;
+  }
+  .doc-head h1 {
+    font-size: 30px; font-weight: 800; letter-spacing: -.02em; margin: 0 0 10px;
+    line-height: 1.25;
+  }
+  .doc-head p { margin: 0; font-size: 14.5px; color: var(--ink-500); max-width: 62ch; }
+  .principle {
+    margin-top: 20px; padding: 14px 18px; background: var(--surface);
+    border: 1px solid var(--ink-200); border-radius: 12px;
+    font-size: 13.5px; color: var(--ink-700); line-height: 1.65;
+  }
+  .principle b { color: var(--ink-900); font-weight: 700; }
+
+  section { margin-top: 44px; }
+  .sec-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 4px; }
+  .sec-num {
+    font-family: var(--mono); font-size: 12px; font-weight: 600;
+    color: var(--ink-300); font-variant-numeric: tabular-nums;
+  }
+  .sec-head h2 { font-size: 18.5px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
+  .sec-sub { font-size: 13px; color: var(--ink-500); margin: 0 0 16px; padding-left: 30px; }
+
+  .tbl-scroll { overflow-x: auto; border-radius: 14px; border: 1px solid var(--ink-200); background: var(--surface); }
+  table { width: 100%; border-collapse: collapse; min-width: 640px; }
+  thead th {
+    text-align: left; font-size: 11px; font-weight: 700; letter-spacing: .04em;
+    color: var(--ink-500); text-transform: uppercase;
+    padding: 11px 16px; background: var(--ink-50);
+    border-bottom: 1px solid var(--ink-200); white-space: nowrap;
+  }
+  tbody td { padding: 13px 16px; border-bottom: 1px solid var(--ink-100); vertical-align: middle; font-size: 13.5px; }
+  tbody tr:last-child td { border-bottom: none; }
+  .c-name { font-weight: 600; white-space: nowrap; }
+  .c-note { color: var(--ink-500); font-size: 12.5px; line-height: 1.5; }
+  .hex { font-family: var(--mono); font-size: 12px; color: var(--ink-700); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .tok { font-family: var(--mono); font-size: 11.5px; color: var(--ink-500); }
+
+  .dot { display: inline-block; width: 16px; height: 16px; border-radius: 5px; flex: 0 0 auto; box-shadow: inset 0 0 0 1px rgba(40,40,40,.08); vertical-align: middle; }
+
+  .btn-s {
+    display: inline-flex; align-items: center; justify-content: center;
+    height: 32px; padding: 0 16px; border-radius: 999px;
+    font-size: 12.5px; font-weight: 600; font-family: var(--font); border: none;
+    white-space: nowrap;
+  }
+
+  .badge {
+    display: inline-flex; align-items: center;
+    padding: 3px 12px; border-radius: 999px;
+    font-size: 11px; font-weight: 700; white-space: nowrap;
+    letter-spacing: .1em; text-transform: uppercase;
+  }
+
+  .flag {
+    margin-top: 8px; padding: 12px 16px; border-radius: 12px;
+    background: #FFF6F0; border: 1px solid rgba(254,153,113,.3);
+    font-size: 13px; color: var(--ink-700); line-height: 1.6;
+  }
+  .flag b { color: #A85B3B; }
+  .flag-row { display: flex; gap: 9px; }
+  .flag-row + .flag-row { margin-top: 7px; }
+  .flag-mark { color: #C06B45; font-weight: 800; flex: 0 0 auto; }
+
+  code { font-family: var(--mono); font-size: 12px; background: var(--ink-100); padding: 1px 5px; border-radius: 4px; color: var(--ink-700); }
+
+  footer { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--rule); font-size: 12.5px; color: var(--ink-500); line-height: 1.7; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="doc-head">
+    <div class="eyebrow">SSENTIF · HOMEPAGE DESIGN SYSTEM v1.0 · 반응형 웹</div>
+    <h1>홈페이지 디자인 시스템</h1>
+    <p>센티프 마케팅 홈페이지(ssentif.kr) 전 페이지에서 색·타이포·컴포넌트가 적용되는 기준을 정리했습니다. 유지보수 시 이 문서의 토큰과 규칙을 따르고, 새 값을 임의로 추가하지 않습니다. 코치 앱 디자인 시스템(v2.2)과는 별개 문서 — 브랜드 민트만 공유합니다.</p>
+    <div class="principle">
+      <b>지배 원칙</b> — 라이트 화이트 베이스 + <b>브랜드 민트 <code>#1FDBA8</code>은 Primary CTA·하이라이트(<code>.hl</code>)·라벨 전용</b>. 본문·네비·보조 버튼은 무채색(잉크/그레이). 다크 배경 섹션은 <code>--black #0D0F12</code>(stats-bar, cta-band)에 한정하고 남용하지 않는다. 소스: <code>style.css</code>(공용) + 각 페이지 <code>&lt;style&gt;</code>(페이지 전용). <b>공용 패턴은 반드시 style.css로, 페이지 1회용만 인라인으로.</b>
+    </div>
+  </div>
+
+  <!-- 00 팔레트 -->
+  <section>
+    <div class="sec-head"><span class="sec-num">00</span><h2>팔레트 원천 (CSS 변수 — style.css <code>:root</code>)</h2></div>
+    <p class="sec-sub">모든 색은 이 토큰에서 파생. 하드코딩 HEX 추가 금지.</p>
+    <div class="tbl-scroll">
+      <table>
+        <thead><tr><th>토큰</th><th>색</th><th>HEX</th><th>역할</th></tr></thead>
+        <tbody>
+          <tr><td class="tok">--accent</td><td><span class="dot" style="background:#1FDBA8"></span></td><td class="hex">#1FDBA8</td><td class="c-note">★ 브랜드 민트 — Primary CTA 배경, <code>.hl</code> 텍스트 하이라이트, 로고 <code>TIF</code>, 통계 숫자 포인트</td></tr>
+          <tr><td class="tok">--accent-dark</td><td><span class="dot" style="background:#15B88E"></span></td><td class="hex">#15B88E</td><td class="c-note">민트 다크 — CTA hover, 라벨 텍스트, 체크 아이콘</td></tr>
+          <tr><td class="tok">--accent-light</td><td><span class="dot" style="background:#E6FBF5"></span></td><td class="hex">#E6FBF5</td><td class="c-note">민트 틴트 — 라벨 배경, 아이콘 배경, 체크 원</td></tr>
+          <tr><td class="tok">--black</td><td><span class="dot" style="background:#0D0F12"></span></td><td class="hex">#0D0F12</td><td class="c-note">잉크 — 제목, 다크 섹션 배경, btn-dark, 네비 CTA</td></tr>
+          <tr><td class="tok">--gray-800</td><td><span class="dot" style="background:#1E2433"></span></td><td class="hex">#1E2433</td><td class="c-note">다크 hover, 본문 기본색(body)</td></tr>
+          <tr><td class="tok">--gray-700</td><td><span class="dot" style="background:#2D3748"></span></td><td class="hex">#2D3748</td><td class="c-note">진한 본문, 리스트 텍스트</td></tr>
+          <tr><td class="tok">--gray-600</td><td><span class="dot" style="background:#4A5568"></span></td><td class="hex">#4A5568</td><td class="c-note">본문(p 기본), lead</td></tr>
+          <tr><td class="tok">--gray-400</td><td><span class="dot" style="background:#9AA5B4"></span></td><td class="hex">#9AA5B4</td><td class="c-note">보조 텍스트, 캡션, 푸터</td></tr>
+          <tr><td class="tok">--gray-200</td><td><span class="dot" style="background:#E2E8F0"></span></td><td class="hex">#E2E8F0</td><td class="c-note">아웃라인 버튼 테두리, 구분선</td></tr>
+          <tr><td class="tok">--gray-100</td><td><span class="dot" style="background:#F1F5F9"></span></td><td class="hex">#F1F5F9</td><td class="c-note">hover 배경, 이미지 placeholder</td></tr>
+          <tr><td class="tok">--gray-50</td><td><span class="dot" style="background:#F8FAFB"></span></td><td class="hex">#F8FAFB</td><td class="c-note">옅은 섹션 배경(page-hero, footer)</td></tr>
+          <tr><td class="tok">--white</td><td><span class="dot" style="background:#FFFFFF;box-shadow:inset 0 0 0 1px rgba(40,40,40,.15)"></span></td><td class="hex">#FFFFFF</td><td class="c-note">페이지·카드 배경</td></tr>
+          <tr><td class="tok">--border</td><td><span class="dot" style="background:#EAECF0"></span></td><td class="hex">#EAECF0</td><td class="c-note">카드·섹션 테두리 기본</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="flag">
+      <div class="flag-row"><span class="flag-mark">⚠</span><span><b>미정의 토큰 사용 중 (버그)</b> — <code>--gray-500</code>이 <b>27곳</b>, <code>--gray-300</code>이 <b>5곳</b>에서 사용되지만 <code>:root</code>에 정의가 없음. 해당 속성은 무효 처리되어 상속색으로 폴백됨. 권장 보완: <code>--gray-500: #718096</code> / <code>--gray-300: #CBD5E0</code> (기존 그레이 스케일 보간값) 추가.</span></div>
+    </div>
+  </section>
+
+  <!-- 01 타이포 -->
+  <section>
+    <div class="sec-head"><span class="sec-num">01</span><h2>타이포그래피 (반응형 clamp)</h2></div>
+    <p class="sec-sub">기본 폰트 Pretendard(CDN static). 제목은 뷰포트 연동 <code>clamp()</code> — 미디어쿼리 없이 자동 축소. 손글씨 연출은 Nanum Pen Script(index 한정).</p>
+    <div class="tbl-scroll">
+      <table>
+        <thead><tr><th>요소</th><th>크기</th><th>굵기</th><th>기타</th></tr></thead>
+        <tbody>
+          <tr><td class="c-name">h1</td><td class="hex">clamp(2.2rem, 5vw, 3.6rem)</td><td class="hex">800</td><td class="c-note">lh 1.2 · ls -0.02em</td></tr>
+          <tr><td class="c-name">h2</td><td class="hex">clamp(1.8rem, 3.5vw, 2.8rem)</td><td class="hex">800</td><td class="c-note">lh 1.25 · ls -0.02em</td></tr>
+          <tr><td class="c-name">h3</td><td class="hex">clamp(1.2rem, 2vw, 1.5rem)</td><td class="hex">700</td><td class="c-note">lh 1.35</td></tr>
+          <tr><td class="c-name">h4</td><td class="hex">1.1rem</td><td class="hex">700</td><td class="c-note">—</td></tr>
+          <tr><td class="c-name">body / p</td><td class="hex">16px / 상속</td><td class="hex">400</td><td class="c-note">p 색상 <code>--gray-600</code> · lh 1.75</td></tr>
+          <tr><td class="c-name">.lead</td><td class="hex">1.1rem</td><td class="hex">400</td><td class="c-note"><code>--gray-600</code> · lh 1.8 — 히어로 서브카피</td></tr>
+          <tr><td class="c-name">.label</td><td class="hex">12px</td><td class="hex">700</td><td class="c-note">uppercase · ls 0.1em — 섹션 아이브로우</td></tr>
+          <tr><td class="c-name">캡션류</td><td class="hex">12.5–13.5px</td><td class="hex">400–500</td><td class="c-note"><code>--gray-400</code> — 메타, 푸터, 통계 라벨</td></tr>
+          <tr><td class="c-name">.mm-handwrite</td><td class="hex">1.25em</td><td class="hex">400</td><td class="c-note">Nanum Pen Script · rotate(-1.2deg) — "이 센터 진짜 좋다" 전용</td></tr>
+          <tr><td class="c-name">로고</td><td class="hex">18–20px</td><td class="hex">900</td><td class="c-note">ls -0.04em · <code>SSEN</code>=잉크 + <code>TIF</code>=민트</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 02 버튼 -->
+  <section>
+    <div class="sec-head"><span class="sec-num">02</span><h2>버튼</h2></div>
+    <p class="sec-sub">기본형은 <code>.btn</code> + 변형 클래스. pill(radius 100px), 13px 28px 패딩, hover 시 translateY(-1px).</p>
+    <div class="tbl-scroll">
+      <table>
+        <thead><tr><th>변형</th><th>미리보기</th><th>스타일</th><th>사용처</th></tr></thead>
+        <tbody>
+          <tr><td class="c-name">.btn-primary</td><td><span class="btn-s" style="background:#1FDBA8;color:#0D0F12">무료로 시작하기</span></td><td class="hex">bg 민트 · 잉크 텍스트 · hover=민트다크+글로우</td><td class="c-note">최우선 CTA — 히어로, cta-band, 요금제 featured</td></tr>
+          <tr><td class="c-name">.btn-dark</td><td><span class="btn-s" style="background:#0D0F12;color:#fff">상담 신청하기</span></td><td class="hex">bg 잉크 · 흰 텍스트</td><td class="c-note">보조 CTA — Enterprise, 네비 CTA(<code>.nav-cta-btn</code>, radius 10px)</td></tr>
+          <tr><td class="c-name">.btn-outline</td><td><span class="btn-s" style="background:transparent;color:#1E2433;border:1.5px solid #E2E8F0">기능 둘러보기</span></td><td class="hex">투명 · gray-200 테두리 1.5px</td><td class="c-note">3순위 — 요금제 Free, 병렬 버튼</td></tr>
+          <tr><td class="c-name">.btn-lg / .btn-sm</td><td><span class="btn-s" style="background:#1FDBA8;color:#0D0F12;height:38px;padding:0 22px">크게</span></td><td class="hex">lg: 16px 36px · sm: 9px 20px</td><td class="c-note">사이즈 변형</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="flag">
+      <div class="flag-row"><span class="flag-mark">⚠</span><span><b>1회용 버튼 클래스 산재</b> — <code>.btn-secondary</code>, <code>.btn-outline-ghost</code>, <code>.btn-cta</code>, <code>.handoff-btn</code>, <code>.exv-send-btn</code> 등이 페이지 인라인 스타일에 개별 정의됨. 표준 <code>.btn</code> 변형 3종으로 흡수하거나, 재사용된다면 style.css로 승격 필요.</span></div>
+    </div>
+  </section>
+
+  <!-- 03 네비게이션 -->
+  <section>
+    <div class="sec-head"><span class="sec-num">03</span><h2>네비게이션 (플로팅 글래스 pill)</h2></div>
+    <p class="sec-sub">2026-07-15 개편 — 전폭 바 → 상단 플로팅 pill. 레퍼런스: bevel.health.</p>
+    <div class="tbl-scroll">
+      <table>
+        <thead><tr><th>속성</th><th>값</th></tr></thead>
+        <tbody>
+          <tr><td class="c-name">컨테이너</td><td class="c-note"><code>.nav</code> fixed + padding 16px 24px(띄움 여백), pointer-events: none</td></tr>
+          <tr><td class="c-name">pill (<code>.nav-inner</code>)</td><td class="c-note">max-width 1060px · height 56px · radius 20px · bg <code>rgba(255,255,255,0.82)</code> + <code>backdrop-filter: blur(20px)</code> · border <code>rgba(0,0,0,0.08)</code> 1px · shadow <code>0 2px 24px rgba(0,0,0,.07)</code></td></tr>
+          <tr><td class="c-name">링크</td><td class="c-note">14.5px w500 gray-700 · hover/active = gray-100 bg + 잉크</td></tr>
+          <tr><td class="c-name">CTA</td><td class="c-note"><code>.nav-cta-btn</code> — 잉크 bg + 흰 텍스트, radius 10px (버튼 pill과 다름 — 의도)</td></tr>
+          <tr><td class="c-name">모바일 (≤900px)</td><td class="c-note">링크 숨김 + 햄버거(<code>.nav-hamburger</code>) → 풀폭 드롭 메뉴(<code>.nav-mobile-menu</code>, top 64px 고정)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="flag">
+      <div class="flag-row"><span class="flag-mark">⚠</span><span><b>모바일 메뉴 위치 미보정</b> — <code>.nav-mobile-menu</code>가 구 전폭 바 기준 <code>top: 64px</code>로 고정되어 있음. 플로팅 pill 전환(nav 패딩 16px + pill 56px = 88px) 후 메뉴가 pill과 겹칠 수 있음 → <code>top: 88px</code> 보정 필요.</span></div>
+    </div>
+  </section>
+
+  <!-- 04 라벨·배지 -->
+  <section>
+    <div class="sec-head"><span class="sec-num">04</span><h2>라벨 · 배지 · 태그</h2></div>
+    <div class="tbl-scroll">
+      <table>
+        <thead><tr><th>컴포넌트</th><th>미리보기</th><th>스타일</th><th>사용처</th></tr></thead>
+        <tbody>
+          <tr><td class="c-name">.label</td><td><span class="badge" style="background:#E6FBF5;color:#15B88E">데이터 경영</span></td><td class="hex">민트 틴트 bg + 민트다크 텍스트 · pill</td><td class="c-note">섹션 아이브로우 (전 섹션 공통)</td></tr>
+          <tr><td class="c-name">.pricing-badge</td><td><span class="badge" style="background:#1FDBA8;color:#0D0F12;text-transform:none;letter-spacing:0">가장 인기</span></td><td class="hex">민트 solid bg + 잉크 텍스트</td><td class="c-note">요금제 featured 카드 상단</td></tr>
+          <tr><td class="c-name">.article-tag</td><td><span class="badge" style="background:#F1F5F9;color:#4A5568;text-transform:none;letter-spacing:0">운영 노하우</span></td><td class="hex">gray-100 bg + gray-600 텍스트</td><td class="c-note">lab 아티클 카테고리</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 05 카드 -->
+  <section>
+    <div class="sec-head"><span class="sec-num">05</span><h2>카드</h2></div>
+    <p class="sec-sub">공통 골격: 흰 배경 + <code>--border</code> 1px + <code>--radius-lg</code>(20px) + hover 시 shadow 상승 + translateY(-2~3px).</p>
+    <div class="tbl-scroll">
+      <table>
+        <thead><tr><th>컴포넌트</th><th>패딩</th><th>차이점</th><th>사용처</th></tr></thead>
+        <tbody>
+          <tr><td class="c-name">.card</td><td class="hex">body 28px</td><td class="c-note">hover shadow-lg · overflow hidden(이미지 카드)</td><td class="c-note">범용</td></tr>
+          <tr><td class="c-name">.feature-card</td><td class="hex">32px</td><td class="c-note">+ <code>.feature-icon</code>(48px 민트틴트 원각 12px)</td><td class="c-note">기능 그리드</td></tr>
+          <tr><td class="c-name">.testimonial-card</td><td class="hex">32px</td><td class="c-note">shadow-sm 상시 · 별점(#F59E0B) · 아바타 42px 원형</td><td class="c-note">고객 후기</td></tr>
+          <tr><td class="c-name">.pricing-card</td><td class="hex">36px 32px</td><td class="c-note">border 1.5px · featured=민트 테두리 + 민트 글로우 4px</td><td class="c-note">요금제</td></tr>
+          <tr><td class="c-name">.article-card</td><td class="hex">body 24px</td><td class="c-note">16:9 썸네일 + hover 이미지 scale(1.04)</td><td class="c-note">lab 아티클</td></tr>
+          <tr><td class="c-name">bc-2 (벤토)</td><td class="hex">32px</td><td class="c-note"><b>민트 solid 배경</b> + 잉크 텍스트 — 벤토 그리드 내 유일한 유색 카드(승인된 예외)</td><td class="c-note">index 데이터 경영 섹션</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 06 레이아웃 -->
+  <section>
+    <div class="sec-head"><span class="sec-num">06</span><h2>레이아웃 · 브레이크포인트 (반응형 기준)</h2></div>
+    <div class="tbl-scroll">
+      <table>
+        <thead><tr><th>항목</th><th>데스크탑</th><th>태블릿 ≤900px</th><th>모바일 ≤600px</th></tr></thead>
+        <tbody>
+          <tr><td class="c-name">.container</td><td class="hex">max 1160px · pad 24px</td><td class="hex">pad 20px</td><td class="hex">pad 16px</td></tr>
+          <tr><td class="c-name">.container-wide</td><td class="hex">max 1340px · pad 40px</td><td class="c-note" colspan="2">개별 보정 없음(컨테이너 축소만)</td></tr>
+          <tr><td class="c-name">.section</td><td class="hex">96px 0</td><td class="hex">72px 0</td><td class="hex">56px 0</td></tr>
+          <tr><td class="c-name">.section-sm</td><td class="hex">64px 0</td><td class="hex">48px 0</td><td class="hex">36px 0</td></tr>
+          <tr><td class="c-name">.page-hero</td><td class="hex">140px 0 80px</td><td class="hex">100px 0 56px</td><td class="hex">88px 0 44px</td></tr>
+          <tr><td class="c-name">그리드 붕괴</td><td class="c-note">showcase 2col · pricing 3col · process 4col</td><td class="c-note">전부 1col (process 2col)</td><td class="c-note">process 1col · footer 1col</td></tr>
+          <tr><td class="c-name">네비</td><td class="c-note">링크 + CTA 노출</td><td class="c-note" colspan="2">햄버거 + 드롭 메뉴</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="c-note" style="margin:10px 0 0 30px;">브레이크포인트는 <b>900px / 600px 2단</b>이 공식. 페이지 인라인 스타일에서 480px, 700px 등 임의 지점을 추가로 쓰는 곳이 있음(pricing 비교표 700px, consulting 폼 480px) — 신규 작업은 900/600을 우선 사용.</p>
+  </section>
+
+  <!-- 07 radius / shadow -->
+  <section>
+    <div class="sec-head"><span class="sec-num">07</span><h2>Radius · Shadow 토큰</h2></div>
+    <div class="tbl-scroll">
+      <table>
+        <thead><tr><th>토큰</th><th>값</th><th>사용처</th></tr></thead>
+        <tbody>
+          <tr><td class="tok">--radius</td><td class="hex">12px</td><td class="c-note">입력 필드, 중간 요소</td></tr>
+          <tr><td class="tok">--radius-lg</td><td class="hex">20px</td><td class="c-note">카드 전반</td></tr>
+          <tr><td class="c-name">pill</td><td class="hex">100px / 999px</td><td class="c-note">버튼, 라벨, 배지</td></tr>
+          <tr><td class="tok">--shadow-sm</td><td class="hex">0 1px 3px …</td><td class="c-note">후기 카드 상시</td></tr>
+          <tr><td class="tok">--shadow-md</td><td class="hex">0 4px 16px …</td><td class="c-note">카드 hover, 모바일 메뉴, 폼 카드</td></tr>
+          <tr><td class="tok">--shadow-lg</td><td class="hex">0 12px 40px …</td><td class="c-note">쇼케이스 이미지, 카드 강 hover</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="flag">
+      <div class="flag-row"><span class="flag-mark">⚠</span><span><b>radius 하드코딩 산재</b> — 인라인 스타일에서 6/8/10/12/14/16/18/20/24px가 혼용됨(총 100+ 지점 중 var 사용은 15곳). 신규 코드는 <b>소형 8px · 중형 <code>var(--radius)</code>(12px) · 카드 <code>var(--radius-lg)</code>(20px) · pill 999px</b> 4단만 사용 권장.</span></div>
+    </div>
+  </section>
+
+  <!-- 08 모션 -->
+  <section>
+    <div class="sec-head"><span class="sec-num">08</span><h2>모션</h2></div>
+    <div class="tbl-scroll">
+      <table>
+        <thead><tr><th>패턴</th><th>값</th><th>사용처</th></tr></thead>
+        <tbody>
+          <tr><td class="c-name">.fade-up</td><td class="hex">opacity 0→1 + translateY 28px→0 · 0.6s ease</td><td class="c-note">스크롤 진입 애니메이션(IntersectionObserver로 <code>.visible</code> 부여) — 전 섹션 공통</td></tr>
+          <tr><td class="c-name">카드 hover</td><td class="hex">shadow 상승 + translateY(-2~3px) · 0.2s</td><td class="c-note">card, feature-card, article-card</td></tr>
+          <tr><td class="c-name">버튼 hover</td><td class="hex">translateY(-1px) + 색 전환 · 0.2s ease</td><td class="c-note">btn-primary(+민트 글로우), btn-dark</td></tr>
+          <tr><td class="c-name">이미지 hover</td><td class="hex">scale(1.04) · 0.3s</td><td class="c-note">아티클 썸네일</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 통일 필요 플래그 -->
+  <section>
+    <div class="sec-head"><span class="sec-num">⚠</span><h2>통일 필요 항목 (우선순위순)</h2></div>
+    <p class="sec-sub">현재 상태 전수 조사에서 발견된 비일관 지점. 보완 시 이 문서도 함께 갱신할 것.</p>
+    <div class="flag">
+      <div class="flag-row"><span class="flag-mark">1</span><span><b>미정의 CSS 변수 (버그)</b> — <code>--gray-500</code> 27곳 / <code>--gray-300</code> 5곳 사용 중이나 정의 없음 → 색이 적용되지 않고 상속됨. <code>:root</code>에 <code>--gray-500: #718096</code>, <code>--gray-300: #CBD5E0</code> 추가로 즉시 해결.</span></div>
+      <div class="flag-row"><span class="flag-mark">2</span><span><b>모바일 메뉴 offset</b> — 글래스 pill 네비 전환 후 <code>.nav-mobile-menu</code>의 <code>top: 64px</code>가 구버전 기준. 88px로 보정 + 모바일 화면 실측 확인 필요.</span></div>
+      <div class="flag-row"><span class="flag-mark">3</span><span><b>1회용 버튼 클래스</b> — <code>.btn-secondary</code>/<code>.btn-outline-ghost</code>/<code>.btn-cta</code>/<code>.handoff-btn</code> 등 페이지별 사설 버튼을 표준 <code>.btn</code> 3변형으로 흡수.</span></div>
+      <div class="flag-row"><span class="flag-mark">4</span><span><b>radius 스케일 정리</b> — 하드코딩 9종 → 4단(8 / 12 / 20 / 999px)으로 수렴. 기존 코드는 신규 수정 시 점진 교체.</span></div>
+      <div class="flag-row"><span class="flag-mark">5</span><span><b>임의 브레이크포인트</b> — 480/700px 등 페이지 사설 지점 → 900/600 2단 기준으로 신규 작업 통일(기존은 동작에 문제 없으면 유지).</span></div>
+    </div>
+  </section>
+
+  <footer>
+    센티프 홈페이지 · 디자인 시스템 v1.0 — <code>style.css</code> + 페이지 인라인 스타일 전수 조사 기준 (2026-07-15).<br>
+    소스 오브 트루스: 이 문서 + <code>style.css :root</code> 토큰. 값 변경 시 둘을 함께 갱신합니다. 코치 앱 디자인 시스템(SSENTIF DESIGN v2.2)과 별개 — 공유 자산은 브랜드 민트 3종과 Pretendard뿐입니다.
+  </footer>
+</div>
+</body>
+</html>

@@ -17,7 +17,9 @@
   --gray-800:     #1E2433;
   --gray-700:     #2D3748;
   --gray-600:     #4A5568;
+  --gray-500:     #718096;
   --gray-400:     #9AA5B4;
+  --gray-300:     #CBD5E0;
   --gray-200:     #E2E8F0;
   --gray-100:     #F1F5F9;
   --gray-50:      #F8FAFB;
@@ -524,6 +526,7 @@ p  { color: var(--gray-600); line-height: 1.75; }
   flex-direction: column;
   justify-content: center;
   gap: 5px;
+  flex-shrink: 0;
   width: 40px; height: 40px;
   background: none; border: none; cursor: pointer;
   padding: 8px; border-radius: 8px;
@@ -544,9 +547,12 @@ p  { color: var(--gray-600); line-height: 1.75; }
 .nav-mobile-menu {
   display: none;
   position: fixed;
-  top: 64px; left: 0; right: 0;
-  background: var(--white);
-  border-bottom: 1px solid var(--border);
+  top: 84px; left: 16px; right: 16px;
+  background: rgba(255,255,255,0.94);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 20px;
   box-shadow: var(--shadow-md);
   padding: 16px 24px 24px;
   z-index: 99;

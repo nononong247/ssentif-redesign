@@ -147,7 +147,7 @@
       </table>
     </div>
     <div class="flag">
-      <div class="flag-row"><span class="flag-mark">⚠</span><span><b>미정의 토큰 사용 중 (버그)</b> — <code>--gray-500</code>이 <b>27곳</b>, <code>--gray-300</code>이 <b>5곳</b>에서 사용되지만 <code>:root</code>에 정의가 없음. 해당 속성은 무효 처리되어 상속색으로 폴백됨. 권장 보완: <code>--gray-500: #718096</code> / <code>--gray-300: #CBD5E0</code> (기존 그레이 스케일 보간값) 추가.</span></div>
+      <div class="flag-row"><span class="flag-mark" style="color:#34795A">✓</span><span><b>미정의 토큰 해결됨 (2026-07-15)</b> — <code>--gray-500: #718096</code>, <code>--gray-300: #CBD5E0</code>이 <code>:root</code>에 추가됨. 위 표에는 아직 미반영이니 아래 값을 공식 토큰으로 취급: gray-500=보조 텍스트(pricing-desc 등 27곳) / gray-300=옅은 비활성(5곳).</span></div>
     </div>
   </section>
 
@@ -211,7 +211,7 @@
       </table>
     </div>
     <div class="flag">
-      <div class="flag-row"><span class="flag-mark">⚠</span><span><b>모바일 메뉴 위치 미보정</b> — <code>.nav-mobile-menu</code>가 구 전폭 바 기준 <code>top: 64px</code>로 고정되어 있음. 플로팅 pill 전환(nav 패딩 16px + pill 56px = 88px) 후 메뉴가 pill과 겹칠 수 있음 → <code>top: 88px</code> 보정 필요.</span></div>
+      <div class="flag-row"><span class="flag-mark" style="color:#34795A">✓</span><span><b>모바일 메뉴 보정 완료 (2026-07-15)</b> — <code>.nav-mobile-menu</code>를 <code>top: 84px + left/right 16px + radius 20px + 글래스(blur 20px)</code> 플로팅 카드로 전환, pill과 동일한 룩. <code>.nav-hamburger</code>에 <code>flex-shrink: 0</code> 추가(찌그러짐 수정). 모바일 375px 실측 검증 완료.</span></div>
     </div>
   </section>
 
@@ -311,8 +311,8 @@
     <div class="sec-head"><span class="sec-num">⚠</span><h2>통일 필요 항목 (우선순위순)</h2></div>
     <p class="sec-sub">현재 상태 전수 조사에서 발견된 비일관 지점. 보완 시 이 문서도 함께 갱신할 것.</p>
     <div class="flag">
-      <div class="flag-row"><span class="flag-mark">1</span><span><b>미정의 CSS 변수 (버그)</b> — <code>--gray-500</code> 27곳 / <code>--gray-300</code> 5곳 사용 중이나 정의 없음 → 색이 적용되지 않고 상속됨. <code>:root</code>에 <code>--gray-500: #718096</code>, <code>--gray-300: #CBD5E0</code> 추가로 즉시 해결.</span></div>
-      <div class="flag-row"><span class="flag-mark">2</span><span><b>모바일 메뉴 offset</b> — 글래스 pill 네비 전환 후 <code>.nav-mobile-menu</code>의 <code>top: 64px</code>가 구버전 기준. 88px로 보정 + 모바일 화면 실측 확인 필요.</span></div>
+      <div class="flag-row"><span class="flag-mark" style="color:#34795A">✓</span><span><b>미정의 CSS 변수 — 해결(2026-07-15)</b> — <code>--gray-500: #718096</code>, <code>--gray-300: #CBD5E0</code> 토큰 추가됨.</span></div>
+      <div class="flag-row"><span class="flag-mark" style="color:#34795A">✓</span><span><b>모바일 메뉴 offset — 해결(2026-07-15)</b> — 플로팅 글래스 카드(top 84px)로 전환 + 햄버거 <code>flex-shrink: 0</code> 수정, 375px 실측 검증.</span></div>
       <div class="flag-row"><span class="flag-mark">3</span><span><b>1회용 버튼 클래스</b> — <code>.btn-secondary</code>/<code>.btn-outline-ghost</code>/<code>.btn-cta</code>/<code>.handoff-btn</code> 등 페이지별 사설 버튼을 표준 <code>.btn</code> 3변형으로 흡수.</span></div>
       <div class="flag-row"><span class="flag-mark">4</span><span><b>radius 스케일 정리</b> — 하드코딩 9종 → 4단(8 / 12 / 20 / 999px)으로 수렴. 기존 코드는 신규 수정 시 점진 교체.</span></div>
       <div class="flag-row"><span class="flag-mark">5</span><span><b>임의 브레이크포인트</b> — 480/700px 등 페이지 사설 지점 → 900/600 2단 기준으로 신규 작업 통일(기존은 동작에 문제 없으면 유지).</span></div>

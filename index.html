@@ -783,6 +783,26 @@
   .home-hero { padding:0; }
   .hero-card-scroll-scene { margin-top:40px; padding:0 16px; }
 }
+
+/* ════════════════════════════════════════
+   이미지 자리표시자 — Gemini 제작본 삽입 예정
+   교체 방법: 이 블록을 <img src="경로" alt="..."> 로 교체
+════════════════════════════════════════ */
+.img-placeholder {
+  width:100%; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:8px; background:rgba(120,120,120,0.08); border:1.5px dashed rgba(120,120,120,0.35);
+  border-radius:16px; color:var(--gray-400); text-align:center; padding:24px;
+  box-sizing:border-box;
+}
+.img-placeholder .ph-id {
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:12px; font-weight:700; color:var(--gray-600);
+  background:rgba(120,120,120,0.12); border-radius:6px; padding:3px 10px;
+}
+.img-placeholder .ph-desc { font-size:12.5px; color:var(--gray-400); max-width:280px; line-height:1.6; }
+.img-placeholder.dark { background:rgba(255,255,255,0.04); border-color:rgba(255,255,255,0.18); color:rgba(255,255,255,0.4); }
+.img-placeholder.dark .ph-id { background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.7); }
+.img-placeholder.dark .ph-desc { color:rgba(255,255,255,0.35); }
 </style>
 
 
@@ -813,93 +833,12 @@
         <div class="hero-card-frame">
           <div class="hero-card-frame-inner">
 
-            <!-- 맥 스타일 탑바 -->
-            <div class="hero-card-topbar">
-              <div class="hero-card-dots">
-                <div class="hero-card-dot"></div>
-                <div class="hero-card-dot"></div>
-                <div class="hero-card-dot"></div>
-              </div>
-              <div class="hero-card-topbar-logo">SSEN<span>TIF</span></div>
-              <div class="hero-card-topbar-badge">
-                <svg width="7" height="7" viewBox="0 0 8 8" fill="none"><circle cx="4" cy="4" r="4" fill="#1FDBA8"/></svg>
-                AI 분석 중
-              </div>
-            </div>
-
-            <!-- 바디: 채팅 | 통계 -->
-            <div class="hero-card-body">
-
-              <!-- 좌: AI 채팅 -->
-              <div class="hero-chat-panel">
-                <div class="hero-chat-label">AI 운영 어시스턴트</div>
-
-                <div class="hero-chat-msg">
-                  <div class="hero-chat-avatar user">원</div>
-                  <div class="hero-chat-bubble user">이번 달 운영 결과 요약해줘. 다음 달 전략도 짜줘.</div>
-                </div>
-
-                <div class="hero-chat-msg">
-                  <div class="hero-chat-avatar ai">✦</div>
-                  <div class="hero-chat-bubble ai">
-                    이번 달 재등록률 <span class="acc">89%</span>로 전월 대비 +8% 상승했습니다. 이탈 위험 회원 3명 중 2명 재등록 전환에 성공했습니다.<br><br>
-                    다음 달은 겨울 비수기 대비 <span class="acc">단기 집중 프로그램</span> 출시를 권장합니다.
-                  </div>
-                </div>
-
-                <div class="hero-chat-msg">
-                  <div class="hero-chat-avatar user">원</div>
-                  <div class="hero-chat-bubble user">페이롤 정산도 해줘.</div>
-                </div>
-
-                <div class="hero-chat-msg">
-                  <div class="hero-chat-avatar ai">✦</div>
-                  <div class="hero-chat-bubble ai">
-                    박준형 <span class="acc">₩840,000</span> / 김민지 <span class="acc">₩630,000</span> / 이서연 <span class="acc">₩735,000</span><br>
-                    총 인건비 <span class="acc">₩2,205,000</span> — 정산 완료됐습니다.
-                  </div>
-                </div>
-              </div>
-
-              <!-- 우: 통계 대시보드 -->
-              <div class="hero-stats-panel">
-                <div class="hero-stats-label">이번 달 운영 현황</div>
-
-                <div class="hero-stat-card">
-                  <div class="n">89<em>%</em></div>
-                  <div class="l">재등록률</div>
-                  <div class="hero-stat-bar"><div class="hero-stat-bar-fill" style="width:89%"></div></div>
-                </div>
-
-                <div class="hero-stat-card">
-                  <div class="n" style="color:var(--accent)">+8<em>%</em></div>
-                  <div class="l">전월 대비 재등록 상승</div>
-                  <div class="hero-stat-bar"><div class="hero-stat-bar-fill" style="width:60%"></div></div>
-                </div>
-
-                <div class="hero-stat-card">
-                  <div class="n">2<em>명</em></div>
-                  <div class="l">이탈 방지 성공 (3명 중)</div>
-                  <div class="hero-stat-bar"><div class="hero-stat-bar-fill" style="width:66%"></div></div>
-                </div>
-
-                <div class="hero-stat-card">
-                  <div class="n">₩2.2<em>M</em></div>
-                  <div class="l">페이롤 정산 완료</div>
-                  <div class="hero-stat-bar"><div class="hero-stat-bar-fill" style="width:100%"></div></div>
-                </div>
-              </div>
-
-            </div>
-
-            <!-- 빠른 실행 칩 -->
-            <div class="hero-chip-row">
-              <div class="hero-chip">📋 수업일지 작성</div>
-              <div class="hero-chip">💰 페이롤 정산</div>
-              <div class="hero-chip">🔔 이탈 위험 감지</div>
-              <div class="hero-chip">📊 월간 리포트</div>
-              <div class="hero-chip">💪 루틴 처방</div>
-              <div class="hero-chip">📅 스케줄 관리</div>
+            <!-- 이미지 자리표시자: 히어로 목업 실제 화면 (Gemini 제작본 삽입 예정) -->
+            <!-- 교체 방법: 이 블록을 <img src="경로" alt="..." style="width:100%;height:100%;object-fit:cover"> 로 교체 -->
+            <!-- 스크롤 rotateX/scale 애니메이션은 상위 #heroCardScrollWrap에 걸려있어 이 안쪽을 바꿔도 유지됨 -->
+            <div class="img-placeholder dark" style="aspect-ratio:900/540;">
+              <span class="ph-id">IMG: hero-dashboard-mockup</span>
+              <span class="ph-desc">AI 운영 어시스턴트 채팅 + 이번 달 운영 현황 통계 화면 (가로형, 다크 배경)</span>
             </div>
 
           </div>

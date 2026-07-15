@@ -691,6 +691,26 @@
 .final-cta p { font-size:15px; color:rgba(255,255,255,0.45); line-height:1.75; margin-bottom:36px; }
 .final-cta-btns { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
 
+/* ════════════════════════════════════════
+   이미지 자리표시자 — Gemini 제작본 삽입 예정
+   교체 방법: 이 블록을 <img src="경로" alt="..."> 로 교체
+════════════════════════════════════════ */
+.img-placeholder {
+  width:100%; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:8px; background:rgba(120,120,120,0.08); border:1.5px dashed rgba(120,120,120,0.35);
+  border-radius:16px; color:var(--gray-400); text-align:center; padding:24px;
+  box-sizing:border-box;
+}
+.img-placeholder .ph-id {
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:12px; font-weight:700; color:var(--gray-600);
+  background:rgba(120,120,120,0.12); border-radius:6px; padding:3px 10px;
+}
+.img-placeholder .ph-desc { font-size:12.5px; color:var(--gray-400); max-width:280px; line-height:1.6; }
+.img-placeholder.dark { background:rgba(255,255,255,0.04); border-color:rgba(255,255,255,0.18); color:rgba(255,255,255,0.4); }
+.img-placeholder.dark .ph-id { background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.7); }
+.img-placeholder.dark .ph-desc { color:rgba(255,255,255,0.35); }
+
 </style>
 </head>
 <body>
@@ -838,19 +858,11 @@
     </div>
   </div>
 
-  <!-- 대시보드 목업 -->
+  <!-- 이미지 자리표시자: 관리자 대시보드 실제 화면 -->
   <div class="ms-dashboard">
-    <div class="ms-dash-inner" id="msDash">
-      <div class="ms-dash-topbar">
-        <div class="ms-dot"></div><div class="ms-dot"></div><div class="ms-dot"></div>
-        <span class="ms-dash-title">SSENTIF — 운영 대시보드</span>
-      </div>
-      <div class="ms-dash-body">
-        <div class="ms-kpi"><div class="n">89<em>%</em></div><div class="l">재등록률</div><div class="d">↑ 전월 +8%</div></div>
-        <div class="ms-kpi"><div class="n">₩8.4<em>M</em></div><div class="l">이번 달 매출</div><div class="d">↑ 전월 +12%</div></div>
-        <div class="ms-kpi"><div class="n">147<em>건</em></div><div class="l">총 수업</div><div class="d">평균 4.9건/일</div></div>
-        <div class="ms-kpi"><div class="n" style="color:#F59E0B">3<em>명</em></div><div class="l">이탈 위험</div><div class="d" style="color:#F59E0B">즉시 액션 필요</div></div>
-      </div>
+    <div class="img-placeholder dark" style="aspect-ratio:16/8;">
+      <span class="ph-id">IMG: manager-dashboard</span>
+      <span class="ph-desc">관리자 운영 대시보드 실제 화면 (재등록률·매출·수업 현황·이탈 위험 알림)</span>
     </div>
   </div>
 
@@ -1068,6 +1080,22 @@
     </div>
   </div>
 
+  <!-- 이미지 자리표시자: 강사 앱 실제 화면 3종 -->
+  <div style="max-width:1120px;margin:56px auto 0;padding:0 48px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
+    <div class="img-placeholder" style="aspect-ratio:4/3;">
+      <span class="ph-id">IMG: trainer-home</span>
+      <span class="ph-desc">강사 홈 — 오늘 스케줄 실제 화면</span>
+    </div>
+    <div class="img-placeholder" style="aspect-ratio:4/3;">
+      <span class="ph-id">IMG: trainer-class-recording</span>
+      <span class="ph-desc">수업 기록 화면</span>
+    </div>
+    <div class="img-placeholder" style="aspect-ratio:4/3;">
+      <span class="ph-id">IMG: trainer-members</span>
+      <span class="ph-desc">배정 회원 목록 화면</span>
+    </div>
+  </div>
+
   <div class="feat-more" id="trFeatMore" style="max-width:960px;">
     <div class="feat-more-head">전체 강사 기능</div>
     <div class="feat-grid">
@@ -1207,62 +1235,11 @@
 
   <div class="mb-layout">
 
-    <!-- 폰 프레임 -->
+    <!-- 이미지 자리표시자: 회원 앱 홈 화면 실제 캡처 -->
     <div class="mb-phone-wrap" id="mbPhone">
-      <div class="mb-phone">
-        <div class="mb-phone-inner">
-          <div class="mb-phone-status"><span>9:41</span><span>●●●</span></div>
-          <div class="mb-phone-logo">SSEN<span>TIF</span></div>
-
-          <!-- 웰니스 링 카드 -->
-          <div class="mb-wellness-card">
-            <div class="mb-wellness-ring">
-              <svg width="64" height="64" viewBox="0 0 64 64">
-                <circle cx="32" cy="32" r="26" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="5.5"/>
-                <circle cx="32" cy="32" r="26" fill="none" stroke="#1FDBA8" stroke-width="5.5"
-                  stroke-dasharray="163.4" stroke-dashoffset="41" stroke-linecap="round"/>
-              </svg>
-              <div class="mb-ring-score">75</div>
-            </div>
-            <div class="mb-wellness-checks">
-              <div class="mb-wellness-title">오늘의 웰니스</div>
-              <div class="mb-wcheck checked">컨디션 기록</div>
-              <div class="mb-wcheck checked">운동 완료</div>
-              <div class="mb-wcheck checked">식단 업로드</div>
-              <div class="mb-wcheck">체성분 미기록</div>
-            </div>
-          </div>
-
-          <!-- 오늘 PT 배너 -->
-          <div class="mb-pt-banner">
-            <div class="mb-pt-icon">⏰</div>
-            <div class="mb-pt-body">
-              <div class="mb-pt-label">오늘 일정</div>
-              <div class="mb-pt-info">오후 7:00 · 박준형 트레이너</div>
-            </div>
-            <div class="mb-pt-action">준비완료 →</div>
-          </div>
-
-          <!-- 퀵 트래커 -->
-          <div class="mb-quick-grid">
-            <div class="mb-quick">
-              <div class="mb-q-val">1,500</div>
-              <div class="mb-q-label">💧 수분 (ml)</div>
-            </div>
-            <div class="mb-quick">
-              <div class="mb-q-val">7,240</div>
-              <div class="mb-q-label">👟 걸음 수</div>
-            </div>
-          </div>
-
-          <!-- 바텀 내비 -->
-          <div class="mb-bottom-nav">
-            <div class="mb-bnav active"><span class="mb-bnav-icon">🏠</span>홈</div>
-            <div class="mb-bnav"><span class="mb-bnav-icon">📅</span>캘린더</div>
-            <div class="mb-bnav"><span class="mb-bnav-icon">💬</span>채팅</div>
-            <div class="mb-bnav"><span class="mb-bnav-icon">📊</span>리포트</div>
-          </div>
-        </div>
+      <div class="img-placeholder dark" style="aspect-ratio:9/19; border-radius:32px; height:100%;">
+        <span class="ph-id">IMG: member-app-home</span>
+        <span class="ph-desc">회원 앱 홈 화면 실제 캡처 (웰니스 기록·오늘 PT 일정·수분/걸음 트래커·하단 내비게이션)</span>
       </div>
     </div>
 
@@ -1593,12 +1570,6 @@ observe('#trOutcome',  el => el.classList.add('appeared'));
 /* ── 회원: 폰 등장 ── */
 observe('#mbPhone', el => {
   el.classList.add('appeared');
-  // 프로그레스 바 애니메이션
-  setTimeout(() => {
-    document.getElementById('pbar1').style.width = '48%';
-    document.getElementById('pbar2').style.width = '80%';
-    document.getElementById('pbar3').style.width = '94%';
-  }, 400);
 }, {threshold:0.2});
 
 /* ── 회원: 기능 아이템 ── */

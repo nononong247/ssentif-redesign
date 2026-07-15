@@ -79,28 +79,34 @@
   gap: 24px;
 }
 
-/* Linko style pill badge */
+/* Linko style pill badge — Apple Liquid Glass */
 .hero-pill {
+  position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  background: rgba(21,184,142,0.1);
-  border: 1px solid rgba(21,184,142,0.25);
+  gap: 9px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.75), rgba(255,255,255,0.45));
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  backdrop-filter: blur(14px) saturate(1.4);
   border-radius: 100px;
-  padding: 7px 16px;
+  padding: 9px 20px;
   font-size: 13px;
-  font-weight: 600;
-  color: var(--accent-dark);
-  letter-spacing: 0.01em;
-  margin-bottom: 20px;
+  font-weight: 700;
+  color: var(--black);
+  letter-spacing: -0.01em;
+  margin-bottom: 32px;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.9) inset,
+    0 -6px 12px rgba(31,219,168,0.08) inset,
+    0 10px 28px rgba(15,120,95,0.14);
+  overflow: hidden;
 }
-.hero-pill-dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--accent);
-  flex-shrink: 0;
+.hero-pill::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 8%; right: 8%; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.95) 40%, rgba(255,255,255,0.95) 60%, transparent);
 }
-
 .home-hero h1 {
   font-size: clamp(2.6rem, 6vw, 4.6rem);
   font-weight: 900;
@@ -119,13 +125,13 @@
 
 /* Linko-style single big button + ghost */
 .hero-btns {
-  display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+  display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
   margin-top: 4px;
 }
 .hero-btns .btn-cta {
-  display: inline-flex; align-items: center; gap: 8px;
+  display: inline-flex; align-items: center; gap: 6px;
   background: var(--black); color: var(--white);
-  padding: 16px 36px; font-size: 16px; border-radius: 100px;
+  padding: 12px 26px; font-size: 14px; border-radius: 100px;
   font-weight: 700; transition: all 0.2s; border: none; cursor: pointer;
   box-shadow: 0 4px 20px rgba(0,0,0,0.18);
   font-family: inherit;
@@ -135,7 +141,7 @@
   display: inline-flex; align-items: center; gap: 6px;
   background: rgba(255,255,255,0.7); color: var(--gray-700);
   border: 1.5px solid var(--gray-200);
-  padding: 16px 32px; font-size: 16px; border-radius: 100px;
+  padding: 12px 24px; font-size: 14px; border-radius: 100px;
   font-weight: 600; transition: all 0.2s; cursor: pointer;
   backdrop-filter: blur(8px);
   font-family: inherit;
@@ -787,7 +793,6 @@
     <div class="hero-scroll-title">
       <div class="hero-text">
         <div class="hero-pill">
-          <span class="hero-pill-dot"></span>
           피트니스 AI 워크스페이스
         </div>
         <h1><span class="hl">만족도</span>는 높이고<br>운영은 <span class="hl">지속 가능하게</span></h1>
@@ -2232,7 +2237,7 @@
 <section class="cta-band">
   <div class="container">
     <div class="hero-pill" style="background:rgba(31,219,168,0.15);color:var(--accent);border-color:rgba(31,219,168,0.25);margin-bottom:20px">
-      <span class="hero-pill-dot"></span>현장 데이터 기반 운영
+      현장 데이터 기반 운영
     </div>
     <h2>우리 센터, 얼마나 바뀔 수 있는지<br>확인해보세요</h2>
     <p>카드 등록 없이 14일, 무료로 직접 경험하세요.</p>

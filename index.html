@@ -296,7 +296,7 @@
 
 /* card 1 – tall with image */
 .bc-1 .bc-inner {
-  display:grid; grid-template-columns:1fr 1fr; gap:0; height:320px;
+  display:grid; grid-template-columns:1fr 1fr; gap:0; min-height:320px; height:100%;
 }
 .bc-1 .bc-text { padding:36px; display:flex; flex-direction:column; justify-content:center; }
 .bc-1 .bc-visual {
@@ -325,13 +325,181 @@
 .bc-2 .bc-big-label { font-size:12px; color: rgba(0,0,0,0.45); margin-top:4px; }
 
 /* card 3, 4, 5 – standard */
-.bc-3,.bc-4,.bc-5 { min-height:220px; padding:32px; }
+.bc-3,.bc-4,.bc-5 { min-height:340px; padding:32px; display:flex; flex-direction:column; }
+.bc-3 h3,.bc-4 h3,.bc-5 h3 { margin-bottom:10px; }
+.bc-3 p,.bc-4 p,.bc-5 p { margin-bottom:auto; }
 
 /* card 5 – mint accent */
 .bc-5 {
   background: linear-gradient(145deg, var(--accent-light) 0%, #FFFFFF 100%);
   border-color: rgba(21,184,142,0.2);
 }
+
+/* ─── Card 1 : 이탈 위험 리스트 ─── */
+.bcv-churn {
+  background: var(--gray-50) !important;
+  padding: 20px; display:flex; flex-direction:column; gap:9px; justify-content:center;
+  position:relative; overflow:hidden;
+}
+.churn-head {
+  font-size:11px; font-weight:800; color:var(--gray-400);
+  letter-spacing:0.04em; text-transform:uppercase; margin-bottom:2px;
+}
+.churn-scan {
+  position:absolute; left:0; right:0; height:80px;
+  background:linear-gradient(180deg, transparent, rgba(31,219,168,0.16) 50%, transparent);
+  pointer-events:none; z-index:0;
+  animation: churnScan 3.8s ease-in-out infinite;
+}
+@keyframes churnScan {
+  0%   { top:-80px;  opacity:0 }
+  18%  { opacity:1 }
+  82%  { opacity:1 }
+  100% { top:100%;   opacity:0 }
+}
+.churn-row {
+  display:flex; align-items:center; gap:10px;
+  background:var(--white); border:1px solid var(--border);
+  border-radius:12px; padding:9px 12px; position:relative; z-index:1;
+  animation: churnRise 0.6s ease both;
+}
+.churn-row:nth-child(3){ animation-delay:.1s }
+.churn-row:nth-child(4){ animation-delay:.2s }
+.churn-row:nth-child(5){ animation-delay:.3s }
+@keyframes churnRise { from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:none} }
+.churn-avatar { width:30px; height:30px; border-radius:50%; background:linear-gradient(135deg,#CBD5E0,#9AA5B4); flex-shrink:0; }
+.churn-info { flex:1; min-width:0; }
+.churn-info b { display:block; font-size:12.5px; font-weight:700; color:var(--black); }
+.churn-info small { font-size:10.5px; color:var(--gray-400); }
+.churn-badge {
+  font-size:10.5px; font-weight:800; padding:4px 10px; border-radius:100px; flex-shrink:0;
+}
+.churn-badge.high { background:#FFE4E6; color:#E11D48; animation: churnPulse 1.6s ease-in-out infinite; }
+.churn-badge.mid  { background:#FFF3D6; color:#D97706; }
+.churn-badge.safe { background:var(--accent-light); color:var(--accent-dark); }
+@keyframes churnPulse { 0%,100%{box-shadow:0 0 0 0 rgba(225,29,72,0.35)} 50%{box-shadow:0 0 0 6px rgba(225,29,72,0)} }
+
+/* ─── Card 2 : 강사별 잠재부채 ─── */
+.debt-panel {
+  margin-top:22px; background:rgba(255,255,255,0.5);
+  border:1px solid rgba(0,0,0,0.06); border-radius:14px; padding:16px 18px;
+  display:flex; flex-direction:column; gap:11px;
+}
+.debt-total { display:flex; align-items:baseline; justify-content:space-between; margin-bottom:2px; }
+.debt-total-label { font-size:11px; font-weight:700; color:rgba(0,0,0,0.5); }
+.debt-total-num { font-size:1.5rem; font-weight:900; color:var(--black); letter-spacing:-0.03em; }
+.debt-row { display:flex; align-items:center; gap:10px; }
+.debt-name { font-size:12px; font-weight:700; color:rgba(0,0,0,0.7); width:44px; flex-shrink:0; }
+.debt-bar { flex:1; height:8px; background:rgba(0,0,0,0.08); border-radius:100px; overflow:hidden; }
+.debt-bar i {
+  display:block; height:100%; width:var(--w); border-radius:100px;
+  background:var(--black);
+  transform-origin:left; animation: debtFill 2.4s ease-in-out infinite;
+}
+@keyframes debtFill { 0%,100%{transform:scaleX(1)} 50%{transform:scaleX(0.55)} }
+.debt-row b { font-size:12px; font-weight:800; color:var(--black); width:34px; text-align:right; flex-shrink:0; }
+
+/* ─── Card 3 : AI 매니저 채팅 ─── */
+.ai-chat {
+  margin-top:20px; background:var(--gray-50); border:1px solid var(--border);
+  border-radius:14px; padding:14px; display:flex; flex-direction:column; gap:8px;
+}
+.ai-msg { font-size:12px; line-height:1.55; border-radius:12px; padding:9px 12px; max-width:92%; }
+.ai-msg.user { align-self:flex-end; background:var(--black); color:var(--white); border-bottom-right-radius:4px; }
+.ai-msg.bot {
+  align-self:flex-start; background:var(--white); border:1px solid var(--border);
+  color:var(--gray-700); border-bottom-left-radius:4px; display:flex; gap:6px; align-items:flex-start;
+  position:relative; min-height:52px;
+}
+.ai-spark { color:var(--accent-dark); font-size:12px; flex-shrink:0; z-index:1; }
+.ai-typing {
+  position:absolute; left:26px; top:12px; display:inline-flex; gap:3px; align-items:center;
+  animation: aiTypeFade 5s infinite;
+}
+.ai-typing i { width:5px; height:5px; border-radius:50%; background:var(--gray-400); animation: aiDot 1.2s infinite; }
+.ai-typing i:nth-child(2){ animation-delay:.2s } .ai-typing i:nth-child(3){ animation-delay:.4s }
+@keyframes aiDot { 0%,60%,100%{opacity:.3; transform:translateY(0)} 30%{opacity:1; transform:translateY(-3px)} }
+@keyframes aiTypeFade { 0%,38%{opacity:1} 44%,96%{opacity:0} 100%{opacity:1} }
+.ai-done { opacity:0; animation: aiReveal 5s infinite; }
+.ai-done b { color:var(--accent-dark); font-weight:800; }
+@keyframes aiReveal { 0%,42%{opacity:0} 52%,94%{opacity:1} 100%{opacity:0} }
+
+/* ─── Card 4 : 알림톡 스택 ─── */
+.alarm-stack { margin-top:20px; display:flex; flex-direction:column; gap:8px; }
+.alarm-item {
+  display:flex; align-items:center; gap:11px;
+  background:var(--gray-50); border:1px solid var(--border);
+  border-radius:12px; padding:10px 12px;
+  animation: alarmIn 4.5s ease-in-out infinite;
+}
+.alarm-item:nth-child(2){ animation-delay:1.2s }
+.alarm-item:nth-child(3){ animation-delay:2.4s }
+@keyframes alarmIn {
+  0%{ opacity:0; transform:translateX(14px) }
+  8%,30%{ opacity:1; transform:none }
+  38%,100%{ opacity:1; transform:none }
+}
+.alarm-ic {
+  width:30px; height:30px; border-radius:9px; background:var(--accent-light);
+  display:flex; align-items:center; justify-content:center; font-size:14px; flex-shrink:0;
+}
+.alarm-item b { display:block; font-size:12.5px; font-weight:700; color:var(--black); }
+.alarm-item small { font-size:10.5px; color:var(--gray-400); }
+
+/* ─── Card 5 : 급여 명세서 ─── */
+.pay-slip {
+  margin-top:20px; background:var(--white); border:1px solid rgba(21,184,142,0.25);
+  border-radius:14px; padding:14px 16px; display:flex; flex-direction:column; gap:9px;
+  box-shadow:0 6px 18px rgba(21,184,142,0.08);
+}
+.pay-slip-head { font-size:11px; font-weight:800; color:var(--gray-400); letter-spacing:0.02em; padding-bottom:8px; border-bottom:1px dashed var(--border); }
+.pay-row, .pay-total { display:flex; align-items:center; justify-content:space-between; font-size:12px; }
+.pay-row span { color:var(--gray-500); }
+.pay-row b { color:var(--black); font-weight:700; }
+.pay-row.tax b { color:#E11D48; }
+.pay-row, .pay-total { opacity:0; animation: payRow 5s ease-in-out infinite; }
+.pay-row:nth-child(2){ animation-delay:.2s } .pay-row:nth-child(3){ animation-delay:.6s }
+.pay-total {
+  padding-top:9px; border-top:1px solid var(--border); animation-delay:1s;
+}
+.pay-total span { font-size:12px; font-weight:700; color:var(--gray-700); }
+.pay-total b { font-size:1.05rem; font-weight:900; color:var(--accent-dark); letter-spacing:-0.02em; }
+@keyframes payRow { 0%{opacity:0; transform:translateY(6px)} 12%,88%{opacity:1; transform:none} 100%{opacity:1} }
+.pay-slip-head { opacity:1; animation:none; }
+
+/* ─── 카드별 컬러 테마 (앱 디자인 시맨틱 팔레트) ─── */
+/* Card 1 · 이탈 방지 = danger 핑크 */
+.bc-1 { background: linear-gradient(160deg, #FFF0F2 0%, #FFFFFF 60%); border-color: rgba(246,82,113,0.16); }
+.bc-1 .bc-tag { background:#FDD1D9; color:#F65271; }
+.bcv-churn { background:#FFF6F7 !important; }
+.churn-scan { background:linear-gradient(180deg, transparent, rgba(246,82,113,0.15) 50%, transparent); }
+.churn-badge.safe { background:var(--accent-light); color:var(--accent-dark); }
+
+/* Card 2 · 잠재부채 = warning 오렌지 (light tint) */
+.bc-2 { background: linear-gradient(160deg, #FFEDE3 0%, #FFFFFF 60%) !important; border-color:rgba(254,153,113,0.28); }
+.bc-2 h3, .bc-2 .bc-big-num { color: var(--black); }
+.bc-2 p { color: var(--gray-500); }
+.bc-2 .bc-tag { background:#FFE4D9 !important; color:#B26B4F !important; }
+.bc-2 .debt-panel { background:rgba(255,255,255,0.6); border-color:rgba(254,153,113,0.25); }
+.bc-2 .debt-total-label { color:var(--gray-500); }
+.bc-2 .debt-name { color:var(--gray-700); }
+.bc-2 .debt-bar { background:rgba(254,153,113,0.18); }
+.bc-2 .debt-bar i { background:#FE9971; }
+.bc-2 .debt-row b { color:var(--black); }
+
+/* Card 3 · AI 매니저 = 브랜드 민트 (문서 원칙: AI 전용) */
+.bc-3 { background: linear-gradient(160deg, #E9FCF6 0%, #FFFFFF 60%); border-color: rgba(21,184,142,0.18); }
+
+/* Card 4 · 자동 알림 = info 블루 */
+.bc-4 { background: linear-gradient(160deg, #EEF4FE 0%, #FFFFFF 60%); border-color: rgba(79,142,247,0.16); }
+.bc-4 .bc-tag { background:#EAF1FE; color:#3566C4; }
+.bc-4 .alarm-ic { background:#EAF1FE; }
+
+/* Card 5 · 페이롤 = success 그린 */
+.bc-5 { background: linear-gradient(160deg, #E4F6EC 0%, #FFFFFF 60%); border-color: rgba(90,190,142,0.3); }
+.bc-5 .bc-tag { background:#D6ECE1; color:#418966; }
+.pay-slip { border-color:rgba(90,190,142,0.35); box-shadow:0 6px 18px rgba(90,190,142,0.1); }
+.pay-total b { color:#2E7D57; }
 
 /* ════════════════════════════════════════
    DARK MOCKUP SECTION  (Linko 스타일)
@@ -1230,95 +1398,154 @@
 ══════════════════════ -->
 <section class="proof-section">
   <div class="proof-head container fade-up">
-    <div class="proof-count-badge">
-      <span class="proof-count-dot"></span>
-      <span class="proof-count-num">+50,000</span><span class="proof-count-unit">명</span>
-    </div>
     <h2>수많은 회원이 써보고<br><span class="hl">증명한 결과입니다</span></h2>
-    <p class="proof-sub">실제 센티프 회원들의 반응. 데이터가 아닌 사람으로 증명합니다.</p>
+    <p class="proof-sub">+50,000명 검증, 실제 회원의 만족이 센터의 성장으로 연결됐습니다.</p>
   </div>
 
   <!-- Row 1: scroll left -->
   <div class="proof-track-wrap">
     <div class="proof-track">
-      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=300&h=380&fit=crop&crop=face" alt=""></div>
-      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1534367610401-9f5ed68180aa?w=300&h=380&fit=crop&crop=face" alt=""></div>
-      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?w=300&h=380&fit=crop&crop=face" alt=""></div>
-      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=300&h=380&fit=crop&crop=face" alt=""></div>
-      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1549060279-7e168fcee0c2?w=300&h=380&fit=crop&crop=face" alt=""></div>
-      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=300&h=380&fit=crop&crop=face" alt=""></div>
-      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=300&h=380&fit=crop&crop=face" alt=""></div>
-      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=300&h=380&fit=crop&crop=face" alt=""></div>
-      <!-- duplicate for seamless loop -->
-      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=300&h=380&fit=crop&crop=face" alt=""></div>
-      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1534367610401-9f5ed68180aa?w=300&h=380&fit=crop&crop=face" alt=""></div>
-      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?w=300&h=380&fit=crop&crop=face" alt=""></div>
-      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=300&h=380&fit=crop&crop=face" alt=""></div>
-      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1549060279-7e168fcee0c2?w=300&h=380&fit=crop&crop=face" alt=""></div>
-      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=300&h=380&fit=crop&crop=face" alt=""></div>
-      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=300&h=380&fit=crop&crop=face" alt=""></div>
-      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=300&h=380&fit=crop&crop=face" alt=""></div>
+      <div class="proof-photo"><img src="assets/members/member-01.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-02.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-03.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-04.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-05.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-06.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-07.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-08.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-09.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-10.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-11.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-12.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-13.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-14.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-15.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-16.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-17.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-18.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-19.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-20.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-21.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-22.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-23.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-24.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-25.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-01.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-02.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-03.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-04.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-05.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-06.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-07.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-08.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-09.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-10.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-11.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-12.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-13.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-14.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-15.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-16.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-17.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-18.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-19.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-20.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-21.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-22.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-23.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-24.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-25.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
     </div>
   </div>
 
   <!-- Row 2: scroll right -->
   <div class="proof-track-wrap">
     <div class="proof-track reverse">
-      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=300&h=380&fit=crop&crop=face" alt=""></div>
-      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1594381898411-846e7d193883?w=300&h=380&fit=crop&crop=face" alt=""></div>
-      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1599058917765-a780eda07a3e?w=300&h=380&fit=crop&crop=face" alt=""></div>
-      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1611672585731-fa10603fb9e0?w=300&h=380&fit=crop&crop=face" alt=""></div>
-      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1590487988256-9ed24133863e?w=300&h=380&fit=crop&crop=face" alt=""></div>
-      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1618355776464-8666794d2520?w=300&h=380&fit=crop&crop=face" alt=""></div>
-      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1605296867304-46d5465a13f1?w=300&h=380&fit=crop&crop=face" alt=""></div>
-      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=300&h=380&fit=crop&crop=face" alt=""></div>
-      <!-- duplicate -->
-      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=300&h=380&fit=crop&crop=face" alt=""></div>
-      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1594381898411-846e7d193883?w=300&h=380&fit=crop&crop=face" alt=""></div>
-      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1599058917765-a780eda07a3e?w=300&h=380&fit=crop&crop=face" alt=""></div>
-      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1611672585731-fa10603fb9e0?w=300&h=380&fit=crop&crop=face" alt=""></div>
-      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1590487988256-9ed24133863e?w=300&h=380&fit=crop&crop=face" alt=""></div>
-      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1618355776464-8666794d2520?w=300&h=380&fit=crop&crop=face" alt=""></div>
-      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1605296867304-46d5465a13f1?w=300&h=380&fit=crop&crop=face" alt=""></div>
-      <div class="proof-photo"><img src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=300&h=380&fit=crop&crop=face" alt=""></div>
+      <div class="proof-photo"><img src="assets/members/member-26.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-27.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-28.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-29.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-30.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-31.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-32.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-33.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-34.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-35.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-36.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-37.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-38.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-39.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-40.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-41.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-42.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-43.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-44.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-45.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-46.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-47.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-48.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-49.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-01.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-26.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-27.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-28.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-29.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-30.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-31.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-32.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-33.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-34.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-35.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-36.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-37.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-38.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-39.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-40.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-41.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-42.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-43.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-44.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-45.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-46.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-47.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-48.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-49.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
+      <div class="proof-photo"><img src="assets/members/member-01.jpg" alt=""><div class="proof-photo-caption"><span class="dot"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0D0F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>인증 회원</span></div></div>
     </div>
   </div>
   <!-- Stats Bento -->
   <div class="proof-stats container fade-up">
     <div class="ps-grid">
 
-      <!-- Card 1: 누적 회원 수 (full width) -->
-      <div class="ps-card ps-big">
-        <p class="ps-label">센티프로 관리받은 누적 회원</p>
-        <div class="ps-num"><span class="countup" data-target="59297">0</span><span>명</span></div>
-      </div>
-
-      <!-- Card 2: 회원 만족도 -->
-      <div class="ps-card ps-accent">
-        <div class="ps-pct">95%<span>+</span></div>
-        <p class="ps-meta">회원 만족도</p>
+      <!-- Card 2: 회원 만족도 (히어로, glass mint) -->
+      <div class="ps-card ps-hero">
+        <div class="ps-hero-glow"></div>
+        <div class="ps-pct hero">95%<span>+</span></div>
+        <p class="ps-meta hero">회원 만족도</p>
       </div>
 
       <!-- Card 3: 회원 만족도 인용 -->
-      <div class="ps-card ps-dark">
-        <p class="ps-quote large">"확실히 이 센터는<br>회원관리가<br>체계적이에요."</p>
+      <div class="ps-card ps-quote-card qc-1">
+        <span class="ps-quote-mark">"</span>
+        <p class="ps-quote large">확실히 이 센터는<br>회원관리가<br>체계적이에요.</p>
       </div>
 
-      <!-- Card 3: PT 서비스 편의성 -->
-      <div class="ps-card ps-muted">
-        <div class="ps-pct">60%<span>+</span></div>
+      <!-- Card 4: PT 서비스 편의성 (미니 글래스 타일) -->
+      <div class="ps-card ps-stat-sm stat-a">
+        <div class="ps-pct sm">60%<span>+</span></div>
         <p class="ps-meta">PT 서비스 편의성</p>
       </div>
 
-      <!-- Card 4: 강사 신뢰도 -->
-      <div class="ps-card ps-dark">
-        <div class="ps-pct white">75%<span>+</span></div>
+      <!-- Card 5: 강사 신뢰도 (미니 글래스 타일) -->
+      <div class="ps-card ps-stat-sm stat-b">
+        <div class="ps-pct sm">75%<span>+</span></div>
         <p class="ps-meta">강사 신뢰도</p>
       </div>
 
-      <!-- Card 5: 인용 (full width) -->
-      <div class="ps-card ps-quote-card">
-        <p class="ps-quote large">"관리 시스템이 갖춰져 있으니 등록 전에도 믿음이 가요."</p>
+      <!-- Card 6: 인용 -->
+      <div class="ps-card ps-quote-card qc-2">
+        <span class="ps-quote-mark">"</span>
+        <p class="ps-quote large">관리 시스템이 갖춰져 있으니<br>등록 전에도 믿음이 가요.</p>
       </div>
 
     </div>
@@ -1331,29 +1558,6 @@
   overflow: hidden;
 }
 .proof-head { text-align: center; margin-bottom: 56px; }
-.proof-count-badge {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: linear-gradient(180deg, rgba(31,219,168,0.14), rgba(31,219,168,0.05));
-  border: 1px solid rgba(31,219,168,0.3);
-  border-radius: 100px;
-  padding: 8px 20px 8px 16px;
-  margin-bottom: 20px;
-  box-shadow: 0 0 24px rgba(31,219,168,0.15), 0 1px 0 rgba(255,255,255,0.08) inset;
-}
-.proof-count-dot {
-  width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
-  background: var(--accent);
-  box-shadow: 0 0 8px rgba(31,219,168,0.9);
-}
-.proof-count-num {
-  font-size: 18px; font-weight: 900; letter-spacing: -0.02em;
-  color: var(--accent);
-  text-shadow: 0 0 16px rgba(31,219,168,0.5);
-}
-.proof-count-unit {
-  font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.55);
-  margin-left: 2px;
-}
 .proof-head h2 { font-size: clamp(1.7rem,3.5vw,2.4rem); color: var(--white); margin: 12px 0 16px; line-height: 1.3; word-break: keep-all; }
 .proof-sub { color: rgba(255,255,255,0.45); font-size: 15px; }
 
@@ -1366,60 +1570,92 @@
 .proof-track {
   display: flex; gap: 12px;
   width: max-content;
-  animation: scrollLeft 30s linear infinite;
+  animation: scrollLeft 60s linear infinite;
 }
-.proof-track.reverse { animation: scrollRight 28s linear infinite; }
+.proof-track.reverse { animation: scrollRight 56s linear infinite; }
 @keyframes scrollLeft  { from { transform: translateX(0) } to { transform: translateX(-50%) } }
 @keyframes scrollRight { from { transform: translateX(-50%) } to { transform: translateX(0) } }
 .proof-track-wrap:hover .proof-track { animation-play-state: paused; }
 
 /* Stats Bento */
-.proof-stats { padding: 56px 0 80px; }
+.proof-stats { padding: 56px 48px 80px; }
+@media(max-width:640px){ .proof-stats { padding: 56px 20px 80px; } }
 .ps-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: auto;
   gap: 16px;
 }
 @media(max-width:640px){ .ps-grid { grid-template-columns: 1fr; } }
 
 .ps-card {
-  border-radius: 20px;
-  padding: 36px 40px;
-  display: flex; flex-direction: column; gap: 14px;
+  position: relative;
+  border-radius: 22px;
+  padding: 32px 34px;
+  display: flex; flex-direction: column; gap: 12px;
+  backdrop-filter: blur(18px) saturate(1.3);
+  -webkit-backdrop-filter: blur(18px) saturate(1.3);
+  overflow: hidden;
 }
 
-/* 카드 배치 */
-.ps-big        { grid-column: 1 / -1; flex-direction: row; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
-.ps-tall       { grid-row: span 2; justify-content: space-between; }
-.ps-quote-card { grid-column: 1 / -1; }
+/* 카드 배치 — 비대칭 벤토: 히어로(좌, 2행) + 인용구(우상) + 미니 통계 2장(우하) + 인용구(하단 전체) */
+.ps-hero       { grid-column: 1 / 3; grid-row: 1 / 3; justify-content: center; }
+.qc-1          { grid-column: 3 / 5; grid-row: 1 / 2; }
+.stat-a        { grid-column: 3 / 4; grid-row: 2 / 3; }
+.stat-b        { grid-column: 4 / 5; grid-row: 2 / 3; }
+.qc-2          { grid-column: 1 / -1; grid-row: 3 / 4; }
+@media(max-width:640px){
+  .ps-hero, .qc-1, .qc-2, .stat-a, .stat-b { grid-column: 1 / -1; grid-row: auto; }
+}
 
-/* 카드 색상 */
-.ps-big        { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); }
-.ps-accent     { background: var(--accent); }
-.ps-muted      { background: rgba(31,219,168,0.12); border: 1px solid rgba(31,219,168,0.2); }
-.ps-dark       { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); }
-.ps-quote-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); }
+/* 카드 색상 — 유리질 톤을 카드 유형마다 다르게 */
+.ps-hero {
+  background: linear-gradient(160deg, rgba(31,219,168,0.62), rgba(31,219,168,0.14) 65%);
+  border: 1px solid rgba(31,219,168,0.5);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.25) inset, 0 24px 60px rgba(31,219,168,0.22);
+}
+.ps-hero-glow {
+  position: absolute; top: -40%; left: 50%; transform: translateX(-50%);
+  width: 220px; height: 220px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(90,255,210,0.75), transparent 70%);
+  filter: blur(10px); pointer-events: none;
+}
+.ps-stat-sm {
+  background: linear-gradient(160deg, rgba(255,255,255,0.06), rgba(255,255,255,0.015));
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 26px 26px;
+  gap: 6px;
+}
+.ps-quote-card {
+  background: linear-gradient(160deg, rgba(255,255,255,0.045), rgba(255,255,255,0.01));
+  border: 1px solid rgba(255,255,255,0.08);
+}
 
 /* 숫자 */
 .ps-num { font-size: clamp(2.4rem,5vw,3.4rem); font-weight: 900; color: var(--white); letter-spacing: -0.03em; line-height: 1; }
 .ps-num span { font-size: 0.45em; font-weight: 700; margin-left: 4px; color: rgba(255,255,255,0.6); }
 
-.ps-pct { font-size: clamp(2rem,4.5vw,2.8rem); font-weight: 900; letter-spacing: -0.03em; line-height: 1; color: var(--accent); }
+.ps-pct { position: relative; font-size: clamp(1.7rem,3.6vw,2.2rem); font-weight: 900; letter-spacing: -0.03em; line-height: 1; color: var(--accent); }
 .ps-pct span { font-size: 0.5em; font-weight: 700; }
-.ps-accent .ps-pct { color: var(--black); }
-.ps-pct.white { color: var(--white); }
+.ps-pct.hero { position: relative; font-size: clamp(3.2rem,7vw,4.6rem); color: var(--white); text-shadow: 0 0 32px rgba(31,219,168,0.45); text-align: center; }
+.ps-pct.sm   { font-size: clamp(1.5rem,3vw,1.9rem); }
 
 /* 텍스트 */
 .ps-label { font-size: 14px; color: rgba(255,255,255,0.45); font-weight: 500; }
 .ps-meta  { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.5); letter-spacing: 0.01em; }
-.ps-accent .ps-meta { color: rgba(0,0,0,0.5); }
+.ps-meta.hero { position: relative; text-align: center; font-size: 14.5px; color: rgba(255,255,255,0.85); }
 
 .ps-quote { font-size: 15px; line-height: 1.7; color: rgba(255,255,255,0.7); font-weight: 500; word-break: keep-all; }
-.ps-accent .ps-quote { color: rgba(0,0,0,0.65); }
-.ps-quote.large { font-size: clamp(1.1rem,2vw,1.35rem); font-weight: 700; color: var(--white); line-height: 1.55; }
+.ps-quote.large { position: relative; font-size: clamp(1.05rem,1.8vw,1.2rem); font-weight: 700; color: var(--white); line-height: 1.55; }
+.ps-quote-mark {
+  font-family: Georgia, serif; font-size: 4rem; font-weight: 900; line-height: 1;
+  color: rgba(31,219,168,0.28);
+  margin-bottom: -12px;
+}
 
 .proof-photo {
-  width: 180px; height: 220px; flex-shrink: 0;
+  position: relative;
+  width: 176px; height: 220px; flex-shrink: 0;
   border-radius: 14px; overflow: hidden;
   border: 1px solid rgba(255,255,255,0.07);
 }
@@ -1428,6 +1664,334 @@
   transition: transform 0.4s;
 }
 .proof-photo:hover img { transform: scale(1.05); }
+.proof-photo-caption {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  display: flex; align-items: center; gap: 6px;
+  padding: 10px 12px 12px;
+  background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+  opacity: 0; transform: translateY(6px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.proof-photo:hover .proof-photo-caption { opacity: 1; transform: translateY(0); }
+.proof-photo-caption .dot {
+  width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0;
+  background: var(--accent);
+  display: flex; align-items: center; justify-content: center;
+}
+.proof-photo-caption .dot svg { width: 8px; height: 8px; }
+.proof-photo-caption span {
+  font-size: 11.5px; font-weight: 700; color: rgba(255,255,255,0.92);
+  letter-spacing: -0.01em;
+}
+</style>
+
+
+<!-- ══════════════════════
+     MODES SHOWCASE (관리자 / 강사 / 회원)
+══════════════════════ -->
+<section class="modes-section">
+  <div class="container">
+    <div class="modes-head fade-up">
+      <div class="modes-label"><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M8 0C8 5.5 8.7 6.8 9.9 7.5C11.2 8 13 8 16 8C13 8 11.2 8 9.9 8.5C8.7 9.2 8 10.5 8 16C8 10.5 7.3 9.2 6.1 8.5C4.8 8 3 8 0 8C3 8 4.8 8 6.1 7.5C7.3 6.8 8 5.5 8 0Z" fill="#15B88E"/></svg>AI 매니저가 함께하는</div>
+      <h2>센터 운영에 필요한<br>모든 기능을 지원해 드립니다</h2>
+      <p class="modes-sub">아낌없이 지원해드립니다. 관리자 웹, 강사 앱, 회원 앱까지.</p>
+    </div>
+
+    <div class="modes-grid">
+
+      <!-- 회원 앱 -->
+      <div class="modes-col fade-up">
+        <div class="modes-visual">
+          <div class="ms-phone">
+            <div class="ms-phone-notch"></div>
+            <div class="ms-phone-screen">
+              <div class="ms-app-logo">SSEN<span>TIF</span></div>
+              <div class="ms-app-greet">원희님,<br>오늘도 화이팅이에요 💪</div>
+              <div class="ms-app-card">
+                <div class="ms-app-card-row">
+                  <span class="ms-app-dot"></span>
+                  <div>
+                    <div class="ms-app-card-title">오늘의 PT 수업</div>
+                    <div class="ms-app-card-sub">18:00 · 박준형 트레이너</div>
+                  </div>
+                </div>
+              </div>
+              <div class="ms-app-ring-row">
+                <div class="ms-app-ring"><span>78</span></div>
+                <div class="ms-app-ring-label">이번 주<br>웰니스 점수</div>
+              </div>
+            </div>
+          </div>
+          <div class="ms-float-card ms-float-1">
+            <div class="ms-float-label">잔여 세션</div>
+            <div class="ms-float-value">D-3</div>
+          </div>
+        </div>
+        <h4 class="modes-title">센티프 회원 앱</h4>
+        <p class="modes-desc">PT 일정 확인, 웰니스 기록, 트레이너와의 실시간 소통까지 한 곳에서.</p>
+        <a href="product.html#member" class="modes-link">사용방법 <span>→</span></a>
+      </div>
+
+      <!-- 관리자 웹 -->
+      <div class="modes-col fade-up" style="transition-delay:0.1s">
+        <div class="modes-visual modes-visual-wide">
+          <div class="ms-browser">
+            <div class="ms-browser-topbar">
+              <span class="ms-browser-dot"></span><span class="ms-browser-dot"></span><span class="ms-browser-dot"></span>
+              <div class="ms-browser-url">app.ssentif.kr</div>
+            </div>
+            <div class="ms-browser-body">
+              <div class="ms-browser-side">
+                <div class="ms-side-item active"></div>
+                <div class="ms-side-item"></div>
+                <div class="ms-side-item"></div>
+                <div class="ms-side-item"></div>
+              </div>
+              <div class="ms-browser-main">
+                <div class="ms-kpi-row">
+                  <div class="ms-kpi-mini"><div class="n">147</div><div class="l">이번 달 수업</div></div>
+                  <div class="ms-kpi-mini"><div class="n">89%</div><div class="l">재등록률</div></div>
+                </div>
+                <div class="ms-list-row"></div>
+                <div class="ms-list-row"></div>
+                <div class="ms-list-row"></div>
+              </div>
+            </div>
+          </div>
+          <div class="ms-float-card ms-float-2">
+            <div class="ms-float-label">이번 달 매출</div>
+            <div class="ms-float-value">₩8.4M</div>
+          </div>
+        </div>
+        <h4 class="modes-title">센티프 관리자 웹</h4>
+        <p class="modes-desc">회원 관리, 매출 조회, 수업 일정, 공지 발송까지 한 번에 관리합니다.</p>
+        <a href="product.html#manager" class="modes-link">사용방법 <span>→</span></a>
+      </div>
+
+      <!-- 강사 앱 (태블릿) -->
+      <div class="modes-col fade-up" style="transition-delay:0.2s">
+        <div class="modes-visual">
+          <div class="ms-tablet">
+            <div class="ms-tablet-cam"></div>
+            <div class="ms-tablet-screen">
+              <div class="ms-tab-rail">
+                <div class="ms-tab-logo">S</div>
+                <div class="ms-tab-rail-item active"></div>
+                <div class="ms-tab-rail-item"></div>
+                <div class="ms-tab-rail-item"></div>
+                <div class="ms-tab-rail-item"></div>
+              </div>
+              <div class="ms-tab-main">
+                <div class="ms-app-greet">오늘 수업 <b>6</b>건<br>담당 회원 <b>24</b>명</div>
+                <div class="ms-app-card ms-app-card-dark">
+                  <div class="ms-app-card-row">
+                    <span class="ms-app-dot ms-app-dot-white"></span>
+                    <div>
+                      <div class="ms-app-card-title white">수업일지 작성</div>
+                      <div class="ms-app-card-sub white">이수진 회원 · 방금 전</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="ms-app-chip-row">
+                  <span class="ms-app-chip">📋 수업기록</span>
+                  <span class="ms-app-chip">💰 정산</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="ms-float-card ms-float-3">
+            <div class="ms-float-label">이번 달 정산</div>
+            <div class="ms-float-value">₩2.2M</div>
+          </div>
+        </div>
+        <h4 class="modes-title">센티프 강사 앱</h4>
+        <p class="modes-desc">수업 기록, 회원 관리, 페이롤 정산까지 현장에서 바로.</p>
+        <a href="product.html#trainer" class="modes-link">사용방법 <span>→</span></a>
+      </div>
+
+    </div>
+  </div>
+</section>
+<style>
+.modes-section { background: var(--gray-50); padding: 96px 48px; }
+@media(max-width:640px){ .modes-section { padding: 72px 20px; } }
+.modes-head { text-align: center; max-width: 640px; margin: 0 auto 64px; }
+.modes-label {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 100px; padding: 6px 16px 6px 14px;
+  font-size: 13px; font-weight: 700; color: var(--gray-700);
+  margin-bottom: 20px;
+}
+.modes-head h2 { font-size: clamp(1.7rem,3.5vw,2.4rem); color: var(--black); margin-bottom: 16px; line-height: 1.3; word-break: keep-all; }
+.modes-sub { font-size: 15px; color: var(--gray-500); }
+
+.modes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 64px;
+}
+@media(max-width:900px){ .modes-grid { grid-template-columns: 1fr; gap: 56px; } }
+
+.modes-visual {
+  position: relative;
+  height: 300px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 28px;
+}
+
+/* 폰 프레임 */
+.ms-phone {
+  width: 180px; height: 280px;
+  background: var(--black);
+  border-radius: 26px;
+  padding: 8px;
+  box-shadow: 0 24px 48px rgba(13,15,18,0.16), 0 4px 12px rgba(13,15,18,0.08);
+}
+.ms-phone-notch {
+  width: 50px; height: 5px; border-radius: 4px;
+  background: rgba(255,255,255,0.2);
+  margin: 0 auto 6px;
+}
+.ms-phone-screen {
+  background: var(--white);
+  border-radius: 19px;
+  height: 100%;
+  padding: 16px 14px;
+  display: flex; flex-direction: column; gap: 12px;
+  overflow: hidden;
+}
+
+/* 태블릿 프레임 (강사 앱) */
+.ms-tablet {
+  width: 250px; height: 280px;
+  background: var(--black);
+  border-radius: 20px;
+  padding: 10px;
+  box-shadow: 0 24px 48px rgba(13,15,18,0.16), 0 4px 12px rgba(13,15,18,0.08);
+}
+.ms-tablet-cam {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: rgba(255,255,255,0.25);
+  margin: 0 auto 6px;
+}
+.ms-tablet-screen {
+  background: var(--white);
+  border-radius: 13px;
+  height: 100%;
+  display: flex;
+  overflow: hidden;
+}
+.ms-tab-rail {
+  width: 40px; flex-shrink: 0;
+  background: var(--gray-50); border-right: 1px solid var(--border);
+  display: flex; flex-direction: column; align-items: center;
+  padding: 12px 0; gap: 12px;
+}
+.ms-tab-logo {
+  width: 20px; height: 20px; border-radius: 6px;
+  background: var(--black); color: var(--accent);
+  font-size: 10px; font-weight: 900;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 6px;
+}
+.ms-tab-rail-item { width: 20px; height: 20px; border-radius: 7px; background: var(--gray-100); }
+.ms-tab-rail-item.active { background: var(--accent-light); }
+.ms-tab-main {
+  flex: 1; padding: 16px 14px;
+  display: flex; flex-direction: column; gap: 12px;
+  overflow: hidden;
+}
+.ms-app-logo { font-size: 11px; font-weight: 900; letter-spacing: -0.03em; color: var(--black); }
+.ms-app-logo span { color: var(--accent); }
+.ms-app-greet { font-size: 12.5px; font-weight: 700; color: var(--black); line-height: 1.4; }
+.ms-app-card {
+  background: var(--gray-50); border: 1px solid var(--border);
+  border-radius: 12px; padding: 10px 12px;
+}
+.ms-app-card-dark { background: var(--black); border-color: var(--black); }
+.ms-app-card-row { display: flex; align-items: center; gap: 8px; }
+.ms-app-dot { width: 20px; height: 20px; border-radius: 50%; background: var(--accent-light); flex-shrink: 0; }
+.ms-app-dot-white { background: rgba(255,255,255,0.15); }
+.ms-app-card-title { font-size: 10.5px; font-weight: 700; color: var(--black); }
+.ms-app-card-title.white { color: var(--white); }
+.ms-app-card-sub { font-size: 9px; color: var(--gray-400); margin-top: 1px; }
+.ms-app-card-sub.white { color: rgba(255,255,255,0.45); }
+.ms-app-ring-row { display: flex; align-items: center; gap: 10px; margin-top: auto; }
+.ms-app-ring {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: conic-gradient(var(--accent) 78%, var(--gray-100) 0);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.ms-app-ring span {
+  width: 34px; height: 34px; border-radius: 50%; background: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 900; color: var(--black);
+}
+.ms-app-ring-label { font-size: 9.5px; color: var(--gray-400); line-height: 1.3; }
+.ms-app-chip-row { display: flex; gap: 6px; margin-top: auto; }
+.ms-app-chip {
+  background: var(--gray-50); border: 1px solid var(--border);
+  border-radius: 8px; padding: 5px 8px;
+  font-size: 9px; color: var(--gray-600); font-weight: 600;
+}
+
+/* 브라우저 프레임 */
+.modes-visual-wide { height: 300px; }
+.ms-browser {
+  width: 100%; max-width: 340px;
+  background: var(--white);
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  box-shadow: 0 24px 48px rgba(13,15,18,0.14), 0 4px 12px rgba(13,15,18,0.06);
+  overflow: hidden;
+}
+.ms-browser-topbar {
+  display: flex; align-items: center; gap: 6px;
+  padding: 10px 12px;
+  background: var(--gray-50);
+  border-bottom: 1px solid var(--border);
+}
+.ms-browser-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--gray-200); }
+.ms-browser-url {
+  margin-left: 8px; font-size: 9.5px; color: var(--gray-400);
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 100px; padding: 3px 12px; flex: 1;
+}
+.ms-browser-body { display: flex; height: 210px; }
+.ms-browser-side { width: 44px; background: var(--gray-50); border-right: 1px solid var(--border); padding: 12px 10px; display: flex; flex-direction: column; gap: 10px; }
+.ms-side-item { width: 100%; height: 6px; border-radius: 3px; background: var(--gray-200); }
+.ms-side-item.active { background: var(--accent); }
+.ms-browser-main { flex: 1; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+.ms-kpi-row { display: flex; gap: 8px; }
+.ms-kpi-mini { flex: 1; background: var(--gray-50); border: 1px solid var(--border); border-radius: 10px; padding: 8px 10px; }
+.ms-kpi-mini .n { font-size: 14px; font-weight: 900; color: var(--black); }
+.ms-kpi-mini .l { font-size: 8.5px; color: var(--gray-400); margin-top: 2px; }
+.ms-list-row { height: 20px; border-radius: 6px; background: var(--gray-50); border: 1px solid var(--border); }
+
+/* 플로팅 카드 */
+.ms-float-card {
+  position: absolute;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 16px;
+  box-shadow: 0 12px 28px rgba(13,15,18,0.14);
+}
+.ms-float-label { font-size: 9.5px; color: var(--gray-400); font-weight: 600; }
+.ms-float-value { font-size: 15px; font-weight: 900; color: var(--black); letter-spacing: -0.02em; margin-top: 1px; }
+.ms-float-1 { bottom: 8px; right: -8px; }
+.ms-float-2 { top: 4px; right: 4px; }
+.ms-float-3 { bottom: 8px; left: -8px; }
+@media(max-width:900px){ .ms-float-1, .ms-float-3 { left: auto; right: 16px; } .ms-float-2 { right: 16px; } }
+
+/* 텍스트 */
+.modes-title { font-size: 17px; font-weight: 800; color: var(--black); margin-bottom: 6px; }
+.modes-desc { font-size: 13.5px; color: var(--gray-500); line-height: 1.65; margin-bottom: 14px; }
+.modes-link { font-size: 13px; font-weight: 700; color: var(--accent-dark); display: inline-flex; align-items: center; gap: 4px; }
+.modes-link span { transition: transform 0.15s; }
+.modes-link:hover span { transform: translateX(3px); }
 </style>
 
 
@@ -1444,51 +2008,99 @@
 
     <div class="bento-grid">
 
-      <!-- Card 1: 수업일지 & 회원 만족도 (wide, image) -->
+      <!-- Card 1: 회원 이탈 시그널 (wide) -->
       <div class="bc bc-1 fade-up">
         <div class="bc-inner">
           <div class="bc-text">
-            <div class="bc-tag">수업 관리</div>
-            <h3>수업일지가 쌓이면,<br>만족도가 보입니다</h3>
-            <p>기록할수록 드러나는 패턴. 어떤 수업이 회원을 머물게 하는지 데이터가 말해줍니다.</p>
+            <div class="bc-tag">이탈 방지</div>
+            <h3>떠날 회원, 센티프가<br>먼저 알려드립니다</h3>
+            <p>방문이 뜸해지는 순간을 데이터가 먼저 감지합니다. 조용히 사라지기 전에, 다시 붙잡을 기회를 드립니다.</p>
           </div>
-          <div class="bc-visual">
-            <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&auto=format&fit=crop" alt="">
+          <div class="bc-visual bcv-churn">
+            <div class="churn-scan"></div>
+            <div class="churn-head">이탈 위험 감지</div>
+            <div class="churn-row">
+              <span class="churn-avatar"></span>
+              <div class="churn-info"><b>김○○ 회원</b><small>최근 방문 14일 전 · 재등록 D-5</small></div>
+              <span class="churn-badge high">위험</span>
+            </div>
+            <div class="churn-row">
+              <span class="churn-avatar"></span>
+              <div class="churn-info"><b>이○○ 회원</b><small>출석률 급감 · 3주 연속 결석</small></div>
+              <span class="churn-badge mid">주의</span>
+            </div>
+            <div class="churn-row">
+              <span class="churn-avatar"></span>
+              <div class="churn-info"><b>박○○ 회원</b><small>안정적 · 주 3회 방문</small></div>
+              <span class="churn-badge safe">안전</span>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Card 2: 잠재부채 (dark, big number) -->
+      <!-- Card 2: 잠재부채 + 강사별 (mint) -->
       <div class="bc bc-2 fade-up">
         <div class="bc-tag" style="background:rgba(0,0,0,0.1);color:var(--black)">경영 관리</div>
         <h3>아직 소진 안 된<br>수업, 몇 개입니까?</h3>
-        <p>잠재부채를 실시간으로 파악하면<br>현금흐름이 다르게 보입니다.</p>
-        <div class="bc-big-num">₩<span style="font-size:2rem">잠재부채</span></div>
-        <div class="bc-big-label">미소진 수업권 · 선불 잔액 한눈에 확인</div>
+        <p>미소진 수업권은 언젠가 갚아야 할 부채입니다.<br>강사별로 얼마나 남았는지 실시간으로 보입니다.</p>
+        <div class="debt-panel">
+          <div class="debt-total">
+            <span class="debt-total-label">이번 달 잠재부채</span>
+            <span class="debt-total-num">₩4,820만</span>
+          </div>
+          <div class="debt-row"><span class="debt-name">박준형</span><div class="debt-bar"><i style="--w:88%"></i></div><b>42회</b></div>
+          <div class="debt-row"><span class="debt-name">김민지</span><div class="debt-bar"><i style="--w:64%"></i></div><b>31회</b></div>
+          <div class="debt-row"><span class="debt-name">이서연</span><div class="debt-bar"><i style="--w:45%"></i></div><b>22회</b></div>
+        </div>
       </div>
 
-      <!-- Card 3: AI 비서 -->
+      <!-- Card 3: AI 매니저 -->
       <div class="bc bc-3 fade-up">
-        <div class="bc-icon">✨</div>
-        <div class="bc-tag">AI 비서</div>
-        <h3>블로그도, 전략도<br>AI가 먼저 씁니다</h3>
-        <p>블로그 작성 · 운영 점검 · 다음 달 전략까지. 더 빠르게, 더 전문적으로.</p>
+        <div class="bc-tag">AI 매니저</div>
+        <h3>블로그도 전략도<br>딸깍, 끝납니다</h3>
+        <p>현장의 데이터는 센티프가 다 기억하고 있어요. 우리 센터에 딱 맞는 글과 전략을 대신 써드립니다.</p>
+        <div class="ai-chat">
+          <div class="ai-msg user">이번 달 블로그 글 써줘</div>
+          <div class="ai-msg bot">
+            <span class="ai-spark">✦</span>
+            <span class="ai-typing"><i></i><i></i><i></i></span>
+            <span class="ai-done">이번 달 신규 등록 <b>+18%</b>, 인기 수업은 <b>모닝 필라테스</b>. 이 데이터로 홍보글을 작성했어요 ✏️</span>
+          </div>
+        </div>
       </div>
 
-      <!-- Card 4: 모드 전환 -->
+      <!-- Card 4: 회원 알림톡 자동 발송 -->
       <div class="bc bc-4 fade-up">
-        <div class="bc-icon">🔄</div>
-        <div class="bc-tag">관리자 · 강사 모드</div>
-        <h3>원장님은 두 가지<br>시선으로 봅니다</h3>
-        <p>원장 모드에서는 전체 센터 대시보드를, 강사 모드에서는 내 수업과 회원만 봅니다. 한 계정, 두 역할.</p>
+        <div class="bc-tag">자동 알림</div>
+        <h3>챙길 타이밍,<br>센티프가 대신 보냅니다</h3>
+        <p>수강권 만료 3일 전, 수업 시작 1시간 전. 놓치기 쉬운 순간마다 알림톡이 자동으로 나갑니다.</p>
+        <div class="alarm-stack">
+          <div class="alarm-item">
+            <span class="alarm-ic">🔔</span>
+            <div><b>수강권 만료 D-3</b><small>연장 안내 알림톡 발송됨</small></div>
+          </div>
+          <div class="alarm-item">
+            <span class="alarm-ic">⏰</span>
+            <div><b>수업 시작 1시간 전</b><small>오늘 18:00 PT · 리마인드 발송</small></div>
+          </div>
+          <div class="alarm-item">
+            <span class="alarm-ic">🎉</span>
+            <div><b>생일 축하 메시지</b><small>이번 주 생일 회원 3명</small></div>
+          </div>
+        </div>
       </div>
 
       <!-- Card 5: 페이롤 (mint) -->
       <div class="bc bc-5 fade-up">
-        <div class="bc-icon">💰</div>
         <div class="bc-tag">페이롤</div>
-        <h3>강사별 급여,<br>명세서까지 자동</h3>
-        <p>수업 건수 기반으로 자동 계산. 급여 명세서는 바로 발송됩니다.</p>
+        <h3>급여도 세금도<br>딸깍 정산</h3>
+        <p>수업 건수와 강사별 급여 조건만 넣으면, 세금까지 계산된 명세서가 바로 완성됩니다.</p>
+        <div class="pay-slip">
+          <div class="pay-slip-head">박준형 강사 · 12월 명세서</div>
+          <div class="pay-row"><span>수업 48회 × ₩40,000</span><b>₩1,920,000</b></div>
+          <div class="pay-row tax"><span>원천세 (3.3%)</span><b>−₩63,360</b></div>
+          <div class="pay-total"><span>실지급액</span><b>₩1,856,640</b></div>
+        </div>
       </div>
 
     </div>

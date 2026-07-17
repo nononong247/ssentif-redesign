@@ -1,16 +1,16 @@
 # SSENTIF 홈페이지 — 작업 체크포인트
 
 > **목적**: 컨텍스트가 가득 차거나 세션이 바뀌어도 흐름이 끊기지 않도록 현재 상태·결정·다음 할 일을 기록한 핸드오프 문서.
-> **마지막 갱신**: 2026-07-15
+> **마지막 갱신**: 2026-07-17
 
 ---
 
 ## 0. 30초 요약 (새 세션에서 여기부터)
 
 - **무엇을 만들고 있나**: SSENTIF(센티프) — PT센터 AI 운영 워크스페이스 SaaS의 마케팅 홈페이지. 순수 정적 HTML/CSS/JS.
-- **핵심 파일**: `/Users/jinhunjung/ssentif-redesign/index.html` (메인), `style.css` (전역 스타일)
-- **지금 어디까지**: 홈페이지 전체 구현 완료 + 커스텀 도메인 연결 + SEO 등록 완료. 현재 라이브 운영 중.
-- **다음 할 일**: 백엔드 연동 (Supabase - 문의 폼, 뉴스레터), 백오피스 구현
+- **핵심 파일**: `/Users/jinhunjung/ssentif-redesign/index.html` (메인, 이번 세션 작업 대부분 여기), `style.css` (전역 스타일)
+- **지금 어디까지**: 커스텀 도메인·SEO 완료된 상태에서, index.html 전 섹션을 대대적으로 리디자인·카피 개선. bc-2 카드 수치/라벨 수정 ✅ 완료. `.mm-handwrite` 손글씨 스트로크 애니메이션 ✅ 추가 완료(아래 §6 참조). **모두 아직 미배포(파일에만 반영)** — 아래 "다음 할 일" 1번 확인 필수.
+- **다음 할 일**: (1) 미배포 변경사항 배포 여부 확인("배포해줘" 전까지 git 건드리지 말 것), (2) Supabase 백엔드 연동
 
 ---
 
@@ -18,30 +18,37 @@
 
 | 파일 | 내용 |
 |------|------|
-| `index.html` | 메인 랜딩 페이지 |
+| `index.html` | 메인 랜딩 페이지 — 이번 세션 작업 대부분 집중 |
 | `product.html` | 제품 소개 페이지 |
 | `pricing.html` | 요금제 페이지 |
 | `consulting.html` | 맞춤 도입 상담 폼 페이지 |
 | `lab.html` | 운영지원실 (아티클 목록, Supabase 연동) |
-| `style.css` | 전역 스타일시트 |
-| `robots.txt` | 검색 크롤러 설정 |
-| `sitemap.xml` | 사이트맵 (5개 페이지) |
-| `og-image.png` | SNS 공유 미리보기 이미지 (1200×630) |
-| `googlea4b1a9e69bc722d8.html` | Google Search Console 인증 파일 |
+| `cases.html` | 고객 사례 페이지 |
+| `style.css` | 전역 스타일시트 (CTA 배지, 컨테이너 등 공용 스타일) |
+| `robots.txt` / `sitemap.xml` | SEO |
+| `og-image.png` | SNS 공유 미리보기 이미지 |
+| `assets/members/member-01~49.jpg` | 실제 회원 인증 사진 49장 (4:5 크롭, 480×600, JPEG) |
+| `assets/logo/` | 로고 라이트/다크/정사각형 PNG |
+| `assets/icons/` | 글래스 스타일 3D 아이콘 3종 |
+| `_checkpoints/CHECKPOINT.md` | 이 문서 |
+| `_checkpoints/OPERATION_PROCESS_HANDOFF.md` | 이전 세션(Operation Process) 인계 문서 — 이제 대부분 반영 완료, 참고용으로만 남음 |
 
 ---
 
 ## 2. 기술 스택 및 배포
 
 - **스택**: 순수 정적 HTML/CSS/JS (프레임워크 없음)
-- **데이터**: Supabase JS SDK via CDN (아티클, 문의 폼)
 - **배포**: GitHub push → Vercel 자동 배포
 - **GitHub**: https://github.com/nononong247/ssentif-redesign
 - **라이브**: https://www.ssentif.kr
 - **배포 명령**: `git add . && git commit -m "..." && git push`
-- **도메인**: 가비아에서 구매한 `ssentif.kr` → Vercel 연결 완료
+- **로컬 프리뷰**: `python3 -m http.server 8990` (기존 8899 세션도 떠 있을 수 있음) — Claude 인앱 브라우저 대신 **실제 Chrome(claude-in-chrome MCP)** 사용 권장 (폰트/디자인 렌더링 정확)
 
-### DNS 설정 (가비아)
+### ⚠️ 배치 커밋 원칙 (사용자 지정, 중요)
+> **"하나하나 수정할 때마다 커밋·배포하면 토큰 낭비야. 내가 중간에 배포 한번씩 해달라고 할 테니까, 그 전까지는 파일만 업데이트해줘."**
+> → 매 수정마다 git commit/push 하지 말 것. **파일 저장만 하고, 사용자가 "배포해줘"라고 명시적으로 말할 때만 커밋+푸시.**
+
+### DNS 설정 (가비아) — 완료, 변경 불필요
 | 타입 | 호스트 | 값 |
 |------|--------|-----|
 | CNAME | www | `a5ff7d6bd217cf51.vercel-dns-017.com` |
@@ -52,97 +59,106 @@
 
 ## 3. 브랜드 & 디자인 시스템
 
-### 컬러
+### 컬러 (홈페이지 전용, `style.css`)
 | 변수 | 헥사코드 | 용도 |
 |------|----------|------|
 | `--accent` | `#1FDBA8` | 민트 (메인 브랜드 컬러) |
-| `--accent-dark` | `#15B88E` | 민트 hover 상태 |
+| `--accent-dark` | `#15B88E` | 민트 hover/진한 톤 |
 | `--accent-light` | `#E6FBF5` | 민트 배경 |
 | `--black` | `#0D0F12` | 텍스트, 배경 |
 | `--white` | `#FFFFFF` | 배경 |
+
+### 앱 디자인 시스템과의 관계 (중요)
+- 코치 앱(Flutter, `/Users/jinhunjung/Desktop/작업파일/SSENTIF DESIGN/`)은 **별도의 시맨틱 컬러 팔레트**를 가짐: `--success #5ABE8E`, `--warning #FE9971`, `--danger #F65271`, `--info #4F8EF7`, `--event #9C27B0` 등. 기준 문서: `design/prototype/ssentif_color_standard.html`
+- 데이터 시각화 매출 카테고리 색(앱 디자인 시스템 §08): 개인수업=`#5ABE8E`(그린), 그룹수업=`#4F8EF7`(블루), 시설이용권=`#8B5CF6`(바이올렛), 회원복=`#F97316`, 락커=`#EAB308`, 기타=`#94A3B8`
+- **"디자인 컴포넌트 적용 기준에 맞게" 라는 사용자 지시가 나오면 이 앱 문서의 팔레트 안에서만 색을 골라야 함** — 홈페이지 자체 민트 단일톤을 벗어나 다양한 시맨틱 색을 쓰되, 반드시 이 문서에 정의된 헥사코드만 사용.
 
 ### 폰트
 - **Pretendard**: 전체 기본 폰트 (한글 + 영문)
 - **Nanum Pen Script**: `"이 센터 진짜 좋다"` 손글씨 연출에만 사용
 
 ### 네비게이션
-- 플로팅 pill 형태 + 글래스 효과 (backdrop-filter blur)
-- 레퍼런스: bevel.health 스타일
+- 플로팅 pill 형태 + 글래스 효과 (backdrop-filter blur), 레퍼런스: bevel.health
+- 우측 CTA 버튼("맞춤 상담 받기")은 원래 "기능 둘러보기"였으나 **"이전 홈페이지" 버튼으로 교체**하고, 기존 CTA는 히어로에 유지 (자세한 내용 §6 참조)
 
 ---
 
 ## 4. 결정과 그 이유 (되돌리지 말 것)
 
-### 카피 작업 원칙 ⚠️ 매우 중요
+### 카피 작업 원칙 ⚠️ 매우 중요 (CLAUDE.md에도 명시)
 > **반드시 제안 먼저, 승인 후 구현 — 절대 임의로 카피 변경 금지**
 > 선택지를 제시하고 유저가 고른 후에만 파일 수정. 이를 어기면 사용자가 즉시 롤백 요청함.
+> 디자인(비-카피) 변경도 큰 폭일 경우 여러 안을 먼저 제시하고 승인받는 패턴이 반복 확인됨 (예: CTA 배지 디자인 6안 제시 → 선택 → 반영).
 
-### 완료된 주요 결정
-- **bc-2 벤토 카드**: 검은 배경 → 민트(`var(--accent)`) 배경으로 변경 (사용자 승인)
-- **데이터 경영 섹션 헤드라인**: "운영이 선명해집니다." (사용자 승인 A안)
-- **대량 섹션 리디자인 시도**: 사용자가 "너무 별로인데?"로 거부 → `git revert`로 롤백. 한 번에 너무 많은 변경은 위험.
-- **URL**: 전체 `ssentif-redesign.vercel.app` → `https://www.ssentif.kr` 로 교체 완료
+### 배치 커밋 원칙 ⚠️ (§2 참조)
+파일 수정 ≠ 배포. "배포해줘" 명시 전까지 git 건드리지 말 것.
 
-### 폐기한 접근
-- 대규모 일괄 섹션 변경: 사용자 거부 이력 있음. 앞으로는 섹션 하나씩 제안 후 진행.
+### 완료된 주요 결정 (이번 세션)
+- **모드 소개 섹션(`.modes-section`) 신규 추가**: bento 섹션 위, 관리자 웹/강사 태블릿/회원 앱 3열 목업 + 플로팅 스탯 카드. 강사 앱은 실제 코치앱이 태블릿 사이드레일 레이아웃이라는 점을 반영해 태블릿 프레임으로 제작(폰 아님).
+- **회원 인증 사진**: 처음엔 Unsplash 스톡 사진 마퀴 → 실제 회원 49장(데스크탑 폴더에서 리사이즈/크롭 후 `assets/members/`) 마퀴로 교체. **정적 그리드로 바꿨다가 사용자가 "다시 마퀴로" 요청 → 마퀴 복원**. 호버 시 "인증 회원" 캡션 표시.
+- **"데이터 경영" bento 5카드 전면 재구성**: 이탈방지/잠재부채/AI매니저/자동알림/페이롤 각각 실시간 UI 애니메이션(스캔라인, 바 차오름, 타이핑, 알림 슬라이드 등) + **카드별로 다른 시맨틱 색**(핑크/오렌지/민트/블루/그린, 앱 디자인 시스템 팔레트 기준). **처음엔 색을 통일했다가 사용자가 "일부러 다채롭게 한 거였다"고 되돌림 → 원래 다채로운 컨셉 유지하며 글래스모피즘으로 업그레이드**.
+- **CTA 배지 "NEW 2.0"**: 여러 디자인 반복(위첨자 → 글로우 스티커 → 색상 조정 → 최종 "각도 완만+각진 태그형" C안). `mcp__visualize` 위젯으로 실제 옵션을 렌더링해서 사용자가 직접 비교 후 선택하는 방식이 효과적이었음.
+- **이전 홈페이지 링크**: 과거 imweb 사이트(`https://ssentif-fitness.imweb.me/`)로 가는 링크를 nav 우측 버튼("기능 둘러보기" 자리를 재활용)에 임시로 추가.
+- **푸터**: `© 2026 SSENTIF`, 사업자등록번호 `849-97-03418`로 6개 파일 통일.
+- **bc-2("경영 관리") 잔여세션 패널 수치/라벨 수정 완료** (§6 구 버전 참조): 회당 단가 60,000원 기준으로 재계산 — 박지훈 28회 168만원 / 최유나 19회 114만원 / 이강민 22회 132만원, 총 69회. 라벨 `"강사별 잔여세션 보유 현황 · 총 69회"` → `"잔여세션 현황 · 총 69회"`로 축약.
+- **`.mm-handwrite` 손글씨 스트로크 리빌 애니메이션 추가**: "이 센터 진짜 좋다" 텍스트(Nanum Pen Script)가 왼쪽에서 오른쪽으로 "써지는" 것처럼 보이도록 `clip-path: inset(0 100% 0 0)` → `inset(0 0% 0 0)` 1.6s 애니메이션 적용. 기존 사이트 전역 `.fade-up`→`.visible` IntersectionObserver 패턴을 그대로 활용(`.mm-header.visible .mm-handwrite`에 스코프), 0.55s 딜레이로 헤더 자체 페이드인이 끝난 직후 시작하도록 타이밍 조정. `getComputedStyle().clipPath`로 `inset(0 100% 0 0)`→`inset(0 0% 0 0)` 진행 확인해 동작 검증 완료(브라우저 스크린샷은 애니메이션 많은 페이지 특성상 불안정해 텍스트/computed-style 기반으로 검증).
+
+### 폐기한 접근 / 되돌린 것
+- 대규모 일괄 섹션 변경(예전 세션): 사용자 거부 → git revert 이력 있음. 앞으로도 섹션 하나씩 제안 후 진행 원칙 유지.
+- bc-2 카드 색상 통일(균일한 톤으로): 사용자가 "일부러 다채롭게 한 것"이라며 되돌림 — **디자인 피드백을 받을 때 "왜 이렇게 했는지" 의도를 먼저 물어볼 것.**
+- 이탈방지 카드 정적 그리드: 마퀴가 원래 의도였음이 확인되어 복원.
 
 ---
 
-## 5. SEO 현황
+## 5. SEO 현황 (완료, 변경 불필요)
 
 | 항목 | 상태 |
 |------|------|
-| Google Search Console | ✅ 등록 완료, 사이트맵 제출 완료 |
-| Naver 서치어드바이저 | ✅ 등록 완료, 사이트맵 + 수집 요청 완료 |
-| Google 인증 메타태그 | `index.html` `<head>`에 삽입 완료 |
-| Naver 인증 메타태그 | `index.html` `<head>`에 삽입 완료 |
-| OG 이미지 | ✅ `og-image.png` 생성 및 배포 완료 |
-| 색인 반영 예상 | Google 1~2주, Naver 3~7일 |
+| Google Search Console / Naver 서치어드바이저 | ✅ 등록 + 사이트맵 제출 완료 |
+| OG 이미지 | ✅ 완료 |
+| 색인 반영 | Google 1~2주, Naver 3~7일 예상 (등록일 기준 경과 확인 필요) |
 
 ---
 
-## 6. 다음 할 일 (우선순위순)
+## 6. 진행 중인 작업 (즉시 이어받아야 할 것)
 
-1. **Supabase 백엔드 연동**
-   - `consulting.html` 문의 폼 → Supabase `inquiries` 테이블
-   - `lab.html` 뉴스레터 구독 → Supabase 연동
-   - 현재: consulting.html 폼 UI는 완성, Supabase 연동만 남음
-
-2. **백오피스 구현**
-   - 로그인 → 문의 목록 조회 → 상태 관리 (신규/확인/완료)
-   - settings.html → 현재 localStorage 사용 중 → Supabase settings 테이블로 이전 예정
-
-3. **Supabase free tier 유지**
-   - 비활성 7일 시 프로젝트 중단됨
-   - cron-job.org로 주기적 ping 설정 필요
-
-4. **OG 이미지 개선** (선택)
-   - 현재 Python Pillow로 생성한 기본형
-   - 필요 시 더 정교한 디자인으로 교체 가능
+현재 명시적으로 진행 중인 작업 없음. 직전 두 작업(bc-2 수치/라벨 수정, `.mm-handwrite` 손글씨 애니메이션)은 §4에 기록된 대로 완료됨 — 파일에는 반영되어 있으나 **아직 미배포** 상태.
 
 ---
 
-## 7. 함정 · 주의사항
+## 7. 다음 할 일 (우선순위순)
 
-- **인앱 브라우저 프리뷰 블랭크**: Claude Code 인앱 브라우저에서 사이트가 빈 화면으로 나옴. JS로 요소 존재 확인(`document.querySelector`) + 라이브 배포 후 확인하는 것이 워크어라운드.
-- **대량 변경 금지**: 이전 세션에서 5개 섹션 동시 변경 시도 → 사용자 거부 → git revert. 한 섹션씩 제안/승인 후 진행.
-- **Vercel 도메인**: `ssentif.kr` (루트)은 `www.ssentif.kr`로 308 리다이렉트. 실제 서빙은 www.
-- **Supabase 미연동**: 현재 문의 폼 제출 시 Supabase로 저장은 됨 (이전 구현). Slack webhook은 server-side pg_net trigger로 처리 (consulting.html에서 직접 호출 안 함).
+1. **미배포 변경사항 배포 여부 확인** — 이번 세션에 파일 수정만 여러 차례 진행됨(bc-2 수치/라벨 수정, `.mm-handwrite` 애니메이션 포함). 사용자가 마지막으로 "배포해줘"를 요청한 시점 이후 변경사항이 쌓여있음. `git status`로 확인 후 사용자가 "배포해줘"라고 말하면 배포할 것.
+2. **Supabase 백엔드 연동** — `consulting.html` 문의 폼, `lab.html` 뉴스레터
+3. **백오피스 구현** — 로그인, 문의 목록, 상태 관리
+4. **Supabase free tier 유지** — cron-job.org ping 설정
 
 ---
 
-## 8. 참고 링크
+## 8. 함정 · 주의사항
+
+- **Claude 인앱 브라우저(Browser 도구) 스크롤 시 자주 멈춤/타임아웃**: 페이지에 무거운 CSS 애니메이션(무한 루프)이 많아서 스크린샷 캡처 중 렌더러가 멈추는 경우가 잦음. 이럴 때는 `get_page_text`로 텍스트 기준 검증하는 게 안정적. 실제 Chrome(`claude-in-chrome` MCP)이 더 안정적.
+- **실제 Chrome 사용 시 `ToolSearch`로 `mcp__claude-in-chrome__*` 도구를 먼저 로드해야 함** (deferred tools).
+- **배치 커밋 원칙 절대 준수** — §2, §4 참조. 매번 자동으로 git push 하지 말 것.
+- **카피/디자인 큰 변경은 항상 제안 먼저** — 특히 "다채로운 디자인" 같은 의도적 선택을 실수로 "정리"하지 않도록 주의. 사용자가 원래 의도를 설명하면 즉시 그 방향으로 되돌릴 것.
+- **인라인 style이 CSS 클래스보다 우선순위 높음**: bento 카드 색상 오버라이드(`.bc-2 .debt-bar i` 등) 작업 시 인라인 `style="background:..."`가 있으면 그게 항상 이김 — 클래스 규칙 수정이 무의미할 수 있음.
+- **fade-up 클래스 + 이미지 lazy 로딩으로 인해 페이지 높이가 늦게 확정됨**: `getBoundingClientRect()` 값이 첫 호출 시 부정확할 수 있음 — 여러 번 재측정하거나 충분히 대기 후 스크롤할 것.
+
+---
+
+## 9. 참고 링크
 
 - **라이브 사이트**: https://www.ssentif.kr
 - **GitHub**: https://github.com/nononong247/ssentif-redesign
 - **Vercel 대시보드**: https://vercel.com (프로젝트: ssentif-redesign, 계정: nononong247-3414)
-- **Google Search Console**: https://search.google.com/search-console (속성: https://www.ssentif.kr/)
-- **Naver 서치어드바이저**: https://searchadvisor.naver.com
-- **가비아 DNS**: https://dns.gabia.com (도메인: ssentif.kr)
+- **이전 홈페이지(imweb)**: https://ssentif-fitness.imweb.me/ (nav에 임시 링크됨)
+- **앱 디자인 시스템 문서**: `/Users/jinhunjung/Desktop/작업파일/SSENTIF DESIGN/design/prototype/ssentif_color_standard.html`
 
 ---
 
-## 9. 새 세션에서 재개하는 법
+## 10. 새 세션에서 재개하는 법
 
 새 대화창에서 이렇게 말하면 됩니다:
 > "ssentif-redesign 프로젝트 이어서 하자. `/Users/jinhunjung/ssentif-redesign/_checkpoints/CHECKPOINT.md` 읽어줘."
+
+지금 이 세션에서 재개하는 경우: **§6 "진행 중인 작업"부터 바로 처리**하면 됨.

@@ -294,19 +294,17 @@
   .bento-grid { grid-template-columns:1fr; }
 }
 
-/* card 1 – tall with image */
-.bc-1 .bc-inner {
-  display:grid; grid-template-columns:1fr 1fr; gap:0; min-height:320px; height:100%;
-}
-.bc-1 .bc-text { padding:36px; display:flex; flex-direction:column; justify-content:center; }
-.bc-1 .bc-visual {
-  background: linear-gradient(135deg,#1FDBA8 0%,#0CB589 100%);
-  display:flex; align-items:center; justify-content:center; overflow:hidden;
-}
-.bc-1 .bc-visual img { width:100%; height:100%; object-fit:cover; opacity:0.85; }
+/* card 1 – full-width tag, floating bottom-right visual */
+.bc-1 { position:relative; overflow:hidden; min-height:400px; }
+.bc-1 .bc-text { padding:36px; position:relative; z-index:2; }
+.bc-1 .bc-tag { display:block; width:100%; text-align:left; margin-bottom:18px; }
+.bc-1 .bc-text h3 { max-width:56%; }
+.bc-1 .bc-text p { max-width:100%; white-space:nowrap; }
 @media(max-width:960px){
-  .bc-1 .bc-inner{grid-template-columns:1fr; height:auto;}
-  .bc-1 .bc-visual{height:200px;}
+  .bc-1 { min-height:auto; }
+  .bc-1 .bc-text { padding-bottom:8px; }
+  .bc-1 .bc-text h3 { max-width:100%; }
+  .bc-1 .bc-text p { white-space:normal; }
 }
 
 /* card 2 – mint accent */
@@ -335,20 +333,26 @@
   border-color: rgba(21,184,142,0.2);
 }
 
-/* ─── Card 1 : 이탈 위험 리스트 ─── */
+/* ─── Card 1 : 이탈 위험 리스트 (우하단 겹침) ─── */
 .bcv-churn {
-  background: var(--gray-50) !important;
-  padding: 20px; display:flex; flex-direction:column; gap:9px; justify-content:center;
-  position:relative; overflow:hidden;
+  position:absolute; right:-20px; bottom:-40px; width:70%; z-index:1;
+  background:rgba(255,255,255,0.6);
+  backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,0.9);
+  border-radius:20px;
+  box-shadow: 0 12px 40px rgba(246,82,113,0.10);
+  padding:18px; display:flex; flex-direction:column; gap:9px;
+  overflow:hidden;
 }
 .churn-head {
   font-size:11px; font-weight:800; color:var(--gray-400);
   letter-spacing:0.04em; text-transform:uppercase; margin-bottom:2px;
 }
+/* 빨간 레이더 스캔 — 패널 안을 위아래로 훑는 라인 */
 .churn-scan {
   position:absolute; left:0; right:0; height:80px;
-  background:linear-gradient(180deg, transparent, rgba(31,219,168,0.16) 50%, transparent);
-  pointer-events:none; z-index:0;
+  background:linear-gradient(180deg, transparent, rgba(246,82,113,0.15) 50%, transparent);
+  pointer-events:none; z-index:2;
   animation: churnScan 3.8s ease-in-out infinite;
 }
 @keyframes churnScan {
@@ -363,9 +367,9 @@
   border-radius:12px; padding:9px 12px; position:relative; z-index:1;
   animation: churnRise 0.6s ease both;
 }
-.churn-row:nth-child(3){ animation-delay:.1s }
-.churn-row:nth-child(4){ animation-delay:.2s }
-.churn-row:nth-child(5){ animation-delay:.3s }
+.churn-row:nth-child(2){ animation-delay:.1s }
+.churn-row:nth-child(3){ animation-delay:.2s }
+.churn-row:nth-child(4){ animation-delay:.3s }
 @keyframes churnRise { from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:none} }
 .churn-avatar { width:30px; height:30px; border-radius:50%; background:linear-gradient(135deg,#CBD5E0,#9AA5B4); flex-shrink:0; }
 .churn-info { flex:1; min-width:0; }
@@ -378,6 +382,11 @@
 .churn-badge.mid  { background:#FFF3D6; color:#D97706; }
 .churn-badge.safe { background:var(--accent-light); color:var(--accent-dark); }
 @keyframes churnPulse { 0%,100%{box-shadow:0 0 0 0 rgba(225,29,72,0.35)} 50%{box-shadow:0 0 0 6px rgba(225,29,72,0)} }
+@media(max-width:960px){
+  .bcv-churn {
+    position:relative; right:auto; bottom:auto; width:auto; margin:0 20px 20px;
+  }
+}
 
 /* ─── Card 2 : 강사별 잠재부채 ─── */
 .debt-panel {
@@ -385,19 +394,74 @@
   border:1px solid rgba(0,0,0,0.06); border-radius:14px; padding:16px 18px;
   display:flex; flex-direction:column; gap:11px;
 }
-.debt-total { display:flex; align-items:baseline; justify-content:space-between; margin-bottom:2px; }
+/* 8s 사이클 — 순차 등장(0~1.7s) → 전원 표시 유지 5.3s → 동시 퇴장 → 0.5s 리셋.
+   stagger를 animation-delay가 아닌 키프레임 안에 넣어야 퇴장이 동시에 맞춰짐
+   (delay 방식은 퇴장까지 밀려서 첫 행이 재등장하는 동안 마지막 행이 사라지는 중이 됨) */
+.debt-total {
+  display:flex; align-items:baseline; justify-content:space-between; margin-bottom:2px;
+  animation: debtSeq4 8s ease-in-out infinite both;   /* 4번째 = 합계 */
+}
 .debt-total-label { font-size:11px; font-weight:700; color:rgba(0,0,0,0.5); }
 .debt-total-num { font-size:1.5rem; font-weight:900; color:var(--black); letter-spacing:-0.03em; }
-.debt-row { display:flex; align-items:center; gap:10px; }
-.debt-name { font-size:12px; font-weight:700; color:rgba(0,0,0,0.7); width:44px; flex-shrink:0; }
-.debt-bar { flex:1; height:8px; background:rgba(0,0,0,0.08); border-radius:100px; overflow:hidden; }
-.debt-bar i {
-  display:block; height:100%; width:var(--w); border-radius:100px;
-  background:var(--black);
-  transform-origin:left; animation: debtFill 2.4s ease-in-out infinite;
+.debt-sub-label { font-size:10.5px; font-weight:700; color:rgba(0,0,0,0.4); padding-top:4px; border-top:1px dashed rgba(0,0,0,0.1); }
+.debt-staff-row {
+  display:flex; align-items:center; justify-content:space-between;
+  animation-duration:8s; animation-timing-function:ease-in-out;
+  animation-iteration-count:infinite; animation-fill-mode:both;
 }
-@keyframes debtFill { 0%,100%{transform:scaleX(1)} 50%{transform:scaleX(0.55)} }
-.debt-row b { font-size:12px; font-weight:800; color:var(--black); width:34px; text-align:right; flex-shrink:0; }
+.debt-staff-row:nth-child(3){ animation-name: debtSeq1 }  /* 박지훈 */
+.debt-staff-row:nth-child(4){ animation-name: debtSeq2 }  /* 최유나 */
+.debt-staff-row:nth-child(5){ animation-name: debtSeq3 }  /* 이강민 */
+.debt-staff-more { animation: debtSeq5 8s ease-in-out infinite both; }
+@keyframes debtSeq1 {
+  0%        { opacity:0; transform:translateY(7px) }
+  5.25%     { opacity:1; transform:none }
+  88%       { opacity:1; transform:none }
+  93.25%    { opacity:0; transform:translateY(-4px) }
+  100%      { opacity:0; transform:translateY(7px) }
+}
+@keyframes debtSeq2 {
+  0%, 3.75% { opacity:0; transform:translateY(7px) }
+  9%        { opacity:1; transform:none }
+  88%       { opacity:1; transform:none }
+  93.25%    { opacity:0; transform:translateY(-4px) }
+  100%      { opacity:0; transform:translateY(7px) }
+}
+@keyframes debtSeq3 {
+  0%, 7.5%  { opacity:0; transform:translateY(7px) }
+  12.75%    { opacity:1; transform:none }
+  88%       { opacity:1; transform:none }
+  93.25%    { opacity:0; transform:translateY(-4px) }
+  100%      { opacity:0; transform:translateY(7px) }
+}
+@keyframes debtSeq4 {
+  0%, 12.5% { opacity:0; transform:translateY(7px) scale(0.97) }
+  17.75%    { opacity:1; transform:none }
+  88%       { opacity:1; transform:none }
+  93.25%    { opacity:0; transform:translateY(-4px) }
+  100%      { opacity:0; transform:translateY(7px) scale(0.97) }
+}
+@keyframes debtSeq5 {
+  0%, 16.25%{ opacity:0; transform:translateY(7px) }
+  21.5%     { opacity:1; transform:none }
+  88%       { opacity:1; transform:none }
+  93.25%    { opacity:0; transform:translateY(-4px) }
+  100%      { opacity:0; transform:translateY(7px) }
+}
+.debt-staff-name { font-size:12px; font-weight:800; color:var(--black); }
+.debt-staff-name span { font-size:9.5px; font-weight:600; color:rgba(0,0,0,0.4); margin-left:5px; }
+.debt-staff-nums { display:flex; align-items:baseline; gap:8px; }
+.debt-staff-nums b { font-size:13px; font-weight:900; color:var(--black); }
+.debt-staff-nums span { font-size:10.5px; font-weight:700; color:rgba(0,0,0,0.45); }
+.debt-staff-more {
+  display:flex; align-items:center; gap:6px;
+  font-size:10.5px; font-weight:700; color:rgba(0,0,0,0.35);
+  padding-top:2px;
+}
+.debt-staff-more .debt-more-dots { display:flex; gap:3px; }
+.debt-staff-more .debt-more-dots span {
+  width:3px; height:3px; border-radius:50%; background:rgba(0,0,0,0.25);
+}
 
 /* ─── Card 3 : AI 매니저 채팅 ─── */
 .ai-chat {
@@ -425,11 +489,15 @@
 @keyframes aiReveal { 0%,42%{opacity:0} 52%,94%{opacity:1} 100%{opacity:0} }
 
 /* ─── Card 4 : 알림톡 스택 ─── */
-.alarm-stack { margin-top:20px; display:flex; flex-direction:column; gap:8px; }
+/* ─── Card 4 : iOS 푸시 알림 스타일 배너 ─── */
+.alarm-stack { margin-top:20px; display:flex; flex-direction:column; gap:9px; }
 .alarm-item {
-  display:flex; align-items:center; gap:11px;
-  background:var(--gray-50); border:1px solid var(--border);
-  border-radius:12px; padding:10px 12px;
+  display:flex; align-items:flex-start; gap:10px;
+  background:rgba(255,255,255,0.72);
+  backdrop-filter:blur(20px) saturate(180%); -webkit-backdrop-filter:blur(20px) saturate(180%);
+  border:1px solid rgba(255,255,255,0.9);
+  border-radius:18px; padding:11px 13px;
+  box-shadow: 0 6px 20px rgba(53,102,196,0.10), 0 1px 2px rgba(13,15,18,0.04);
   animation: alarmIn 4.5s ease-in-out infinite;
 }
 .alarm-item:nth-child(2){ animation-delay:1.2s }
@@ -440,11 +508,19 @@
   38%,100%{ opacity:1; transform:none }
 }
 .alarm-ic {
-  width:30px; height:30px; border-radius:9px; background:var(--accent-light);
-  display:flex; align-items:center; justify-content:center; font-size:14px; flex-shrink:0;
+  width:34px; height:34px; border-radius:9px; background:var(--accent-light);
+  display:flex; align-items:center; justify-content:center; font-size:16px; flex-shrink:0;
+  box-shadow: 0 1px 3px rgba(13,15,18,0.10);
 }
+.alarm-body { flex:1; min-width:0; }
+.alarm-top { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:1px; }
+.alarm-app {
+  font-size:9.5px; font-weight:700; color:var(--gray-400);
+  letter-spacing:0.06em; text-transform:uppercase;
+}
+.alarm-time { font-size:9.5px; font-weight:600; color:var(--gray-400); flex-shrink:0; }
 .alarm-item b { display:block; font-size:12.5px; font-weight:700; color:var(--black); }
-.alarm-item small { font-size:10.5px; color:var(--gray-400); }
+.alarm-item small { display:block; font-size:11px; line-height:1.45; color:var(--gray-600); }
 
 /* ─── Card 5 : 급여 명세서 ─── */
 .pay-slip {
@@ -471,8 +547,6 @@
 /* Card 1 · 이탈 방지 = danger 핑크 */
 .bc-1 { background: linear-gradient(160deg, #FFF0F2 0%, #FFFFFF 60%); border-color: rgba(246,82,113,0.16); }
 .bc-1 .bc-tag { background:#FDD1D9; color:#F65271; }
-.bcv-churn { background:#FFF6F7 !important; }
-.churn-scan { background:linear-gradient(180deg, transparent, rgba(246,82,113,0.15) 50%, transparent); }
 .churn-badge.safe { background:var(--accent-light); color:var(--accent-dark); }
 
 /* Card 2 · 잠재부채 = warning 오렌지 (light tint) */
@@ -482,10 +556,9 @@
 .bc-2 .bc-tag { background:#FFE4D9 !important; color:#B26B4F !important; }
 .bc-2 .debt-panel { background:rgba(255,255,255,0.6); border-color:rgba(254,153,113,0.25); }
 .bc-2 .debt-total-label { color:var(--gray-500); }
-.bc-2 .debt-name { color:var(--gray-700); }
-.bc-2 .debt-bar { background:rgba(254,153,113,0.18); }
-.bc-2 .debt-bar i { background:#FE9971; }
-.bc-2 .debt-row b { color:var(--black); }
+.bc-2 .debt-sub-label { color:var(--gray-500); border-color:rgba(254,153,113,0.3); }
+.bc-2 .debt-staff-name span { color:var(--gray-500); }
+.bc-2 .debt-staff-nums span { color:var(--gray-500); }
 
 /* Card 3 · AI 매니저 = 브랜드 민트 (문서 원칙: AI 전용) */
 .bc-3 { background: linear-gradient(160deg, #E9FCF6 0%, #FFFFFF 60%); border-color: rgba(21,184,142,0.18); }
@@ -1246,6 +1319,13 @@
   display: inline-block;
   transform: rotate(-1.2deg);
   position: relative;
+  clip-path: inset(0 100% 0 0);
+}
+.mm-header.visible .mm-handwrite {
+  animation: mmHandwriteReveal 1.6s 0.55s cubic-bezier(0.65,0,0.35,1) forwards;
+}
+@keyframes mmHandwriteReveal {
+  to { clip-path: inset(0 0% 0 0); }
 }
 
 /* Header: centered */
@@ -2001,7 +2081,7 @@
 <section class="bento-section">
   <div class="container">
     <div class="bento-head fade-up">
-      <div class="label">데이터 경영</div>
+      <div class="label">달라진 운영 방식</div>
       <h2>보이지 않던 현장을 데이터로</h2>
       <p class="bento-sub">감으로 판단하고 넘어가던 영역을 <b>센티프</b>에서 눈으로 확인하세요.</p>
     </div>
@@ -2010,31 +2090,29 @@
 
       <!-- Card 1: 회원 이탈 시그널 (wide) -->
       <div class="bc bc-1 fade-up">
-        <div class="bc-inner">
-          <div class="bc-text">
-            <div class="bc-tag">이탈 방지</div>
-            <h3>떠날 회원, 센티프가<br>먼저 알려드립니다</h3>
-            <p>방문이 뜸해지는 순간을 데이터가 먼저 감지합니다. 조용히 사라지기 전에, 다시 붙잡을 기회를 드립니다.</p>
+        <div class="bc-text">
+          <div class="bc-tag">이탈 방지</div>
+          <h3>말없이 떠나는 회원,<br>더 이상 놓치지 마세요</h3>
+          <p>방문이 뜸해지는 순간이 곧 이탈의 시작입니다. 센티프가 가장 먼저 감지해 알려드립니다.</p>
+        </div>
+        <div class="bcv-churn">
+          <div class="churn-head">이탈 위험 감지</div>
+          <div class="churn-row">
+            <span class="churn-avatar"></span>
+            <div class="churn-info"><b>김○○ 회원</b><small>최근 방문 14일 전 · 재등록 D-5</small></div>
+            <span class="churn-badge high">위험</span>
           </div>
-          <div class="bc-visual bcv-churn">
-            <div class="churn-scan"></div>
-            <div class="churn-head">이탈 위험 감지</div>
-            <div class="churn-row">
-              <span class="churn-avatar"></span>
-              <div class="churn-info"><b>김○○ 회원</b><small>최근 방문 14일 전 · 재등록 D-5</small></div>
-              <span class="churn-badge high">위험</span>
-            </div>
-            <div class="churn-row">
-              <span class="churn-avatar"></span>
-              <div class="churn-info"><b>이○○ 회원</b><small>출석률 급감 · 3주 연속 결석</small></div>
-              <span class="churn-badge mid">주의</span>
-            </div>
-            <div class="churn-row">
-              <span class="churn-avatar"></span>
-              <div class="churn-info"><b>박○○ 회원</b><small>안정적 · 주 3회 방문</small></div>
-              <span class="churn-badge safe">안전</span>
-            </div>
+          <div class="churn-row">
+            <span class="churn-avatar"></span>
+            <div class="churn-info"><b>이○○ 회원</b><small>출석률 급감 · 3주 연속 결석</small></div>
+            <span class="churn-badge mid">주의</span>
           </div>
+          <div class="churn-row">
+            <span class="churn-avatar"></span>
+            <div class="churn-info"><b>박○○ 회원</b><small>안정적 · 주 3회 방문</small></div>
+            <span class="churn-badge safe">안전</span>
+          </div>
+          <div class="churn-scan"></div>
         </div>
       </div>
 
@@ -2042,29 +2120,43 @@
       <div class="bc bc-2 fade-up">
         <div class="bc-tag" style="background:rgba(0,0,0,0.1);color:var(--black)">경영 관리</div>
         <h3>아직 소진 안 된<br>수업, 몇 개입니까?</h3>
-        <p>미소진 수업권은 언젠가 갚아야 할 부채입니다.<br>강사별로 얼마나 남았는지 실시간으로 보입니다.</p>
+        <p>미소진 수업은 언젠가 갚아야 할 부채입니다.<br>강사별로, 품목별로 얼마나 남았는지 실시간으로 보입니다.</p>
         <div class="debt-panel">
           <div class="debt-total">
-            <span class="debt-total-label">이번 달 잠재부채</span>
-            <span class="debt-total-num">₩4,820만</span>
+            <span class="debt-total-label">실시간 잠재부채</span>
+            <span class="debt-total-num">₩1.32억</span>
           </div>
-          <div class="debt-row"><span class="debt-name">박준형</span><div class="debt-bar"><i style="--w:88%"></i></div><b>42회</b></div>
-          <div class="debt-row"><span class="debt-name">김민지</span><div class="debt-bar"><i style="--w:64%"></i></div><b>31회</b></div>
-          <div class="debt-row"><span class="debt-name">이서연</span><div class="debt-bar"><i style="--w:45%"></i></div><b>22회</b></div>
+          <div class="debt-sub-label">잔여세션 현황 · 총 2,200회</div>
+          <div class="debt-staff-row">
+            <div class="debt-staff-name">박지훈 <span>수석 트레이너</span></div>
+            <div class="debt-staff-nums"><b>241회</b><span>1,446만원</span></div>
+          </div>
+          <div class="debt-staff-row">
+            <div class="debt-staff-name">최유나 <span>시니어 트레이너</span></div>
+            <div class="debt-staff-nums"><b>185회</b><span>1,110만원</span></div>
+          </div>
+          <div class="debt-staff-row">
+            <div class="debt-staff-name">이강민 <span>트레이너</span></div>
+            <div class="debt-staff-nums"><b>132회</b><span>792만원</span></div>
+          </div>
+          <div class="debt-staff-more">
+            <span class="debt-more-dots"><span></span><span></span><span></span></span>
+            외 7명 더보기
+          </div>
         </div>
       </div>
 
       <!-- Card 3: AI 매니저 -->
       <div class="bc bc-3 fade-up">
         <div class="bc-tag">AI 매니저</div>
-        <h3>블로그도 전략도<br>딸깍, 끝납니다</h3>
-        <p>현장의 데이터는 센티프가 다 기억하고 있어요. 우리 센터에 딱 맞는 글과 전략을 대신 써드립니다.</p>
+        <h3>마케팅과 운영 전략,<br>AI와 함께하세요.</h3>
+        <p>현장 데이터는 센티프가 기억하고 있어요. 우리 센터에 맞는 글과 전략을 AI가 도와드려요.</p>
         <div class="ai-chat">
           <div class="ai-msg user">이번 달 블로그 글 써줘</div>
           <div class="ai-msg bot">
             <span class="ai-spark">✦</span>
             <span class="ai-typing"><i></i><i></i><i></i></span>
-            <span class="ai-done">이번 달 신규 등록 <b>+18%</b>, 인기 수업은 <b>모닝 필라테스</b>. 이 데이터로 홍보글을 작성했어요 ✏️</span>
+            <span class="ai-done">이번 달 신규 등록을 가장 많이한 상품은 <b>모닝 필라테스</b>입니다. 이 데이터로 홍보글을 작성했어요 ✏️</span>
           </div>
         </div>
       </div>
@@ -2077,15 +2169,27 @@
         <div class="alarm-stack">
           <div class="alarm-item">
             <span class="alarm-ic">🔔</span>
-            <div><b>수강권 만료 D-3</b><small>연장 안내 알림톡 발송됨</small></div>
+            <div class="alarm-body">
+              <div class="alarm-top"><span class="alarm-app">센티프</span><span class="alarm-time">now</span></div>
+              <b>수강권 만료 D-3</b>
+              <small>연장 안내 알림톡 발송됨</small>
+            </div>
           </div>
           <div class="alarm-item">
             <span class="alarm-ic">⏰</span>
-            <div><b>수업 시작 1시간 전</b><small>오늘 18:00 PT · 리마인드 발송</small></div>
+            <div class="alarm-body">
+              <div class="alarm-top"><span class="alarm-app">센티프</span><span class="alarm-time">now</span></div>
+              <b>수업 시작 1시간 전</b>
+              <small>오늘 18:00 PT · 리마인드 발송</small>
+            </div>
           </div>
           <div class="alarm-item">
             <span class="alarm-ic">🎉</span>
-            <div><b>생일 축하 메시지</b><small>이번 주 생일 회원 3명</small></div>
+            <div class="alarm-body">
+              <div class="alarm-top"><span class="alarm-app">센티프</span><span class="alarm-time">now</span></div>
+              <b>생일 축하 메시지</b>
+              <small>이번 주 생일 회원 3명</small>
+            </div>
           </div>
         </div>
       </div>

@@ -327,10 +327,10 @@
 .bc-3 h3,.bc-4 h3,.bc-5 h3 { margin-bottom:10px; }
 .bc-3 p,.bc-4 p,.bc-5 p { margin-bottom:auto; }
 
-/* card 5 – mint accent */
+/* card 5 – event 퍼플 accent (아래 테마 블록에서 최종 지정) */
 .bc-5 {
-  background: linear-gradient(145deg, var(--accent-light) 0%, #FFFFFF 100%);
-  border-color: rgba(21,184,142,0.2);
+  background: linear-gradient(145deg, #F3E5F5 0%, #FFFFFF 100%);
+  border-color: rgba(156,39,176,0.2);
 }
 
 /* ─── Card 1 : 이탈 위험 리스트 (우하단 겹침) ─── */
@@ -522,26 +522,56 @@
 .alarm-item b { display:block; font-size:12.5px; font-weight:700; color:var(--black); }
 .alarm-item small { display:block; font-size:11px; line-height:1.45; color:var(--gray-600); }
 
-/* ─── Card 5 : 급여 명세서 ─── */
-.pay-slip {
+/* ─── Card 5 : 급여 계산식 바 (실제 앱 상세 패널 하단 B-7)
+   근거: docs/payroll/03-final-spec.md §B-7 + 02-ui-design.md §2.3
+   기본급 + 개인수업 + 그룹수업 + 기타(±) − 사업소득세(3.3%) = 실지급액
+   세로 수식 = 스펙의 "좁은 폭 세로 스택"(B-7). 연산자 열이 있어 bc-2의 단순 나열과 구분됨 */
+.pay-calc {
   margin-top:20px; background:var(--white); border:1px solid rgba(21,184,142,0.25);
-  border-radius:14px; padding:14px 16px; display:flex; flex-direction:column; gap:9px;
+  border-radius:14px; padding:15px 16px 12px;
   box-shadow:0 6px 18px rgba(21,184,142,0.08);
 }
-.pay-slip-head { font-size:11px; font-weight:800; color:var(--gray-400); letter-spacing:0.02em; padding-bottom:8px; border-bottom:1px dashed var(--border); }
-.pay-row, .pay-total { display:flex; align-items:center; justify-content:space-between; font-size:12px; }
-.pay-row span { color:var(--gray-500); }
-.pay-row b { color:var(--black); font-weight:700; }
-.pay-row.tax b { color:#E11D48; }
-.pay-row, .pay-total { opacity:0; animation: payRow 5s ease-in-out infinite; }
-.pay-row:nth-child(2){ animation-delay:.2s } .pay-row:nth-child(3){ animation-delay:.6s }
-.pay-total {
-  padding-top:9px; border-top:1px solid var(--border); animation-delay:1s;
+.pay-eq { display:flex; flex-direction:column; gap:5px; }
+/* 연산자 열(고정) · 라벨 · 값(우측 정렬) — 숫자 자릿수가 세로로 맞아떨어지게 grid 사용 */
+.pay-line, .pay-result {
+  display:grid; grid-template-columns:13px 1fr auto; align-items:baseline; gap:0 6px;
 }
-.pay-total span { font-size:12px; font-weight:700; color:var(--gray-700); }
-.pay-total b { font-size:1.05rem; font-weight:900; color:var(--accent-dark); letter-spacing:-0.02em; }
-@keyframes payRow { 0%{opacity:0; transform:translateY(6px)} 12%,88%{opacity:1; transform:none} 100%{opacity:1} }
-.pay-slip-head { opacity:1; animation:none; }
+.pay-op {
+  font-size:11.5px; font-weight:700; color:var(--gray-300, #C4CDD5);
+  text-align:center; font-variant-numeric:tabular-nums;
+}
+.pay-line span { font-size:11px; font-weight:600; color:var(--gray-500); }
+.pay-line b {
+  font-size:12px; font-weight:700; color:var(--black);
+  text-align:right; font-variant-numeric:tabular-nums; letter-spacing:-0.01em;
+}
+/* 원천징수 = 계산식 고정 항목이라 error 아닌 중립색 (§2.2) */
+.pay-line.tax b { color:var(--gray-500); }
+/* 최종 실지급액 — 수식 아래 구분선 + 결과 강조 */
+.pay-result {
+  margin-top:9px; padding-top:10px; border-top:1px solid var(--border);
+  align-items:baseline;
+}
+.pay-result .pay-op { color:var(--gray-500); font-size:13px; }
+.pay-result-label { font-size:11.5px; font-weight:700; color:var(--gray-700); }
+.pay-result b {
+  font-size:1.2rem; font-weight:800; color:var(--black);
+  letter-spacing:-0.02em; text-align:right; font-variant-numeric:tabular-nums;
+}
+/* 항목이 위→아래로 하나씩 쌓인 뒤 결과가 떨어지는 계산 과정 연출 */
+.pay-line { animation: payTerm 6s ease-in-out infinite both; }
+.pay-line:nth-child(1){ animation-delay:0s }
+.pay-line:nth-child(2){ animation-delay:.13s }
+.pay-line:nth-child(3){ animation-delay:.26s }
+.pay-line:nth-child(4){ animation-delay:.39s }
+.pay-line:nth-child(5){ animation-delay:.52s }
+.pay-result { animation: payTerm 6s .8s ease-in-out infinite both; }
+@keyframes payTerm {
+  0%   { opacity:0; transform:translateY(5px) }
+  6%   { opacity:1; transform:none }
+  92%  { opacity:1; transform:none }
+  100% { opacity:1; transform:none }
+}
 
 /* ─── 카드별 컬러 테마 (앱 디자인 시맨틱 팔레트) ─── */
 /* Card 1 · 이탈 방지 = danger 핑크 */
@@ -568,11 +598,11 @@
 .bc-4 .bc-tag { background:#EAF1FE; color:#3566C4; }
 .bc-4 .alarm-ic { background:#EAF1FE; }
 
-/* Card 5 · 페이롤 = success 그린 */
-.bc-5 { background: linear-gradient(160deg, #E4F6EC 0%, #FFFFFF 60%); border-color: rgba(90,190,142,0.3); }
-.bc-5 .bc-tag { background:#D6ECE1; color:#418966; }
-.pay-slip { border-color:rgba(90,190,142,0.35); box-shadow:0 6px 18px rgba(90,190,142,0.1); }
-.pay-total b { color:#2E7D57; }
+/* Card 5 · 페이롤 = event 퍼플 (--event #9C27B0 / --event-bg #F3E5F5 / --event-bd rgba(156,39,176,.22)) */
+.bc-5 { background: linear-gradient(160deg, #F7EDF9 0%, #FFFFFF 60%); border-color: rgba(156,39,176,0.16); }
+.bc-5 .bc-tag { background:#F3E5F5; color:#9C27B0; }
+.pay-calc { border-color:rgba(156,39,176,0.22); box-shadow:0 6px 18px rgba(156,39,176,0.09); }
+.pay-result b { color:#9C27B0; }
 
 /* ════════════════════════════════════════
    DARK MOCKUP SECTION  (Linko 스타일)
@@ -2164,8 +2194,8 @@
       <!-- Card 4: 회원 알림톡 자동 발송 -->
       <div class="bc bc-4 fade-up">
         <div class="bc-tag">자동 알림</div>
-        <h3>챙길 타이밍,<br>센티프가 대신 보냅니다</h3>
-        <p>수강권 만료 3일 전, 수업 시작 1시간 전. 놓치기 쉬운 순간마다 알림톡이 자동으로 나갑니다.</p>
+        <h3>챙길 타이밍,<br>센티프가 대신 신경 씁니다</h3>
+        <p>수강권 만료 7/3/1일 전, 수업 시작 1시간 전 알림을 보내드립니다.</p>
         <div class="alarm-stack">
           <div class="alarm-item">
             <span class="alarm-ic">🔔</span>
@@ -2197,13 +2227,21 @@
       <!-- Card 5: 페이롤 (mint) -->
       <div class="bc bc-5 fade-up">
         <div class="bc-tag">페이롤</div>
-        <h3>급여도 세금도<br>딸깍 정산</h3>
-        <p>수업 건수와 강사별 급여 조건만 넣으면, 세금까지 계산된 명세서가 바로 완성됩니다.</p>
-        <div class="pay-slip">
-          <div class="pay-slip-head">박준형 강사 · 12월 명세서</div>
-          <div class="pay-row"><span>수업 48회 × ₩40,000</span><b>₩1,920,000</b></div>
-          <div class="pay-row tax"><span>원천세 (3.3%)</span><b>−₩63,360</b></div>
-          <div class="pay-total"><span>실지급액</span><b>₩1,856,640</b></div>
+        <h3>급여 정산에<br>더 이상 시간 쓰지 마세요</h3>
+        <p>매달 돌아오는 정산 업무. 자동 집계는 물론 강사별 급여명세서까지 출력 가능합니다.</p>
+        <div class="pay-calc">
+          <div class="pay-eq">
+            <div class="pay-line"><i class="pay-op"></i><span>기본급</span><b>₩500,000</b></div>
+            <div class="pay-line"><i class="pay-op">+</i><span>개인수업</span><b>₩1,440,000</b></div>
+            <div class="pay-line"><i class="pay-op">+</i><span>그룹수업</span><b>₩480,000</b></div>
+            <div class="pay-line"><i class="pay-op">+</i><span>기타</span><b>₩50,000</b></div>
+            <div class="pay-line tax"><i class="pay-op">−</i><span>사업소득세 3.3%</span><b>₩81,510</b></div>
+          </div>
+          <div class="pay-result">
+            <i class="pay-op">=</i>
+            <span class="pay-result-label">확정 실지급액</span>
+            <b>₩2,388,490</b>
+          </div>
         </div>
       </div>
 
@@ -2219,127 +2257,171 @@
 <style>
 .ba-wrap {
   position: relative; z-index: 1;
-  max-width: 860px; margin: 0 auto; padding: 0 40px;
+  max-width: 760px; margin: 0 auto; padding: 0 40px;
 }
 .ba-head {
-  text-align: center; margin-bottom: 56px;
+  text-align: center; margin-bottom: 44px;
 }
 .ba-head h2 { color: var(--white); font-size: clamp(1.9rem,3.5vw,2.8rem); }
 .ba-head p  { color: rgba(255,255,255,0.5); margin-top: 12px; font-size: 1rem; }
 
+/* 비교표 — 헤더와 값이 같은 그리드를 공유해야 세로 축이 맞음 */
 .ba-cols {
   display: grid;
-  grid-template-columns: 1fr 48px 1fr;
-  gap: 0;
+  grid-template-columns: 120px 1fr 24px 1.15fr;
+  column-gap: 18px;
+  /* stretch여야 4개 셀이 행 높이를 함께 채워 구분선 y좌표가 일치함 */
   align-items: stretch;
 }
 .ba-col-head {
-  text-align: center;
-  font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
-  padding: 12px 0 20px;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  padding-bottom: 14px;
   border-bottom: 1px solid rgba(255,255,255,0.08);
-  margin-bottom: 12px;
+  display: flex; align-items: flex-end;
 }
-.ba-col-head.before { color: rgba(255,255,255,0.35); }
+.ba-col-head.spacer { border-bottom: 1px solid rgba(255,255,255,0.08); }
+.ba-col-head.before { color: rgba(255,255,255,0.35); justify-content: flex-end; }
 .ba-col-head.after  { color: var(--accent); }
-.ba-divider-head {
-  display: flex; align-items: center; justify-content: center;
-  padding-bottom: 20px;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-  margin-bottom: 12px;
-  color: rgba(255,255,255,0.15); font-size: 18px;
+.ba-divider-head { border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 14px; }
+
+/* display:contents — 래퍼로 행을 묶되 셀은 부모 그리드에 직접 배치되게 */
+.ba-row { display: contents; }
+/* 행: 4개 셀이 각각 같은 높이(88px)를 잡아 하나의 표처럼 정렬 */
+.ba-metric, .ba-before, .ba-arrow, .ba-after {
+  min-height: 88px;
+  display: flex; flex-direction: column; justify-content: center;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.ba-row-last .ba-metric,
+.ba-row-last .ba-before,
+.ba-row-last .ba-arrow,
+.ba-row-last .ba-after { border-bottom: 0; }
+
+.ba-metric { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.45); }
+/* 화살표 쪽으로 붙여야 전→후 연결이 읽힘 */
+.ba-before { font-size: 15px; color: rgba(255,255,255,0.38); align-items: flex-end; text-align: right; }
+/* 취소선은 text-decoration이 아닌 실제 선 — 좌→우로 그어야 해서 scaleX 애니메이션 필요 */
+.ba-before span { position: relative; }
+.ba-before span::after {
+  content: ''; position: absolute; left: 0; right: 0; top: 50%;
+  height: 1.5px; margin-top: -0.75px;
+  background: rgba(246,82,113,0.6);
+  transform: scaleX(1); transform-origin: left;
+}
+/* 화살표 — 이 섹션의 주제가 '변화'이므로 주인공 */
+.ba-arrow { align-items: center; }
+.ba-arrow i {
+  display: block; width: 24px; height: 9px; position: relative;
+  background: linear-gradient(90deg, rgba(31,219,168,0) 0%, rgba(31,219,168,0.4) 100%);
+  clip-path: polygon(0 40%, 62% 40%, 62% 0, 100% 50%, 62% 100%, 62% 60%, 0 60%);
+}
+.ba-after b {
+  display: block;
+  font-size: 30px; font-weight: 800; color: var(--accent);
+  letter-spacing: -0.02em; line-height: 1.1;
+}
+.ba-after b em { font-style: normal; font-size: 15px; font-weight: 600; margin-left: 3px; }
+.ba-after small { display: block; font-size: 13px; color: rgba(255,255,255,0.5); margin-top: 6px; }
+/* 수치가 아닌 항목(실시간/초안)은 '상태'로 — 대형 숫자 스타일 금지 */
+.ba-after.is-state b { font-size: 20px; font-weight: 700; }
+.ba-cta { text-align: center; margin-top: 44px; }
+
+/* 모션 — 뷰포트 진입 시 1회. before → 취소선 → after 순 */
+.ba-cols .ba-metric, .ba-cols .ba-before,
+.ba-cols .ba-arrow,  .ba-cols .ba-after { opacity: 0; }
+.ba-cols.visible .ba-metric,
+.ba-cols.visible .ba-before {
+  animation: baFade 0.3s ease-out both; animation-delay: var(--d, 0s);
+}
+/* 취소선이 좌→우로 그어짐 */
+.ba-cols.visible .ba-before span::after {
+  animation: baStrike 0.3s ease-out both;
+  animation-delay: calc(var(--d, 0s) + 0.15s);
+}
+@keyframes baStrike { from { transform: scaleX(0) } to { transform: scaleX(1) } }
+.ba-cols.visible .ba-arrow {
+  animation: baFade 0.3s ease-out both; animation-delay: calc(var(--d, 0s) + 0.2s);
+}
+.ba-cols.visible .ba-after {
+  animation: baSlide 0.3s ease-out both; animation-delay: calc(var(--d, 0s) + 0.3s);
+}
+@keyframes baFade  { from { opacity:0 } to { opacity:1 } }
+@keyframes baSlide { from { opacity:0; transform: translateX(8px) } to { opacity:1; transform:none } }
+
+@media(prefers-reduced-motion: reduce){
+  .ba-cols .ba-metric, .ba-cols .ba-before,
+  .ba-cols .ba-arrow,  .ba-cols .ba-after { opacity: 1; animation: none !important; }
+  .ba-cols.visible .ba-before::after { display: none; }
 }
 
-.ba-row {
-  display: contents;
-}
-.ba-cell {
-  padding: 16px 20px;
-  border-radius: 12px;
-  margin-bottom: 10px;
-  font-size: 14px;
-  line-height: 1.5;
-}
-.ba-cell.before {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.07);
-  color: rgba(255,255,255,0.45);
-  display: flex; align-items: center; gap: 10px;
-}
-.ba-cell.before::before {
-  content: '✕';
-  font-size: 12px; font-weight: 700;
-  color: rgba(239,68,68,0.6);
-  flex-shrink: 0;
-}
-.ba-cell.after {
-  background: rgba(31,219,168,0.07);
-  border: 1px solid rgba(31,219,168,0.15);
-  color: rgba(255,255,255,0.85);
-  display: flex; align-items: center; gap: 10px;
-}
-.ba-cell.after::before {
-  content: '✓';
-  font-size: 13px; font-weight: 800;
-  color: var(--accent);
-  flex-shrink: 0;
-}
-.ba-arrow {
-  display: flex; align-items: center; justify-content: center;
-  margin-bottom: 10px;
-  color: rgba(255,255,255,0.15);
-  font-size: 16px;
-}
-
-.ba-cta {
-  text-align: center; margin-top: 48px;
-}
-
-@media(max-width:640px){
-  .ba-cols { grid-template-columns: 1fr; }
-  .ba-cell.after { margin-top: -6px; }
-  .ba-arrow { display: none; }
-  .ba-divider-head { display: none; }
+@media(max-width:768px){
+  .ba-cols { grid-template-columns: 1fr; column-gap: 0; }
+  .ba-col-head, .ba-divider-head { display: none; }
+  .ba-metric, .ba-before, .ba-arrow, .ba-after { min-height: 0; border-bottom: 0; }
+  .ba-metric { padding-top: 22px; }
+  .ba-before { padding: 4px 0 8px; align-items: flex-start; text-align: left; }
+  .ba-after { padding-bottom: 22px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .ba-row-last .ba-after { border-bottom: 0; }
+  .ba-arrow { align-items: flex-start; padding-bottom: 8px; }
+  .ba-arrow i { transform: rotate(90deg); }
+  .ba-after b { font-size: 26px; }
 }
 </style>
 
   <div class="ba-wrap">
     <div class="ba-head fade-up">
-      <div class="label" style="background:rgba(31,219,168,0.15);color:var(--accent);border:1px solid rgba(31,219,168,0.25);display:inline-block;margin-bottom:16px">도입 전 vs 후</div>
-      <h2>센티프 도입 후,<br>이렇게 달라집니다</h2>
-      <p>같은 센터, 다른 운영. 차이는 시스템입니다.</p>
+      <h2>같은 센터, 다른 운영<br>차이는 시스템입니다</h2>
+      <p>센티프 도입 후, 이렇게 달라집니다</p>
     </div>
 
     <div class="ba-cols fade-up">
-      <!-- 헤더 -->
+      <!-- 헤더 — 값 셀과 같은 그리드를 공유해야 세로 축이 맞음 -->
+      <div class="ba-col-head spacer"></div>
       <div class="ba-col-head before">도입 전</div>
-      <div class="ba-divider-head">→</div>
+      <div class="ba-divider-head"></div>
       <div class="ba-col-head after">도입 후</div>
 
-      <!-- Row 1: 페이롤 -->
-      <div class="ba-cell before">페이롤 정산에 매달 3시간 이상 소요</div>
-      <div class="ba-arrow">→</div>
-      <div class="ba-cell after">수업 건수 기반 자동 계산, 5분으로 끝</div>
+      <div class="ba-row" style="--d:0s">
+        <div class="ba-metric">이탈 조짐</div>
+        <div class="ba-before"><span>나가고 나서야 알아챔</span></div>
+        <div class="ba-arrow"><i></i></div>
+        <div class="ba-after is-state"><b>출석률로 판단</b><small>미리 대응</small></div>
+      </div>
 
-      <!-- Row 2: 강사 관리 -->
-      <div class="ba-cell before">강사가 수업일지 쓰는지 알 수 없음</div>
-      <div class="ba-arrow">→</div>
-      <div class="ba-cell after">작성률 실시간 확인, 미작성 자동 알림</div>
+      <div class="ba-row" style="--d:.06s">
+        <div class="ba-metric">수강권 만료 알림</div>
+        <div class="ba-before"><span>별도의 안내 없음</span></div>
+        <div class="ba-arrow"><i></i></div>
+        <div class="ba-after"><b>7/3/1<em>일 전</em></b><small>자동 발송</small></div>
+      </div>
 
-      <!-- Row 3: 이탈 -->
-      <div class="ba-cell before">회원이 나가고 나서야 이탈을 인지</div>
-      <div class="ba-arrow">→</div>
-      <div class="ba-cell after">출석 감소 신호 AI가 먼저 감지해 알림</div>
+      <div class="ba-row" style="--d:.12s">
+        <div class="ba-metric">잔여 세션 안내</div>
+        <div class="ba-before"><span>깜빡하고 놓침</span></div>
+        <div class="ba-arrow"><i></i></div>
+        <div class="ba-after"><b>3<em>회</em></b><small>남으면 알림</small></div>
+      </div>
 
-      <!-- Row 4: 데이터 -->
-      <div class="ba-cell before">매출·운영 현황을 감으로 파악</div>
-      <div class="ba-arrow">→</div>
-      <div class="ba-cell after">실시간 대시보드로 데이터 기반 결정</div>
+      <div class="ba-row" style="--d:.18s">
+        <div class="ba-metric">매달 급여정산</div>
+        <div class="ba-before"><span>하루종일 붙잡고 계산</span></div>
+        <div class="ba-arrow"><i></i></div>
+        <div class="ba-after is-state"><b>자동 계산</b><small>강사별 급여명세서까지 출력</small></div>
+      </div>
 
-      <!-- Row 5: 마케팅 -->
-      <div class="ba-cell before">블로그·마케팅 혼자 다 써야 함</div>
-      <div class="ba-arrow">→</div>
-      <div class="ba-cell after">AI가 초안 작성, 원장님은 검토만</div>
+      <div class="ba-row" style="--d:.24s">
+        <div class="ba-metric">홍보글 작성</div>
+        <div class="ba-before"><span>밤새 혼자 써야 함</span></div>
+        <div class="ba-arrow"><i></i></div>
+        <div class="ba-after is-state"><b>AI가 초안 작성</b><small>원장님은 검토/수정만</small></div>
+      </div>
+
+      <div class="ba-row ba-row-last" style="--d:.3s">
+        <div class="ba-metric">수업일지 공유</div>
+        <div class="ba-before"><span>작성되고 있는지 확인 불가</span></div>
+        <div class="ba-arrow"><i></i></div>
+        <div class="ba-after is-state"><b>실시간 확인</b><small>강사별 작성 여부</small></div>
+      </div>
     </div>
 
     <div class="ba-cta fade-up">
@@ -2479,7 +2561,7 @@
   <div class="container">
     <div class="fd-head fade-up">
       <div class="label">주요 기능</div>
-      <h2>원장님이 가장 원하던<br>기능들만 담았습니다</h2>
+      <h2>센터 운영의<br>기준이 바뀌고 있습니다</h2>
     </div>
 
     <!-- 1. 강사 회원관리 감독 -->

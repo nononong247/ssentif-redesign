@@ -2539,19 +2539,6 @@
 .mock-stat .n em { color: var(--accent-dark); font-style: normal; }
 .mock-stat .l { font-size: 11px; color: var(--gray-400); margin-top: 3px; }
 
-.mock-ai-bubble {
-  background: rgba(31,219,168,0.1);
-  border: 1px solid rgba(31,219,168,0.2);
-  border-radius: 14px;
-  padding: 14px 16px;
-  font-size: 13px; color: var(--black); line-height: 1.6;
-}
-.mock-ai-label {
-  font-size: 10.5px; font-weight: 700; color: var(--accent-dark);
-  letter-spacing: 0.06em; text-transform: uppercase;
-  margin-bottom: 6px;
-}
-
 @media(max-width:860px){
   .fd-item { grid-template-columns:1fr; gap:40px; }
   .fd-item.reverse { direction:ltr; }
@@ -2564,72 +2551,7 @@
       <h2>센터 운영의<br>기준이 바뀌고 있습니다</h2>
     </div>
 
-    <!-- 1. 강사 회원관리 감독 -->
-    <div class="fd-item fade-up">
-      <div class="fd-text">
-        <div class="fd-tag">감독 & 관리</div>
-        <h3>강사가 제대로 하고 있는지,<br>이제 보입니다</h3>
-        <p>강사별 수업일지 작성률, 회원 접촉 현황, 미작성 알림까지. 원장님이 직접 뛰지 않아도 센터가 돌아갑니다.</p>
-        <ul class="check-list">
-          <li>강사별 수업일지 작성률 실시간 확인</li>
-          <li>미작성 강사 자동 알림</li>
-          <li>회원별 담당 강사 접촉 이력</li>
-        </ul>
-      </div>
-      <div class="fd-visual">
-        <div class="mock-title">강사별 수업일지 현황</div>
-        <div class="mock-row">
-          <div><div class="mock-name">박준형 트레이너</div><div class="mock-sub">이번 달 수업 24건</div></div>
-          <div class="mock-badge green">작성률 100%</div>
-        </div>
-        <div class="mock-row">
-          <div><div class="mock-name">김민지 트레이너</div><div class="mock-sub">이번 달 수업 18건</div></div>
-          <div class="mock-badge yellow">작성률 72%</div>
-        </div>
-        <div class="mock-row">
-          <div><div class="mock-name">이서연 트레이너</div><div class="mock-sub">이번 달 수업 21건</div></div>
-          <div class="mock-badge red">작성률 38%</div>
-        </div>
-        <div style="margin-top:8px;padding:12px 16px;background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.15);border-radius:12px;font-size:13px;color:#DC2626;font-weight:600">
-          ⚠️ 이서연 트레이너 미작성 수업 13건 — 알림 발송됨
-        </div>
-      </div>
-    </div>
-
-    <!-- 2. 페이롤 자동 정산 -->
-    <div class="fd-item reverse fade-up">
-      <div class="fd-text">
-        <div class="fd-tag">페이롤</div>
-        <h3>매달 반복되는 정산,<br>이제 5분이면 끝납니다</h3>
-        <p>수업 건수 기반으로 급여가 자동 계산됩니다. 강사별 명세서는 버튼 하나로 즉시 발송.</p>
-        <ul class="check-list">
-          <li>수업 건수 기반 급여 자동 계산</li>
-          <li>강사별 급여 명세서 즉시 발송</li>
-          <li>월별 인건비 추이 리포트</li>
-        </ul>
-      </div>
-      <div class="fd-visual fd-visual-dark">
-        <div class="mock-title mock-title-dark">11월 페이롤 정산</div>
-        <div class="mock-row mock-row-dark">
-          <div><div class="mock-name">박준형 트레이너</div><div class="mock-sub">24건 × ₩35,000</div></div>
-          <div style="font-weight:800;font-size:15px;color:var(--accent)">₩840,000</div>
-        </div>
-        <div class="mock-row mock-row-dark">
-          <div><div class="mock-name">김민지 트레이너</div><div class="mock-sub">18건 × ₩35,000</div></div>
-          <div style="font-weight:800;font-size:15px;color:var(--accent)">₩630,000</div>
-        </div>
-        <div class="mock-row mock-row-dark">
-          <div><div class="mock-name">이서연 트레이너</div><div class="mock-sub">21건 × ₩35,000</div></div>
-          <div style="font-weight:800;font-size:15px;color:var(--accent)">₩735,000</div>
-        </div>
-        <div style="margin-top:8px;padding:14px 16px;background:rgba(31,219,168,0.1);border:1px solid rgba(31,219,168,0.2);border-radius:12px;display:flex;justify-content:space-between;align-items:center">
-          <span style="font-size:13px;font-weight:700;color:rgba(255,255,255,0.8)">이번 달 총 인건비</span>
-          <span style="font-size:20px;font-weight:900;color:var(--accent)">₩2,205,000</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- 3. 이탈 예측 알림 -->
+    <!-- 1. 이탈 예측 알림 -->
     <div class="fd-item fade-up">
       <div class="fd-text">
         <div class="fd-tag">이탈 방지</div>
@@ -2661,27 +2583,108 @@
       </div>
     </div>
 
-    <!-- 4. AI 운영 비서 -->
+    <!-- 2. 운영 위험도 -->
     <div class="fd-item reverse fade-up">
       <div class="fd-text">
-        <div class="fd-tag">AI 비서</div>
-        <h3>블로그, 운영 점검, 전략 수립<br>혼자 다 안 해도 됩니다</h3>
-        <p>AI가 먼저 초안을 쓰고, 원장님은 검토만 합니다. 마케팅과 운영에 쓰던 시간을 돌려받으세요.</p>
+        <div class="fd-tag">운영 위험도</div>
+        <h3>안 보이던 부채,<br>이제 숫자로 보입니다</h3>
+        <p>미소진 수업은 언젠가 돌려줘야 할 부채입니다. 얼마나 쌓였는지, 지금 센터가 안전한지 한 화면에서 확인하세요.</p>
         <ul class="check-list">
-          <li>센터 블로그 콘텐츠 AI 자동 작성</li>
-          <li>월간 운영 현황 자동 점검 리포트</li>
-          <li>다음 달 운영 전략 초안 제안</li>
+          <li>미소진 수강권 잠재부채 실시간 집계</li>
+          <li>강사별 잔여 세션 현황 확인</li>
+          <li>소진률 기반 운영 안정성 등급</li>
+        </ul>
+      </div>
+      <div class="fd-visual">
+        <div class="mock-title">운영 위험도</div>
+        <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:4px">
+          <div>
+            <div class="mock-sub">실시간 잠재부채</div>
+            <div style="font-size:1.7rem;font-weight:900;letter-spacing:-0.03em;color:var(--black)">₩1.32억</div>
+          </div>
+          <span style="font-size:12px;font-weight:700;padding:5px 12px;border-radius:20px;background:#D6ECE1;color:#3F8C68">안정성 좋음</span>
+        </div>
+        <div style="display:flex;gap:5px;margin-bottom:6px">
+          <span style="flex:1;height:7px;border-radius:4px;background:#5ABE8E"></span>
+          <span style="flex:1;height:7px;border-radius:4px;background:#5ABE8E"></span>
+          <span style="flex:1;height:7px;border-radius:4px;background:#FE9971"></span>
+          <span style="flex:1;height:7px;border-radius:4px;background:var(--gray-200)"></span>
+        </div>
+        <div class="mock-row">
+          <div><div class="mock-name">박지훈 수석 트레이너</div><div class="mock-sub">잔여 241회</div></div>
+          <div style="font-size:13px;font-weight:800;color:var(--black)">1,446만원</div>
+        </div>
+        <div class="mock-row">
+          <div><div class="mock-name">최유나 시니어 트레이너</div><div class="mock-sub">잔여 185회</div></div>
+          <div style="font-size:13px;font-weight:800;color:var(--black)">1,110만원</div>
+        </div>
+        <div style="margin-top:8px;padding:12px 16px;background:rgba(254,153,113,0.08);border:1px solid rgba(254,153,113,0.25);border-radius:12px;font-size:13px;color:#B26B4F;font-weight:600">
+          ⚠️ 수강권 소진률 68% — 3개월 내 정산 필요
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. 페이롤 자동 정산 -->
+    <div class="fd-item fade-up">
+      <div class="fd-text">
+        <div class="fd-tag">페이롤</div>
+        <h3>매달 반복되는 정산,<br>이제 5분이면 끝납니다</h3>
+        <p>수업 건수 기반으로 급여가 자동 계산됩니다. 강사별 명세서는 버튼 하나로 즉시 발송.</p>
+        <ul class="check-list">
+          <li>수업 건수 기반 급여 자동 계산</li>
+          <li>강사별 급여 명세서 즉시 발송</li>
+          <li>월별 인건비 추이 리포트</li>
         </ul>
       </div>
       <div class="fd-visual fd-visual-dark">
-        <div class="mock-title mock-title-dark">AI 비서</div>
-        <div class="mock-ai-bubble">
-          <div class="mock-ai-label">✨ 11월 운영 점검 리포트</div>
-          이번 달 재등록률은 지난달 대비 8% 상승했습니다. 출석률이 높은 회원군에서 재등록 전환율이 특히 높았으며, 박준형 트레이너 담당 회원의 만족도가 가장 높게 나타났습니다.
+        <div class="mock-title mock-title-dark">11월 페이롤 정산</div>
+        <div class="mock-row mock-row-dark">
+          <div><div class="mock-name">박준형 트레이너</div><div class="mock-sub">24건 × ₩35,000</div></div>
+          <div style="font-weight:800;font-size:15px;color:var(--accent)">₩840,000</div>
         </div>
-        <div class="mock-ai-bubble" style="margin-top:4px">
-          <div class="mock-ai-label">✨ 12월 운영 전략 제안</div>
-          겨울 비수기 대비 단기 집중 프로그램 출시를 권장합니다. 체험 PT 이벤트로 신규 유입을 늘리고...
+        <div class="mock-row mock-row-dark">
+          <div><div class="mock-name">김민지 트레이너</div><div class="mock-sub">18건 × ₩35,000</div></div>
+          <div style="font-weight:800;font-size:15px;color:var(--accent)">₩630,000</div>
+        </div>
+        <div class="mock-row mock-row-dark">
+          <div><div class="mock-name">이서연 트레이너</div><div class="mock-sub">21건 × ₩35,000</div></div>
+          <div style="font-weight:800;font-size:15px;color:var(--accent)">₩735,000</div>
+        </div>
+        <div style="margin-top:8px;padding:14px 16px;background:rgba(31,219,168,0.1);border:1px solid rgba(31,219,168,0.2);border-radius:12px;display:flex;justify-content:space-between;align-items:center">
+          <span style="font-size:13px;font-weight:700;color:rgba(255,255,255,0.8)">이번 달 총 인건비</span>
+          <span style="font-size:20px;font-weight:900;color:var(--accent)">₩2,205,000</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. 강사 회원관리 감독 -->
+    <div class="fd-item reverse fade-up">
+      <div class="fd-text">
+        <div class="fd-tag">감독 & 관리</div>
+        <h3>강사가 제대로 하고 있는지,<br>이제 보입니다</h3>
+        <p>강사별 수업일지 작성률, 회원 접촉 현황, 미작성 알림까지. 원장님이 직접 뛰지 않아도 센터가 돌아갑니다.</p>
+        <ul class="check-list">
+          <li>강사별 수업일지 작성률 실시간 확인</li>
+          <li>미작성 강사 자동 알림</li>
+          <li>회원별 담당 강사 접촉 이력</li>
+        </ul>
+      </div>
+      <div class="fd-visual">
+        <div class="mock-title">강사별 수업일지 현황</div>
+        <div class="mock-row">
+          <div><div class="mock-name">박준형 트레이너</div><div class="mock-sub">이번 달 수업 24건</div></div>
+          <div class="mock-badge green">작성률 100%</div>
+        </div>
+        <div class="mock-row">
+          <div><div class="mock-name">김민지 트레이너</div><div class="mock-sub">이번 달 수업 18건</div></div>
+          <div class="mock-badge yellow">작성률 72%</div>
+        </div>
+        <div class="mock-row">
+          <div><div class="mock-name">이서연 트레이너</div><div class="mock-sub">이번 달 수업 21건</div></div>
+          <div class="mock-badge red">작성률 38%</div>
+        </div>
+        <div style="margin-top:8px;padding:12px 16px;background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.15);border-radius:12px;font-size:13px;color:#DC2626;font-weight:600">
+          ⚠️ 이서연 트레이너 미작성 수업 13건 — 알림 발송됨
         </div>
       </div>
     </div>
@@ -2715,34 +2718,69 @@
           </div>
         </div>
         <div class="extras-body">
-          <div class="extras-name">매출 현황</div>
-          <div class="extras-desc">이번 달 매출과 미수금을 한눈에</div>
+          <div class="extras-name">매출 인사이트</div>
+          <div class="extras-desc">이번 달 매출과 추세를 한눈에</div>
         </div>
       </div>
 
-      <!-- 공유 캘린더 -->
+      <!-- AI 비서 -->
       <div class="extras-card fade-up" style="transition-delay:.07s">
         <div class="extras-visual">
-          <div class="exv-title">11월 공유 캘린더</div>
-          <div class="exv-cal-days">
-            <span>월</span><span>화</span><span>수</span><span>목</span><span>금</span>
+          <div class="exv-title">AI 비서</div>
+          <div class="exv-ai-msg">
+            <div class="exv-ai-tag">✦ 블로그 초안</div>
+            겨울철 PT 시작하기 좋은 이유 3가지 — 우리 센터 12월 프로모션과 함께...
           </div>
-          <div class="exv-cal-slots">
-            <div class="exv-slot exv-slot-a">박준형 · 09:00</div>
-            <div class="exv-slot exv-slot-b">김민지 · 10:00</div>
-            <div class="exv-slot exv-slot-a">박준형 · 11:00</div>
-            <div class="exv-slot exv-slot-c">이수진 · 13:00</div>
-            <div class="exv-slot exv-slot-b">김민지 · 15:00</div>
+          <div class="exv-ai-msg">
+            <div class="exv-ai-tag">✦ 운영 점검</div>
+            이번 달 재등록률 8% 상승. 출석률 높은 회원군의 전환율이 특히 높았습니다.
           </div>
         </div>
         <div class="extras-body">
-          <div class="extras-name">공유 캘린더</div>
-          <div class="extras-desc">트레이너 전원이 일정을 함께 봅니다</div>
+          <div class="extras-name">AI 비서</div>
+          <div class="extras-desc">블로그·운영 리포트 초안을 대신 작성</div>
+        </div>
+      </div>
+
+      <!-- AI 체형분석 -->
+      <div class="extras-card fade-up" style="transition-delay:.14s">
+        <div class="extras-visual">
+          <div class="exv-title">AI 체형분석</div>
+          <div class="exv-pose-row">
+            <div class="exv-pose done"><i>✓</i><span>정면</span></div>
+            <div class="exv-pose done"><i>✓</i><span>측면</span></div>
+            <div class="exv-pose"><i>＋</i><span>후면</span></div>
+          </div>
+          <div class="exv-ai-result">어깨 좌우 <b>3.2° 기울어짐</b><br>추천 운동 4개 · 상담지 자동 생성</div>
+        </div>
+        <div class="extras-body">
+          <div class="extras-name">AI 체형분석</div>
+          <div class="extras-desc">사진 한 장이면 상담지까지 완성</div>
+        </div>
+      </div>
+
+      <!-- 회원 셀프 관리 -->
+      <div class="extras-card fade-up" style="transition-delay:.21s">
+        <div class="extras-visual">
+          <div class="exv-title">회원 앱 화면</div>
+          <div class="exv-pass-card">
+            <div class="exv-pass-name">개인 PT 30회권</div>
+            <div class="exv-pass-count">9<em>회 남음</em></div>
+            <div class="exv-pass-bar"><i></i></div>
+            <div class="exv-pass-meta"><span>21회 사용</span><span>만료 D-45</span></div>
+          </div>
+          <div class="exv-pass-list">
+            <div class="exv-pass-item">12/20 김민지 트레이너<span>예정</span></div>
+          </div>
+        </div>
+        <div class="extras-body">
+          <div class="extras-name">회원 셀프 관리</div>
+          <div class="extras-desc">남은 수강권, 회원이 직접 확인</div>
         </div>
       </div>
 
       <!-- 회원 전체공지 -->
-      <div class="extras-card fade-up" style="transition-delay:.14s">
+      <div class="extras-card fade-up" style="transition-delay:.28s">
         <div class="extras-visual">
           <div class="exv-title">전체 공지 발송</div>
           <div class="exv-notice-box">
@@ -2759,13 +2797,13 @@
           </div>
         </div>
         <div class="extras-body">
-          <div class="extras-name">회원 전체공지</div>
-          <div class="extras-desc">전체 회원에게 앱 푸시로 한 번에 전달</div>
+          <div class="extras-name">푸시 공지</div>
+          <div class="extras-desc">안 보는 문자 대신, 무료 푸시로</div>
         </div>
       </div>
 
       <!-- 업무 채팅방 -->
-      <div class="extras-card fade-up" style="transition-delay:.21s">
+      <div class="extras-card fade-up" style="transition-delay:.35s">
         <div class="extras-visual">
           <div class="exv-title">팀 채팅</div>
           <div class="exv-chat-row">
@@ -2783,7 +2821,49 @@
         </div>
         <div class="extras-body">
           <div class="extras-name">업무 채팅방</div>
-          <div class="extras-desc">팀 내 소통, 별도 앱 없이 바로</div>
+          <div class="extras-desc">직원끼리도, 회원과도 한 앱에서</div>
+        </div>
+      </div>
+
+      <!-- 운동 라이브러리 -->
+      <div class="extras-card fade-up" style="transition-delay:.42s">
+        <div class="extras-visual">
+          <div class="exv-title">운동 라이브러리</div>
+          <div class="exv-lib-grid">
+            <div class="exv-lib-item">
+              <div class="exv-lib-thumb"><i>▶</i></div>
+              <div class="exv-lib-cap">스미스머신 스쿼트</div>
+            </div>
+            <div class="exv-lib-item">
+              <div class="exv-lib-thumb"><i>▶</i></div>
+              <div class="exv-lib-cap">랫풀다운 그립법</div>
+            </div>
+          </div>
+          <span class="exv-chip">우리 센터 영상 24개</span>
+        </div>
+        <div class="extras-body">
+          <div class="extras-name">운동 라이브러리</div>
+          <div class="extras-desc">우리 센터 기구 사용법을 영상으로</div>
+        </div>
+      </div>
+
+      <!-- 메모 -->
+      <div class="extras-card fade-up" style="transition-delay:.49s">
+        <div class="extras-visual">
+          <div class="exv-title">메모</div>
+          <div class="exv-notice-box">
+            <div class="exv-notice-input">12월 정기 회의 — 신규 프로모션 안건</div>
+          </div>
+          <div class="exv-notice-box">
+            <div class="exv-notice-input">세미나 정리 · 재등록 상담 스크립트</div>
+          </div>
+          <div class="exv-notice-box">
+            <div class="exv-notice-input exv-notice-tall">1월 기구 점검 일정 체크리스트...</div>
+          </div>
+        </div>
+        <div class="extras-body">
+          <div class="extras-name">메모</div>
+          <div class="extras-desc">회의·세미나 기록을 한 곳에</div>
         </div>
       </div>
 
@@ -2822,12 +2902,13 @@
 .extras-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
 
 /* Visual area */
+/* 목업 높이가 카드마다 달라 행 안에서 여백이 튀므로 고정 */
 .extras-visual {
   background: var(--gray-50);
   border-bottom: 1px solid var(--border);
   padding: 20px;
   display: flex; flex-direction: column; gap: 10px;
-  min-height: 190px;
+  height: 244px; overflow: hidden;
 }
 .exv-title { font-size: 11px; font-weight: 700; color: var(--gray-400); letter-spacing: 0.05em; text-transform: uppercase; }
 
@@ -2841,15 +2922,6 @@
 .exv-row { display: flex; align-items: center; justify-content: space-between; }
 .exv-chip { font-size: 10.5px; font-weight: 600; background: var(--accent-light); color: var(--accent-dark); padding: 3px 8px; border-radius: 20px; }
 .exv-up { font-size: 11px; font-weight: 700; color: var(--accent-dark); }
-
-/* 공유 캘린더 */
-.exv-cal-days { display: flex; gap: 4px; }
-.exv-cal-days span { flex: 1; text-align: center; font-size: 9.5px; font-weight: 700; color: var(--gray-400); }
-.exv-cal-slots { display: flex; flex-direction: column; gap: 5px; }
-.exv-slot { font-size: 10px; font-weight: 600; padding: 5px 8px; border-radius: 6px; }
-.exv-slot-a { background: rgba(31,219,168,0.12); color: var(--accent-dark); }
-.exv-slot-b { background: rgba(99,102,241,0.1); color: #4f46e5; }
-.exv-slot-c { background: rgba(249,115,22,0.1); color: #ea580c; }
 
 /* 회원 전체공지 */
 .exv-notice-box { display: flex; flex-direction: column; gap: 4px; }
@@ -2866,6 +2938,39 @@
 .exv-bubble { font-size: 10.5px; line-height: 1.5; padding: 7px 10px; border-radius: 12px; max-width: 80%; }
 .exv-bubble-left  { background: var(--white); border: 1px solid var(--border); color: var(--gray-700); border-radius: 4px 12px 12px 12px; }
 .exv-bubble-right { background: var(--accent); color: var(--black); border-radius: 12px 4px 12px 12px; }
+
+/* AI 비서 — 초안 카드 */
+.exv-ai-msg { background: var(--white); border: 1px solid var(--border); border-radius: 9px; padding: 9px 11px; font-size: 10.5px; line-height: 1.55; color: var(--gray-700); }
+.exv-ai-tag { font-size: 9.5px; font-weight: 700; color: var(--accent-dark); margin-bottom: 3px; }
+
+/* AI 체형분석 — 정면/측면/후면 3방향(앱: consultation_posture) */
+.exv-pose-row { display: flex; gap: 6px; }
+.exv-pose { flex: 1; aspect-ratio: 3/4; border-radius: 8px; background: var(--gray-100, #EFF1F1); border: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; }
+.exv-pose i { font-size: 15px; color: var(--gray-300, #C4CDD5); font-style: normal; }
+.exv-pose span { font-size: 8.5px; color: var(--gray-400); font-weight: 600; }
+.exv-pose.done { background: var(--accent-light); border-color: rgba(31,219,168,0.3); }
+.exv-pose.done i, .exv-pose.done span { color: var(--accent-dark); }
+.exv-ai-result { background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 8px 10px; font-size: 10.5px; color: var(--gray-700); line-height: 1.5; }
+.exv-ai-result b { color: var(--accent-dark); font-weight: 700; }
+
+/* 회원 셀프 관리 — 회원 앱 화면 */
+.exv-pass-card { background: var(--black); border-radius: 10px; padding: 12px; }
+.exv-pass-name { font-size: 10px; color: rgba(255,255,255,0.55); margin-bottom: 3px; }
+.exv-pass-count { font-size: 1.15rem; font-weight: 900; color: var(--accent); letter-spacing: -0.02em; }
+.exv-pass-count em { font-style: normal; font-size: 11px; font-weight: 700; margin-left: 2px; }
+.exv-pass-bar { height: 4px; border-radius: 2px; background: rgba(255,255,255,0.12); margin-top: 8px; overflow: hidden; }
+.exv-pass-bar i { display: block; height: 100%; width: 30%; background: var(--accent); border-radius: 2px; }
+.exv-pass-meta { display: flex; justify-content: space-between; font-size: 9.5px; color: rgba(255,255,255,0.4); margin-top: 5px; }
+.exv-pass-list { display: flex; flex-direction: column; gap: 5px; }
+.exv-pass-item { display: flex; justify-content: space-between; font-size: 10.5px; color: var(--gray-700); background: var(--white); border: 1px solid var(--border); border-radius: 7px; padding: 6px 9px; }
+.exv-pass-item span { color: var(--gray-400); }
+
+/* 운동 라이브러리 — 영상 썸네일 그리드 */
+.exv-lib-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.exv-lib-item { background: var(--white); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.exv-lib-thumb { aspect-ratio: 16/10; background: linear-gradient(135deg, var(--gray-100, #EFF1F1), var(--gray-200)); display: flex; align-items: center; justify-content: center; position: relative; }
+.exv-lib-thumb i { font-size: 14px; color: var(--white); font-style: normal; width: 20px; height: 20px; border-radius: 50%; background: rgba(13,15,18,0.55); display: flex; align-items: center; justify-content: center; }
+.exv-lib-cap { font-size: 9.5px; color: var(--gray-700); font-weight: 600; padding: 5px 7px; }
 
 /* Body text */
 .extras-body { padding: 16px 20px; }

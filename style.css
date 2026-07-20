@@ -489,14 +489,64 @@ p  { color: var(--gray-600); line-height: 1.75; }
 
 /* ── CTA Band ── */
 .cta-band {
-  background: var(--black);
-  padding: 96px 0;
+  position: relative;
+  background: #070A09;
+  padding: 130px 0 140px;
   text-align: center;
   color: var(--white);
+  overflow: hidden;
+  isolation: isolate;
+  border-top: 1px solid rgba(255,255,255,0.06);
 }
-.cta-band h2 { color: var(--white); margin-bottom: 16px; }
-.cta-band p { color: rgba(255,255,255,0.6); font-size: 1.05rem; margin-bottom: 36px; }
-.cta-band .btn-primary { font-size: 16px; padding: 15px 36px; }
+/* 격자 패턴 — 다크 섹션 공통 언어. 가장자리는 마스크로 페이드 */
+.cta-band::before {
+  content: '';
+  position: absolute; inset: 0; z-index: -2;
+  background-image:
+    linear-gradient(rgba(31,219,168,0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(31,219,168,0.055) 1px, transparent 1px);
+  background-size: 54px 54px;
+  -webkit-mask-image: radial-gradient(ellipse 75% 65% at 50% 55%, #000 25%, transparent 100%);
+  mask-image: radial-gradient(ellipse 75% 65% at 50% 55%, #000 25%, transparent 100%);
+}
+/* 민트 오로라 — CTA 뒤에서 피어오르는 광원 */
+.cta-band::after {
+  content: '';
+  position: absolute; z-index: -1;
+  left: 50%; bottom: -42%;
+  width: min(980px, 130%); aspect-ratio: 1 / 1;
+  transform: translateX(-50%);
+  background: radial-gradient(circle,
+    rgba(31,219,168,0.26) 0%,
+    rgba(31,219,168,0.10) 34%,
+    rgba(31,219,168,0) 66%);
+  pointer-events: none;
+  animation: ctaAurora 9s ease-in-out infinite;
+}
+@keyframes ctaAurora {
+  0%, 100% { opacity: 0.7; transform: translateX(-50%) scale(1); }
+  50%      { opacity: 1;   transform: translateX(-50%) scale(1.09); }
+}
+.cta-band .container { position: relative; z-index: 1; }
+.cta-band .hero-pill { backdrop-filter: blur(6px); }
+.cta-band h2 {
+  color: var(--white); margin-bottom: 18px;
+  letter-spacing: -0.02em;
+  text-shadow: 0 2px 40px rgba(31,219,168,0.18);
+}
+.cta-band p { color: rgba(255,255,255,0.55); font-size: 1.05rem; margin-bottom: 38px; }
+.cta-band .btn-primary {
+  font-size: 16px; padding: 16px 40px;
+  box-shadow: 0 0 0 1px rgba(31,219,168,0.35), 0 10px 34px rgba(31,219,168,0.32);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+.cta-band .btn-primary:hover {
+  box-shadow: 0 0 0 1px rgba(31,219,168,0.55), 0 14px 44px rgba(31,219,168,0.45);
+  transform: translateY(-2px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .cta-band::after { animation: none; }
+}
 
 
 /* ── FAQ ── */

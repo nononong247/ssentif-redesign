@@ -2461,12 +2461,13 @@
 .fd-item.reverse { direction: rtl; }
 .fd-item.reverse > * { direction: ltr; }
 
-.fd-text .fd-tag {
-  display: inline-block;
-  font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
-  color: var(--accent-dark); background: var(--accent-light);
-  padding: 4px 12px; border-radius: 100px; margin-bottom: 18px;
-}
+/* STEP 컴포넌트 — 세그먼트 진행바 + 라벨 + 스텝명. 카드 자체가 "전체 6단계 중 지금 어디인지" 보여줌 */
+.fd-step { margin-bottom: 18px; }
+.fd-step-bar { display: flex; gap: 3px; max-width: 200px; margin-bottom: 10px; }
+.fd-step-bar span { flex: 1; height: 3px; border-radius: 2px; background: var(--gray-200); }
+.fd-step-bar span.on { background: var(--black); }
+.fd-step-bar span.cur { background: var(--accent); }
+.fd-step-title { font-size: 17px; font-weight: 800; color: var(--black); }
 .fd-text h3 {
   font-size: clamp(1.5rem,2.5vw,2rem);
   font-weight: 900; line-height: 1.25;
@@ -2476,7 +2477,6 @@
   font-size: 15px; color: var(--gray-600); line-height: 1.8;
   margin-bottom: 24px;
 }
-.fd-text .check-list { margin-bottom: 0; }
 
 /* 목업 카드 공통 */
 .fd-visual {
@@ -2548,20 +2548,73 @@
   <div class="container">
     <div class="fd-head fade-up">
       <div class="label">주요 기능</div>
-      <h2>센터 운영의<br>기준이 바뀌고 있습니다</h2>
+      <h2>센터 운영의<br>기준이 바뀌다</h2>
     </div>
 
-    <!-- 1. 이탈 예측 알림 -->
+    <!-- 1. 신뢰 — 강사가 바뀌어도 일관된 회원관리 -->
     <div class="fd-item fade-up">
       <div class="fd-text">
-        <div class="fd-tag">이탈 방지</div>
+        <div class="fd-step">
+          <div class="fd-step-bar"><span class="cur"></span><span></span><span></span><span></span><span></span><span></span></div>
+          <div class="fd-step-title">신뢰</div>
+        </div>
+        <h3>누가 담당해도<br>일관된 회원관리</h3>
+        <p>회원 정보와 상담 기록이 한 곳에 모이고, 전체적으로 통일된 회원관리 시스템으로 회원은 상담부터 신뢰감을 느낍니다.</p>
+      </div>
+      <div class="fd-visual">
+        <div class="mock-title">회원 통합 프로필</div>
+        <div class="mock-row">
+          <div><div class="mock-name">김서연 회원</div><div class="mock-sub">담당 강사 변경 이력 2회</div></div>
+          <div class="mock-badge green">기록 승계 완료</div>
+        </div>
+        <div class="mock-row">
+          <div><div class="mock-name">10/12 박준형 트레이너</div><div class="mock-sub">체형 상담 · 어깨 불균형 메모</div></div>
+        </div>
+        <div class="mock-row">
+          <div><div class="mock-name">11/03 김민지 트레이너 (신규 배정)</div><div class="mock-sub">이전 메모 확인 후 수업 진행</div></div>
+        </div>
+        <div style="margin-top:8px;padding:12px 16px;background:var(--accent-light);border:1px solid rgba(21,184,142,0.2);border-radius:12px;font-size:13px;color:var(--accent-dark);font-weight:600">
+          ✓ 강사가 바뀌어도 회원 히스토리는 그대로
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. 기록 — 수업 시간 외 회원관리도 체계적으로 -->
+    <div class="fd-item reverse fade-up">
+      <div class="fd-text">
+        <div class="fd-step">
+          <div class="fd-step-bar"><span class="on"></span><span class="cur"></span><span></span><span></span><span></span><span></span></div>
+          <div class="fd-step-title">소통</div>
+        </div>
+        <h3>수업 시간 밖에서도<br>관리받고 있다고 느낍니다</h3>
+        <p>식단, 개인 운동, 컨디션 피드백까지. 주고받은 기록이 쌓일수록 회원과의 관계도 깊어집니다.</p>
+      </div>
+      <div class="fd-visual">
+        <div class="mock-title">회원 타임라인</div>
+        <div class="mock-row">
+          <div><div class="mock-name">수업일지</div><div class="mock-sub">오늘 · 하체 위주 45분</div></div>
+        </div>
+        <div class="mock-row">
+          <div><div class="mock-name">식단 피드백</div><div class="mock-sub">어제 · 저녁 단백질 부족 안내</div></div>
+        </div>
+        <div class="mock-row">
+          <div><div class="mock-name">개인 운동 기록</div><div class="mock-sub">3일 전 · 홈트 인증 사진</div></div>
+        </div>
+        <div style="margin-top:8px;padding:12px 16px;background:rgba(79,142,247,0.08);border:1px solid rgba(79,142,247,0.2);border-radius:12px;font-size:13px;color:#3566C4;font-weight:600">
+          📋 이번 달 기록 18건 자동 축적
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. 이탈 예측 알림 -->
+    <div class="fd-item fade-up">
+      <div class="fd-text">
+        <div class="fd-step">
+          <div class="fd-step-bar"><span class="on"></span><span class="on"></span><span class="cur"></span><span></span><span></span><span></span></div>
+          <div class="fd-step-title">감지</div>
+        </div>
         <h3>떠나기 전에<br>먼저 알려드립니다</h3>
-        <p>출석이 줄어든 회원, 재등록을 미루는 회원을 AI가 먼저 감지합니다. 타이밍을 놓치지 마세요.</p>
-        <ul class="check-list">
-          <li>출석 감소 회원 자동 감지 & 알림</li>
-          <li>재등록 임박 회원 우선순위 표시</li>
-          <li>이탈 위험도 점수 제공</li>
-        </ul>
+        <p>출석이 줄어든 회원, 만료가 임박한 회원을 감지합니다. 재등록 타이밍을 놓치지 마세요.</p>
       </div>
       <div class="fd-visual">
         <div class="mock-title">이탈 위험 회원</div>
@@ -2583,17 +2636,15 @@
       </div>
     </div>
 
-    <!-- 2. 운영 위험도 -->
+    <!-- 4. 운영 위험도 -->
     <div class="fd-item reverse fade-up">
       <div class="fd-text">
-        <div class="fd-tag">운영 위험도</div>
-        <h3>안 보이던 부채,<br>이제 숫자로 보입니다</h3>
+        <div class="fd-step">
+          <div class="fd-step-bar"><span class="on"></span><span class="on"></span><span class="on"></span><span class="cur"></span><span></span><span></span></div>
+          <div class="fd-step-title">운영 진단</div>
+        </div>
+        <h3>보이지 않던 리스크,<br>이제 숫자로 확인</h3>
         <p>미소진 수업은 언젠가 돌려줘야 할 부채입니다. 얼마나 쌓였는지, 지금 센터가 안전한지 한 화면에서 확인하세요.</p>
-        <ul class="check-list">
-          <li>미소진 수강권 잠재부채 실시간 집계</li>
-          <li>강사별 잔여 세션 현황 확인</li>
-          <li>소진률 기반 운영 안정성 등급</li>
-        </ul>
       </div>
       <div class="fd-visual">
         <div class="mock-title">운영 위험도</div>
@@ -2624,17 +2675,15 @@
       </div>
     </div>
 
-    <!-- 3. 페이롤 자동 정산 -->
+    <!-- 5. 페이롤 자동 정산 -->
     <div class="fd-item fade-up">
       <div class="fd-text">
-        <div class="fd-tag">페이롤</div>
-        <h3>매달 반복되는 정산,<br>이제 5분이면 끝납니다</h3>
-        <p>수업 건수 기반으로 급여가 자동 계산됩니다. 강사별 명세서는 버튼 하나로 즉시 발송.</p>
-        <ul class="check-list">
-          <li>수업 건수 기반 급여 자동 계산</li>
-          <li>강사별 급여 명세서 즉시 발송</li>
-          <li>월별 인건비 추이 리포트</li>
-        </ul>
+        <div class="fd-step">
+          <div class="fd-step-bar"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="cur"></span><span></span></div>
+          <div class="fd-step-title">자동화</div>
+        </div>
+        <h3>매달 반복되는 페이롤,<br>이제 5분 만에 끝</h3>
+        <p>강사별 급여 조건과 수업 건수를 기반으로 급여가 자동 계산됩니다. 총 인건비부터 강사별 명세서까지 버튼 하나로 완료됩니다.</p>
       </div>
       <div class="fd-visual fd-visual-dark">
         <div class="mock-title mock-title-dark">11월 페이롤 정산</div>
@@ -2657,17 +2706,15 @@
       </div>
     </div>
 
-    <!-- 4. 강사 회원관리 감독 -->
+    <!-- 6. 강사 회원관리 감독 -->
     <div class="fd-item reverse fade-up">
       <div class="fd-text">
-        <div class="fd-tag">감독 & 관리</div>
-        <h3>강사가 제대로 하고 있는지,<br>이제 보입니다</h3>
-        <p>강사별 수업일지 작성률, 회원 접촉 현황, 미작성 알림까지. 원장님이 직접 뛰지 않아도 센터가 돌아갑니다.</p>
-        <ul class="check-list">
-          <li>강사별 수업일지 작성률 실시간 확인</li>
-          <li>미작성 강사 자동 알림</li>
-          <li>회원별 담당 강사 접촉 이력</li>
-        </ul>
+        <div class="fd-step">
+          <div class="fd-step-bar"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="cur"></span></div>
+          <div class="fd-step-title">실행 확인</div>
+        </div>
+        <h3>제대로 하고 있는지,<br>이제 보입니다</h3>
+        <p>강사별 수업일지 작성 여부, 회원관리 현황, 수업 진행 상황까지. 보이지 않던 현장을 언제 어디서나 확인할 수 있습니다.</p>
       </div>
       <div class="fd-visual">
         <div class="mock-title">강사별 수업일지 현황</div>
@@ -2698,7 +2745,7 @@
 ══════════════════════ -->
 <section class="extras-strip">
   <div class="container">
-    <p class="extras-label">그리고 이런 것들도 기본으로 포함됩니다</p>
+    <p class="extras-label">운영에 필요한 도구들도 함께 준비됐습니다</p>
     <div class="extras-grid">
 
       <!-- 매출 현황 -->
@@ -2723,22 +2770,24 @@
         </div>
       </div>
 
-      <!-- AI 비서 -->
+      <!-- 공유 캘린더 -->
       <div class="extras-card fade-up" style="transition-delay:.07s">
         <div class="extras-visual">
-          <div class="exv-title">AI 비서</div>
-          <div class="exv-ai-msg">
-            <div class="exv-ai-tag">✦ 블로그 초안</div>
-            겨울철 PT 시작하기 좋은 이유 3가지 — 우리 센터 12월 프로모션과 함께...
+          <div class="exv-title">12월 공유 캘린더</div>
+          <div class="exv-cal-days">
+            <span>월</span><span>화</span><span>수</span><span>목</span><span>금</span>
           </div>
-          <div class="exv-ai-msg">
-            <div class="exv-ai-tag">✦ 운영 점검</div>
-            이번 달 재등록률 8% 상승. 출석률 높은 회원군의 전환율이 특히 높았습니다.
+          <div class="exv-cal-slots">
+            <div class="exv-slot exv-slot-a">박준형 · 09:00</div>
+            <div class="exv-slot exv-slot-b">김민지 · 10:00</div>
+            <div class="exv-slot exv-slot-a">박준형 · 11:00</div>
+            <div class="exv-slot exv-slot-c">이수진 · 13:00</div>
+            <div class="exv-slot exv-slot-b">김민지 · 15:00</div>
           </div>
         </div>
         <div class="extras-body">
-          <div class="extras-name">AI 비서</div>
-          <div class="extras-desc">블로그·운영 리포트 초안을 대신 작성</div>
+          <div class="extras-name">공유 캘린더</div>
+          <div class="extras-desc">강사 전원의 일정을 한 화면에서</div>
         </div>
       </div>
 
@@ -2774,7 +2823,7 @@
           </div>
         </div>
         <div class="extras-body">
-          <div class="extras-name">회원 셀프 관리</div>
+          <div class="extras-name">회원 전용 앱</div>
           <div class="extras-desc">남은 수강권, 회원이 직접 확인</div>
         </div>
       </div>
@@ -2797,7 +2846,7 @@
           </div>
         </div>
         <div class="extras-body">
-          <div class="extras-name">푸시 공지</div>
+          <div class="extras-name">앱 푸시 공지</div>
           <div class="extras-desc">안 보는 문자 대신, 무료 푸시로</div>
         </div>
       </div>
@@ -2862,7 +2911,7 @@
           </div>
         </div>
         <div class="extras-body">
-          <div class="extras-name">메모</div>
+          <div class="extras-name">공동 메모장</div>
           <div class="extras-desc">회의·세미나 기록을 한 곳에</div>
         </div>
       </div>
@@ -2878,10 +2927,11 @@
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
 }
+/* 서브 섹션 헤딩 — 메인 h2보다는 작게, 캡션보다는 확실히 크게 */
 .extras-label {
-  font-size: 13px; font-weight: 600;
-  color: var(--gray-400); text-align: center;
-  margin-bottom: 36px; letter-spacing: 0.02em;
+  font-size: clamp(1.15rem, 2vw, 1.4rem); font-weight: 800;
+  color: var(--black); text-align: center;
+  margin-bottom: 40px; letter-spacing: -0.01em;
 }
 .extras-grid {
   display: grid;
@@ -2939,9 +2989,14 @@
 .exv-bubble-left  { background: var(--white); border: 1px solid var(--border); color: var(--gray-700); border-radius: 4px 12px 12px 12px; }
 .exv-bubble-right { background: var(--accent); color: var(--black); border-radius: 12px 4px 12px 12px; }
 
-/* AI 비서 — 초안 카드 */
-.exv-ai-msg { background: var(--white); border: 1px solid var(--border); border-radius: 9px; padding: 9px 11px; font-size: 10.5px; line-height: 1.55; color: var(--gray-700); }
-.exv-ai-tag { font-size: 9.5px; font-weight: 700; color: var(--accent-dark); margin-bottom: 3px; }
+/* 공유 캘린더 — 강사별 일정 슬롯 */
+.exv-cal-days { display: flex; gap: 4px; }
+.exv-cal-days span { flex: 1; text-align: center; font-size: 9.5px; font-weight: 700; color: var(--gray-400); }
+.exv-cal-slots { display: flex; flex-direction: column; gap: 5px; }
+.exv-slot { font-size: 10px; font-weight: 600; padding: 5px 8px; border-radius: 6px; }
+.exv-slot-a { background: rgba(31,219,168,0.12); color: var(--accent-dark); }
+.exv-slot-b { background: rgba(79,142,247,0.1); color: #3566C4; }
+.exv-slot-c { background: rgba(254,153,113,0.14); color: #B26B4F; }
 
 /* AI 체형분석 — 정면/측면/후면 3방향(앱: consultation_posture) */
 .exv-pose-row { display: flex; gap: 6px; }
@@ -2976,122 +3031,170 @@
 .extras-body { padding: 16px 20px; }
 .extras-name { font-size: 14px; font-weight: 700; color: var(--black); margin-bottom: 4px; }
 .extras-desc { font-size: 12.5px; color: var(--gray-400); line-height: 1.5; }
+
+/* ── 실사용자 인터뷰 영상 ── */
+.cases-sub { font-size: 1rem; color: var(--gray-500); margin-top: 14px; }
+.itv-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+  margin-top: 48px;
+}
+.itv-card { display: block; text-decoration: none; cursor: pointer; }
+.itv-thumb {
+  position: relative; border-radius: 16px; overflow: hidden;
+  aspect-ratio: 16/9; background: var(--gray-100, #EFF1F1);
+  transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s ease;
+}
+/* 민트 링 — 호버 시에만 드러나는 테두리 강조 */
+.itv-thumb::after {
+  content: ''; position: absolute; inset: 0; z-index: 3; pointer-events: none;
+  border-radius: 16px; border: 2px solid transparent;
+  transition: border-color 0.3s ease;
+}
+.itv-card:hover .itv-thumb {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(13,15,18,0.16);
+}
+.itv-card:hover .itv-thumb::after { border-color: var(--accent); }
+.itv-thumb img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform 0.45s cubic-bezier(0.22,1,0.36,1);
+}
+.itv-card:hover .itv-thumb img { transform: scale(1.06); }
+.itv-play {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  width: 54px; height: 54px; border-radius: 50%;
+  background: rgba(13,15,18,0.5); backdrop-filter: blur(6px);
+  border: 1.5px solid rgba(255,255,255,0.5);
+  z-index: 2; transition: background 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+}
+.itv-play::before {
+  content: ''; position: absolute; top: 50%; left: 54%; transform: translate(-50%,-50%);
+  border-style: solid; border-width: 9px 0 9px 15px;
+  border-color: transparent transparent transparent #fff;
+  transition: border-left-color 0.25s ease;
+}
+/* 호버 전에도 재생 가능함을 알리는 은은한 확산 링 */
+.itv-play::after {
+  content: ''; position: absolute; inset: -6px; border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,0.35);
+  animation: itvPulse 2.6s ease-out infinite;
+}
+@keyframes itvPulse {
+  0%   { transform: scale(0.9); opacity: 0.7 }
+  70%  { transform: scale(1.35); opacity: 0 }
+  100% { transform: scale(1.35); opacity: 0 }
+}
+.itv-card:hover .itv-play {
+  background: var(--accent); border-color: var(--accent);
+  transform: translate(-50%,-50%) scale(1.12);
+}
+.itv-card:hover .itv-play::before { border-left-color: var(--black); }
+.itv-cta { text-align: center; margin-top: 44px; }
+
+/* ── 인페이지 재생 라이트박스 ── */
+.itv-modal {
+  position: fixed; inset: 0; z-index: 9999;
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px;
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+.itv-modal.open { opacity: 1; visibility: visible; }
+.itv-modal-backdrop {
+  position: absolute; inset: 0;
+  background: rgba(8,10,12,0.86); backdrop-filter: blur(6px);
+}
+.itv-modal-inner {
+  position: relative; width: 100%; max-width: 960px;
+  transform: scale(0.96); transition: transform 0.28s cubic-bezier(0.22,1,0.36,1);
+}
+.itv-modal.open .itv-modal-inner { transform: scale(1); }
+.itv-modal-frame {
+  position: relative; aspect-ratio: 16/9;
+  border-radius: 16px; overflow: hidden; background: #000;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+}
+.itv-modal-frame iframe { width: 100%; height: 100%; border: 0; display: block; }
+.itv-modal-close {
+  position: absolute; top: -46px; right: 0;
+  width: 36px; height: 36px; border-radius: 50%;
+  background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25);
+  color: #fff; font-size: 18px; line-height: 1; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s ease;
+}
+.itv-modal-close:hover { background: rgba(255,255,255,0.24); }
+@media (max-width: 900px) { .itv-grid { grid-template-columns: 1fr 1fr; gap: 16px; } }
+@media (max-width: 560px) {
+  .itv-grid { grid-template-columns: 1fr; }
+  .itv-modal { padding: 16px; }
+  .itv-modal-close { top: -42px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .itv-play::after { animation: none; }
+}
 </style>
 
 <!-- ══════════════════════
-     고객 사례 (cases.html 통합)
+     고객 사례 — 실사용자 인터뷰 영상
 ══════════════════════ -->
 <section class="section" id="cases">
   <div class="container">
     <div class="section-head fade-up">
       <div class="label">고객 사례</div>
       <h2>실제 센터의 변화,<br>데이터로 증명됩니다</h2>
+      <p class="cases-sub">사용법은 간단하고 편하게, 회원 반응은 빠르게</p>
     </div>
 
-    <!-- 특집 사례 -->
-    <div class="featured-case fade-up">
-      <div>
-        <div class="label" style="margin-bottom:16px">특집 사례</div>
-        <p class="featured-case-quote">"센티프 도입 3개월 만에 재등록률이 12% 올랐어요. 회원별 데이터를 보면서 맞춤 상담을 할 수 있게 된 게 결정적이었습니다. 이제는 데이터 없이는 운영을 못 하겠더라고요."</p>
-        <div class="featured-case-author">
-          <div class="featured-case-avatar"></div>
-          <div>
-            <div style="font-size:15px;font-weight:700">이수연 원장</div>
-            <div style="font-size:13px;color:var(--gray-400);margin-top:2px">BODY LAB · 부산 해운대 · PT 전문 센터</div>
-          </div>
+    <div class="itv-grid">
+      <a class="itv-card fade-up" data-yt="zOxrGWNv67Q" href="https://youtu.be/zOxrGWNv67Q" target="_blank" rel="noopener">
+        <div class="itv-thumb">
+          <img src="https://i.ytimg.com/vi/zOxrGWNv67Q/hqdefault.jpg" alt="예이레 트레이너 인터뷰" loading="lazy">
+          <span class="itv-play"></span>
         </div>
-      </div>
-      <div class="featured-case-stats">
-        <div class="fc-stat"><div class="num">+12%</div><div class="label">재등록률 상승</div></div>
-        <div class="fc-stat"><div class="num">-65%</div><div class="label">일지 작성 시간 감소</div></div>
-        <div class="fc-stat"><div class="num">+28%</div><div class="label">월 매출 증가</div></div>
-        <div class="fc-stat"><div class="num">95%</div><div class="label">트레이너 만족도</div></div>
-      </div>
+      </a>
+      <a class="itv-card fade-up" style="transition-delay:.07s" data-yt="5hiJJo65QVU" href="https://youtu.be/5hiJJo65QVU" target="_blank" rel="noopener">
+        <div class="itv-thumb">
+          <img src="https://i.ytimg.com/vi/5hiJJo65QVU/hqdefault.jpg" alt="회원 반응 인터뷰" loading="lazy">
+          <span class="itv-play"></span>
+        </div>
+      </a>
+      <a class="itv-card fade-up" style="transition-delay:.14s" data-yt="o_k9EZnfVa4" href="https://youtu.be/o_k9EZnfVa4" target="_blank" rel="noopener">
+        <div class="itv-thumb">
+          <img src="https://i.ytimg.com/vi/o_k9EZnfVa4/hqdefault.jpg" alt="송종원 트레이너 인터뷰" loading="lazy">
+          <span class="itv-play"></span>
+        </div>
+      </a>
+      <a class="itv-card fade-up" style="transition-delay:.21s" data-yt="U87FpumJAkg" href="https://youtu.be/U87FpumJAkg" target="_blank" rel="noopener">
+        <div class="itv-thumb">
+          <img src="https://i.ytimg.com/vi/U87FpumJAkg/hqdefault.jpg" alt="트레이너 인터뷰" loading="lazy">
+          <span class="itv-play"></span>
+        </div>
+      </a>
+      <a class="itv-card fade-up" style="transition-delay:.28s" data-yt="KIVX2QPVGrk" href="https://youtu.be/KIVX2QPVGrk" target="_blank" rel="noopener">
+        <div class="itv-thumb">
+          <img src="https://i.ytimg.com/vi/KIVX2QPVGrk/hqdefault.jpg" alt="트레이너 인터뷰" loading="lazy">
+          <span class="itv-play"></span>
+        </div>
+      </a>
+      <a class="itv-card fade-up" style="transition-delay:.35s" data-yt="rOjFa-LjG64" href="https://youtu.be/rOjFa-LjG64" target="_blank" rel="noopener">
+        <div class="itv-thumb">
+          <img src="https://i.ytimg.com/vi/rOjFa-LjG64/hqdefault.jpg" alt="트레이너 인터뷰" loading="lazy">
+          <span class="itv-play"></span>
+        </div>
+      </a>
     </div>
 
-    <!-- 필터 탭 -->
-    <div class="filter-tabs fade-up">
-      <button class="filter-tab active">전체</button>
-      <button class="filter-tab">PT 센터</button>
-      <button class="filter-tab">필라테스</button>
-      <button class="filter-tab">헬스장</button>
-      <button class="filter-tab">크로스핏</button>
+    <div class="itv-cta fade-up">
+      <a href="https://www.youtube.com/@ssentif_official/videos" target="_blank" rel="noopener" class="btn btn-outline">더 많은 인터뷰 보러가기</a>
     </div>
+  </div>
 
-    <!-- 케이스 그리드 -->
-    <div class="cases-grid">
-      <div class="case-card fade-up">
-        <div class="case-card-img"><img src="https://images.unsplash.com/photo-1581009137042-c552e485697a?w=600&auto=format&fit=crop" alt="센터"></div>
-        <div class="case-card-body">
-          <div class="case-tag">PT 센터</div>
-          <h4>수업일지 자동화로 회원 케어 시간 2배 확보</h4>
-          <p>하루 30분씩 쓰던 일지 작성을 5분으로 줄였습니다. 남은 시간을 회원 상담에 투자한 결과, 만족도가 크게 올랐습니다.</p>
-          <div class="case-stats">
-            <div class="case-stat"><div class="num">+18%</div><div class="desc">재등록률</div></div>
-            <div class="case-stat"><div class="num">-83%</div><div class="desc">일지 작성 시간</div></div>
-          </div>
-        </div>
-      </div>
-      <div class="case-card fade-up">
-        <div class="case-card-img"><img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&auto=format&fit=crop" alt="센터"></div>
-        <div class="case-card-body">
-          <div class="case-tag">헬스장</div>
-          <h4>매출 분석으로 비수기 전략 수립 성공</h4>
-          <p>월별 매출 데이터를 분석해 비수기 프로모션 타이밍을 정확히 잡았습니다. 비수기 매출이 전년 대비 22% 성장했습니다.</p>
-          <div class="case-stats">
-            <div class="case-stat"><div class="num">+22%</div><div class="desc">비수기 매출</div></div>
-            <div class="case-stat"><div class="num">3배</div><div class="desc">ROI</div></div>
-          </div>
-        </div>
-      </div>
-      <div class="case-card fade-up">
-        <div class="case-card-img"><img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&auto=format&fit=crop" alt="센터"></div>
-        <div class="case-card-body">
-          <div class="case-tag">PT 센터</div>
-          <h4>식단 관리 기능으로 회원 목표 달성률 향상</h4>
-          <p>운동과 식단을 함께 관리하면서 회원 목표 달성 속도가 빨라졌고, 자연스럽게 추가 세션 구매로 이어졌습니다.</p>
-          <div class="case-stats">
-            <div class="case-stat"><div class="num">+31%</div><div class="desc">회원 목표 달성률</div></div>
-            <div class="case-stat"><div class="num">+15%</div><div class="desc">추가 구매 전환</div></div>
-          </div>
-        </div>
-      </div>
-      <div class="case-card fade-up">
-        <div class="case-card-img"><img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=600&auto=format&fit=crop" alt="센터"></div>
-        <div class="case-card-body">
-          <div class="case-tag">필라테스</div>
-          <h4>자동 재등록 알림으로 이탈 회원 선제 방어</h4>
-          <p>만료 2주 전 자동 알림이 발송되면서, 원장님이 직접 연락하지 않아도 재등록률이 유지되기 시작했습니다.</p>
-          <div class="case-stats">
-            <div class="case-stat"><div class="num">92%</div><div class="desc">재등록률 유지</div></div>
-            <div class="case-stat"><div class="num">-100%</div><div class="desc">수동 리마인더</div></div>
-          </div>
-        </div>
-      </div>
-      <div class="case-card fade-up">
-        <div class="case-card-img"><img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&auto=format&fit=crop" alt="센터"></div>
-        <div class="case-card-body">
-          <div class="case-tag">헬스장</div>
-          <h4>트레이너 성과 관리로 팀 생산성 20% 향상</h4>
-          <p>트레이너별 성과 리포트를 공유하면서 건전한 경쟁 문화가 형성됐고, 전체 팀의 수업 건수가 꾸준히 증가했습니다.</p>
-          <div class="case-stats">
-            <div class="case-stat"><div class="num">+20%</div><div class="desc">팀 생산성</div></div>
-            <div class="case-stat"><div class="num">+35%</div><div class="desc">수업 건수</div></div>
-          </div>
-        </div>
-      </div>
-      <div class="case-card fade-up">
-        <div class="case-card-img"><img src="https://images.unsplash.com/photo-1581009137042-c552e485697a?w=600&auto=format&fit=crop&q=80&crop=entropy" alt="센터"></div>
-        <div class="case-card-body">
-          <div class="case-tag">크로스핏</div>
-          <h4>운동 루틴 공유로 회원 커뮤니티 활성화</h4>
-          <p>회원들이 앱에서 서로의 기록을 확인하면서 자연스럽게 커뮤니티가 형성됐고, 친구 소개 신규 등록이 늘었습니다.</p>
-          <div class="case-stats">
-            <div class="case-stat"><div class="num">+40%</div><div class="desc">앱 사용률</div></div>
-            <div class="case-stat"><div class="num">+25%</div><div class="desc">지인 소개 등록</div></div>
-          </div>
-        </div>
-      </div>
+  <div class="itv-modal" id="itvModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="인터뷰 영상">
+    <div class="itv-modal-backdrop" data-itv-close></div>
+    <div class="itv-modal-inner">
+      <button class="itv-modal-close" type="button" data-itv-close aria-label="닫기">&times;</button>
+      <div class="itv-modal-frame"><iframe id="itvFrame" src="" title="인터뷰 영상" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
     </div>
   </div>
 </section>
@@ -3202,13 +3305,36 @@ const countupObserver = new IntersectionObserver(entries => {
 }, { threshold: 0.5 });
 document.querySelectorAll('.countup').forEach(el => countupObserver.observe(el));
 
-// 필터 탭 (시각적 토글)
-document.querySelectorAll('.filter-tab').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.filter-tab').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
+// 인터뷰 영상 라이트박스 — 새 창 대신 페이지 내에서 재생
+(() => {
+  const modal = document.getElementById('itvModal');
+  const frame = document.getElementById('itvFrame');
+  if (!modal || !frame) return;
+
+  const open = id => {
+    frame.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&modestbranding=1`;
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  };
+  const close = () => {
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    frame.src = '';           // src를 비워야 재생이 실제로 멈춤
+  };
+
+  document.querySelectorAll('.itv-card[data-yt]').forEach(card => {
+    card.addEventListener('click', e => {
+      e.preventDefault();     // JS 없으면 href로 유튜브 이동(폴백)
+      open(card.dataset.yt);
+    });
   });
-});
+  modal.querySelectorAll('[data-itv-close]').forEach(el => el.addEventListener('click', close));
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && modal.classList.contains('open')) close();
+  });
+})();
 
 // 햄버거 메뉴
 const hamburger = document.getElementById('navHamburger');

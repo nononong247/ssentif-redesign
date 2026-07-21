@@ -160,13 +160,6 @@ tbody td { padding: 10px 14px; font-size: 12.5px; color: #374151; vertical-align
 .badge.hold    { background: #F3F5F8; color: #6B7280; }
 .badge.hold::before { background: #9CA3AF; }
 
-.plan-tag {
-  display: inline-block; font-size: 10px; font-weight: 700;
-  padding: 2px 7px; border-radius: 4px; letter-spacing: 0.02em;
-  background: #F3F5F8; color: #6B7280;
-}
-.plan-tag.pro { background: #111318; color: #1FDBA8; }
-.plan-tag.enterprise { background: #EFF6FF; color: #1D4ED8; }
 
 .size-tag { font-size: 11.5px; color: #9CA3AF; }
 
@@ -359,7 +352,6 @@ tbody td { padding: 10px 14px; font-size: 12.5px; color: #374151; vertical-align
             <th>연락처</th>
             <th>센터명</th>
             <th>규모</th>
-            <th>플랜</th>
             <th class="sort" onclick="sortBy('date')">접수일 ↕</th>
             <th>상태</th>
             <th></th>
@@ -422,10 +414,6 @@ tbody td { padding: 10px 14px; font-size: 12.5px; color: #374151; vertical-align
       </div>
       <div class="modal-row">
         <div class="modal-field">
-          <div class="modal-label">관심 플랜</div>
-          <div class="modal-value" id="m-plan">—</div>
-        </div>
-        <div class="modal-field">
           <div class="modal-label">접수일</div>
           <div class="modal-value" id="m-date">—</div>
         </div>
@@ -467,12 +455,6 @@ let openInquiryId = null;
 const statusLabel = { new:'신규', review:'검토중', done:'완료', hold:'보류' };
 const statusClass = { new:'new', review:'review', done:'done', hold:'hold' };
 
-function planClass(plan) {
-  if (plan === 'Pro') return 'pro';
-  if (plan === 'Enterprise') return 'enterprise';
-  return '';
-}
-
 function getFiltered() {
   const q = document.getElementById('searchInput').value.toLowerCase();
   return inquiries.filter(r => {
@@ -511,7 +493,6 @@ function renderTable() {
       </td>
       <td>${r.center}</td>
       <td class="size-tag">${r.size}</td>
-      <td><span class="plan-tag ${planClass(r.plan)}">${r.plan}</span></td>
       <td style="color:#9CA3AF;font-size:11.5px;font-variant-numeric:tabular-nums">${r.date}</td>
       <td>
         <select class="status-select" onclick="event.stopPropagation()" onchange="updateStatus(${r.id}, this.value)">
@@ -562,7 +543,6 @@ function openDetail(id) {
   document.getElementById('m-email').textContent   = r.email;
   document.getElementById('m-center').textContent  = r.center;
   document.getElementById('m-size').textContent    = r.size;
-  document.getElementById('m-plan').textContent    = r.plan;
   document.getElementById('m-date').textContent    = r.date;
   document.getElementById('m-message').textContent = r.message;
   document.getElementById('modalStatus').value     = r.status;
@@ -584,10 +564,10 @@ async function saveStatus() {
 
 function exportCSV() {
   const data = getFiltered();
-  const headers = ['#','성함','직함','연락처','이메일','센터명','센터규모','관심플랜','접수일','상태','문의내용'];
+  const headers = ['#','성함','직함','연락처','이메일','센터명','센터규모','접수일','상태','문의내용'];
   const rows = data.map(r => [
     r.id, r.name, r.role, r.phone, r.email,
-    r.center, r.size, r.plan, r.date, statusLabel[r.status],
+    r.center, r.size, r.date, statusLabel[r.status],
     `"${r.message.replace(/"/g,'""')}"`
   ]);
   const csv = [headers, ...rows].map(r => r.join(',')).join('\n');

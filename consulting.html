@@ -2,35 +2,84 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>맞춤 도입 상담 — SSENTIF | PT센터 운영 솔루션 도입 문의</title>
-<meta name="description" content="센티프 맞춤 도입 상담을 신청하세요. PT센터 규모와 운영 방식에 맞는 최적의 도입 방안을 제안해드립니다. 무료 상담 가능.">
+<title>도입 절차 — SSENTIF | PT센터 운영 솔루션 도입 문의</title>
+<meta name="description" content="센티프 도입 절차를 확인하고 상담을 신청하세요. PT센터 규모와 운영 방식에 맞는 최적의 도입 방안을 제안해드립니다. 무료 상담 가능.">
 <meta name="keywords" content="PT센터운영솔루션도입, 피트니스관리프로그램상담, 헬스장운영시스템도입, 센티프상담, PT센터운영컨설팅">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://www.ssentif.kr/consulting.html">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.ssentif.kr/consulting.html">
-<meta property="og:title" content="맞춤 도입 상담 — SSENTIF">
+<meta property="og:title" content="도입 절차 — SSENTIF">
 <meta property="og:description" content="PT센터 규모와 운영 방식에 맞는 최적의 도입 방안을 제안해드립니다. 무료 상담 가능.">
 <meta property="og:image" content="https://www.ssentif.kr/og-image.png">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="SSENTIF">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="맞춤 도입 상담 — SSENTIF">
+<meta name="twitter:title" content="도입 절차 — SSENTIF">
 <meta name="twitter:description" content="PT센터 규모와 운영 방식에 맞는 최적의 도입 방안을 제안해드립니다. 무료 상담 가능.">
 <meta name="twitter:image" content="https://www.ssentif.kr/og-image.png">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=2">
 <style>
-.consult-layout {
-  display: grid;
-  grid-template-columns: 1fr 480px;
-  gap: 80px;
-  align-items: start;
+/* ── 도입 절차 전용 히어로 (좌 텍스트 · 우 일러스트) ── */
+.intro-hero {
+  position: relative; overflow: hidden;
+  padding: 128px 0 0;
+  background: var(--gray-50);
+  border-bottom: 1px solid var(--border);
 }
-@media (max-width: 900px) { .consult-layout { grid-template-columns: 1fr; gap: 48px; } }
+.intro-hero::before {
+  content: ''; position: absolute; z-index: 0;
+  right: -80px; top: 90px; width: 500px; height: 500px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(31,219,168,0.18) 0%, transparent 66%);
+  pointer-events: none;
+}
+.ih-inner {
+  position: relative; z-index: 1;
+  display: grid; grid-template-columns: 1fr 340px;
+  gap: 48px; align-items: end;
+}
+.ih-text {
+  text-align: left; align-self: center;
+  padding: 0 0 40px 8px;
+}
+.ih-text h1 {
+  font-size: clamp(2.3rem, 4.4vw, 3.4rem);
+  line-height: 1.22; letter-spacing: -0.04em;
+  margin-bottom: 26px;
+}
+.ih-text .lead {
+  margin: 0; max-width: 460px;
+  font-size: 16px; line-height: 1.85; color: var(--gray-500);
+  padding-left: 18px; border-left: 2px solid var(--accent);
+}
+.ih-visual { position: relative; display: flex; justify-content: center; }
+.ih-visual::after {
+  content: ''; position: absolute; left: 50%; bottom: 0;
+  transform: translateX(-50%);
+  width: 118%; height: 62%; border-radius: 50% 50% 0 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.35));
+  z-index: 0;
+}
+.ih-visual img {
+  position: relative; z-index: 1;
+  display: block; width: 100%; max-width: 300px; height: auto;
+  filter: drop-shadow(0 18px 32px rgba(15,23,20,0.08));
+}
+@media (max-width: 860px) {
+  .intro-hero { padding-top: 112px; text-align: center; }
+  .intro-hero::before { right: -40%; top: -60px; width: 460px; height: 460px; }
+  .ih-inner { grid-template-columns: 1fr; gap: 8px; }
+  .ih-text { text-align: center; padding: 0; }
+  .ih-text h1 { margin-bottom: 20px; }
+  .ih-text .lead { margin: 0 auto; padding-left: 0; border-left: none; }
+  .ih-visual img { max-width: 270px; }
+}
+@media (max-width: 480px) {
+  .ih-visual img { max-width: 220px; }
+}
+
+.consult-layout { max-width: 560px; margin: 0 auto; }
 
 .form-card {
   background: var(--white);
@@ -38,8 +87,6 @@
   border-radius: var(--radius-lg);
   padding: 40px;
   box-shadow: var(--shadow-md);
-  position: sticky;
-  top: 88px;
 }
 .form-card h3 { margin-bottom: 8px; }
 .form-card .sub { font-size: 14px; color: var(--gray-500); margin-bottom: 28px; }
@@ -127,10 +174,6 @@
 }
 .summary-row .label { color: var(--gray-400); font-weight: 500; }
 .summary-row .value { color: var(--gray-700); font-weight: 600; }
-.summary-row .value.plan {
-  background: var(--black); color: var(--accent);
-  font-size: 11.5px; padding: 2px 10px; border-radius: 6px;
-}
 
 .success-steps {
   display: flex; flex-direction: column; gap: 0;
@@ -185,223 +228,164 @@
 }
 .success-refill button:hover { text-decoration: underline; }
 
-.info-badge {
-  display: flex; align-items: center; gap: 10px;
-  background: var(--accent-light);
-  border-radius: 10px;
-  padding: 12px 16px;
-  margin-bottom: 28px;
-  font-size: 13.5px;
-  color: var(--accent-dark);
-  font-weight: 600;
-}
 
-.process-item {
-  display: flex; gap: 20px;
-  margin-bottom: 36px;
+/* ── 걱정 ↔ 해결 매칭 그리드 ── */
+.worry-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;
+  max-width: 960px; margin: 0 auto;
 }
-.process-circle {
-  width: 44px; height: 44px; flex-shrink: 0;
-  border-radius: 50%;
-  background: var(--accent-light);
-  color: var(--accent-dark);
-  font-size: 16px; font-weight: 800;
-  display: flex; align-items: center; justify-content: center;
-}
-.process-item-text h4 { margin-bottom: 6px; }
-.process-item-text p { font-size: 14px; }
-
-.trust-items {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  text-align: center;
-}
-@media (max-width: 600px) { .trust-items { grid-template-columns: 1fr; } }
-.trust-item h3 { font-size: 2rem; font-weight: 900; color: var(--black); }
-.trust-item p { font-size: 13px; color: var(--gray-500); margin-top: 4px; }
-
-/* ── 센티프가 다 해드립니다 (split banner) ── */
-.handoff-banner {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  min-height: 360px;
-  overflow: hidden;
-}
-@media (max-width: 768px) {
-  .handoff-banner { grid-template-columns: 1fr; }
-  .handoff-left { padding: 44px 28px; }
-  .handoff-right { padding: 36px 28px; border-left: none; border-top: 1px solid var(--border); }
-}
-.handoff-left {
-  background: var(--black);
-  padding: 72px 64px;
-  display: flex; flex-direction: column; justify-content: center;
+@media (max-width: 780px) { .worry-grid { grid-template-columns: 1fr; gap: 18px; } }
+.wc {
   position: relative; overflow: hidden;
+  border: 1px solid var(--border); border-radius: 26px;
+  background: var(--white);
+  padding: 38px 36px 34px;
+  transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
 }
-.handoff-left::before {
-  content: '';
-  position: absolute; right: -60px; top: -60px;
-  width: 280px; height: 280px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(31,219,168,0.18) 0%, transparent 70%);
-  pointer-events: none;
+.wc:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 44px rgba(15,23,20,0.08);
+  border-color: var(--gray-300);
 }
-.handoff-left h2 {
-  font-size: clamp(1.7rem, 3vw, 2.4rem); font-weight: 900;
-  color: var(--white); line-height: 1.25; margin-bottom: 20px;
+.wc::before {
+  content: '“'; position: absolute; top: -18px; right: 14px;
+  font-family: Georgia, serif; font-size: 120px; font-weight: 700;
+  color: var(--gray-100); line-height: 1; pointer-events: none;
+  z-index: 0;
 }
-.handoff-left h2 em { color: var(--accent); font-style: normal; }
-.handoff-left p { font-size: 15px; color: rgba(255,255,255,0.55); line-height: 1.75; margin-bottom: 32px; }
-.handoff-btn {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: var(--accent); color: var(--black);
-  padding: 14px 28px; border-radius: 100px;
-  font-size: 15px; font-weight: 800;
-  text-decoration: none; transition: all 0.2s;
-  align-self: flex-start;
-}
-.handoff-btn:hover { background: var(--accent-dark); transform: translateY(-2px); }
-.handoff-right {
-  background: var(--gray-50);
-  border-left: 1px solid var(--border);
-  padding: 56px 64px;
-  display: flex; flex-direction: column; justify-content: center; gap: 28px;
-}
-.handoff-chip {
-  display: flex; align-items: flex-start; gap: 16px;
-}
-.handoff-chip-icon {
-  width: 44px; height: 44px; border-radius: 12px;
-  background: var(--white); border: 1px solid var(--border);
+.wc-icon {
+  position: relative; z-index: 1;
+  width: 52px; height: 52px; border-radius: 50%;
+  background: var(--accent-light);
   display: flex; align-items: center; justify-content: center;
-  font-size: 20px; flex-shrink: 0;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  font-size: 24px; margin-bottom: 20px;
 }
-.handoff-chip-text strong { display: block; font-size: 14.5px; font-weight: 700; color: var(--black); margin-bottom: 3px; }
-.handoff-chip-text span { font-size: 13px; color: var(--gray-500); line-height: 1.5; }
-
-/* ── 걱정 아코디언 ── */
-.worry-accordion { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--border); border-radius: 20px; overflow: hidden; }
-.wa-item { border-bottom: 1px solid var(--border); }
-.wa-item:last-child { border-bottom: none; }
-.wa-trigger {
-  width: 100%; display: flex; align-items: center; gap: 20px;
-  padding: 28px 32px; background: var(--white); cursor: pointer;
-  border: none; font-family: inherit; text-align: left;
-  transition: background 0.15s;
+.wc-q {
+  position: relative; z-index: 1;
+  margin: 0 0 14px; font-size: 19px; font-weight: 800;
+  color: var(--black); line-height: 1.45; letter-spacing: -0.01em;
 }
-.wa-trigger:hover { background: var(--gray-50); }
-.wa-item.open .wa-trigger { background: var(--gray-50); }
-.wa-num {
-  width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
-  background: var(--gray-100); color: var(--gray-400);
-  font-size: 13px; font-weight: 800;
-  display: flex; align-items: center; justify-content: center;
-  transition: all 0.25s;
+.wc-a {
+  position: relative; z-index: 1;
+  margin: 0; font-size: 14.5px; color: var(--gray-600); line-height: 1.75;
 }
-.wa-item.open .wa-num { background: var(--accent-light); color: var(--accent-dark); }
-.wa-question { flex: 1; font-size: 16px; font-weight: 600; color: var(--gray-700); }
-.wa-item.open .wa-question { color: var(--black); }
-.wa-arrow {
-  font-size: 18px; color: var(--gray-300); transition: transform 0.3s;
-  flex-shrink: 0;
-}
-.wa-item.open .wa-arrow { transform: rotate(180deg); color: var(--accent-dark); }
-.wa-body {
-  max-height: 0; overflow: hidden;
-  transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1), padding 0.3s;
-  padding: 0 32px 0 84px;
-  background: var(--gray-50);
-}
-.wa-item.open .wa-body { max-height: 240px; padding: 0 24px 24px 68px; }
-@media (max-width: 600px) {
-  .wa-trigger { padding: 20px 18px; gap: 12px; }
-  .wa-question { font-size: 14.5px; }
-  .wa-body { padding: 0 18px 0 18px; }
-  .wa-item.open .wa-body { max-height: 280px; padding: 0 18px 20px 18px; }
-  .wa-answer { padding-left: 14px; }
-}
-.wa-answer {
-  font-size: 15px; color: var(--gray-600); line-height: 1.75;
-  padding-top: 4px;
-  border-left: 3px solid var(--accent);
-  padding-left: 20px;
+.wc-a strong { color: var(--accent-dark); font-weight: 800; }
+.wc-a a { color: var(--accent-dark); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 780px) {
+  .wc { padding: 30px 26px 28px; border-radius: 22px; }
+  .wc::before { font-size: 92px; top: -12px; right: 10px; }
+  .wc-icon { width: 46px; height: 46px; font-size: 21px; margin-bottom: 16px; }
+  .wc-q { font-size: 17px; }
 }
 
-/* ── 온보딩 스텝 (컴팩트 가로 5단계) ── */
-.ob-steps {
-  display: grid; grid-template-columns: repeat(5, 1fr);
-  gap: 0; position: relative;
-  margin-bottom: 52px;
-}
-@media (max-width: 900px) { .ob-steps { grid-template-columns: 1fr 1fr; gap: 12px; } }
-@media (max-width: 480px) { .ob-steps { grid-template-columns: 1fr; } }
+/* ── 도입 프로세스 ── */
+.proc-sub { font-size: 14.5px; color: var(--gray-500); line-height: 1.7; margin-top: 14px; }
 
-/* 단계 연결선 */
-.ob-steps::before {
-  content: '';
-  position: absolute; top: 28px; left: calc(10% + 16px); right: calc(10% + 16px);
-  height: 2px; background: var(--border); z-index: 0;
+/* ── 도입 프로세스 (고스트 넘버 카드) ── */
+.proc-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px;
+  max-width: 1080px; margin: 44px auto 0;
 }
-@media (max-width: 900px) { .ob-steps::before { display: none; } }
-
-.ob-card {
-  display: flex; flex-direction: column; align-items: center;
-  text-align: center; padding: 0 12px;
-  opacity: 0; transform: translateY(16px);
-  transition: opacity 0.4s, transform 0.4s;
+.proc-card {
+  position: relative; overflow: hidden; text-align: left;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 26px 20px 24px;
+  transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
 }
-.ob-card.visible { opacity: 1; transform: translateY(0); }
-.ob-card:nth-child(2) { transition-delay: 0.08s; }
-.ob-card:nth-child(3) { transition-delay: 0.16s; }
-.ob-card:nth-child(4) { transition-delay: 0.24s; }
-.ob-card:nth-child(5) { transition-delay: 0.32s; }
-
-.ob-dot {
-  width: 56px; height: 56px; border-radius: 50%;
-  background: var(--white); border: 2px solid var(--border);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 14px; font-weight: 900; color: var(--gray-400);
-  z-index: 1; position: relative; margin-bottom: 16px;
-  transition: all 0.3s;
+.proc-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 36px rgba(15,23,20,0.08);
+  border-color: var(--gray-300);
 }
-.ob-card.visible .ob-dot {
-  background: var(--accent-light); border-color: var(--accent);
+/* 우상단 고스트 스텝 숫자 */
+.proc-card::before {
+  content: attr(data-step);
+  position: absolute; top: -18px; right: 6px;
+  font-size: 84px; font-weight: 900; line-height: 1;
+  letter-spacing: -0.05em; color: var(--gray-100);
+  pointer-events: none; transition: color 0.3s;
+}
+.proc-card:hover::before { color: var(--accent-light); }
+.pc-num {
+  position: relative; z-index: 1;
+  display: block; margin-bottom: 30px;
+  font-size: 11px; font-weight: 900; letter-spacing: 0.14em;
   color: var(--accent-dark);
 }
-.ob-card.final .ob-dot {
-  background: var(--accent); border-color: var(--accent-dark);
-  color: var(--black); font-size: 18px;
+.proc-card h4 {
+  position: relative; z-index: 1;
+  font-size: 16px; font-weight: 800; color: var(--black); margin-bottom: 12px;
 }
-.ob-card h4 { font-size: 14px; font-weight: 800; color: var(--black); margin-bottom: 6px; }
-.ob-card p { font-size: 12.5px; color: var(--gray-500); line-height: 1.6; margin: 0; }
+.pc-line {
+  position: relative; z-index: 1;
+  font-size: 12.5px; color: var(--gray-500); line-height: 1.7; margin: 0;
+  padding-left: 11px;
+}
+.pc-line::before {
+  content: ''; position: absolute; left: 0; top: 9px;
+  width: 4px; height: 4px; border-radius: 50%; background: var(--gray-300);
+}
+.pc-strong { color: var(--accent-dark); font-weight: 800; font-size: 13px; }
+.pc-strong::before { background: var(--accent); }
 
-/* ── 하단 CTA 배너 ── */
-.bottom-cta-banner {
-  background: var(--black); border-radius: 24px;
-  padding: 64px 72px;
-  display: flex; align-items: center; justify-content: space-between; gap: 40px;
-  position: relative; overflow: hidden;
-  margin: 72px 0 0;
+/* 마지막 카드 : 다크 피니시 */
+.proc-final { background: var(--black); border-color: var(--black); }
+.proc-final::before { color: rgba(255,255,255,0.07); }
+.proc-final:hover::before { color: rgba(31,219,168,0.16); }
+.proc-final .pc-num { color: var(--accent); }
+.proc-final h4 { color: var(--white); }
+.proc-final .pc-line { color: rgba(255,255,255,0.65); }
+.proc-final .pc-line::before { background: rgba(255,255,255,0.3); }
+.proc-final .pc-strong { color: var(--accent); }
+.proc-final .pc-strong::before { background: var(--accent); }
+
+@media (max-width: 900px) {
+  .proc-grid { grid-template-columns: repeat(3, 1fr); }
 }
-.bottom-cta-banner::before {
-  content: '';
-  position: absolute; left: -80px; bottom: -80px;
-  width: 320px; height: 320px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(31,219,168,0.15) 0%, transparent 70%);
-  pointer-events: none;
+@media (max-width: 560px) {
+  .proc-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .proc-card { padding: 22px 16px 20px; }
+  .proc-card::before { font-size: 68px; top: -14px; }
+  .pc-num { margin-bottom: 24px; }
 }
-@media (max-width: 640px) { .bottom-cta-banner { flex-direction: column; padding: 40px 32px; gap: 24px; } }
-.bottom-cta-banner h3 { font-size: clamp(1.4rem, 2.5vw, 1.9rem); font-weight: 900; color: var(--white); line-height: 1.35; }
-.bottom-cta-banner h3 em { color: var(--accent); font-style: normal; }
-.bottom-cta-banner .btn-accent {
-  display: inline-flex; align-items: center; gap: 10px; white-space: nowrap;
-  background: var(--accent); color: var(--black);
-  padding: 16px 32px; border-radius: 100px;
-  font-size: 15px; font-weight: 800; text-decoration: none;
-  transition: all 0.2s; flex-shrink: 0;
+
+
+/* ── 실제 교육 현장 사진 ── */
+.field-photos { max-width: 1080px; margin: 56px auto 0; }
+.fp-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.fp-item {
+  margin: 0; overflow: hidden; border-radius: 16px;
+  background: var(--gray-100); aspect-ratio: 4 / 3;
 }
-.bottom-cta-banner .btn-accent:hover { background: var(--accent-dark); transform: translateY(-2px); }
+.fp-item img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform 0.4s ease;
+}
+.fp-item:hover img { transform: scale(1.05); }
+@media (max-width: 700px) {
+  .field-photos { margin-top: 40px; }
+  .fp-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .fp-item { border-radius: 14px; }
+}
+
+/* ── FAQ 요금제별 분리 답변 ── */
+.faq-split { display: flex; gap: 14px; align-items: flex-start; }
+.faq-split + .faq-split { margin-top: 14px; }
+.fs-tag {
+  flex-shrink: 0; margin-top: 3px;
+  font-size: 11.5px; font-weight: 800; letter-spacing: 0.02em;
+  padding: 3px 10px; border-radius: 100px; white-space: nowrap;
+}
+.fs-tag.center { background: var(--accent-light); color: var(--accent-dark); }
+.fs-tag.solo   { background: var(--gray-100);    color: var(--gray-500); }
+.faq-split p { margin: 0; }
+@media (max-width: 560px) {
+  .faq-split { flex-direction: column; gap: 6px; }
+  .fs-tag { align-self: flex-start; }
+}
+
 </style>
 </head>
 <body>
@@ -413,12 +397,12 @@
       <a href="product.html">제품</a>
       <a href="index.html#cases">고객 사례</a>
       <a href="pricing.html">요금제</a>
-      <a href="consulting.html" class="active">맞춤 도입</a>
+      <a href="consulting.html" class="active">도입 절차</a>
       <a href="lab.html">운영지원실</a>
     </div>
     <div class="nav-actions">
       <a href="https://ssentif-fitness.imweb.me/" target="_blank" rel="noopener" class="nav-ghost">이전 홈페이지</a>
-      <a href="consulting.html" class="nav-cta-btn">맞춤 상담 받기<span class="cta-new-badge">NEW 2.0</span></a>
+      <a href="consulting.html" class="nav-cta-btn">도입 상담 신청<span class="cta-new-badge">NEW 2.0</span></a>
     </div>
     <button class="nav-hamburger" id="navHamburger" aria-label="메뉴 열기">
       <span></span><span></span><span></span>
@@ -429,149 +413,114 @@
   <a href="product.html">제품</a>
   <a href="index.html#cases">고객 사례</a>
   <a href="pricing.html">요금제</a>
-  <a href="consulting.html">맞춤 도입</a>
+  <a href="consulting.html">도입 절차</a>
   <a href="lab.html">운영지원실</a>
   <div class="nav-mobile-divider"></div>
-  <a href="consulting.html" class="nav-mobile-cta">맞춤 상담 받기<span class="cta-new-badge">NEW 2.0</span></a>
+  <a href="consulting.html" class="nav-mobile-cta">도입 상담 신청<span class="cta-new-badge">NEW 2.0</span></a>
 </div>
 
 
-<div class="page-hero">
+<div class="intro-hero">
   <div class="container">
-    <div class="label">맞춤 도입</div>
-    <h1>우리 센터에 맞는 도입,<br>함께 설계합니다</h1>
-    <p class="lead">센터 규모와 운영 방식에 맞춘 온보딩 플랜을 제안해드립니다.<br>전담 매니저가 처음부터 끝까지 함께합니다.</p>
-  </div>
-</div>
-
-
-<!-- TRUST NUMBERS -->
-<div style="background:var(--gray-50);border-bottom:1px solid var(--border);padding:48px 0">
-  <div class="container">
-    <div class="trust-items fade-up">
-      <div class="trust-item"><h3>20+</h3><p>성공적으로 도입한 센터 수</p></div>
-      <div class="trust-item"><h3>1일</h3><p>평균 온보딩 완료 시간</p></div>
-      <div class="trust-item"><h3>95%</h3><p>도입 후 3개월 지속 사용률</p></div>
-    </div>
-  </div>
-</div>
-
-
-<!-- 센티프가 다 해드립니다 (split banner) -->
-<div class="handoff-banner fade-up">
-  <div class="handoff-left">
-    <h2>도입부터 정착까지,<br><em>센티프팀이 다 해드립니다</em></h2>
-    <p>프로그램 교체가 귀찮으셨죠? 데이터 이전, 트레이너 교육, 사후 관리까지 전부 센티프팀이 직접 챙깁니다.</p>
-    <a href="#consult-form" class="handoff-btn">지금 상담 신청 →</a>
-  </div>
-  <div class="handoff-right">
-    <div class="handoff-chip">
-      <div class="handoff-chip-icon">📦</div>
-      <div class="handoff-chip-text">
-        <strong>데이터 이전 대행</strong>
-        <span>기존 엑셀·회원 데이터를 센티프팀이 직접 옮겨드립니다</span>
+    <div class="ih-inner">
+      <div class="ih-text">
+        <h1>혼자 시작하지<br>않으셔도 됩니다</h1>
+        <p class="lead">데이터 이전부터 강사 교육, 운영이 안정화 될 때까지<br>센티프 팀이 옆에서 함께 합니다.</p>
       </div>
-    </div>
-    <div class="handoff-chip">
-      <div class="handoff-chip-icon">🎓</div>
-      <div class="handoff-chip-text">
-        <strong>트레이너 전원 교육</strong>
-        <span>방문 또는 화상으로 실전 사용법을 직접 교육합니다</span>
-      </div>
-    </div>
-    <div class="handoff-chip">
-      <div class="handoff-chip-icon">💬</div>
-      <div class="handoff-chip-text">
-        <strong>30일 밀착 사후 지원</strong>
-        <span>정착 확인까지 전담 매니저가 카톡으로 함께합니다</span>
+      <div class="ih-visual">
+        <img src="assets/illustrations/consulting-hero.webp" alt="태블릿을 들고 센티프 사용법을 안내하는 센티프 팀 담당자" width="699" height="832">
       </div>
     </div>
   </div>
 </div>
 
 
-<!-- 도입 전 걱정, 아코디언으로 해소 -->
+<!-- 도입 전 걱정 -->
 <section class="section">
-  <div class="container" style="max-width:780px">
+  <div class="container">
     <div class="section-head fade-up">
       <div class="label">도입 전 걱정</div>
-      <h2>많이 물어보시는 걱정들,<br>센티프의 답변입니다</h2>
+      <h2>이런 걱정, 많이 하십니다</h2>
     </div>
-    <div class="worry-accordion fade-up">
-      <div class="wa-item open">
-        <button class="wa-trigger">
-          <span class="wa-num">1</span>
-          <span class="wa-question">"좋아 보이긴 한데, 강사들이 과연 쓸까요?"</span>
-          <span class="wa-arrow">↓</span>
-        </button>
-        <div class="wa-body">
-          <p class="wa-answer">실제 도입 센터 사용률 99%. 강사가 안 쓰면 운영 자체가 안 되는 구조로 설계했습니다. 출결 체크, 수업 일지, 회원 피드백이 모두 센티프 안에서만 돌아갑니다.</p>
-        </div>
+
+    <div class="worry-grid">
+      <div class="wc fade-up">
+        <div class="wc-icon">🤔</div>
+        <p class="wc-q">"강사들이 과연 쓸까요?"</p>
+        <p class="wc-a"><strong>실사용률 100%.</strong> 출결·수업일지·피드백이 센티프 안에서만 돌아가, 안 쓰면 수업 진행이 안 됩니다.</p>
       </div>
-      <div class="wa-item">
-        <button class="wa-trigger">
-          <span class="wa-num">2</span>
-          <span class="wa-question">"기존 데이터 옮기는 게 일이 너무 많을 것 같아요."</span>
-          <span class="wa-arrow">↓</span>
-        </button>
-        <div class="wa-body">
-          <p class="wa-answer">엑셀 파일 하나만 보내주시면 됩니다. 수강권, 회원 정보, 스케줄 데이터 연동을 센티프팀이 직접 처리합니다. 원장님이 손댈 것은 없어요.</p>
-        </div>
+
+      <div class="wc fade-up">
+        <div class="wc-icon">📦</div>
+        <p class="wc-q">"기존 데이터 옮기는 게 일이죠."</p>
+        <p class="wc-a"><strong>엑셀로 받아서,</strong> 센티프 팀이 직접 연동해드립니다.</p>
       </div>
-      <div class="wa-item">
-        <button class="wa-trigger">
-          <span class="wa-num">3</span>
-          <span class="wa-question">"강사 교육을 어느 세월에 다 시키나요?"</span>
-          <span class="wa-arrow">↓</span>
-        </button>
-        <div class="wa-body">
-          <p class="wa-answer">센티프 팀장이 센터에 직접 방문하거나 줌으로 전 직원 교육을 진행합니다. 평균 교육 시간은 1시간, 이후에도 카톡 단체방으로 30일간 질문을 받아드립니다.</p>
-        </div>
+
+      <div class="wc fade-up">
+        <div class="wc-icon">💬</div>
+        <p class="wc-q">"회원이 진짜 만족할까요?"</p>
+        <p class="wc-a"><strong>신규문의 83%, 재등록률 90%, 회원 편의성 95%.</strong> 가장 먼저 검증한 것이 회원의 만족입니다.</p>
+      </div>
+
+      <div class="wc fade-up">
+        <div class="wc-icon">🎓</div>
+        <p class="wc-q">"강사 교육은 언제 다 하나요?"</p>
+        <p class="wc-a"><strong>센티프 대표가</strong> 센터 방문 또는 화상으로 직접 교육합니다.</p>
       </div>
     </div>
   </div>
 </section>
 
 
-<!-- 단계별 온보딩 타임라인 -->
+<!-- 도입 프로세스 -->
 <section class="section" style="background:var(--gray-50)">
   <div class="container">
     <div class="section-head fade-up">
-      <div class="label">온보딩 프로세스</div>
-      <h2>처음부터 정착까지,<br>5단계로 완성됩니다</h2>
+      <div class="label">도입 프로세스</div>
+      <h2>신청부터 정착까지,<br>5단계로 끝납니다</h2>
+      <p class="proc-sub">데이터 이전부터 정착까지, 전부 센티프팀이 도와드립니다.</p>
     </div>
 
-    <div class="ob-steps">
-      <div class="ob-card">
-        <div class="ob-dot">01</div>
+    <div class="proc-grid">
+      <div class="proc-card fade-up" data-step="1">
+        <span class="pc-num">STEP 1</span>
         <h4>1:1 도입 상담</h4>
-        <p>센터 구조·운영 방식 파악, 관리자 데모 진행</p>
+        <p class="pc-line">센터 구조 파악 및 운영 진단</p>
+        <p class="pc-line">관리자 데모 시연</p>
       </div>
-      <div class="ob-card">
-        <div class="ob-dot">02</div>
+      <div class="proc-card fade-up" data-step="2">
+        <span class="pc-num">STEP 2</span>
         <h4>데이터 이전</h4>
-        <p>엑셀 파일 받아 수강권·회원 정보 자동 연동</p>
+        <p class="pc-line">엑셀 통해서 자동 연동</p>
+        <p class="pc-line">회원·수강권 정보 등</p>
       </div>
-      <div class="ob-card">
-        <div class="ob-dot">03</div>
-        <h4>대표·직원 교육</h4>
-        <p>방문 또는 줌으로 전 직원 실전 교육 진행</p>
+      <div class="proc-card fade-up" data-step="3">
+        <span class="pc-num">STEP 3</span>
+        <h4>온보딩 교육</h4>
+        <p class="pc-line">관리자·강사 교육 구분 진행</p>
+        <p class="pc-line">방문 또는 화상 (선택)</p>
       </div>
-      <div class="ob-card">
-        <div class="ob-dot">04</div>
-        <h4>30일 밀착 지원</h4>
-        <p>카톡 단체방 개설 후 데이터 직접 점검</p>
+      <div class="proc-card fade-up" data-step="4">
+        <span class="pc-num">STEP 4</span>
+        <h4>전담 케어</h4>
+        <p class="pc-line">구성원 카톡 단체방 개설</p>
+        <p class="pc-line">전담 대응</p>
       </div>
-      <div class="ob-card final">
-        <div class="ob-dot">✓</div>
-        <h4>루틴 정착</h4>
-        <p>전 직원 자발적 사용, 평균 사용률 99%</p>
+      <div class="proc-card proc-final fade-up" data-step="5">
+        <span class="pc-num">DONE</span>
+        <h4>시스템 정착</h4>
+        <p class="pc-line pc-strong">사용률 100%</p>
+        <p class="pc-line">모두가 매일 쓰는 도구로</p>
       </div>
     </div>
 
-    <div class="bottom-cta-banner fade-up">
-      <h3>우리 센터에 맞는지,<br><em>1:1로 먼저 확인해보세요</em></h3>
-      <a href="#consult-form" class="btn-accent">맞춤 상담 신청 →</a>
+    <div class="field-photos fade-up">
+      <div class="fp-grid">
+        <figure class="fp-item"><img src="assets/training/training-01.jpg" alt="강의실에서 진행한 트레이너 대상 센티프 사용법 교육" loading="lazy"></figure>
+        <figure class="fp-item"><img src="assets/training/training-02.jpg" alt="센터에 방문해 강사들과 태블릿으로 함께 보는 실전 교육" loading="lazy"></figure>
+        <figure class="fp-item"><img src="assets/training/training-03.jpg" alt="카페에서 진행한 소규모 태블릿 교육" loading="lazy"></figure>
+        <figure class="fp-item"><img src="assets/training/training-04.jpg" alt="교육을 마친 트레이너들의 단체 사진" loading="lazy"></figure>
+      </div>
     </div>
   </div>
 </section>
@@ -581,64 +530,10 @@
   <div class="container">
     <div class="consult-layout">
 
-      <!-- Left: Process + Benefits -->
-      <div>
-        <div class="label" style="margin-bottom:20px">상담 프로세스</div>
-        <h2 style="margin-bottom:40px">신청부터 시작까지,<br>4단계면 됩니다</h2>
-
-        <div class="process-item fade-up">
-          <div class="process-circle">1</div>
-          <div class="process-item-text">
-            <h4>상담 신청</h4>
-            <p>오른쪽 폼으로 신청하면 영업일 1~2일 내로 전담 매니저가 연락드립니다. 전화 또는 화상 미팅으로 진행됩니다.</p>
-          </div>
-        </div>
-
-        <div class="process-item fade-up">
-          <div class="process-circle">2</div>
-          <div class="process-item-text">
-            <h4>니즈 분석</h4>
-            <p>센터 규모, 트레이너 수, 현재 운영 방식, 해결하고 싶은 문제를 함께 분석합니다. 30분 정도 소요됩니다.</p>
-          </div>
-        </div>
-
-        <div class="process-item fade-up">
-          <div class="process-circle">3</div>
-          <div class="process-item-text">
-            <h4>맞춤 제안</h4>
-            <p>분석 결과를 바탕으로 가장 적합한 플랜과 온보딩 일정을 제안해드립니다. 커스터마이징이 필요하면 함께 논의합니다.</p>
-          </div>
-        </div>
-
-        <div class="process-item fade-up">
-          <div class="process-circle">4</div>
-          <div class="process-item-text">
-            <h4>온보딩 & 지원</h4>
-            <p>설정부터 직원 교육까지 전담 매니저가 현장 또는 원격으로 지원합니다. 도입 후 한 달간 집중 지원이 제공됩니다.</p>
-          </div>
-        </div>
-
-        <!-- Benefits -->
-        <div style="margin-top:48px;padding:32px;background:var(--gray-50);border-radius:var(--radius-lg);border:1px solid var(--border)">
-          <h4 style="margin-bottom:20px">맞춤 도입 포함 사항</h4>
-          <ul class="check-list">
-            <li>전담 온보딩 매니저 배정</li>
-            <li>트레이너 & 직원 사용법 교육</li>
-            <li>기존 데이터 이전 지원</li>
-            <li>도입 후 30일 집중 케어</li>
-            <li>커스텀 운영 가이드 문서 제공</li>
-          </ul>
-        </div>
-      </div>
-
       <!-- Right: Form -->
       <div class="form-card fade-up" id="consultFormCard">
-        <h3>맞춤 상담 신청</h3>
+        <h3>도입 상담 신청</h3>
         <p class="sub">영업일 1~2일 내로 담당자가 연락드립니다.</p>
-
-        <div class="info-badge">
-          📅 평일 오전 10시 ~ 오후 6시 운영
-        </div>
 
         <form id="consultForm" novalidate>
           <div class="form-row">
@@ -671,27 +566,16 @@
             <p class="form-error-msg" id="err-center">센터명을 입력해주세요.</p>
           </div>
 
-          <div class="form-row">
-            <div class="form-group">
-              <label class="form-label" for="f-size">센터 규모</label>
-              <select class="form-select" id="f-size" name="center_size">
-                <option value="">선택해주세요</option>
-                <option value="1인 (원장 혼자)">1인 (원장 혼자)</option>
-                <option value="2~5인">2~5인</option>
-                <option value="6~10인">6~10인</option>
-                <option value="11인 이상">11인 이상</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="f-plan">관심 플랜</label>
-              <select class="form-select" id="f-plan" name="plan">
-                <option value="">선택해주세요</option>
-                <option value="Starter">Starter</option>
-                <option value="Pro">Pro</option>
-                <option value="Enterprise">Enterprise</option>
-                <option value="아직 모르겠어요">아직 모르겠어요</option>
-              </select>
-            </div>
+          <div class="form-group">
+            <label class="form-label" for="f-size">센터 규모 *</label>
+            <select class="form-select" id="f-size" name="center_size">
+              <option value="">선택해주세요</option>
+              <option value="1인 (개인 또는 혼자 운영)">1인 (개인 또는 혼자 운영)</option>
+              <option value="2~5인">2~5인</option>
+              <option value="6~10인">6~10인</option>
+              <option value="11인 이상 · 다지점">11인 이상 · 다지점</option>
+            </select>
+            <p class="form-error-msg" id="err-size">센터 규모를 선택해주세요.</p>
           </div>
 
           <div class="form-group">
@@ -722,8 +606,8 @@
               <span class="value" id="s-phone">—</span>
             </div>
             <div class="summary-row">
-              <span class="label">관심 플랜</span>
-              <span class="value" id="s-plan">—</span>
+              <span class="label">센터 규모</span>
+              <span class="value" id="s-size">—</span>
             </div>
           </div>
 
@@ -771,23 +655,49 @@
 
 
 <!-- FAQ -->
-<section class="section-sm" style="background:var(--gray-50)">
-  <div class="container" style="max-width:680px">
-    <div class="section-head fade-up" style="margin-bottom:32px">
-      <h3>자주 묻는 질문</h3>
+<section class="section" style="background:var(--gray-50)">
+  <div class="container" style="max-width:720px">
+    <div class="section-head fade-up">
+      <div class="label">자주 묻는 질문</div>
+      <h2>요금제 FAQ</h2>
     </div>
     <div class="fade-up">
       <div class="faq-item">
+        <div class="faq-q">언제부터 요금이 발생하나요?</div>
+        <div class="faq-a">
+          <div class="faq-split">
+            <span class="fs-tag center">센터</span>
+            <p>워크스페이스 인원이 2명 이상이 되는 순간부터 팀 요금제로 전환되어 인원 수만큼 요금이 발생합니다.</p>
+          </div>
+          <div class="faq-split">
+            <span class="fs-tag solo">개인</span>
+            <p>혼자 쓰는 동안은 무료와 유료 중 선택할 수 있습니다. 무료로 계속 쓰셔도 되고, 전체 기간 조회가 필요하면 PRO 요금제로 업그레이드하시면 됩니다.</p>
+          </div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">인원이 줄어들면 요금은 어떻게 되나요?</div>
+        <div class="faq-a">결제일 시점에 워크스페이스에 속한 팀원 수를 기준으로 과금됩니다. 팀원이 나가더라도 이미 결제된 당월 요금은 그대로 유지되며, 다음 결제일에 줄어든 인원으로 다시 계산됩니다.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">퇴사한 직원의 회원 기록은 어떻게 되나요?</div>
+        <div class="faq-a">워크스페이스에 그대로 남습니다. 담당 강사가 바뀌어도 그동안 쌓인 수업일지와 운동 기록은 유지되므로, 새 담당자가 이어서 관리할 수 있습니다.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">관리할 수 있는 회원 수에 제한이 있나요?</div>
+        <div class="faq-a">없습니다. 무료·유료 모두 회원 수 제한 없이 등록하고 관리할 수 있습니다. 요금은 회원 수가 아니라 워크스페이스에 속한 직원 수로만 계산됩니다.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">시작할 때 카드 등록이 필요한가요?</div>
+        <div class="faq-a">아니요. 혼자 무료로 쓰신다면 결제수단 없이 바로 시작할 수 있습니다. 결제수단은 PRO로 업그레이드하거나 두 번째 팀원을 초대할 때 등록하시면 됩니다.</div>
+      </div>
+      <div class="faq-item">
         <div class="faq-q">상담은 무료인가요?</div>
-        <div class="faq-a">네, 맞춤 상담은 완전 무료입니다. 도입 여부를 결정하기 전에 부담 없이 신청하세요.</div>
+        <div class="faq-a">네, 완전 무료입니다. 도입 여부를 결정하기 전에 부담 없이 신청하세요.</div>
       </div>
       <div class="faq-item">
-        <div class="faq-q">도입까지 얼마나 걸리나요?</div>
-        <div class="faq-a">대부분의 센터는 상담 후 1~2일 내에 세팅이 완료됩니다. 다점포나 복잡한 구조는 1주일 내외로 진행됩니다.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">기존 회원 데이터를 가져올 수 있나요?</div>
-        <div class="faq-a">엑셀, CSV 파일로 된 기존 회원 데이터를 가져오는 것을 지원합니다. 전담 매니저가 데이터 이전을 직접 도와드립니다.</div>
+        <div class="faq-q">다지점을 운영하고 있습니다. 도입 절차가 어떻게 되나요?</div>
+        <div class="faq-a">다지점의 경우 지점 구조와 요구사항을 파악한 뒤 맞춤 견적을 제안해드립니다. 상담 신청 후 영업일 1~2일 내로 연락드립니다.</div>
       </div>
     </div>
   </div>
@@ -798,7 +708,7 @@
   <div class="footer-inner">
     <div class="footer-brand"><div class="logo">SSEN<span>TIF</span></div><p>피트니스 센터를 위한<br>AI 운영 워크스페이스</p></div>
     <div class="footer-col"><h5>제품</h5><ul><li><a href="product.html">주요 기능</a></li><li><a href="pricing.html">요금제</a></li></ul></div>
-    <div class="footer-col"><h5>회사</h5><ul><li><a href="index.html#cases">고객 사례</a></li><li><a href="consulting.html">맞춤 도입</a></li><li><a href="lab.html">운영지원실</a></li></ul></div>
+    <div class="footer-col"><h5>회사</h5><ul><li><a href="index.html#cases">고객 사례</a></li><li><a href="consulting.html">도입 절차</a></li><li><a href="lab.html">운영지원실</a></li></ul></div>
     <div class="footer-col"><h5>지원</h5><ul><li><a href="#">사용 가이드</a></li><li><a href="https://ssentif-manager.kr/" target="_blank">매니저 로그인</a></li></ul></div>
   </div>
   <div class="footer-bottom"><p>© 2026 SSENTIF. All rights reserved.</p><p>사업자등록번호: 849-97-03418 · 개인정보처리방침 · 이용약관</p></div>
@@ -831,11 +741,13 @@ function validate() {
   const name  = document.getElementById('f-name');
   const phone = document.getElementById('f-phone');
   const center = document.getElementById('f-center');
+  const size  = document.getElementById('f-size');
   const email = document.getElementById('f-email');
 
   if (!name.value.trim()) { showError('f-name', 'err-name'); valid = false; }
   if (!phone.value.trim()) { showError('f-phone', 'err-phone'); valid = false; }
   if (!center.value.trim()) { showError('f-center', 'err-center'); valid = false; }
+  if (!size.value) { showError('f-size', 'err-size'); valid = false; }
   if (email.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
     showError('f-email', 'err-email'); valid = false;
   }
@@ -850,7 +762,6 @@ function resetForm() {
   consultForm.style.display = '';
   document.querySelector('#consultFormCard h3').style.display = '';
   document.querySelector('#consultFormCard .sub').style.display = '';
-  document.querySelector('#consultFormCard .info-badge').style.display = '';
 }
 
 consultForm.addEventListener('submit', async (e) => {
@@ -867,7 +778,6 @@ consultForm.addEventListener('submit', async (e) => {
     email:       document.getElementById('f-email').value.trim(),
     center_name: document.getElementById('f-center').value.trim(),
     center_size: document.getElementById('f-size').value,
-    plan:        document.getElementById('f-plan').value,
     message:     document.getElementById('f-message').value.trim(),
   };
 
@@ -877,18 +787,14 @@ consultForm.addEventListener('submit', async (e) => {
 
     // 요약 카드 채우기
     const name = payload.name;
-    const planLabel = payload.plan || '미정';
     document.getElementById('successHeading').textContent = `${name}님, 신청이 완료됐습니다!`;
     document.getElementById('s-center').textContent = payload.center_name;
     document.getElementById('s-phone').textContent = payload.phone;
-    const planEl = document.getElementById('s-plan');
-    planEl.textContent = planLabel;
-    planEl.className = 'value' + (payload.plan && payload.plan !== '아직 모르겠어요' ? ' plan' : '');
+    document.getElementById('s-size').textContent = payload.center_size;
 
     consultForm.style.display = 'none';
     document.querySelector('#consultFormCard h3').style.display = 'none';
     document.querySelector('#consultFormCard .sub').style.display = 'none';
-    document.querySelector('#consultFormCard .info-badge').style.display = 'none';
     document.getElementById('formSuccess').classList.add('show');
 
   } catch (err) {
@@ -899,7 +805,7 @@ consultForm.addEventListener('submit', async (e) => {
   }
 });
 
-// fade-up + ob-step 공통 IntersectionObserver
+// fade-up + 프로세스 스텝 공통 IntersectionObserver
 const observer = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (e.isIntersecting) {
@@ -908,17 +814,7 @@ const observer = new IntersectionObserver(entries => {
     }
   });
 }, { threshold: 0.12 });
-document.querySelectorAll('.fade-up, .ob-card').forEach(el => observer.observe(el));
-
-// 걱정 아코디언
-document.querySelectorAll('.wa-trigger').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const item = btn.closest('.wa-item');
-    const isOpen = item.classList.contains('open');
-    document.querySelectorAll('.wa-item').forEach(i => i.classList.remove('open'));
-    if (!isOpen) item.classList.add('open');
-  });
-});
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
 // FAQ 아코디언
 document.querySelectorAll('.faq-item').forEach(item => {

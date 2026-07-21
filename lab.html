@@ -2,9 +2,6 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>운영지원실 — SSENTIF | 피트니스 센터 운영 인사이트</title>
 <meta name="description" content="피트니스 센터 운영에 도움이 되는 데이터 분석, 트레이닝 인사이트, 운영 전략을 센티프 운영지원팀이 직접 작성합니다.">
@@ -22,7 +19,7 @@
 <meta name="twitter:title" content="운영지원실 — SSENTIF">
 <meta name="twitter:description" content="피트니스 센터 운영에 도움이 되는 데이터 분석, 트레이닝 인사이트, 운영 전략.">
 <meta name="twitter:image" content="https://www.ssentif.kr/og-image.png">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=2">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase-client.js"></script>
 <style>
@@ -65,35 +62,6 @@
 .cat-tab.active { background: var(--black); color: var(--white); }
 .cat-tab:hover:not(.active) { background: var(--gray-200); }
 
-.newsletter-box {
-  background: var(--black);
-  border-radius: var(--radius-lg);
-  padding: 56px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 48px;
-  align-items: center;
-  margin-top: 72px;
-}
-@media (max-width: 768px) { .newsletter-box { grid-template-columns: 1fr; padding: 32px; gap: 28px; } }
-.newsletter-box h3 { color: var(--white); font-size: 1.6rem; margin-bottom: 10px; }
-.newsletter-box p { color: rgba(255,255,255,0.6); font-size: 14.5px; }
-.newsletter-form { display: flex; gap: 10px; }
-.newsletter-input {
-  flex: 1;
-  padding: 12px 16px;
-  border-radius: 10px;
-  border: 1.5px solid rgba(255,255,255,0.15);
-  background: rgba(255,255,255,0.08);
-  color: var(--white);
-  font-size: 14px;
-  font-family: inherit;
-  outline: none;
-  transition: border-color 0.15s;
-}
-.newsletter-input::placeholder { color: rgba(255,255,255,0.4); }
-.newsletter-input:focus { border-color: var(--accent); }
-
 .articles-loading {
   display: flex;
   align-items: center;
@@ -129,12 +97,12 @@
       <a href="product.html">제품</a>
       <a href="index.html#cases">고객 사례</a>
       <a href="pricing.html">요금제</a>
-      <a href="consulting.html">맞춤 도입</a>
+      <a href="consulting.html">도입 절차</a>
       <a href="lab.html" class="active">운영지원실</a>
     </div>
     <div class="nav-actions">
       <a href="https://ssentif-fitness.imweb.me/" target="_blank" rel="noopener" class="nav-ghost">이전 홈페이지</a>
-      <a href="consulting.html" class="nav-cta-btn">맞춤 상담 받기<span class="cta-new-badge">NEW 2.0</span></a>
+      <a href="consulting.html" class="nav-cta-btn">도입 상담 신청<span class="cta-new-badge">NEW 2.0</span></a>
     </div>
     <button class="nav-hamburger" id="navHamburger" aria-label="메뉴 열기">
       <span></span><span></span><span></span>
@@ -145,10 +113,10 @@
   <a href="product.html">제품</a>
   <a href="index.html#cases">고객 사례</a>
   <a href="pricing.html">요금제</a>
-  <a href="consulting.html">맞춤 도입</a>
+  <a href="consulting.html">도입 절차</a>
   <a href="lab.html">운영지원실</a>
   <div class="nav-mobile-divider"></div>
-  <a href="consulting.html" class="nav-mobile-cta">맞춤 상담 받기<span class="cta-new-badge">NEW 2.0</span></a>
+  <a href="consulting.html" class="nav-mobile-cta">도입 상담 신청<span class="cta-new-badge">NEW 2.0</span></a>
 </div>
 
 
@@ -180,20 +148,6 @@
       </div>
     </div>
 
-    <!-- Newsletter -->
-    <div class="newsletter-box fade-up">
-      <div>
-        <h3>운영 인사이트, 이메일로 받아보세요</h3>
-        <p>매월 2회, 원장님의 운영에 바로 쓸 수 있는 데이터와 전략을 보내드립니다.</p>
-      </div>
-      <div>
-        <div class="newsletter-form">
-          <input class="newsletter-input" type="email" placeholder="이메일 주소를 입력하세요">
-          <button class="btn btn-primary" style="border-radius:10px;white-space:nowrap">구독하기</button>
-        </div>
-        <p style="font-size:12px;color:rgba(255,255,255,0.35);margin-top:10px">언제든지 구독 취소 가능합니다.</p>
-      </div>
-    </div>
 
   </div>
 </section>
@@ -203,7 +157,7 @@
   <div class="footer-inner">
     <div class="footer-brand"><div class="logo">SSEN<span>TIF</span></div><p>피트니스 센터를 위한<br>AI 운영 워크스페이스</p></div>
     <div class="footer-col"><h5>제품</h5><ul><li><a href="product.html">주요 기능</a></li><li><a href="pricing.html">요금제</a></li></ul></div>
-    <div class="footer-col"><h5>회사</h5><ul><li><a href="index.html#cases">고객 사례</a></li><li><a href="consulting.html">맞춤 도입</a></li><li><a href="lab.html">운영지원실</a></li></ul></div>
+    <div class="footer-col"><h5>회사</h5><ul><li><a href="index.html#cases">고객 사례</a></li><li><a href="consulting.html">도입 절차</a></li><li><a href="lab.html">운영지원실</a></li></ul></div>
     <div class="footer-col"><h5>지원</h5><ul><li><a href="#">사용 가이드</a></li><li><a href="https://ssentif-manager.kr/" target="_blank">매니저 로그인</a></li></ul></div>
   </div>
   <div class="footer-bottom"><p>© 2026 SSENTIF. All rights reserved.</p><p>사업자등록번호: 849-97-03418 · 개인정보처리방침 · 이용약관</p></div>

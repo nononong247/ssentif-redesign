@@ -186,13 +186,7 @@ tbody td { padding: 10px 14px; font-size: 13px; color: #374151; vertical-align: 
 .badge.hold    { background: #F3F5F8; color: #6B7280; }
 .badge.hold::before { background: #9CA3AF; }
 
-.plan-tag {
-  display: inline-block; font-size: 10px; font-weight: 700;
-  padding: 2px 7px; border-radius: 4px; letter-spacing: 0.02em;
-  background: #F3F5F8; color: #6B7280;
-}
-.plan-tag.pro { background: #111318; color: #1FDBA8; }
-.plan-tag.enterprise { background: #EFF6FF; color: #1D4ED8; }
+.size-tag { font-size: 11.5px; color: #9CA3AF; }
 
 .action-btn {
   padding: 4px 9px; border-radius: 5px; font-size: 11px; font-weight: 600;
@@ -346,7 +340,7 @@ tbody td { padding: 10px 14px; font-size: 13px; color: #374151; vertical-align: 
           <tr>
             <th>신청자</th>
             <th>센터명</th>
-            <th>플랜</th>
+            <th>규모</th>
             <th>접수일</th>
             <th></th>
           </tr>
@@ -395,16 +389,10 @@ document.getElementById('todayDate').textContent =
   await loadDashboard();
 })();
 
-function planClass(p) {
-  if (p === 'Pro') return 'pro';
-  if (p === 'Enterprise') return 'enterprise';
-  return '';
-}
-
 async function loadDashboard() {
   const { data, error } = await db
     .from('inquiries')
-    .select('id, name, role, center_name, plan, status, submitted_at')
+    .select('id, name, role, center_name, center_size, status, submitted_at')
     .order('submitted_at', { ascending: false });
 
   if (error) {
@@ -460,7 +448,7 @@ async function loadDashboard() {
         <tr style="cursor:pointer" onclick="location.href='inquiries.html'">
           <td><div class="td-name">${r.name}</div><div class="td-sub">${r.role}</div></td>
           <td>${r.center_name || '—'}</td>
-          <td><span class="plan-tag ${planClass(r.plan)}">${r.plan || '—'}</span></td>
+          <td class="size-tag">${r.center_size || '—'}</td>
           <td style="color:#9CA3AF;font-size:11.5px;font-variant-numeric:tabular-nums">${date}</td>
           <td><button class="action-btn" onclick="event.stopPropagation();location.href='inquiries.html'">상세</button></td>
         </tr>`;

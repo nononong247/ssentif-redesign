@@ -20,7 +20,8 @@ jobs:
   ping:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      # v4 는 Node 20 기반이라 deprecation 경고가 뜬다. v5 부터 Node 24.
+      - uses: actions/checkout@v5
 
       - name: supabase-client.js 에서 접속 정보 추출
         id: cfg

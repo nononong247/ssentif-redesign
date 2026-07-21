@@ -27,7 +27,8 @@
 - **배치 커밋**: 수정할 때마다 커밋하지 말고 파일만 저장. 사용자가 "배포해줘"라고
   명시할 때만 `git commit + push` 실행
 - **앱 기능 검증 기준**: `/Users/jinhunjung/Desktop/작업파일/GRIP_NOTE-main/`
-  (`grip_note_coach` 코치앱 / `grip_note_members` 회원앱 / `grip_note_web` 관리자웹 / `backend`)
+  (`ssentif-coach` 코치앱 / `ssentif-members` 회원앱 / `grip_note_web` 관리자웹 / `backend`)
+  ※ 2026-07-21 폴더명 변경됨 (구 grip_note_coach/members)
   홈페이지에 앱 기능·수치를 쓸 때는 이 소스로 검증할 것
 
 ## 요금제 구조 (2026-07-21 확정 정책)

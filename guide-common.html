@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>공통 기능 가이드 — SSENTIF | 회원가입·워크스페이스·소통</title>
+<meta name="description" content="센티프 공통 기능 가이드. 회원가입, 워크스페이스 생성과 참여, 프로필 설정, 채팅·공지·메모까지 모드와 관계없이 쓰는 기능을 안내합니다.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.ssentif.kr/guide-common.html">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.ssentif.kr/guide-common.html">
+<meta property="og:title" content="공통 기능 가이드 — SSENTIF">
+<meta property="og:description" content="강사·관리자·회원 모드별 센티프 사용법을 화면과 함께 단계별로 안내합니다.">
+<meta property="og:image" content="https://www.ssentif.kr/og-image.png">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="SSENTIF">
+<link rel="stylesheet" href="style.css?v=2">
+<style>
+/* ── 가이드 헤더 ── */
+.guide-hero {
+  padding: 118px 0 0;
+  background: var(--gray-50);
+  border-bottom: 1px solid var(--border);
+}
+.guide-hero h1 { font-size: clamp(1.7rem, 3vw, 2.3rem); margin-bottom: 10px; }
+.guide-hero .lead { margin: 0 0 28px; font-size: 15px; }
+
+/* 모드 전환 탭 */
+.mode-tabs { display: flex; gap: 4px; }
+.mode-tab {
+  position: relative;
+  padding: 12px 22px 14px;
+  font-size: 14.5px; font-weight: 700; color: var(--gray-500);
+  background: none; border: none; cursor: pointer; font-family: inherit;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s;
+}
+.mode-tab.active { color: var(--black); border-bottom-color: var(--accent); }
+.mode-tab:hover:not(.active):not(:disabled) { color: var(--gray-700); }
+.mode-tab:disabled { cursor: default; }
+
+/* ── 본문 2단 레이아웃 ── */
+.guide-layout {
+  display: grid; grid-template-columns: 250px minmax(0, 1fr);
+  gap: 56px; align-items: start;
+  padding: 48px 0 96px;
+}
+
+/* 사이드 목차 */
+.guide-toc { position: sticky; top: 96px; max-height: calc(100vh - 120px); overflow-y: auto; }
+.toc-group { margin-bottom: 26px; }
+.toc-link {
+  display: block; padding: 7px 12px;
+  font-size: 13.5px; font-weight: 600; color: var(--gray-600);
+  text-decoration: none; border-radius: 8px; line-height: 1.45;
+  transition: background 0.12s, color 0.12s;
+}
+.toc-link:hover { background: var(--gray-100); color: var(--black); }
+.toc-link.active { background: var(--accent-light); color: var(--accent-dark); }
+
+/* 본문 아티클 */
+.guide-body { min-width: 0; }
+.g-section { scroll-margin-top: 96px; margin-bottom: 64px; }
+.g-cat {
+  font-size: 12.5px; font-weight: 900; letter-spacing: 0.08em;
+  color: var(--accent-dark); text-transform: uppercase; margin-bottom: 10px;
+}
+.g-section h2 {
+  font-size: 1.5rem; letter-spacing: -0.02em;
+  padding-bottom: 14px; margin-bottom: 22px;
+  border-bottom: 1px solid var(--border);
+}
+.g-item { scroll-margin-top: 96px; margin-bottom: 44px; }
+.g-item h3 { font-size: 1.12rem; font-weight: 800; margin-bottom: 12px; }
+
+.g-intro { font-size: 14.5px; color: var(--gray-600); line-height: 1.75; margin: 0 0 18px; }
+.g-sub { font-size: 15.5px; font-weight: 800; color: var(--black); margin: 26px 0 12px; }
+/* 가이드 표준 콘텐츠 요소 (P3부터 사용) */
+.g-step { display: flex; gap: 14px; margin: 18px 0; }
+.g-step-num {
+  flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%;
+  background: var(--black); color: var(--white);
+  font-size: 12.5px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center; margin-top: 1px;
+}
+.g-step p { margin: 2px 0 0; font-size: 14.5px; color: var(--gray-700); line-height: 1.75; }
+.g-callout {
+  display: flex; gap: 10px; margin: 18px 0;
+  background: var(--accent-light); border-radius: 12px;
+  padding: 14px 16px; font-size: 13.5px; color: var(--gray-700); line-height: 1.7;
+}
+.g-callout.warn { background: #FFF6ED; }
+
+
+/* ── 화면 캡처 자리 (실제 앱 캡처 + 빨간 표시 이미지로 교체 예정) ── */
+.g-capture {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+  border: 1.5px dashed var(--gray-200); border-radius: 14px;
+  background: var(--gray-50);
+  min-height: 150px; margin: 16px 0; padding: 20px;
+  text-align: center;
+}
+.g-capture i { font-style: normal; font-size: 20px; }
+.g-capture b { font-size: 13px; font-weight: 700; color: var(--gray-500); }
+.g-capture span { font-size: 12px; color: var(--gray-400); }
+
+/* 모바일 */
+@media (max-width: 880px) {
+  .guide-layout { grid-template-columns: 1fr; gap: 0; padding-top: 28px; }
+  .guide-toc {
+    position: static; max-height: none; overflow: visible;
+    display: flex; gap: 18px; overflow-x: auto;
+    padding-bottom: 16px; margin-bottom: 28px;
+    border-bottom: 1px solid var(--border);
+    -webkit-overflow-scrolling: touch;
+  }
+  .toc-group { margin: 0; flex-shrink: 0; }
+  .mode-tab { padding: 10px 14px 12px; font-size: 13.5px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="mainNav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">SSEN<span>TIF</span></a>
+    <div class="nav-links">
+      <a href="product.html">제품</a>
+      <a href="index.html#cases">고객 사례</a>
+      <a href="pricing.html">요금제</a>
+      <a href="consulting.html">도입 절차</a>
+      <a href="lab.html" class="active">운영지원실</a>
+    </div>
+    <div class="nav-actions">
+      <a href="https://ssentif-fitness.imweb.me/" target="_blank" rel="noopener" class="nav-ghost">이전 홈페이지</a>
+      <a href="consulting.html" class="nav-cta-btn">도입 상담 신청<span class="cta-new-badge">NEW 2.0</span></a>
+    </div>
+    <button class="nav-hamburger" id="navHamburger" aria-label="메뉴 열기">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="nav-mobile-menu" id="navMobileMenu">
+  <a href="product.html">제품</a>
+  <a href="index.html#cases">고객 사례</a>
+  <a href="pricing.html">요금제</a>
+  <a href="consulting.html">도입 절차</a>
+  <a href="lab.html">운영지원실</a>
+  <div class="nav-mobile-divider"></div>
+  <a href="consulting.html" class="nav-mobile-cta">도입 상담 신청<span class="cta-new-badge">NEW 2.0</span></a>
+</div>
+
+<div class="guide-hero">
+  <div class="container">
+    <h1>센티프 사용 가이드</h1>
+    <p class="lead">모드와 관계없이 누구나 동일하게 사용하는 기본 기능입니다.</p>
+    <div class="mode-tabs" role="tablist">
+      <button class="mode-tab active" type="button">🧭 공통</button>
+      <a class="mode-tab" href="guide.html" style="text-decoration:none">🏋️ 강사 모드</a>
+      <a class="mode-tab" href="guide-admin.html" style="text-decoration:none">🏢 관리자 모드</a>
+      <a class="mode-tab" href="guide-member.html" style="text-decoration:none">👤 회원 모드</a>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="guide-layout">
+
+    <!-- 사이드 목차 -->
+    <aside class="guide-toc" id="guideToc">
+      <div class="toc-group">
+        <div class="toc-cat">시작하기</div>
+        <a class="toc-link" href="#account">회원 가입</a>
+        <a class="toc-link" href="#workspace">워크스페이스 생성·참여</a>
+        <a class="toc-link" href="#modes">강사 모드와 관리자 모드</a>
+      </div>
+      <div class="toc-group">
+        <div class="toc-cat">내 정보</div>
+        <a class="toc-link" href="#profile">프로필 정보 수정</a>
+        <a class="toc-link" href="#app-settings">앱 설정과 로그아웃</a>
+      </div>
+      <div class="toc-group">
+        <div class="toc-cat">소통</div>
+        <a class="toc-link" href="#chat">1:1 채팅</a>
+        <a class="toc-link" href="#notice">회원 공지 발송</a>
+        <a class="toc-link" href="#memo">공유 메모장</a>
+      </div>
+    </aside>
+
+    <!-- 본문 -->
+    <main class="guide-body">
+
+            <section class="g-section" id="sec-start">
+        <div class="g-cat">시작하기</div>
+        <h2>모든 모드의 출발점</h2>
+
+<article class="g-item" id="account">
+          <h3>회원 가입</h3>
+          <p class="g-intro">센티프를 처음 사용하신다면 트레이너 계정을 먼저 만들어야 해요. 1분이면 충분합니다.</p>
+          <h4 class="g-sub">1. 계정 만들기</h4>
+          <div class="g-step"><span class="g-step-num">1</span><p>앱을 켰을 때 보이는 <strong>[회원가입]</strong>을 눌러주세요.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>가입 화면의 빈칸을 채워주세요. <strong>이메일</strong>은 공지사항과 센티프 자료를 받는 주소로 쓰이고, <strong>비밀번호</strong>는 8자 이상으로 만들어주세요.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>이름 · 휴대폰 번호 · 생년월일 · 성별까지 입력한 뒤 <strong>[가입하기]</strong>를 누르면 가입이 완료됩니다.</p></div>
+          <div class="g-capture"><i>📸</i><b>캡처 예정 — 회원가입 화면</b><span>입력 필드와 [가입하기] 버튼에 빨간 표시</span></div>
+          <h4 class="g-sub">2. 계정 삭제</h4>
+          <div class="g-callout warn">⚠️ <div>한번 삭제한 계정의 데이터는 <strong>영구히 사라지며 복구할 수 없습니다.</strong> 불편한 점이 있다면 탈퇴 전에 카카오채널로 문의 주시면 해결을 도와드립니다.</div></div>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>[마이탭]</strong> 우상단의 <strong>[설정]</strong>을 눌러주세요.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p><strong>[계정 관리] → [계정 탈퇴]</strong>에서 계정을 삭제할 수 있습니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>탈퇴 처리에 동의하면 모든 정보가 삭제되며 탈퇴가 완료됩니다.</p></div>
+          <div class="g-capture"><i>📸</i><b>캡처 예정 — 설정 → 계정 관리 화면</b><span>[계정 탈퇴] 메뉴에 빨간 표시</span></div>
+        </article>
+
+<article class="g-item" id="workspace">
+          <h3>워크스페이스 생성·참여</h3>
+          <p class="g-intro">워크스페이스는 우리 센터의 공간입니다. 혼자라면 새로 만들고, 이미 운영 중인 센터에 합류한다면 초대를 받아 참여하세요.</p>
+          <h4 class="g-sub">1. 새 워크스페이스 만들기</h4>
+          <div class="g-step"><span class="g-step-num">1</span><p>가입 후 워크스페이스 선택 화면에서 <strong>[새 워크스페이스 만들기]</strong>를 눌러주세요.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>센터 이름을 입력하면 나만의 워크스페이스가 생성됩니다.</p></div>
+          <h4 class="g-sub">2. 기존 워크스페이스 참여하기</h4>
+          <div class="g-step"><span class="g-step-num">1</span><p>관리자(원장님)에게 초대를 요청하세요. 초대를 받으면 참여할 워크스페이스가 선택 화면에 나타납니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>워크스페이스를 선택하면 센터의 회원·일정 데이터와 연결됩니다.</p></div>
+          <div class="g-callout">💡 <div>두 번째 인원부터는 워크스페이스에 <strong>결제수단이 등록되어 있어야</strong> 초대를 보낼 수 있어요. 자세한 내용은 <a href="pricing.html">요금제</a>를 확인해주세요.</div></div>
+          <div class="g-capture"><i>📸</i><b>캡처 예정 — 워크스페이스 선택 화면</b></div>
+        </article>
+
+        <article class="g-item" id="modes">
+          <h3>강사 모드와 관리자 모드</h3>
+          <p class="g-intro">센티프 코치앱은 하나의 앱 안에서 두 가지 모드로 동작합니다. 사람마다 앱을 따로 설치할 필요가 없어요.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>강사 모드</strong>는 내가 담당하는 회원의 수업·기록·소통에 집중한 화면입니다. 홈 · 회원 · 일정 · 채팅 · 메모 탭으로 구성돼요.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p><strong>관리자 모드</strong>는 센터 전체의 매출 · 회원 · 직원 · 정산을 보는 화면입니다. 대시보드 · 회원관리 · 팀원 · 상품 탭이 추가돼요.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>관리자 권한을 가진 분은 두 모드를 자유롭게 오갈 수 있고, 강사 권한만 있다면 강사 모드로만 사용합니다.</p></div>
+          <div class="g-callout">💡 <div>이 <strong>공통</strong> 문서의 기능들은 어떤 모드에서든 동일하게 동작합니다. 모드별 전용 기능은 각 탭에서 확인해주세요.</div></div>
+          <div class="g-capture"><i>📸</i><b>캡처 예정 — 모드 전환 메뉴</b><span>강사 모드 / 관리자 모드 항목에 빨간 표시</span></div>
+        </article>
+      </section>
+
+      <section class="g-section" id="sec-my">
+        <div class="g-cat">내 정보</div>
+        <h2>프로필과 앱 설정</h2>
+
+        <article class="g-item" id="profile">
+          <h3>프로필 정보 수정</h3>
+          <p class="g-intro">이름·연락처 같은 내 정보는 모드와 관계없이 같은 설정 화면에서 관리합니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p>하단 탭 우측의 <strong>[마이]</strong>에서 <strong>[설정]</strong>을 열어주세요.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>프로필 사진을 눌러 사진을 바꾸고, <strong>이메일 · 연락처 · 생년월일 · 성별</strong>을 수정할 수 있습니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>수정한 내용은 저장하면 즉시 반영되고, 회원 앱에서 보이는 내 프로필에도 함께 적용됩니다.</p></div>
+          <div class="g-capture"><i>📸</i><b>캡처 예정 — 설정 → 프로필 화면</b><span>프로필 사진과 각 입력 필드에 빨간 표시</span></div>
+        </article>
+
+        <article class="g-item" id="app-settings">
+          <h3>앱 설정과 로그아웃</h3>
+          <div class="g-step"><span class="g-step-num">1</span><p>같은 <strong>[설정]</strong> 화면에서 <strong>테마 모드</strong>(라이트 · 다크)를 바꿀 수 있습니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p><strong>초대코드</strong> 항목에서 내가 속한 워크스페이스 정보를 확인합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p><strong>[로그아웃]</strong>을 누르면 계정에서 안전하게 나갑니다. 다시 로그인하면 데이터는 그대로 남아 있어요.</p></div>
+          <div class="g-capture"><i>📸</i><b>캡처 예정 — 설정 화면 하단</b><span>테마 모드 · 로그아웃 항목에 빨간 표시</span></div>
+        </article>
+      </section>
+
+      <section class="g-section" id="sec-comm">
+        <div class="g-cat">소통</div>
+        <h2>회원과 팀, 하나의 채널에서</h2>
+
+<article class="g-item" id="chat">
+          <h3>1:1 채팅</h3>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>[채팅]</strong>에서 매칭된 회원과의 대화방을 열 수 있습니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>일정 변경 요청, 운동 질문 등을 실시간 메시지로 주고받으세요.</p></div>
+          <div class="g-callout">💡 <div>개인 연락처를 공개하지 않고도 회원과 소통할 수 있어요.</div></div>
+          <div class="g-capture"><i>📸</i><b>캡처 예정 — 채팅 화면</b></div>
+        </article>
+
+<article class="g-item" id="notice">
+          <h3>회원 공지 발송</h3>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>[공지]</strong>에서 <strong>[공지 작성]</strong>을 눌러주세요.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>제목과 내용을 작성하고 발송하면, 매칭된 회원들의 앱에 푸시 알림으로 전달됩니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>휴무 안내, 이벤트, 센터 소식을 단체 문자 비용 없이 전달해보세요.</p></div>
+          <div class="g-capture"><i>📸</i><b>캡처 예정 — 공지 작성 화면</b></div>
+        </article>
+
+<article class="g-item" id="memo">
+          <h3>공유 메모장</h3>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>[메모]</strong>에서 워크스페이스 구성원이 함께 보는 메모를 작성할 수 있습니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>인수인계, 기구 점검, 공유 사항을 기록하면 팀 전체가 같은 내용을 봅니다.</p></div>
+          <div class="g-capture"><i>📸</i><b>캡처 예정 — 메모장 화면</b></div>
+        </article>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand"><div class="logo">SSEN<span>TIF</span></div><p>피트니스 센터를 위한<br>AI 운영 워크스페이스</p></div>
+    <div class="footer-col"><h5>제품</h5><ul><li><a href="product.html">주요 기능</a></li><li><a href="pricing.html">요금제</a></li></ul></div>
+    <div class="footer-col"><h5>회사</h5><ul><li><a href="index.html#cases">고객 사례</a></li><li><a href="consulting.html">도입 절차</a></li><li><a href="lab.html">운영지원실</a></li></ul></div>
+    <div class="footer-col"><h5>지원</h5><ul><li><a href="guide.html">사용 가이드</a></li><li><a href="https://ssentif-manager.kr/" target="_blank">매니저 로그인</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><p>© 2026 SSENTIF. All rights reserved.</p><p>사업자등록번호: 849-97-03418 · 개인정보처리방침 · 이용약관</p></div>
+</footer>
+
+<script>
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 20));
+
+// 햄버거 메뉴
+const hamburger = document.getElementById('navHamburger');
+const mobileMenu = document.getElementById('navMobileMenu');
+if (hamburger) {
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.nav') && !e.target.closest('.nav-mobile-menu')) {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+    }
+  });
+}
+
+// 목차 스크롤 스파이
+const tocLinks = [...document.querySelectorAll('.toc-link')];
+const items = tocLinks.map(a => document.getElementById(a.getAttribute('href').slice(1))).filter(Boolean);
+const spy = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      tocLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id));
+    }
+  });
+}, { rootMargin: '-30% 0px -60% 0px' });
+items.forEach(el => spy.observe(el));
+</script>
+</body>
+</html>

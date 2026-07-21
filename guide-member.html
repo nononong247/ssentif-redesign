@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>사용 가이드 (회원 모드) — SSENTIF</title>
+<meta name="description" content="센티프 회원 앱 사용 가이드. 가입, 트레이너 연결, 수업 기록 확인, 개인운동·식단 올리기까지 단계별로 안내합니다.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.ssentif.kr/guide-member.html">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.ssentif.kr/guide-member.html">
+<meta property="og:title" content="사용 가이드 (회원 모드) — SSENTIF">
+<meta property="og:description" content="강사·관리자·회원 모드별 센티프 사용법을 화면과 함께 단계별로 안내합니다.">
+<meta property="og:image" content="https://www.ssentif.kr/og-image.png">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="SSENTIF">
+<link rel="stylesheet" href="style.css?v=2">
+<style>
+/* ── 가이드 헤더 ── */
+.guide-hero {
+  padding: 118px 0 0;
+  background: var(--gray-50);
+  border-bottom: 1px solid var(--border);
+}
+.guide-hero h1 { font-size: clamp(1.7rem, 3vw, 2.3rem); margin-bottom: 10px; }
+.guide-hero .lead { margin: 0 0 28px; font-size: 15px; }
+
+/* 모드 전환 탭 */
+.mode-tabs { display: flex; gap: 4px; }
+.mode-tab {
+  position: relative;
+  padding: 12px 22px 14px;
+  font-size: 14.5px; font-weight: 700; color: var(--gray-500);
+  background: none; border: none; cursor: pointer; font-family: inherit;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s;
+}
+.mode-tab.active { color: var(--black); border-bottom-color: var(--accent); }
+.mode-tab:hover:not(.active):not(:disabled) { color: var(--gray-700); }
+.mode-tab:disabled { cursor: default; }
+
+/* ── 본문 2단 레이아웃 ── */
+.guide-layout {
+  display: grid; grid-template-columns: 250px minmax(0, 1fr);
+  gap: 56px; align-items: start;
+  padding: 48px 0 96px;
+}
+
+/* 사이드 목차 */
+.guide-toc { position: sticky; top: 96px; max-height: calc(100vh - 120px); overflow-y: auto; }
+.toc-group { margin-bottom: 26px; }
+.toc-group-label {
+  font-size: 11.5px; font-weight: 900; letter-spacing: 0.08em;
+  color: var(--gray-400); text-transform: uppercase;
+  margin-bottom: 8px; padding-left: 12px;
+}
+.toc-link {
+  display: block; padding: 7px 12px;
+  font-size: 13.5px; font-weight: 600; color: var(--gray-600);
+  text-decoration: none; border-radius: 8px; line-height: 1.45;
+  transition: background 0.12s, color 0.12s;
+}
+.toc-link:hover { background: var(--gray-100); color: var(--black); }
+.toc-link.active { background: var(--accent-light); color: var(--accent-dark); }
+
+/* 본문 아티클 */
+.guide-body { min-width: 0; }
+.g-section { scroll-margin-top: 96px; margin-bottom: 64px; }
+.g-cat {
+  font-size: 12.5px; font-weight: 900; letter-spacing: 0.08em;
+  color: var(--accent-dark); text-transform: uppercase; margin-bottom: 10px;
+}
+.g-section h2 {
+  font-size: 1.5rem; letter-spacing: -0.02em;
+  padding-bottom: 14px; margin-bottom: 22px;
+  border-bottom: 1px solid var(--border);
+}
+.g-item { scroll-margin-top: 96px; margin-bottom: 44px; }
+.g-item h3 { font-size: 1.12rem; font-weight: 800; margin-bottom: 12px; }
+
+.g-intro { font-size: 14.5px; color: var(--gray-600); line-height: 1.75; margin: 0 0 18px; }
+.g-sub { font-size: 15.5px; font-weight: 800; color: var(--black); margin: 26px 0 12px; }
+/* 가이드 표준 콘텐츠 요소 (P3부터 사용) */
+.g-step { display: flex; gap: 14px; margin: 18px 0; }
+.g-step-num {
+  flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%;
+  background: var(--black); color: var(--white);
+  font-size: 12.5px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center; margin-top: 1px;
+}
+.g-step p { margin: 2px 0 0; font-size: 14.5px; color: var(--gray-700); line-height: 1.75; }
+.g-callout {
+  display: flex; gap: 10px; margin: 18px 0;
+  background: var(--accent-light); border-radius: 12px;
+  padding: 14px 16px; font-size: 13.5px; color: var(--gray-700); line-height: 1.7;
+}
+.g-callout.warn { background: #FFF6ED; }
+
+
+/* ── 화면 캡처 자리 (실제 앱 캡처 + 빨간 표시 이미지로 교체 예정) ── */
+.g-capture {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+  border: 1.5px dashed var(--gray-200); border-radius: 14px;
+  background: var(--gray-50);
+  min-height: 150px; margin: 16px 0; padding: 20px;
+  text-align: center;
+}
+.g-capture i { font-style: normal; font-size: 20px; }
+.g-capture b { font-size: 13px; font-weight: 700; color: var(--gray-500); }
+.g-capture span { font-size: 12px; color: var(--gray-400); }
+
+/* 모바일 */
+@media (max-width: 880px) {
+  .guide-layout { grid-template-columns: 1fr; gap: 0; padding-top: 28px; }
+  .guide-toc {
+    position: static; max-height: none; overflow: visible;
+    display: flex; gap: 18px; overflow-x: auto;
+    padding-bottom: 16px; margin-bottom: 28px;
+    border-bottom: 1px solid var(--border);
+    -webkit-overflow-scrolling: touch;
+  }
+  .toc-group { margin: 0; flex-shrink: 0; }
+  .mode-tab { padding: 10px 14px 12px; font-size: 13.5px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="mainNav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">SSEN<span>TIF</span></a>
+    <div class="nav-links">
+      <a href="product.html">제품</a>
+      <a href="index.html#cases">고객 사례</a>
+      <a href="pricing.html">요금제</a>
+      <a href="consulting.html">도입 절차</a>
+      <a href="lab.html" class="active">운영지원실</a>
+    </div>
+    <div class="nav-actions">
+      <a href="https://ssentif-fitness.imweb.me/" target="_blank" rel="noopener" class="nav-ghost">이전 홈페이지</a>
+      <a href="consulting.html" class="nav-cta-btn">도입 상담 신청<span class="cta-new-badge">NEW 2.0</span></a>
+    </div>
+    <button class="nav-hamburger" id="navHamburger" aria-label="메뉴 열기">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="nav-mobile-menu" id="navMobileMenu">
+  <a href="product.html">제품</a>
+  <a href="index.html#cases">고객 사례</a>
+  <a href="pricing.html">요금제</a>
+  <a href="consulting.html">도입 절차</a>
+  <a href="lab.html">운영지원실</a>
+  <div class="nav-mobile-divider"></div>
+  <a href="consulting.html" class="nav-mobile-cta">도입 상담 신청<span class="cta-new-badge">NEW 2.0</span></a>
+</div>
+
+<div class="guide-hero">
+  <div class="container">
+    <h1>센티프 사용 가이드</h1>
+    <p class="lead">화면과 함께 단계별로 따라 하는 센티프 사용법입니다.</p>
+    <div class="mode-tabs" role="tablist">
+      <a class="mode-tab" href="guide-common.html" style="text-decoration:none">🧭 공통</a>
+      <a class="mode-tab" href="guide.html" style="text-decoration:none">🏋️ 강사 모드</a>
+      <a class="mode-tab" href="guide-admin.html" style="text-decoration:none">🏢 관리자 모드</a>
+      <button class="mode-tab active" type="button">👤 회원 모드</button>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="guide-layout">
+
+    <!-- 사이드 목차 -->
+    <aside class="guide-toc" id="guideToc">
+      <div class="toc-group">
+        <div class="toc-group-label">시작하기</div>
+        <a class="toc-link" href="#m-signup">가입과 온보딩</a>
+        <a class="toc-link" href="#m-connect">트레이너와 연결되기</a>
+        <a class="toc-link" href="#m-home">홈 화면 한눈에 보기</a>
+      </div>
+      <div class="toc-group">
+        <div class="toc-group-label">수업</div>
+        <a class="toc-link" href="#m-schedule">수업 일정 확인과 예약 요청</a>
+        <a class="toc-link" href="#m-log">내 수업 기록 보기</a>
+      </div>
+      <div class="toc-group">
+        <div class="toc-group-label">나의 기록</div>
+        <a class="toc-link" href="#m-activity">개인운동 올리기</a>
+        <a class="toc-link" href="#m-diet">식단 올리기</a>
+        <a class="toc-link" href="#m-body">체성분·체형사진 올리기</a>
+        <a class="toc-link" href="#m-stats">성장 통계 보기</a>
+      </div>
+      <div class="toc-group">
+        <div class="toc-group-label">소통</div>
+        <a class="toc-link" href="#m-chat">트레이너와 채팅</a>
+        <a class="toc-link" href="#m-notice">공지·알림 확인</a>
+      </div>
+      <div class="toc-group">
+        <div class="toc-group-label">내 정보</div>
+        <a class="toc-link" href="#m-products">내 상품(수강권) 확인</a>
+        <a class="toc-link" href="#m-profile">프로필·설정</a>
+      </div>
+    </aside>
+
+    <!-- 본문 -->
+    <main class="guide-body">
+
+      <section class="g-section" id="m-sec-start">
+        <div class="g-cat">시작하기</div>
+        <h2>센티프와 첫 만남</h2>
+
+        <article class="g-item" id="m-signup">
+          <h3>가입과 온보딩</h3>
+          <div class="g-step"><span class="g-step-num">1</span><p>트레이너에게 받은 링크 또는 앱스토어에서 <strong>센티프 회원 앱</strong>을 설치합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p><strong>[회원가입]</strong>에서 이메일과 기본 정보를 입력해 계정을 만듭니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>온보딩 단계에서 운동 목표 등 기본 정보를 설정하면 준비 끝입니다.</p></div>
+          <div class="g-capture"><i>📸</i><b>캡처 예정 — 회원 앱 가입·온보딩 화면</b></div>
+        </article>
+
+        <article class="g-item" id="m-connect">
+          <h3>트레이너와 연결되기</h3>
+          <p class="g-intro">온보딩 과정에서 발급되는 <strong>내 연동 코드</strong>를 트레이너에게 보여주면 자동으로 연결됩니다. 연결되면 수업 일정 · 기록 · 루틴이 내 앱으로 들어와요.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p>온보딩 화면에서 발급된 <strong>내 연동 코드</strong>를 확인합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>이 코드를 트레이너에게 보여주세요. 트레이너가 코드를 입력하면 자동으로 연동됩니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>연결되면 내 프로필이 센터와 이어지고, 수업 일정 · 기록 · 루틴이 앱에 나타납니다.</p></div>
+          <div class="g-callout">💡 <div>연동 코드는 <strong>[마이] → [내 연동 코드]</strong>에서 언제든 다시 확인할 수 있어요.</div></div>
+          <div class="g-capture"><i>📸</i><b>캡처 예정 — 내 연동 코드 화면</b></div>
+        </article>
+
+        <article class="g-item" id="m-home">
+          <h3>홈 화면 한눈에 보기</h3>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>오늘의 PT 일정</strong> — 다가오는 수업 시간을 확인합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p><strong>웰니스 기록</strong> — 컨디션 · 수면 · 수분 · 걸음을 체크하면 링 게이지가 채워져요.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p><strong>오늘의 루틴</strong> — 트레이너가 처방한 개인운동이 있다면 여기서 바로 시작합니다.</p></div>
+          <div class="g-capture"><i>📸</i><b>캡처 예정 — 회원 앱 홈 화면</b><span>주요 3영역 표시</span></div>
+        </article>
+      </section>
+
+      <section class="g-section" id="m-sec-class">
+        <div class="g-cat">수업</div>
+        <h2>수업 일정과 기록</h2>
+
+        <article class="g-item" id="m-schedule">
+          <h3>수업 일정 확인과 예약 요청</h3>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>[일정]</strong>에서 예약된 수업을 확인합니다. 수업 하루 전에 리마인드 알림이 와요.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>원하는 시간이 있다면 <strong>[예약 요청]</strong>으로 트레이너에게 수업을 신청할 수 있습니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>일정 변경이 필요하면 트레이너와 채팅으로 조율하세요.</p></div>
+          <div class="g-capture"><i>📸</i><b>캡처 예정 — 일정 화면과 예약 요청</b></div>
+        </article>
+
+        <article class="g-item" id="m-log">
+          <h3>내 수업 기록 보기</h3>
+          <p class="g-intro">수업이 끝나면 트레이너가 남긴 오늘의 기록이 도착합니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>[수업 기록]</strong>에서 지난 수업들을 시간순으로 볼 수 있습니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>기록을 열면 오늘 한 운동 · 세트 · 무게, 트레이너의 코멘트와 사진을 확인할 수 있어요.</p></div>
+          <div class="g-capture"><i>📸</i><b>캡처 예정 — 수업 기록 상세 화면</b></div>
+        </article>
+      </section>
+
+      <section class="g-section" id="m-sec-record">
+        <div class="g-cat">나의 기록</div>
+        <h2>기록할수록 쌓이는 성취</h2>
+
+        <article class="g-item" id="m-activity">
+          <h3>개인운동 올리기</h3>
+          <div class="g-step"><span class="g-step-num">1</span><p>홈에서 <strong>[+]</strong> 버튼을 눌러 <strong>개인운동</strong>을 선택합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>오늘 한 운동을 기록하고 사진을 함께 올려보세요.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>트레이너가 확인하고 코멘트나 이모지로 피드백을 남겨줍니다.</p></div>
+          <div class="g-capture"><i>📸</i><b>캡처 예정 — 개인운동 업로드 화면</b></div>
+        </article>
+
+        <article class="g-item" id="m-diet">
+          <h3>식단 올리기</h3>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>[+]</strong> 버튼에서 <strong>식단</strong>을 선택하고 끼니 사진을 올립니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>트레이너가 식단을 보고 피드백을 남겨요. 꾸준히 올릴수록 정확한 코칭을 받을 수 있습니다.</p></div>
+          <div class="g-capture"><i>📸</i><b>캡처 예정 — 식단 업로드 화면</b></div>
+        </article>
+
+        <article class="g-item" id="m-body">
+          <h3>체성분·체형사진 올리기</h3>
+          <p class="g-intro">인바디 수치와 체형사진을 직접 올리면, 트레이너가 기록한 데이터와 함께 내 변화가 한 곳에 쌓입니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>[+]</strong> 버튼에서 <strong>체성분</strong>을 선택하고 체중 · 골격근량 · 체지방률 등 측정값을 입력합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p><strong>체형사진</strong>은 정면 · 측면 · 후면 3장을 올려주세요.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>기록이 쌓이면 이전 사진과 나란히 비교해 변화를 확인할 수 있어요.</p></div>
+          <div class="g-capture"><i>📸</i><b>캡처 예정 — 체성분·체형사진 업로드 화면</b></div>
+        </article>
+
+        <article class="g-item" id="m-stats">
+          <h3>성장 통계 보기</h3>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>[통계]</strong>에서 내 운동량 · 출석 · 체성분 변화를 그래프로 확인합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>트레이너가 보내주는 주간 · 월간 리포트도 이곳에서 확인할 수 있어요.</p></div>
+          <div class="g-capture"><i>📸</i><b>캡처 예정 — 통계 화면</b></div>
+        </article>
+      </section>
+
+      <section class="g-section" id="m-sec-comm">
+        <div class="g-cat">소통</div>
+        <h2>트레이너와 더 가깝게</h2>
+
+        <article class="g-item" id="m-chat">
+          <h3>트레이너와 채팅</h3>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>[채팅]</strong>에서 담당 트레이너와 1:1 대화방을 엽니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>운동 질문, 일정 변경 요청을 부담 없이 메시지로 보내세요.</p></div>
+          <div class="g-capture"><i>📸</i><b>캡처 예정 — 채팅 화면</b></div>
+        </article>
+
+        <article class="g-item" id="m-notice">
+          <h3>공지·알림 확인</h3>
+          <div class="g-step"><span class="g-step-num">1</span><p>센터 공지(휴무, 이벤트 등)는 <strong>[공지]</strong>에서 확인합니다. 새 공지는 푸시 알림으로 도착해요.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p><strong>[알림]</strong>에서는 수업 리마인드, 루틴 도착 등 나에게 온 알림을 모아 봅니다.</p></div>
+          <div class="g-capture"><i>📸</i><b>캡처 예정 — 공지·알림 화면</b></div>
+        </article>
+      </section>
+
+      <section class="g-section" id="m-sec-my">
+        <div class="g-cat">내 정보</div>
+        <h2>내 상품과 계정</h2>
+
+        <article class="g-item" id="m-products">
+          <h3>내 상품(수강권) 확인</h3>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>[마이] → [내 상품]</strong>에서 보유한 상품(수강권)을 확인합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>잔여 횟수와 만료일을 확인할 수 있어요. 갱신 시점이 다가오면 트레이너와 상담해보세요.</p></div>
+          <div class="g-capture"><i>📸</i><b>캡처 예정 — 내 상품 화면</b></div>
+        </article>
+
+        <article class="g-item" id="m-profile">
+          <h3>프로필·설정</h3>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>[마이]</strong>에서 내 프로필 정보를 관리합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p><strong>[설정]</strong>에서 알림 설정과 계정 관리를 할 수 있어요.</p></div>
+          <div class="g-capture"><i>📸</i><b>캡처 예정 — 프로필·설정 화면</b></div>
+
+          <h4 class="g-sub">회원 탈퇴</h4>
+          <div class="g-callout warn">⚠️ <div>탈퇴하면 아래 데이터가 삭제되며 되돌릴 수 없습니다.<br><strong>삭제되는 데이터</strong> — 운동·식단·체성분·체형 기록 전체, 연동 센터의 담당 코치와의 채팅, 프로필 정보 및 연동 코드<br><strong>유지되는 데이터</strong> — 센터가 보관하는 수업 정산·출결 기록(법정 보관), 이미 발송된 메시지의 상대방 사본</div></div>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>[설정] → [회원 탈퇴]</strong>를 눌러주세요.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>삭제되는 데이터와 유지되는 데이터를 확인하고 탈퇴에 동의하면 처리가 완료됩니다.</p></div>
+          <div class="g-capture"><i>📸</i><b>캡처 예정 — 회원 탈퇴 확인 화면</b></div>
+        </article>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand"><div class="logo">SSEN<span>TIF</span></div><p>피트니스 센터를 위한<br>AI 운영 워크스페이스</p></div>
+    <div class="footer-col"><h5>제품</h5><ul><li><a href="product.html">주요 기능</a></li><li><a href="pricing.html">요금제</a></li></ul></div>
+    <div class="footer-col"><h5>회사</h5><ul><li><a href="index.html#cases">고객 사례</a></li><li><a href="consulting.html">도입 절차</a></li><li><a href="lab.html">운영지원실</a></li></ul></div>
+    <div class="footer-col"><h5>지원</h5><ul><li><a href="guide.html">사용 가이드</a></li><li><a href="https://ssentif-manager.kr/" target="_blank">매니저 로그인</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><p>© 2026 SSENTIF. All rights reserved.</p><p>사업자등록번호: 849-97-03418 · 개인정보처리방침 · 이용약관</p></div>
+</footer>
+
+<script>
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 20));
+
+// 햄버거 메뉴
+const hamburger = document.getElementById('navHamburger');
+const mobileMenu = document.getElementById('navMobileMenu');
+if (hamburger) {
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.nav') && !e.target.closest('.nav-mobile-menu')) {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+    }
+  });
+}
+
+// 목차 스크롤 스파이
+const tocLinks = [...document.querySelectorAll('.toc-link')];
+const items = tocLinks.map(a => document.getElementById(a.getAttribute('href').slice(1))).filter(Boolean);
+const spy = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      tocLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id));
+    }
+  });
+}, { rootMargin: '-30% 0px -60% 0px' });
+items.forEach(el => spy.observe(el));
+</script>
+</body>
+</html>

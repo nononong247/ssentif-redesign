@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>관리자 모드 가이드 — SSENTIF | 대시보드·회원·직원·정산</title>
+<meta name="description" content="센티프 관리자 모드 사용 가이드. 운영 대시보드, 전체 회원 관리, 팀원 권한과 급여 정산, 팀 전체 일정까지 화면과 함께 단계별로 안내합니다.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.ssentif.kr/guide-admin.html">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.ssentif.kr/guide-admin.html">
+<meta property="og:title" content="관리자 모드 가이드 — SSENTIF">
+<meta property="og:description" content="강사·관리자·회원 모드별 센티프 사용법을 화면과 함께 단계별로 안내합니다.">
+<meta property="og:image" content="https://www.ssentif.kr/og-image.png">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="SSENTIF">
+<link rel="stylesheet" href="style.css?v=2">
+<style>
+/* ── 가이드 헤더 ── */
+.guide-hero {
+  padding: 118px 0 0;
+  background: var(--gray-50);
+  border-bottom: 1px solid var(--border);
+}
+.guide-hero h1 { font-size: clamp(1.7rem, 3vw, 2.3rem); margin-bottom: 10px; }
+.guide-hero .lead { margin: 0 0 28px; font-size: 15px; }
+
+/* 모드 전환 탭 */
+.mode-tabs { display: flex; gap: 4px; }
+.mode-tab {
+  position: relative;
+  padding: 12px 22px 14px;
+  font-size: 14.5px; font-weight: 700; color: var(--gray-500);
+  background: none; border: none; cursor: pointer; font-family: inherit;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s;
+}
+.mode-tab.active { color: var(--black); border-bottom-color: var(--accent); }
+.mode-tab:hover:not(.active):not(:disabled) { color: var(--gray-700); }
+.mode-tab:disabled { cursor: default; }
+
+/* ── 본문 2단 레이아웃 ── */
+.guide-layout {
+  display: grid; grid-template-columns: 250px minmax(0, 1fr);
+  gap: 56px; align-items: start;
+  padding: 48px 0 96px;
+}
+
+/* 사이드 목차 */
+.guide-toc { position: sticky; top: 96px; max-height: calc(100vh - 120px); overflow-y: auto; }
+.toc-group { margin-bottom: 26px; }
+.toc-link {
+  display: block; padding: 7px 12px;
+  font-size: 13.5px; font-weight: 600; color: var(--gray-600);
+  text-decoration: none; border-radius: 8px; line-height: 1.45;
+  transition: background 0.12s, color 0.12s;
+}
+.toc-link:hover { background: var(--gray-100); color: var(--black); }
+.toc-link.active { background: var(--accent-light); color: var(--accent-dark); }
+
+/* 본문 아티클 */
+.guide-body { min-width: 0; }
+.g-section { scroll-margin-top: 96px; margin-bottom: 64px; }
+.g-cat {
+  font-size: 12.5px; font-weight: 900; letter-spacing: 0.08em;
+  color: var(--accent-dark); text-transform: uppercase; margin-bottom: 10px;
+}
+.g-section h2 {
+  font-size: 1.5rem; letter-spacing: -0.02em;
+  padding-bottom: 14px; margin-bottom: 22px;
+  border-bottom: 1px solid var(--border);
+}
+.g-item { scroll-margin-top: 96px; margin-bottom: 44px; }
+.g-item h3 { font-size: 1.12rem; font-weight: 800; margin-bottom: 12px; }
+
+.g-intro { font-size: 14.5px; color: var(--gray-600); line-height: 1.75; margin: 0 0 18px; }
+.g-sub { font-size: 15.5px; font-weight: 800; color: var(--black); margin: 26px 0 12px; }
+/* 가이드 표준 콘텐츠 요소 (P3부터 사용) */
+.g-step { display: flex; gap: 14px; margin: 18px 0; }
+.g-step-num {
+  flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%;
+  background: var(--black); color: var(--white);
+  font-size: 12.5px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center; margin-top: 1px;
+}
+.g-step p { margin: 2px 0 0; font-size: 14.5px; color: var(--gray-700); line-height: 1.75; }
+.g-callout {
+  display: flex; gap: 10px; margin: 18px 0;
+  background: var(--accent-light); border-radius: 12px;
+  padding: 14px 16px; font-size: 13.5px; color: var(--gray-700); line-height: 1.7;
+}
+.g-callout.warn { background: #FFF6ED; }
+
+
+/* ── 화면 캡처 자리 (실제 앱 캡처 + 빨간 표시 이미지로 교체 예정) ── */
+.g-capture {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+  border: 1.5px dashed var(--gray-200); border-radius: 14px;
+  background: var(--gray-50);
+  min-height: 150px; margin: 16px 0; padding: 20px;
+  text-align: center;
+}
+.g-capture i { font-style: normal; font-size: 20px; }
+.g-capture b { font-size: 13px; font-weight: 700; color: var(--gray-500); }
+.g-capture span { font-size: 12px; color: var(--gray-400); }
+
+/* 모바일 */
+@media (max-width: 880px) {
+  .guide-layout { grid-template-columns: 1fr; gap: 0; padding-top: 28px; }
+  .guide-toc {
+    position: static; max-height: none; overflow: visible;
+    display: flex; gap: 18px; overflow-x: auto;
+    padding-bottom: 16px; margin-bottom: 28px;
+    border-bottom: 1px solid var(--border);
+    -webkit-overflow-scrolling: touch;
+  }
+  .toc-group { margin: 0; flex-shrink: 0; }
+  .mode-tab { padding: 10px 14px 12px; font-size: 13.5px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="mainNav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">SSEN<span>TIF</span></a>
+    <div class="nav-links">
+      <a href="product.html">제품</a>
+      <a href="index.html#cases">고객 사례</a>
+      <a href="pricing.html">요금제</a>
+      <a href="consulting.html">도입 절차</a>
+      <a href="lab.html" class="active">운영지원실</a>
+    </div>
+    <div class="nav-actions">
+      <a href="https://ssentif-fitness.imweb.me/" target="_blank" rel="noopener" class="nav-ghost">이전 홈페이지</a>
+      <a href="consulting.html" class="nav-cta-btn">도입 상담 신청<span class="cta-new-badge">NEW 2.0</span></a>
+    </div>
+    <button class="nav-hamburger" id="navHamburger" aria-label="메뉴 열기">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="nav-mobile-menu" id="navMobileMenu">
+  <a href="product.html">제품</a>
+  <a href="index.html#cases">고객 사례</a>
+  <a href="pricing.html">요금제</a>
+  <a href="consulting.html">도입 절차</a>
+  <a href="lab.html">운영지원실</a>
+  <div class="nav-mobile-divider"></div>
+  <a href="consulting.html" class="nav-mobile-cta">도입 상담 신청<span class="cta-new-badge">NEW 2.0</span></a>
+</div>
+
+<div class="guide-hero">
+  <div class="container">
+    <h1>센티프 사용 가이드</h1>
+    <p class="lead">센터 전체의 매출·회원·직원·정산을 관리하는 방법입니다.</p>
+    <div class="mode-tabs" role="tablist">
+      <a class="mode-tab" href="guide-common.html" style="text-decoration:none">🧭 공통</a>
+      <a class="mode-tab" href="guide.html" style="text-decoration:none">🏋️ 강사 모드</a>
+      <button class="mode-tab active" type="button">🏢 관리자 모드</button>
+      <a class="mode-tab" href="guide-member.html" style="text-decoration:none">👤 회원 모드</a>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="guide-layout">
+
+    <!-- 사이드 목차 -->
+    <aside class="guide-toc" id="guideToc">
+      <div class="toc-group">
+        <div class="toc-cat">시작하기</div>
+        <a class="toc-link" href="#mode-switch">관리자 모드 전환</a>
+      </div>
+      <div class="toc-group">
+        <div class="toc-cat">운영 대시보드</div>
+        <a class="toc-link" href="#alerts">업무 알림</a>
+        <a class="toc-link" href="#revenue">매출 현황</a>
+        <a class="toc-link" href="#risk">운영 위험도</a>
+        <a class="toc-link" href="#notice-stats">공지사항</a>
+      </div>
+      <div class="toc-group">
+        <div class="toc-cat">회원관리</div>
+        <a class="toc-link" href="#all-members">전체 회원 조회</a>
+        <a class="toc-link" href="#assign-coach">담당 코치 배정</a>
+        <a class="toc-link" href="#member-analytics">회원 구성 분석</a>
+        <a class="toc-link" href="#products">상품(회원권) 관리</a>
+      </div>
+      <div class="toc-group">
+        <div class="toc-cat">직원관리</div>
+        <a class="toc-link" href="#staff">팀원 초대·권한 관리</a>
+        <a class="toc-link" href="#staff-detail">직원 정보·고용 정보 관리</a>
+        <a class="toc-link" href="#payroll">급여 정산</a>
+        <a class="toc-link" href="#payslip">급여명세서 발송</a>
+      </div>
+      <div class="toc-group">
+        <div class="toc-cat">스케줄 관리</div>
+        <a class="toc-link" href="#schedule-scope">팀 전체 일정 보기</a>
+        <a class="toc-link" href="#center-hours">센터 정보·운영 설정</a>
+      </div>
+      <div class="toc-group">
+        <div class="toc-cat">AI</div>
+        <a class="toc-link" href="#ai-agent">AI 운영 어시스턴트</a>
+      </div>
+    </aside>
+
+    <!-- 본문 -->
+    <main class="guide-body">
+
+                  <section class="g-section" id="sec-start">
+        <div class="g-cat">시작하기</div>
+        <h2>관리자의 시선으로 전환</h2>
+
+        <article class="g-item" id="mode-switch">
+          <h3>관리자 모드 전환</h3>
+          <p class="g-intro">관리자 권한이 있으면 같은 앱 안에서 강사 모드와 관리자 모드를 오갈 수 있습니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p>하단 <strong>[마이]</strong> 또는 홈 상단의 모드 메뉴에서 <strong>[관리자 모드]</strong>를 선택해주세요.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>전환하면 홈이 <strong>운영 대시보드</strong>로 바뀌고, 하단 탭에 <strong>회원관리 · 팀원 · 상품</strong>이 추가됩니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>다시 <strong>[강사 모드]</strong>를 선택하면 원래 화면으로 돌아옵니다. 데이터는 그대로 유지돼요.</p></div>
+          <div class="g-callout">💡 <div>일정 · 채팅 · 메모 탭은 두 모드에서 동일합니다. 다만 일정 탭에는 관리자 모드에서만 <strong>보기 범위 전환</strong>이 추가됩니다.</div></div>
+          <div class="g-callout warn">⚠️ <div>관리자 권한이 없는 계정에는 모드 전환 메뉴가 보이지 않습니다. 권한은 워크스페이스 대표가 <strong>팀원 관리</strong>에서 부여합니다.</div></div>
+          <div class="g-capture"><i>📸</i><b>캡처 예정 — 모드 전환 메뉴</b><span>[관리자 모드] 항목에 빨간 표시</span></div>
+        </article>
+      </section>
+
+      <section class="g-section" id="sec-dash">
+        <div class="g-cat">운영 대시보드</div>
+        <h2>숫자로 보는 우리 센터</h2>
+
+        <article class="g-item" id="alerts">
+          <h3>업무 알림</h3>
+          <p class="g-intro">오늘 처리해야 할 일을 대시보드 최상단에서 알려줍니다. 놓치면 매출로 이어지는 항목들이에요.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p>관리자 모드 홈(대시보드)을 열면 <strong>[업무 알림]</strong> 카드가 가장 먼저 보입니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>카드 상단의 분류를 눌러 <strong>전체 · 이탈 · 만료 · 신규</strong>로 좁혀볼 수 있습니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>각 알림의 <strong>[정산 입력]</strong>을 누르면 해당 회원의 정산 화면으로, <strong>[채팅]</strong>을 누르면 회원과의 대화방으로 바로 이동합니다.</p></div>
+          <div class="g-callout">💡 <div><strong>이탈</strong>은 최근 출석이 끊긴 회원, <strong>만료</strong>는 수강권 종료가 임박한 회원, <strong>신규</strong>는 새로 발급된 상품입니다. 만료 알림에 먼저 반응하는 것이 재등록률에 가장 큰 영향을 줍니다.</div></div>
+          <div class="g-capture"><i>📸</i><b>캡처 예정 — 운영 대시보드 — 업무 알림 카드</b><span>분류 탭과 [정산 입력]·[채팅] 버튼에 빨간 표시</span></div>
+        </article>
+
+        <article class="g-item" id="revenue">
+          <h3>매출 현황</h3>
+          <p class="g-intro">이번 달 회원권이 얼마나 팔렸는지, 어떤 상품이 팔렸는지를 확인합니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p>대시보드에서 <strong>[회원권 판매 현황 (이번달)]</strong> 카드를 확인해주세요.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>총 판매 금액과 함께 <strong>시설이용권 N건 · 수업권 N건</strong>으로 유형별 판매 건수가 나뉘어 표시됩니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p><strong>상담 · 신규등록 · 재등록 · 만료</strong> 지표를 함께 보면 이번 달 흐름이 신규 유입 덕분인지 재등록 덕분인지 구분할 수 있습니다.</p></div>
+          <div class="g-callout">💡 <div>재등록 수치가 신규등록보다 꾸준히 낮다면, 만료 예정 회원 관리가 먼저입니다.</div></div>
+          <div class="g-capture"><i>📸</i><b>캡처 예정 — 회원권 판매 현황 카드</b><span>판매 금액과 유형별 건수에 빨간 표시</span></div>
+        </article>
+
+        <article class="g-item" id="risk">
+          <h3>운영 위험도</h3>
+          <p class="g-intro">지금 당장 문제는 아니지만 방치하면 매출이 되는 신호들을 모아 봅니다.</p>
+          <h4 class="g-sub">1. 이탈 위험 회원</h4>
+          <div class="g-step"><span class="g-step-num">1</span><p>대시보드의 <strong>이탈 위험</strong> 영역에서 최근 출석이 끊긴 회원 목록을 확인합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>회원을 누르면 마지막 수업일과 남은 횟수를 함께 볼 수 있습니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>담당 코치에게 연락을 요청하거나, 직접 채팅으로 안부를 남겨주세요.</p></div>
+          <h4 class="g-sub">2. 잠재부채</h4>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>잠재부채</strong>는 이미 결제받았지만 아직 제공하지 않은 수업의 금액입니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>회원이 남긴 미사용 횟수 × 회당 단가로 자동 계산됩니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>금액이 계속 커진다면 판매는 되는데 수업 소진이 안 되고 있다는 뜻이에요. 예약률을 함께 점검해주세요.</p></div>
+          <div class="g-callout warn">⚠️ <div>잠재부채는 환불 요청이 몰릴 때 그대로 현금 부담이 됩니다. 매달 확인하는 습관을 권장합니다.</div></div>
+          <div class="g-capture"><i>📸</i><b>캡처 예정 — 운영 위험도 영역</b><span>이탈 위험 목록과 잠재부채 금액에 빨간 표시</span></div>
+        </article>
+
+        <article class="g-item" id="notice-stats">
+          <h3>공지사항</h3>
+          <p class="g-intro">보낸 공지가 실제로 읽혔는지, 회원이 반응했는지를 숫자로 확인합니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p>대시보드에서 <strong>[알림 현황]</strong> 카드를 열어주세요.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p><strong>발송 · 열람 · 액션</strong> 3가지 건수와 함께 <strong>열람율 · 액션율</strong>이 표시됩니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>열람율이 낮다면 발송 시간대를, 액션율이 낮다면 공지 내용을 바꿔보세요.</p></div>
+          <div class="g-callout">💡 <div>공지 작성 자체는 모드와 관계없이 동일합니다. <a href="guide-common.html#notice">공통 — 회원 공지 발송</a>을 참고해주세요.</div></div>
+          <div class="g-capture"><i>📸</i><b>캡처 예정 — 알림 현황 카드</b><span>발송·열람·액션 수치와 열람율·액션율에 빨간 표시</span></div>
+        </article>
+      </section>
+
+      <section class="g-section" id="sec-members">
+        <div class="g-cat">회원관리</div>
+        <h2>센터 전체 회원을 한 화면에서</h2>
+
+        <article class="g-item" id="all-members">
+          <h3>전체 회원 조회</h3>
+          <p class="g-intro">담당 회원만 보이는 강사 모드와 달리, 센터에 등록된 모든 회원을 한 화면에서 봅니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p>하단 탭의 <strong>[회원관리]</strong>를 눌러주세요.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>상단에서 <strong>전체 · 활성 · 일시정지 · 만료 · 미배정</strong>으로 걸러볼 수 있습니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p><strong>이름 · 연락처</strong>로 검색하고, <strong>이름순 · 등록일 최신순 · 등록일 오래된 순</strong>으로 정렬합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">4</span><p>목록에는 <strong>이름 · 담당코치 · 연락처 · 시설이용권 · 개인수업</strong> 정보가 함께 표시됩니다.</p></div>
+          <div class="g-step"><span class="g-step-num">5</span><p>우측 상단 <strong>[회원 추가]</strong>로 신규 회원을 직접 등록할 수도 있습니다.</p></div>
+          <div class="g-callout warn">⚠️ <div>전체 회원 목록은 관리자 권한이 있어야 열립니다. 권한이 없으면 “전체 회원은 관리자만 확인할 수 있습니다.” 안내가 표시돼요.</div></div>
+          <div class="g-capture"><i>📸</i><b>캡처 예정 — 회원관리 목록 화면</b><span>필터 · 검색창 · [회원 추가] 버튼에 빨간 표시</span></div>
+        </article>
+
+        <article class="g-item" id="assign-coach">
+          <h3>담당 코치 배정</h3>
+          <p class="g-intro">담당자가 없는 회원을 강사에게 연결합니다. 배정되어야 그 강사의 회원 탭에 나타나요.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p>회원관리에서 <strong>[미배정]</strong> 필터를 눌러 담당자가 없는 회원을 확인합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>회원을 눌러 <strong>[담당 코치 배정]</strong>을 열어주세요.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>배정할 강사를 선택하면 “○○님에게 배정했어요” 안내와 함께 즉시 반영됩니다.</p></div>
+          <div class="g-callout">💡 <div>담당 코치를 바꾸면 새 담당자가 이전 수업일지와 기록을 그대로 이어받습니다. 인수인계 시 활용해주세요.</div></div>
+          <div class="g-capture"><i>📸</i><b>캡처 예정 — 담당 코치 배정 화면</b><span>강사 선택 목록에 빨간 표시</span></div>
+        </article>
+
+        <article class="g-item" id="member-analytics">
+          <h3>회원 구성 분석</h3>
+          <p class="g-intro">우리 센터에 어떤 회원이, 어떤 회원권으로 다니고 있는지를 그래프로 봅니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p>운영 화면의 <strong>[활성 회원 구성]</strong>에서 성별(남성 · 여성 · 기타)과 <strong>연령대</strong> 분포를 확인합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p><strong>[회원권 유형 분포]</strong>에서 <strong>시설이용권 · 개인수업 · 그룹수업</strong> 건수 비중을 확인합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>두 그래프를 함께 보면 어떤 층에 어떤 상품을 제안할지 판단하기 쉬워집니다.</p></div>
+          <div class="g-capture"><i>📸</i><b>캡처 예정 — 회원 구성 · 회원권 분포 카드</b><span>두 도넛 그래프에 빨간 표시</span></div>
+        </article>
+
+        <article class="g-item" id="products">
+          <h3>상품(회원권) 관리</h3>
+          <p class="g-intro">센터에서 판매하는 상품 템플릿을 관리자 모드에서 통합 관리합니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p>하단 탭의 <strong>[상품]</strong>을 눌러주세요.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>센터에 등록된 상품 템플릿의 <strong>이름 · 횟수 · 기간 · 가격</strong>을 확인하고 수정합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>새 상품을 추가하면 모든 강사가 회원에게 발급할 때 바로 선택할 수 있습니다.</p></div>
+          <div class="g-callout">💡 <div>실제 발급은 강사 모드에서도 가능합니다. <a href="guide.html#product-issue">강사 모드 — 상품(수강권) 발급</a>을 참고해주세요.</div></div>
+          <div class="g-capture"><i>📸</i><b>캡처 예정 — 상품 목록 화면</b><span>[상품 추가] 버튼과 템플릿 목록에 빨간 표시</span></div>
+        </article>
+      </section>
+
+      <section class="g-section" id="sec-staff">
+        <div class="g-cat">직원관리</div>
+        <h2>팀원부터 급여까지</h2>
+
+        <article class="g-item" id="staff">
+          <h3>팀원 초대·권한 관리</h3>
+          <p class="g-intro">워크스페이스에 참여 중인 팀원을 관리하고 권한을 부여합니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p>하단 탭의 <strong>[팀원]</strong>을 눌러 <strong>팀원 관리</strong> 화면을 엽니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>상단에서 <strong>재직 · 퇴직 · 대기</strong> 인원 수를 확인하고, <strong>이름 / 연락처 / 이메일</strong>로 검색합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>우측 상단 <strong>[팀원 초대]</strong>로 새 강사를 초대합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">4</span><p>각 팀원의 권한은 <strong>대표 · 관리자 · 직원</strong> 중에서 지정합니다. 관리자 이상만 운영 데이터를 볼 수 있어요.</p></div>
+          <div class="g-callout warn">⚠️ <div>두 번째 인원부터는 워크스페이스에 <strong>결제수단이 등록되어 있어야</strong> 초대를 보낼 수 있습니다. <a href="pricing.html">요금제</a>를 확인해주세요.</div></div>
+          <div class="g-capture"><i>📸</i><b>캡처 예정 — 팀원 관리 화면</b><span>재직/퇴직/대기 세그먼트와 [팀원 초대] 버튼에 빨간 표시</span></div>
+        </article>
+
+        <article class="g-item" id="staff-detail">
+          <h3>직원 정보·고용 정보 관리</h3>
+          <p class="g-intro">급여 정산의 기준이 되는 고용 조건을 직원별로 기록합니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p>팀원 목록에서 직원을 누르면 <strong>직원 상세</strong>가 열립니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>상단에서 <strong>재직 · 대기 · 퇴직</strong> 상태를 확인합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p><strong>[고용 정보]</strong>에서 <strong>입사일 · 계약 형태 · 기본급 · 권한</strong>을 입력합니다. 퇴직 처리 시 <strong>퇴직일</strong>도 함께 기록해주세요.</p></div>
+          <div class="g-step"><span class="g-step-num">4</span><p>저장하면 “변경사항이 저장되었습니다.” 안내가 표시됩니다.</p></div>
+          <div class="g-callout">💡 <div>기본급이 <strong>미설정</strong>이면 급여 정산에서 기본급이 0으로 계산됩니다. 정산 전에 먼저 채워주세요.</div></div>
+          <div class="g-capture"><i>📸</i><b>캡처 예정 — 직원 상세 — 고용 정보</b><span>입사일 · 계약 형태 · 기본급 · 권한 필드에 빨간 표시</span></div>
+        </article>
+
+        <article class="g-item" id="payroll">
+          <h3>급여 정산</h3>
+          <p class="g-intro">기본급과 수업 수당을 자동으로 합산합니다. 손으로 세던 정산을 화면 안에서 끝냅니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p>팀원 관리 화면에서 <strong>[급여 정산]</strong>을 눌러주세요.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>정산할 <strong>월</strong>과 <strong>직원</strong>을 선택합니다. 고용 정보에 입력한 기본급이 자동으로 불러와집니다.</p></div>
+          <h4 class="g-sub">1. 개인수업 정산</h4>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>[개인수업 정산]</strong>에서 <strong>단가제</strong>(회당 단가 × 완료 횟수) 또는 <strong>비율제</strong>(매출 × 비율) 중 방식을 선택합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>해당 월에 완료된 수업이 자동 집계되어 수당이 계산됩니다.</p></div>
+          <h4 class="g-sub">2. 그룹수업 정산</h4>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>[그룹수업 정산]</strong>은 건별로 금액을 확인합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>개별 수정이 필요하면 <strong>[수정]</strong>을, 한 번에 같은 금액을 넣으려면 <strong>[전체 입력]</strong>을 사용하세요.</p></div>
+          <h4 class="g-sub">3. 원천징수</h4>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>[사업소득세 원천징수]</strong>에서 <strong>3.3% 적용</strong> 또는 <strong>적용 안 함</strong>을 선택합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>선택에 따라 <strong>공제 예상액</strong>과 실지급액이 자동으로 반영됩니다.</p></div>
+          <div class="g-capture"><i>📸</i><b>캡처 예정 — 급여 정산 화면</b><span>개인수업 정산 · 그룹수업 정산 · 원천징수 영역에 빨간 표시</span></div>
+        </article>
+
+        <article class="g-item" id="payslip">
+          <h3>급여명세서 발송</h3>
+          <p class="g-intro">정산 결과를 그대로 명세서로 만들어 직원에게 전달합니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p>정산을 마친 뒤 <strong>[명세서 발송]</strong>을 눌러주세요.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>기본급 · 개인수업 수당 · 그룹수업 수당 · 공제액이 정리된 명세서를 미리 확인합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>발송하면 해당 직원에게 전달되며, 발송 이력이 남습니다.</p></div>
+          <div class="g-callout warn">⚠️ <div>발송 후 금액을 수정하면 다시 발송해야 직원 화면에 반영됩니다.</div></div>
+          <div class="g-capture"><i>📸</i><b>캡처 예정 — 급여명세서 미리보기</b><span>항목별 금액과 [발송] 버튼에 빨간 표시</span></div>
+        </article>
+      </section>
+
+      <section class="g-section" id="sec-sched">
+        <div class="g-cat">스케줄 관리</div>
+        <h2>팀 전체 일정과 센터 설정</h2>
+
+        <article class="g-item" id="schedule-scope">
+          <h3>팀 전체 일정 보기</h3>
+          <p class="g-intro">관리자 모드의 일정 탭에는 강사 모드에 없는 <strong>보기 범위 전환</strong>이 추가됩니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p>하단 탭의 <strong>[일정]</strong>을 열면 제목 옆에 <strong>[팀 전체]</strong> / <strong>[나의 일정]</strong> 전환 버튼이 보입니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p><strong>[팀 전체]</strong>를 선택하면 워크스페이스의 모든 강사 일정이 <strong>강사별 컬럼</strong>으로 하루 단위 정렬됩니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p><strong>[나의 일정]</strong>을 선택하면 강사 모드와 동일한 내 주간·월간 캘린더로 돌아옵니다.</p></div>
+          <div class="g-callout">💡 <div>팀 전체 뷰는 시간대별 강사 배치를 한눈에 보여줍니다. 특정 시간에 강사가 몰리거나 비는 구간을 찾을 때 유용해요.</div></div>
+          <div class="g-capture"><i>📸</i><b>캡처 예정 — 일정 탭 — 팀 전체 뷰</b><span>[팀 전체]/[나의 일정] 전환 버튼과 강사별 컬럼에 빨간 표시</span></div>
+        </article>
+
+        <article class="g-item" id="center-hours">
+          <h3>센터 정보·운영 설정</h3>
+          <p class="g-intro">센터 기본 정보와 운영 조건을 관리합니다. 관리자만 접근할 수 있어요.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p>운영 화면의 <strong>[설정]</strong> 탭을 열어주세요.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p><strong>센터명 · 주소</strong> 등 기본 정보를 등록합니다. 회원 앱에 표시되는 정보예요.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p><strong>센터코드</strong>를 복사하거나 QR로 공유해 회원·강사가 워크스페이스를 찾을 수 있게 합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">4</span><p><strong>회원권 관리</strong>에서 센터에서 취급하는 회원권 종류를 설정합니다.</p></div>
+          <div class="g-callout warn">⚠️ <div>센터 운영 현황과 설정은 관리자 권한이 필요합니다. 권한이 없으면 “센터 운영 현황은 관리자만 확인할 수 있습니다.” 안내가 표시돼요.</div></div>
+          <div class="g-capture"><i>📸</i><b>캡처 예정 — 운영 → 설정 탭</b><span>센터명 · 주소 · 센터코드 · QR 버튼에 빨간 표시</span></div>
+        </article>
+      </section>
+
+      <section class="g-section" id="sec-ai">
+        <div class="g-cat">AI</div>
+        <h2>물어보면 답하는 운영 비서</h2>
+
+        <article class="g-item" id="ai-agent">
+          <h3>AI 운영 어시스턴트</h3>
+          <p class="g-intro">“이번 달 이탈 위험 회원 알려줘”처럼 물어보면 센터 데이터를 근거로 답합니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p>대시보드에서 <strong>AI 어시스턴트</strong>를 열어주세요.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>매출 · 회원 · 정산에 대해 자연어로 질문하면 실제 데이터를 바탕으로 답변합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>답변에서 특정 회원이나 항목을 누르면 해당 화면으로 바로 이동합니다.</p></div>
+          <div class="g-capture"><i>📸</i><b>캡처 예정 — AI 어시스턴트 화면</b><span>질문 입력창과 답변 영역에 빨간 표시</span></div>
+        </article>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand"><div class="logo">SSEN<span>TIF</span></div><p>피트니스 센터를 위한<br>AI 운영 워크스페이스</p></div>
+    <div class="footer-col"><h5>제품</h5><ul><li><a href="product.html">주요 기능</a></li><li><a href="pricing.html">요금제</a></li></ul></div>
+    <div class="footer-col"><h5>회사</h5><ul><li><a href="index.html#cases">고객 사례</a></li><li><a href="consulting.html">도입 절차</a></li><li><a href="lab.html">운영지원실</a></li></ul></div>
+    <div class="footer-col"><h5>지원</h5><ul><li><a href="guide.html">사용 가이드</a></li><li><a href="https://ssentif-manager.kr/" target="_blank">매니저 로그인</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><p>© 2026 SSENTIF. All rights reserved.</p><p>사업자등록번호: 849-97-03418 · 개인정보처리방침 · 이용약관</p></div>
+</footer>
+
+<script>
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 20));
+
+// 햄버거 메뉴
+const hamburger = document.getElementById('navHamburger');
+const mobileMenu = document.getElementById('navMobileMenu');
+if (hamburger) {
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.nav') && !e.target.closest('.nav-mobile-menu')) {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+    }
+  });
+}
+
+// 목차 스크롤 스파이
+const tocLinks = [...document.querySelectorAll('.toc-link')];
+const items = tocLinks.map(a => document.getElementById(a.getAttribute('href').slice(1))).filter(Boolean);
+const spy = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      tocLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id));
+    }
+  });
+}, { rootMargin: '-30% 0px -60% 0px' });
+items.forEach(el => spy.observe(el));
+</script>
+</body>
+</html>

@@ -528,21 +528,38 @@ p  { color: var(--gray-600); line-height: 1.75; }
   50%      { opacity: 1;   transform: translateX(-50%) scale(1.09); }
 }
 .cta-band .container { position: relative; z-index: 1; }
-.cta-band .hero-pill { backdrop-filter: blur(6px); }
+
 .cta-band h2 {
-  color: var(--white); margin-bottom: 18px;
-  letter-spacing: -0.02em;
-  text-shadow: 0 2px 40px rgba(31,219,168,0.18);
+  color: var(--white);
+  font-size: clamp(2.1rem, 4.4vw, 3.4rem);
+  line-height: 1.22;
+  letter-spacing: -0.035em;
+  margin-bottom: 20px;
 }
-.cta-band p { color: rgba(255,255,255,0.55); font-size: 1.05rem; margin-bottom: 38px; }
+.cta-band h2 em {
+  font-style: normal;
+  background: linear-gradient(180deg, #7BFFD9, var(--accent));
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: var(--accent);
+}
+.cta-band p { color: rgba(255,255,255,0.5); font-size: 1.05rem; margin-bottom: 36px; }
+
+.cta-actions {
+  display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+}
+
+/* 흰색 버튼 — 어두운 배경에서 가장 강한 대비 */
 .cta-band .btn-primary {
-  font-size: 16px; padding: 16px 40px;
-  box-shadow: 0 0 0 1px rgba(31,219,168,0.35), 0 10px 34px rgba(31,219,168,0.32);
-  transition: box-shadow 0.25s ease, transform 0.25s ease;
+  background: #fff; color: var(--black);
+  font-size: 16px; padding: 17px 44px;
+  border: none;
+  box-shadow: 0 12px 40px rgba(255,255,255,0.16), 0 2px 10px rgba(0,0,0,0.4);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 .cta-band .btn-primary:hover {
-  box-shadow: 0 0 0 1px rgba(31,219,168,0.55), 0 14px 44px rgba(31,219,168,0.45);
-  transform: translateY(-2px);
+  background: #fff; color: var(--black);
+  transform: translateY(-3px);
+  box-shadow: 0 18px 52px rgba(255,255,255,0.26), 0 4px 14px rgba(0,0,0,0.45);
 }
 @media (prefers-reduced-motion: reduce) {
   .cta-band::after { animation: none; }

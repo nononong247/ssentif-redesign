@@ -23,7 +23,23 @@
   border-bottom: 1px solid var(--border);
 }
 .guide-hero h1 { font-size: clamp(1.7rem, 3vw, 2.3rem); margin-bottom: 10px; }
-.guide-hero .lead { margin: 0 0 28px; font-size: 15px; }
+/* 서비스 구조 스트립 (탭 전환과 무관하게 3개 페이지 전부 동일) */
+.guide-structure {
+  display: flex; align-items: stretch; gap: 30px;
+  margin: 0 0 30px; padding: 4px 0;
+  overflow-x: auto;
+}
+.gs-group { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.gs-tag {
+  font-size: 11px; font-weight: 900; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--gray-400);
+}
+.gs-row { display: flex; gap: 26px; }
+.gs-item { display: flex; flex-direction: column; align-items: center; gap: 5px; min-width: 66px; }
+.gs-icon { font-size: 30px; line-height: 1; }
+.gs-label { font-size: 12.5px; font-weight: 800; color: var(--gray-800); white-space: nowrap; }
+.gs-device { font-size: 10.5px; color: var(--gray-400); white-space: nowrap; }
+.gs-divider { width: 1px; align-self: center; height: 54px; background: var(--border); }
 
 /* 모드 전환 탭 */
 .mode-tabs { display: flex; gap: 4px; }
@@ -158,8 +174,35 @@
 <div class="guide-hero">
   <div class="container">
     <h1>센티프 사용 가이드</h1>
-    <p class="lead">화면과 함께 단계별로 따라 하는 센티프 사용법입니다.</p>
-    <div class="mode-tabs" role="tablist">
+    <div class="guide-structure">
+      <div class="gs-group">
+        <div class="gs-tag">코치앱</div>
+        <div class="gs-row">
+          <div class="gs-item">
+            <span class="gs-icon">🏋️</span>
+            <span class="gs-label">강사 모드</span>
+            <span class="gs-device">태블릿 · 모바일 앱</span>
+          </div>
+          <div class="gs-item">
+            <span class="gs-icon">🏢</span>
+            <span class="gs-label">관리자 모드</span>
+            <span class="gs-device">태블릿 · PC</span>
+          </div>
+        </div>
+      </div>
+      <div class="gs-divider"></div>
+      <div class="gs-group">
+        <div class="gs-tag">회원 앱</div>
+        <div class="gs-row">
+          <div class="gs-item">
+            <span class="gs-icon">👤</span>
+            <span class="gs-label">회원 모드</span>
+            <span class="gs-device">모바일</span>
+          </div>
+        </div>
+      </div>
+    </div>
+        <div class="mode-tabs" role="tablist">
       <a class="mode-tab" href="guide.html" style="text-decoration:none">🏋️ 강사 모드</a>
       <a class="mode-tab" href="guide-admin.html" style="text-decoration:none">🏢 관리자 모드</a>
       <button class="mode-tab active" type="button">👤 회원 모드</button>

@@ -21,18 +21,18 @@
 <meta name="twitter:image" content="https://www.ssentif.kr/og-image.png">
 <link rel="stylesheet" href="style.css?v=2">
 <style>
-/* ═══════════ 신규 제품 페이지 ═══════════ */
+/* ═══════════ 제품 페이지 v2 ═══════════ */
 
 /* ── 히어로 ── */
-.pd-hero { padding: 150px 0 72px; text-align: center;
+.pd-hero { padding: 150px 0 64px; text-align: center;
   background: linear-gradient(180deg, #EAFBF6 0%, var(--white) 88%); }
 .pd-hero .badge { display: inline-block; padding: 7px 16px; border-radius: 999px;
   background: var(--accent-light); color: var(--accent-dark);
   font-size: 13px; font-weight: 800; margin-bottom: 22px; }
-.pd-hero h1 { font-size: clamp(1.9rem, 4.4vw, 3.1rem); line-height: 1.28;
-  letter-spacing: -0.03em; margin-bottom: 20px; }
+.pd-hero h1 { font-size: clamp(2rem, 4.6vw, 3.2rem); line-height: 1.26;
+  letter-spacing: -0.03em; margin-bottom: 18px; }
 .pd-hero h1 .hl { color: var(--accent-dark); }
-.pd-hero .sub { max-width: 560px; margin: 0 auto 34px; font-size: 16px;
+.pd-hero .sub { max-width: 560px; margin: 0 auto 32px; font-size: 16px;
   color: var(--gray-600); line-height: 1.75; }
 .pd-hero-jump { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 .pd-jump { display: inline-flex; align-items: center; gap: 8px;
@@ -44,7 +44,7 @@
 .pd-jump.dark { background: var(--black); color: var(--white); }
 
 /* ── 묶음 헤더 ── */
-.pd-part { padding: 84px 0 20px; }
+.pd-part { padding: 76px 0 8px; }
 .pd-part .part-label { font-size: 13px; font-weight: 900; letter-spacing: 0.1em;
   text-transform: uppercase; color: var(--accent-dark); margin-bottom: 12px; }
 .pd-part h2 { font-size: clamp(1.6rem, 3.2vw, 2.3rem); letter-spacing: -0.02em;
@@ -53,52 +53,77 @@
   max-width: 620px; }
 
 /* ── 대분류 ── */
-.pd-cat { padding: 58px 0 8px; }
-.pd-cat .cat-label { font-size: 12.5px; font-weight: 900; letter-spacing: 0.08em;
+.pd-cat { padding: 64px 0 6px; scroll-margin-top: 24px; }
+.pd-cat .cat-label { display: flex; align-items: center; gap: 10px;
+  font-size: 12.5px; font-weight: 900; letter-spacing: 0.08em;
   color: var(--gray-400); text-transform: uppercase; margin-bottom: 10px; }
+.pd-cat .cat-label i { font-style: normal; font-size: 12px; font-weight: 900;
+  color: var(--accent-dark); }
 .pd-cat h3 { font-size: clamp(1.35rem, 2.6vw, 1.8rem); letter-spacing: -0.02em;
   line-height: 1.35; }
 
-/* ── 기능 카드 (교차) ── */
-.pf-card { display: grid; grid-template-columns: 1fr 1fr; gap: 56px;
-  align-items: center; padding: 46px 0; }
+/* ── 히어로 카드 (교차) ── */
+.pf-card { display: grid; grid-template-columns: 1fr 1.15fr; gap: 52px;
+  align-items: center; padding: 42px 0 34px; }
+.pf-card.rev { grid-template-columns: 1.15fr 1fr; }
 .pf-card.rev .pf-text { order: 2; }
 .pf-card.rev .pf-visual { order: 1; }
 .pf-tag { display: inline-flex; align-items: center; gap: 6px;
   padding: 5px 13px; border-radius: 999px; font-size: 12.5px; font-weight: 800;
-  margin-bottom: 16px; }
+  margin-bottom: 16px; margin-right: 6px; }
 .pf-tag.trainer { background: var(--accent-light); color: var(--accent-dark); }
 .pf-tag.member  { background: #EAF1FE; color: #2E5FC0; }
 .pf-tag.both    { background: var(--gray-100); color: var(--gray-700); }
 .pf-tag.admin   { background: rgba(31,219,168,0.12); color: #1FDBA8; }
+.pf-tag.ai      { background: #E6FBF5; color: #15B88E; }
 .pf-text .fn { font-size: 13px; font-weight: 800; color: var(--gray-400);
   margin-bottom: 8px; }
-.pf-text h4 { font-size: clamp(1.25rem, 2.3vw, 1.6rem); letter-spacing: -0.02em;
+.pf-text h4 { font-size: clamp(1.3rem, 2.4vw, 1.65rem); letter-spacing: -0.02em;
   line-height: 1.4; margin-bottom: 14px; }
 .pf-text p { font-size: 15px; color: var(--gray-600); line-height: 1.8; }
 .pf-visual { min-width: 0; }
 
+/* ── 컴팩트 그리드 ── */
+.pc-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px;
+  padding-bottom: 14px; }
+.pc-grid.single { grid-template-columns: 1fr; }
+.pc-card { display: flex; gap: 15px; align-items: flex-start;
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 16px; padding: 20px; }
+.pc-ico { flex-shrink: 0; width: 42px; height: 42px; border-radius: 12px;
+  background: var(--gray-100); display: flex; align-items: center;
+  justify-content: center; font-size: 19px; }
+.pc-body .pf-tag { margin-bottom: 8px; padding: 3px 10px; font-size: 11.5px; }
+.pc-body h5 { font-size: 15.5px; font-weight: 800; letter-spacing: -0.01em;
+  margin-bottom: 5px; color: var(--black); }
+.pc-body p { font-size: 13.5px; color: var(--gray-600); line-height: 1.65; }
+
 /* ── 다크 묶음 (관리자) ── */
 .pd-dark { background: #0D0F12; }
-.pd-dark .pd-part { padding-top: 96px; }
+.pd-dark .pd-part { padding-top: 88px; }
 .pd-dark .pd-part .part-label { color: #1FDBA8; }
 .pd-dark .pd-part h2 { color: var(--white); }
 .pd-dark .pd-part .part-sub { color: #9AA5B4; }
 .pd-dark .pd-cat .cat-label { color: #718096; }
+.pd-dark .pd-cat .cat-label i { color: #1FDBA8; }
 .pd-dark .pd-cat h3 { color: var(--white); }
 .pd-dark .pf-text h4 { color: var(--white); }
 .pd-dark .pf-text p { color: #9AA5B4; }
 .pd-dark .pf-text .fn { color: #718096; }
-.pd-dark-end { height: 84px; }
+.pd-dark .pc-card { background: #151A21; border-color: #262D38; }
+.pd-dark .pc-ico { background: #1E2433; }
+.pd-dark .pc-body h5 { color: var(--white); }
+.pd-dark .pc-body p { color: #9AA5B4; }
+.pd-dark-end { height: 80px; }
 
 /* ── 목업 프레임 ── */
-.mk-tablet { background: var(--black); border-radius: 22px; padding: 14px;
+.mk-tablet { background: var(--black); border-radius: 18px; padding: 8px;
   box-shadow: var(--shadow-lg); }
 .mk-tablet .mk-screen { background: #F7F7F7; border-radius: 12px;
   padding: 18px; font-size: 12px; }
 .mk-phone { width: min(300px, 88%); margin: 0 auto; background: var(--black);
-  border-radius: 30px; padding: 12px 10px; box-shadow: var(--shadow-lg); }
-.mk-phone .mk-screen { background: #F7F7F7; border-radius: 21px;
+  border-radius: 26px; padding: 7px 6px; box-shadow: var(--shadow-lg); }
+.mk-phone .mk-screen { background: #F7F7F7; border-radius: 20px;
   padding: 16px 13px; font-size: 12px; }
 .mk-desk { background: #1E2433; border-radius: 14px; padding: 0;
   box-shadow: var(--shadow-lg); overflow: hidden; border: 1px solid #2D3748; }
@@ -106,6 +131,17 @@
 .mk-desk .mk-bar i { width: 9px; height: 9px; border-radius: 50%;
   background: #4A5568; }
 .mk-desk .mk-screen { background: #F7F7F7; padding: 18px; font-size: 12px; }
+
+/* 연결형 듀얼 목업 */
+.mk-duo { display: grid; grid-template-columns: 1.35fr auto 1fr;
+  align-items: center; gap: 10px; }
+.mk-duo .mk-phone { width: 100%; margin: 0; }
+.mk-duo .mk-tablet { padding: 7px; }
+.mk-duo .mk-tablet .mk-screen { padding: 13px; }
+.duo-arrow { width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0;
+  background: var(--accent-light); color: var(--accent-dark);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; font-weight: 900; box-shadow: var(--shadow-sm); }
 
 /* 목업 내부 공통 */
 .mk-head { display: flex; justify-content: space-between; align-items: center;
@@ -141,13 +177,10 @@
   font-size: 15px; }
 .mk-arrive b { display: block; font-size: 12px; color: #282828; }
 .mk-arrive span { font-size: 10.5px; color: #9AA5B4; }
-.mk-datetitle { font-size: 11px; color: #9AA5B4; margin: 2px 0 10px; }
-/* 필터 칩 행 */
 .mk-filters { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
 .mk-filters span { padding: 5px 11px; border-radius: 999px; font-size: 10.5px;
   font-weight: 700; background: #FFFFFF; border: 1px solid #E2E8F0; color: #718096; }
 .mk-filters span.on { background: #282828; border-color: #282828; color: #FFFFFF; }
-/* 행 리스트 (이름 + 메타 + 액션) */
 .mk-row { display: flex; align-items: center; gap: 9px; background: #FFFFFF;
   border: 1px solid #EEEEF0; border-radius: 10px; padding: 10px 12px;
   margin-bottom: 8px; font-size: 11.5px; }
@@ -156,14 +189,12 @@
 .mk-row .ac { padding: 5px 10px; border-radius: 7px; background: #F1F5F9;
   color: #4A5568; font-size: 10.5px; font-weight: 800; }
 .mk-row .ac.warn { background: #FFE4D9; color: #C65A2E; }
-/* 스탯 그리드 */
 .mk-stats { display: flex; gap: 8px; margin-bottom: 10px; }
 .mk-stat { flex: 1; background: #FFFFFF; border: 1px solid #EEEEF0;
   border-radius: 10px; padding: 10px 8px; text-align: center; }
 .mk-stat b { display: block; font-size: 15px; color: #282828; }
 .mk-stat.mint b { color: #15B88E; }
 .mk-stat span { font-size: 10px; color: #9AA5B4; }
-/* 가로 막대 */
 .mk-bars { background: #FFFFFF; border: 1px solid #EEEEF0; border-radius: 10px;
   padding: 12px; }
 .mk-bars .br { display: flex; align-items: center; gap: 8px; margin: 7px 0;
@@ -171,21 +202,7 @@
 .mk-bars .br em { font-style: normal; width: 52px; flex-shrink: 0; }
 .mk-bars .br i { height: 8px; border-radius: 4px; background: #282828; }
 .mk-bars .br i.mint { background: #1FDBA8; }
-.mk-bars .br i.blue { background: #4F8EF7; }
 .mk-bars .br b { font-size: 10.5px; color: #282828; }
-/* 도넛 */
-.mk-donut-wrap { display: flex; gap: 10px; }
-.mk-donut-card { flex: 1; background: #FFFFFF; border: 1px solid #EEEEF0;
-  border-radius: 10px; padding: 12px; text-align: center; }
-.mk-donut-card b { display: block; font-size: 11px; color: #282828; margin-bottom: 9px; }
-.mk-donut { width: 74px; height: 74px; border-radius: 50%; margin: 0 auto 8px;
-  position: relative; }
-.mk-donut::after { content: ''; position: absolute; inset: 17px;
-  border-radius: 50%; background: #FFFFFF; }
-.mk-donut.d1 { background: conic-gradient(#282828 0 42%, #4F8EF7 42% 100%); }
-.mk-donut.d2 { background: conic-gradient(#1FDBA8 0 38%, #282828 38% 72%, #9AA5B4 72% 100%); }
-.mk-legend { font-size: 9.5px; color: #718096; line-height: 1.6; }
-/* 채팅 */
 .mk-chat { display: flex; flex-direction: column; gap: 7px; }
 .mk-bubble { max-width: 82%; padding: 9px 12px; border-radius: 13px;
   font-size: 11.5px; line-height: 1.5; }
@@ -195,30 +212,19 @@
   border: 1px solid #EEEEF0; border-bottom-left-radius: 4px; }
 .mk-bubble.aians { align-self: flex-start; background: #E6FBF5; color: #14523F;
   border: 1px solid #BFF0E2; border-bottom-left-radius: 4px; }
-/* 푸시 알림 */
-.mk-push { background: rgba(255,255,255,0.92); border: 1px solid #E2E8F0;
-  border-radius: 14px; padding: 12px 13px; box-shadow: var(--shadow-md);
-  margin-bottom: 10px; }
-.mk-push .ph { display: flex; justify-content: space-between; font-size: 10px;
-  color: #9AA5B4; margin-bottom: 5px; font-weight: 700; }
-.mk-push b { font-size: 11.5px; color: #282828; display: block; margin-bottom: 2px; }
-.mk-push span { font-size: 11px; color: #4A5568; line-height: 1.5; }
-/* 사진 슬롯 */
 .mk-photos { display: flex; gap: 8px; }
 .mk-photo { flex: 1; aspect-ratio: 3/4; border-radius: 9px;
   background: linear-gradient(160deg, #E2E8F0, #CBD5E0);
   display: flex; align-items: center; justify-content: center;
   font-size: 10px; color: #718096; font-weight: 700; }
-.mk-photo.add { background: #FFFFFF; border: 1.5px dashed #CBD5E0; font-size: 16px; }
-/* 토스트 */
-.mk-toast { margin-top: 8px; text-align: center; padding: 8px 0;
-  border-radius: 999px; background: #282828; color: #FFFFFF;
-  font-size: 10.5px; font-weight: 700; }
 
-@media (max-width: 820px) {
-  .pf-card { grid-template-columns: 1fr; gap: 26px; padding: 34px 0; }
+@media (max-width: 860px) {
+  .pf-card, .pf-card.rev { grid-template-columns: 1fr; gap: 26px; padding: 30px 0 24px; }
   .pf-card.rev .pf-text { order: 1; }
   .pf-card.rev .pf-visual { order: 2; }
+  .pc-grid { grid-template-columns: 1fr; }
+  .mk-duo { grid-template-columns: 1fr; }
+  .duo-arrow { transform: rotate(90deg); margin: 0 auto; }
 }
 </style>
 </head>
@@ -257,7 +263,7 @@
 <section class="pd-hero">
   <div class="container">
     <div class="badge">제품 소개</div>
-    <h1>수업하는 사람과 운동하는 사람,<br>그리고 <span class="hl">운영하는 사람까지</span><br>센티프 하나로 연결됩니다</h1>
+    <h1>수업, 운동, 그리고 <span class="hl">운영까지</span><br>센티프 하나로 연결됩니다</h1>
     <p class="sub">강사와 회원은 기록으로 이어지고, 관리자는 그 데이터로 센터를 운영합니다.</p>
     <div class="pd-hero-jump">
       <a class="pd-jump light" href="#part-a">🏋️ 강사와 회원 경험 보기</a>
@@ -276,295 +282,149 @@
 </section>
 
 <div class="container">
-  <div class="pd-cat">
-    <div class="cat-label">스케줄</div>
-    <h3>서로 연락할 필요 없는 일정 관리</h3>
+  <div class="pd-cat" id="cat-sch">
+    <div class="cat-label"><i>01</i>스케줄</div>
+    <h3>묻지 않아도 맞춰지는 수업 일정</h3>
   </div>
 
   <div class="pf-card">
     <div class="pf-text">
-      <span class="pf-tag member">👤 회원</span>
-      <div class="fn">수업 예약 요청</div>
-      <h4>원하는 시간에<br>신청만 하면 끝</h4>
-      <p>강사가 열어둔 가능 시간을 보고 회원이 직접 예약을 요청합니다. 문자로 시간을 조율하던 왕복이 사라집니다.</p>
+      <span class="pf-tag both">🏋️👤 함께</span>
+      <div class="fn">예약 요청 → 확정</div>
+      <h4>회원이 신청하고,<br>강사가 수락하면 끝</h4>
+      <p>강사가 열어둔 가능 시간에 회원이 직접 예약을 요청합니다. 수락 한 번으로 일정이 확정되고, 양쪽 모두에게 알림이 갑니다.</p>
     </div>
-    <div class="pf-visual"><div class="mk-phone"><div class="mk-screen">
+    <div class="pf-visual"><div class="mk-duo"><div class="mk-phone"><div class="mk-screen">
   <div class="mk-head"><b>수업 예약</b><span>박준형 강사</span></div>
-  <div class="mk-filters"><span>월 22</span><span class="on">화 23</span><span>수 24</span><span>목 25</span></div>
-  <div class="mk-btn-row"><div class="mk-chip">10:00</div><div class="mk-chip" style="opacity:.4">11:00 마감</div></div>
+  <div class="mk-btn-row"><div class="mk-chip">10:00</div><div class="mk-chip" style="opacity:.4">11:00</div></div>
   <div class="mk-btn-row"><div class="mk-chip dark">19:00</div><div class="mk-chip">20:00</div></div>
-  <div class="mk-save">예약 요청하기</div>
-  <div class="mk-datetitle" style="text-align:center;margin-top:8px">강사 승인 후 확정돼요</div></div></div></div>
-  </div>
-
-  <div class="pf-card rev">
-    <div class="pf-text">
-      <span class="pf-tag trainer">🏋️ 강사</span>
-      <div class="fn">예약 확정</div>
-      <h4>신청 내역 확인하고<br>확정만 하면 됩니다</h4>
-      <p>요청을 수락하면 일정이 확정되고 회원에게 알림이 갑니다. 물론 강사가 직접 일정을 등록할 수도 있습니다.</p>
-    </div>
-    <div class="pf-visual"><div class="mk-tablet"><div class="mk-screen">
+  <div class="mk-save">예약 요청하기</div></div></div><div class="duo-arrow">→</div><div class="mk-tablet"><div class="mk-screen">
   <div class="mk-head"><b>예약 요청</b><span>1건 대기</span></div>
   <div class="mk-block">
-    <div class="bk-title">김민지 회원님 · 개인수업 <i>7/23 (수) 19:00</i></div>
+    <div class="bk-title">김민지 회원님 <i>7/23 (수) 19:00</i></div>
     <div class="mk-btn-row" style="margin:6px 0 0"><div class="mk-chip">거절</div><div class="mk-chip dark">수락</div></div>
   </div>
-  <div class="mk-head" style="margin-top:14px"><b>오늘 일정</b><span>3건</span></div>
-  <div class="mk-row"><span class="nm">10:00</span><span class="mt">이서연 회원님 · 개인수업</span></div>
-  <div class="mk-row"><span class="nm">15:00</span><span class="mt">코어 클래스 · 그룹수업 4명</span></div>
-  <div class="mk-row"><span class="nm">19:00</span><span class="mt">김민지 회원님 · 개인수업</span></div></div></div></div>
+  <div class="mk-row"><span class="nm">확정</span><span class="mt">회원에게 알림이 발송됩니다</span></div></div></div></div></div>
   </div>
-
-  <div class="pf-card">
-    <div class="pf-text">
-      <span class="pf-tag trainer">🏋️ 강사</span>
-      <div class="fn">그룹수업</div>
-      <h4>여러 명이 함께해도<br>캘린더 하나로</h4>
-      <p>정원 관리부터 회원별 차감 상품 지정까지 한 화면에서 처리합니다. 참여 인원의 잔여 횟수가 바로 보입니다.</p>
+  <div class="pc-grid">
+    <div class="pc-card">
+      <div class="pc-ico">👥</div>
+      <div class="pc-body"><span class="pf-tag trainer">🏋️ 강사</span><h5>그룹수업도 캘린더 하나로</h5><p>정원과 회원별 차감 상품까지 한 화면에서 관리합니다.</p></div>
     </div>
-    <div class="pf-visual"><div class="mk-tablet"><div class="mk-screen">
-  <div class="mk-head"><b>그룹수업 만들기</b><span>정원 6명 · 신청 4명</span></div>
-  <div class="mk-block"><div class="bk-title">코어 클래스 <i>수 15:00 · 50분</i></div></div>
-  <div class="mk-row"><span class="nm">이서연</span><span class="mt">그룹 10회권 · 잔여 3/10</span><span class="ac">차감</span></div>
-  <div class="mk-row"><span class="nm">박지훈</span><span class="mt">그룹 20회권 · 잔여 11/20</span><span class="ac">차감</span></div>
-  <div class="mk-row"><span class="nm">최유나</span><span class="mt">그룹 10회권 · 잔여 7/10</span><span class="ac">차감</span></div>
-  <div class="mk-save">수업 만들기</div></div></div></div>
-  </div>
-
-  <div class="pf-card rev">
-    <div class="pf-text">
-      <span class="pf-tag trainer">🏋️ 강사</span>
-      <div class="fn">기타 일정</div>
-      <h4>내 개인 시간은<br>예약이 막힙니다</h4>
-      <p>청소, 개인운동 같은 개인 스케줄을 등록하면 그 시간대에는 회원이 예약을 요청할 수 없습니다. 내 시간이 지켜집니다.</p>
+    <div class="pc-card">
+      <div class="pc-ico">✅</div>
+      <div class="pc-body"><span class="pf-tag trainer">🏋️ 강사</span><h5>출석 체크는 탭 한 번</h5><p>개인수업도 그룹수업도 회원별로 바로 처리합니다.</p></div>
     </div>
-    <div class="pf-visual"><div class="mk-tablet"><div class="mk-screen">
-  <div class="mk-head"><b>기타 일정 등록</b><span>내 개인 스케줄</span></div>
-  <div class="mk-row"><span class="nm">14:00</span><span class="mt">개인운동 · 1시간</span><span class="ac">예약 차단</span></div>
-  <div class="mk-row"><span class="nm">16:00</span><span class="mt">기구 점검 · 30분</span><span class="ac">예약 차단</span></div>
-  <div class="mk-comment" style="margin-top:10px"><b>동작 방식</b>기타 일정이 잡힌 시간대에는 회원의 예약 요청이 자동으로 막힙니다.</div></div></div></div>
-  </div>
-
-  <div class="pf-card">
-    <div class="pf-text">
-      <span class="pf-tag member">👤 회원</span>
-      <div class="fn">자동 리마인드</div>
-      <h4>까먹을 일 없는<br>수업 하루 전 알림</h4>
-      <p>예약된 수업 하루 전, 회원에게 리마인드가 자동으로 발송됩니다. 노쇼가 줄고 강사가 일일이 연락할 필요가 없어집니다.</p>
+    <div class="pc-card">
+      <div class="pc-ico">🔒</div>
+      <div class="pc-body"><span class="pf-tag trainer">🏋️ 강사</span><h5>내 개인 시간은 자동으로 보호</h5><p>청소 · 개인운동을 등록하면 그 시간대 예약 요청이 막힙니다.</p></div>
     </div>
-    <div class="pf-visual"><div class="mk-phone"><div class="mk-screen">
-  <div class="mk-push"><div class="ph"><span>SSENTIF</span><span>오후 7:00</span></div>
-    <b>내일 수업 리마인드</b><span>내일 19:00 박준형 강사님과 개인수업이 있어요. 준비물: 운동화 👟</span></div>
-  <div class="mk-push" style="opacity:.55"><div class="ph"><span>SSENTIF</span><span>어제</span></div>
-    <b>수업일지 도착</b><span>7/21 수업 기록이 도착했어요.</span></div>
-  <div class="mk-datetitle" style="text-align:center;margin-top:6px">수업 하루 전, 자동으로 발송됩니다</div></div></div></div>
+    <div class="pc-card">
+      <div class="pc-ico">🔔</div>
+      <div class="pc-body"><span class="pf-tag member">👤 회원</span><h5>노쇼를 줄이는 하루 전 알림</h5><p>예약된 수업 전날, 리마인드가 자동 발송됩니다.</p></div>
+    </div>
   </div>
 </div>
 <div class="container">
-  <div class="pd-cat">
-    <div class="cat-label">수업일지</div>
+  <div class="pd-cat" id="cat-log">
+    <div class="cat-label"><i>02</i>수업일지</div>
     <h3>적는 수업에서, 남는 수업으로</h3>
   </div>
 
-  <div class="pf-card">
+  <div class="pf-card rev">
     <div class="pf-text">
-      <span class="pf-tag trainer">🏋️ 강사</span>
-      <div class="fn">일지 작성</div>
-      <h4>수업 후 1분,<br>템플릿으로 일지 완성</h4>
-      <p>운동 · 세트 · 무게를 템플릿으로 빠르게 입력하고, 수업 중 찍은 사진과 코멘트까지 함께 남깁니다. AI 작성 제안이 초안을 만들어주니 기록이 부담이 되지 않습니다.</p>
+      <span class="pf-tag both">🏋️👤 함께</span>
+      <div class="fn">일지 작성 → 기록 도착</div>
+      <h4>강사가 1분 만에 쓰면,<br>회원에게 그대로 도착합니다</h4>
+      <p>템플릿과 AI 초안으로 수업 후 1분이면 기록이 끝납니다. 그 기록이 회원 앱에 도착해, 수업이 끝나도 관리받는 경험이 이어집니다.</p>
     </div>
-    <div class="pf-visual"><div class="mk-tablet"><div class="mk-screen">
-  <div class="mk-head"><b>김민지 회원님 · 개인수업 12회차</b><span>1분 전 저장됨</span></div>
+    <div class="pf-visual"><div class="mk-duo"><div class="mk-tablet"><div class="mk-screen">
+  <div class="mk-head"><b>김민지 회원님 · 12회차</b><span>1분 전 저장됨</span></div>
   <div class="mk-block">
     <div class="bk-title">벤치프레스 <i>3세트</i></div>
     <table class="mk-table">
       <tr><th>세트</th><th>무게(kg)</th><th>횟수(회)</th></tr>
       <tr><td>1</td><td>60</td><td>12</td></tr>
-      <tr><td>2</td><td>65</td><td>10</td></tr>
-      <tr><td>3</td><td>70</td><td>8</td></tr>
+      <tr><td>2</td><td>70</td><td>8</td></tr>
     </table>
   </div>
-  <div class="mk-btn-row"><div class="mk-chip">＋ 운동 추가</div><div class="mk-chip ai">✨ AI 작성 제안</div></div>
-  <div class="mk-comment"><b>코멘트</b>오늘 벤치 70kg 첫 성공! 어깨 안정성이 눈에 띄게 좋아졌어요. 다음 수업엔 하체 위주로 진행할게요.</div>
-  <div class="mk-save">저장하기</div></div></div></div>
-  </div>
-
-  <div class="pf-card rev">
-    <div class="pf-text">
-      <span class="pf-tag member">👤 회원</span>
-      <div class="fn">기록 도착</div>
-      <h4>수업이 끝나면<br>오늘의 기록이 도착합니다</h4>
-      <p>오늘 어떤 운동을 얼마나 했는지, 강사가 남긴 코멘트까지 앱으로 도착합니다. 수업이 끝나도 관리받고 있다는 경험이 이어집니다.</p>
-    </div>
-    <div class="pf-visual"><div class="mk-phone"><div class="mk-screen">
+  <div class="mk-btn-row" style="margin:0"><div class="mk-chip ai">✨ AI 작성 제안</div></div></div></div><div class="duo-arrow">→</div><div class="mk-phone"><div class="mk-screen">
   <div class="mk-arrive"><div class="av">📝</div><div><b>수업일지가 도착했습니다</b><span>박준형 강사 · 방금 전</span></div></div>
-  <div class="mk-block">
-    <div class="bk-title">개인 수업 12회차 · 박준형 강사</div>
-    <div class="mk-datetitle">2026년 7월 22일 (화) 19:00</div>
-    <table class="mk-table">
-      <tr><th>세트</th><th>무게(kg)</th><th>횟수(회)</th></tr>
-      <tr><td>1</td><td>60</td><td>12</td></tr>
-      <tr><td>2</td><td>65</td><td>10</td></tr>
-      <tr><td>3</td><td>70</td><td>8</td></tr>
-    </table>
+  <div class="mk-comment"><b>코치 코멘트</b>오늘 벤치 70kg 첫 성공! 어깨 안정성이 좋아졌어요 💪</div></div></div></div></div>
   </div>
-  <div class="mk-comment"><b>코치 코멘트</b>오늘 벤치 70kg 첫 성공! 어깨 안정성이 눈에 띄게 좋아졌어요. 💪</div></div></div></div>
-  </div>
-
-  <div class="pf-card">
-    <div class="pf-text">
-      <span class="pf-tag trainer">🏋️ 강사</span>
-      <div class="fn">이전 기록</div>
-      <h4>다음 수업 준비가<br>정확해집니다</h4>
-      <p>수업 시작 전 지난 기록을 훑어보면 오늘 수업의 방향이 잡힙니다. 담당이 바뀌어도 기록이 남아 있어 맥락이 유지됩니다.</p>
+  <div class="pc-grid">
+    <div class="pc-card">
+      <div class="pc-ico">📚</div>
+      <div class="pc-body"><span class="pf-tag trainer">🏋️ 강사</span><h5>다음 수업 준비가 정확해집니다</h5><p>지난 기록을 훑으면 오늘 수업의 방향이 잡힙니다.</p></div>
     </div>
-    <div class="pf-visual"><div class="mk-tablet"><div class="mk-screen">
-  <div class="mk-head"><b>김민지 회원님 · 수업 내역</b><span>총 11회</span></div>
-  <div class="mk-block"><div class="bk-title">7월 18일 · 11회차 <i>가슴·삼두</i></div><div class="mk-sub">벤치프레스 65kg · 인클라인 DP · 케이블 푸시다운</div></div>
-  <div class="mk-block"><div class="bk-title">7월 15일 · 10회차 <i>하체</i></div><div class="mk-sub">스쿼트 80kg · 레그프레스 · 런지</div></div>
-  <div class="mk-block"><div class="bk-title">7월 11일 · 9회차 <i>등·이두</i></div><div class="mk-sub">데드리프트 90kg · 랫풀다운 · 덤벨컬</div></div></div></div></div>
+    <div class="pc-card">
+      <div class="pc-ico">📋</div>
+      <div class="pc-body"><span class="pf-tag trainer">🏋️ 강사</span><h5>첫날의 목표를 끝까지 기억합니다</h5><p>상담 기록을 남겨두면 담당이 바뀌어도 맥락이 유지됩니다.</p></div>
+    </div>
   </div>
 </div>
 <div class="container">
-  <div class="pd-cat">
-    <div class="cat-label">루틴 처방</div>
+  <div class="pd-cat" id="cat-rtn">
+    <div class="cat-label"><i>03</i>루틴 처방</div>
     <h3>수업 없는 날에도 관리는 계속됩니다</h3>
   </div>
 
   <div class="pf-card">
     <div class="pf-text">
-      <span class="pf-tag trainer">🏋️ 강사</span>
-      <div class="fn">루틴 처방</div>
-      <h4>개인운동 루틴을<br>앱으로 보냅니다</h4>
-      <p>수업이 없는 날 회원이 따라할 운동을 구성해 앱으로 전달합니다. 주 2회 수업이 주 5회 관리가 됩니다.</p>
+      <span class="pf-tag both">🏋️👤 함께</span>
+      <div class="fn">루틴 처방 → 수행</div>
+      <h4>처방한 루틴이 회원의<br>'오늘 할 일'이 됩니다</h4>
+      <p>강사가 보낸 루틴이 회원 앱에 도착합니다. 회원은 동작 영상을 보며 따라하고, 카운터로 세트를 체크합니다.</p>
     </div>
-    <div class="pf-visual"><div class="mk-tablet"><div class="mk-screen">
-  <div class="mk-head"><b>루틴 처방 · 김민지 회원님</b><span>수 · 금 반복</span></div>
-  <div class="mk-row"><span class="nm">스쿼트</span><span class="mt">3세트 × 12회</span><span class="ac">영상 ▶</span></div>
-  <div class="mk-row"><span class="nm">런지</span><span class="mt">3세트 × 10회</span><span class="ac">영상 ▶</span></div>
-  <div class="mk-row"><span class="nm">플랭크</span><span class="mt">3세트 × 40초</span><span class="ac">영상 ▶</span></div>
-  <div class="mk-save">루틴 보내기</div></div></div></div>
-  </div>
-
-  <div class="pf-card rev">
-    <div class="pf-text">
-      <span class="pf-tag member">👤 회원</span>
-      <div class="fn">루틴 수행</div>
-      <h4>영상 보고 따라하고,<br>카운터로 체크</h4>
-      <p>동작마다 영상이 붙어 있어 혼자서도 정확하게 수행합니다. 세트를 마칠 때마다 카운터로 체크하면 강사에게 공유됩니다.</p>
-    </div>
-    <div class="pf-visual"><div class="mk-phone"><div class="mk-screen">
-  <div class="mk-head"><b>오늘의 루틴</b><span>2/3 완료</span></div>
+    <div class="pf-visual"><div class="mk-duo"><div class="mk-tablet"><div class="mk-screen">
+  <div class="mk-head"><b>루틴 처방</b><span>김민지 회원님</span></div>
+  <div class="mk-row"><span class="nm">스쿼트</span><span class="mt">3세트 × 12회</span></div>
+  <div class="mk-row"><span class="nm">런지</span><span class="mt">3세트 × 10회</span></div>
+  <div class="mk-save">루틴 보내기</div></div></div><div class="duo-arrow">→</div><div class="mk-phone"><div class="mk-screen">
+  <div class="mk-head"><b>오늘의 루틴</b><span>1/2 완료</span></div>
   <div class="mk-block">
-    <div class="bk-title">스쿼트 <i>3세트 × 12회</i></div>
-    <div class="mk-photos" style="margin-bottom:8px"><div class="mk-photo" style="aspect-ratio:16/9">동작 영상 ▶</div></div>
+    <div class="bk-title">스쿼트 <i>영상 ▶</i></div>
     <div class="mk-btn-row" style="margin:0"><div class="mk-chip dark">12</div><div class="mk-chip dark">11</div><div class="mk-chip">—</div></div>
   </div>
-  <div class="mk-row"><span class="nm">런지</span><span class="mt">완료 ✓</span></div>
-  <div class="mk-row"><span class="nm">플랭크</span><span class="mt">완료 ✓</span></div></div></div></div>
+  <div class="mk-row"><span class="nm">런지</span><span class="mt">완료 ✓</span></div></div></div></div></div>
   </div>
-
-  <div class="pf-card">
-    <div class="pf-text">
-      <span class="pf-tag trainer">🏋️ 강사</span>
-      <div class="fn">커스텀 운동 DB</div>
-      <h4>우리 센터만의 운동을<br>직접 등록합니다</h4>
-      <p>기본 제공 운동 외에 내 방식의 운동을 등록해두면, 수업일지 작성과 루틴 처방에서 똑같이 검색해 쓸 수 있습니다.</p>
+  <div class="pc-grid">
+    <div class="pc-card">
+      <div class="pc-ico">👀</div>
+      <div class="pc-body"><span class="pf-tag trainer">🏋️ 강사</span><h5>했는지, 안 했는지 보입니다</h5><p>회원의 수행 기록이 강사에게 공유됩니다.</p></div>
     </div>
-    <div class="pf-visual"><div class="mk-tablet"><div class="mk-screen">
-  <div class="mk-head"><b>커스텀 운동 등록</b><span>내 운동 DB</span></div>
-  <div class="mk-block">
-    <div class="bk-title">밴드 사이드워크</div>
-    <div class="mk-filters" style="margin:2px 0 0"><span class="on">하체</span><span>둔근</span><span>밴드</span></div>
-  </div>
-  <div class="mk-row"><span class="nm">밴드 풀어파트</span><span class="mt">등 · 밴드</span><span class="ac">수정</span></div>
-  <div class="mk-row"><span class="nm">박스 점프 변형</span><span class="mt">하체 · 맨몸</span><span class="ac">수정</span></div>
-  <div class="mk-comment" style="margin-top:10px"><b>어디서나 검색됩니다</b>수업일지 작성과 루틴 처방에서 기본 운동과 똑같이 검색·선택할 수 있습니다.</div></div></div></div>
+    <div class="pc-card">
+      <div class="pc-ico">🗂️</div>
+      <div class="pc-body"><span class="pf-tag trainer">🏋️ 강사</span><h5>우리 센터만의 운동을 등록</h5><p>등록한 운동은 일지와 루틴에서 똑같이 검색됩니다.</p></div>
+    </div>
   </div>
 </div>
 <div class="container">
-  <div class="pd-cat">
-    <div class="cat-label">식단</div>
+  <div class="pd-cat" id="cat-diet">
+    <div class="cat-label"><i>04</i>식단</div>
     <h3>사진 한 장으로 이어지는 식단 코칭</h3>
   </div>
 
-  <div class="pf-card">
-    <div class="pf-text">
-      <span class="pf-tag member">👤 회원</span>
-      <div class="fn">식단 업로드</div>
-      <h4>찍어서 올리면 끝</h4>
-      <p>끼니마다 사진 한 장이면 기록이 됩니다. 앱에 쌓인 식단이 강사와의 대화 재료가 됩니다.</p>
-    </div>
-    <div class="pf-visual"><div class="mk-phone"><div class="mk-screen">
-  <div class="mk-head"><b>오늘의 식단</b><span>7월 22일 (화)</span></div>
-  <div class="mk-block"><div class="bk-title">아침 식단 기록 <i>08:12</i></div>
-    <div class="mk-photos"><div class="mk-photo">🍳</div></div></div>
-  <div class="mk-block"><div class="bk-title">점심 식단 기록 <i>12:40</i></div>
-    <div class="mk-photos"><div class="mk-photo">🥗</div><div class="mk-photo">🍗</div></div></div>
-  <div class="mk-block"><div class="bk-title">저녁 <i>미기록</i></div>
-    <div class="mk-photos"><div class="mk-photo add">＋</div></div></div></div></div></div>
-  </div>
-
   <div class="pf-card rev">
     <div class="pf-text">
-      <span class="pf-tag trainer">🏋️ 강사</span>
-      <div class="fn">피드백</div>
-      <h4>코멘트와 이모지로<br>바로 반응합니다</h4>
-      <p>회원이 올린 식단에 코멘트와 이모지로 피드백을 남깁니다. 식단 인증을 요청해 기록 습관을 만들 수도 있습니다.</p>
+      <span class="pf-tag both">🏋️👤 함께</span>
+      <div class="fn">식단 업로드 → 피드백</div>
+      <h4>회원은 찍어 올리고,<br>강사는 바로 반응합니다</h4>
+      <p>끼니별 사진 한 장이면 기록이 끝납니다. 강사의 코멘트와 이모지가 달리고, 인증 요청으로 기록 습관까지 만듭니다.</p>
     </div>
-    <div class="pf-visual"><div class="mk-tablet"><div class="mk-screen">
-  <div class="mk-head"><b>식단 피드 · 김민지 회원님</b><span>오늘 2건</span></div>
+    <div class="pf-visual"><div class="mk-duo"><div class="mk-phone"><div class="mk-screen">
+  <div class="mk-head"><b>오늘의 식단</b><span>7/22 (화)</span></div>
   <div class="mk-block"><div class="bk-title">점심 식단 기록 <i>12:40</i></div>
-    <div class="mk-photos" style="margin-bottom:8px"><div class="mk-photo">🥗</div><div class="mk-photo">🍗</div></div>
-    <div class="mk-comment" style="border:none;padding:0"><b>내 코멘트</b>단백질 구성 좋아요! 👍 저녁엔 탄수화물을 조금만 줄여볼까요?</div>
-  </div>
-  <div class="mk-btn-row"><div class="mk-chip">👍</div><div class="mk-chip">🔥</div><div class="mk-chip dark">코멘트 남기기</div></div></div></div></div>
+    <div class="mk-photos"><div class="mk-photo">🥗</div><div class="mk-photo">🍗</div></div></div></div></div><div class="duo-arrow">→</div><div class="mk-tablet"><div class="mk-screen">
+  <div class="mk-head"><b>식단 피드</b><span>김민지 회원님</span></div>
+  <div class="mk-comment"><b>내 코멘트</b>단백질 구성 좋아요! 👍 저녁엔 탄수화물을 조금만 줄여볼까요?</div>
+  <div class="mk-btn-row" style="margin-top:8px"><div class="mk-chip">👍</div><div class="mk-chip">🔥</div><div class="mk-chip dark">코멘트</div></div></div></div></div></div>
   </div>
 </div>
 <div class="container">
-  <div class="pd-cat">
-    <div class="cat-label">성장 데이터</div>
+  <div class="pd-cat" id="cat-grow">
+    <div class="cat-label"><i>05</i>성장 데이터</div>
     <h3>느낌이 아니라 숫자로 보여주는 변화</h3>
-  </div>
-
-  <div class="pf-card">
-    <div class="pf-text">
-      <span class="pf-tag trainer">🏋️ 강사</span>
-      <div class="fn">체성분 · 체형 기록</div>
-      <h4>인바디 수치와 3각도 사진이<br>시간순으로 쌓입니다</h4>
-      <p>체중 · 골격근량 · 체지방률을 입력하고 정면 · 측면 · 후면 사진을 등록합니다. 이전 기록과 나란히 비교하면 변화가 눈에 보입니다.</p>
-    </div>
-    <div class="pf-visual"><div class="mk-tablet"><div class="mk-screen">
-  <div class="mk-head"><b>체성분 · 체형 기록</b><span>김민지 회원님</span></div>
-  <div class="mk-stats">
-    <div class="mk-stat"><b>62.4</b><span>체중(kg)</span></div>
-    <div class="mk-stat"><b>24.1</b><span>골격근량(kg)</span></div>
-    <div class="mk-stat mint"><b>21.8</b><span>체지방률(%)</span></div>
-  </div>
-  <div class="mk-block"><div class="bk-title">체형 기록 <i>3각도</i></div>
-    <div class="mk-photos"><div class="mk-photo">정면</div><div class="mk-photo">측면</div><div class="mk-photo">후면</div></div></div></div></div></div>
-  </div>
-
-  <div class="pf-card rev">
-    <div class="pf-text">
-      <span class="pf-tag member">👤 회원</span>
-      <div class="fn">성장 통계</div>
-      <h4>내 변화를<br>그래프로 확인합니다</h4>
-      <p>수업 횟수, 기록한 날, 체성분 추이가 그래프로 정리됩니다. 성장이 보이면 운동을 계속할 이유가 됩니다.</p>
-    </div>
-    <div class="pf-visual"><div class="mk-phone"><div class="mk-screen">
-  <div class="mk-head"><b>성장 통계</b><span>최근 3개월</span></div>
-  <div class="mk-stats">
-    <div class="mk-stat"><b>32</b><span>수업 횟수</span></div>
-    <div class="mk-stat"><b>87일</b><span>기록한 날</span></div>
-  </div>
-  <div class="mk-bars">
-    <div class="br"><em>5월</em><i style="width:72%"></i><b>25.0%</b></div>
-    <div class="br"><em>6월</em><i style="width:63%"></i><b>23.4%</b></div>
-    <div class="br"><em>7월</em><i class="mint" style="width:55%"></i><b>21.8%</b></div>
-  </div>
-  <div class="mk-datetitle" style="text-align:center;margin-top:8px">체지방률 변화 추이</div></div></div></div>
   </div>
 
   <div class="pf-card">
@@ -572,7 +432,7 @@
       <span class="pf-tag trainer">🏋️ 강사</span>
       <div class="fn">상담 근거</div>
       <h4>재등록 대화가<br>쉬워집니다</h4>
-      <p>수업일지와 기록이 쌓이면 회원의 성과가 데이터로 정리됩니다. 재등록 상담에서 말이 아니라 숫자로 보여줄 수 있습니다.</p>
+      <p>수업 · 체성분 · 기록이 쌓여 성과 리포트가 됩니다. 재등록 상담에서 말이 아니라 숫자로 보여줍니다.</p>
     </div>
     <div class="pf-visual"><div class="mk-tablet"><div class="mk-screen">
   <div class="mk-head"><b>인사이트 · 김민지 회원님</b><span>PT 성과 리포트</span></div>
@@ -581,49 +441,62 @@
     <div class="mk-stat mint"><b>+18%</b><span>운동 볼륨</span></div>
     <div class="mk-stat mint"><b>-3.2%p</b><span>체지방률</span></div>
   </div>
-  <div class="mk-comment"><b>재등록 상담에서</b>“3개월간 이만큼 좋아지셨어요” — 말이 아니라 데이터가 근거가 됩니다.</div></div></div></div>
+  <div class="mk-bars">
+    <div class="br"><em>5월</em><i style="width:72%"></i><b>25.0%</b></div>
+    <div class="br"><em>6월</em><i style="width:63%"></i><b>23.4%</b></div>
+    <div class="br"><em>7월</em><i class="mint" style="width:55%"></i><b>21.8%</b></div>
+  </div></div></div></div>
+  </div>
+  <div class="pc-grid">
+    <div class="pc-card">
+      <div class="pc-ico">📊</div>
+      <div class="pc-body"><span class="pf-tag trainer">🏋️ 강사</span><h5>인바디와 3각도 사진이 시간순으로</h5><p>이전 기록과 나란히 비교하면 변화가 보입니다.</p></div>
+    </div>
+    <div class="pc-card">
+      <div class="pc-ico">📈</div>
+      <div class="pc-body"><span class="pf-tag member">👤 회원</span><h5>내 변화를 그래프로</h5><p>수업 횟수 · 운동일 · 체성분 추이가 정리됩니다.</p></div>
+    </div>
+    <div class="pc-card">
+      <div class="pc-ico">🤖</div>
+      <div class="pc-body"><span class="pf-tag trainer">🏋️ 강사</span><span class="pf-tag ai">✨ AI</span><h5>사진에서 체형 밸런스를 읽어냅니다</h5><p>촬영한 체형 사진을 AI가 분석해 리포트로 만듭니다.</p></div>
+    </div>
+    <div class="pc-card">
+      <div class="pc-ico">💧</div>
+      <div class="pc-body"><span class="pf-tag member">👤 회원</span><h5>컨디션 · 수면 · 수분 · 걸음까지</h5><p>매일의 몸 상태가 링 게이지로 쌓입니다.</p></div>
+    </div>
   </div>
 </div>
 <div class="container">
-  <div class="pd-cat">
-    <div class="cat-label">소통</div>
+  <div class="pd-cat" id="cat-comm">
+    <div class="cat-label"><i>06</i>소통</div>
     <h3>연락처 공개 없이, 채널 하나로</h3>
   </div>
 
-  <div class="pf-card">
+  <div class="pf-card rev">
     <div class="pf-text">
       <span class="pf-tag both">🏋️👤 함께</span>
       <div class="fn">1:1 채팅</div>
-      <h4>개인 연락처를<br>공개하지 않아도 됩니다</h4>
-      <p>일정 변경 요청, 운동 질문, 루틴 인증까지 — 회원과의 모든 대화가 앱 안에서 이루어집니다. 퇴근 후의 카톡 부담이 사라집니다.</p>
+      <h4>개인 연락처 없이<br>모든 대화가 앱 안에서</h4>
+      <p>일정 조율부터 운동 질문까지 채팅 하나로 해결합니다. 퇴근 후의 카톡 부담이 사라집니다.</p>
     </div>
     <div class="pf-visual"><div class="mk-phone"><div class="mk-screen">
   <div class="mk-head"><b>박준형 강사</b><span>1:1 채팅</span></div>
   <div class="mk-chat">
     <div class="mk-bubble me">쌤 오늘 좀 늦을 것 같아요! 10분만요 🙏</div>
     <div class="mk-bubble you">네 천천히 오세요~ 도착하면 폼롤러로 몸 풀고 있어요.</div>
-    <div class="mk-bubble me">넵! 그리고 어제 루틴 다 했어요 💪</div>
-    <div class="mk-bubble you">확인했어요. 플랭크 자세 많이 좋아졌던데요? 오늘 이어서 갑니다.</div>
+    <div class="mk-bubble me">넵! 어제 루틴도 다 했어요 💪</div>
+    <div class="mk-bubble you">확인했어요. 플랭크 자세 많이 좋아졌던데요?</div>
   </div></div></div></div>
   </div>
-
-  <div class="pf-card rev">
-    <div class="pf-text">
-      <span class="pf-tag both">🏋️👤 함께</span>
-      <div class="fn">공지 발송</div>
-      <h4>단체 문자 비용 없이<br>앱 푸시로</h4>
-      <p>휴무 안내, 이벤트, 센터 소식을 푸시 알림으로 전달합니다. 몇 명이 열람했는지까지 확인됩니다.</p>
+  <div class="pc-grid">
+    <div class="pc-card">
+      <div class="pc-ico">📣</div>
+      <div class="pc-body"><span class="pf-tag trainer">🏋️ 강사</span><h5>단체 문자 비용 없이 푸시로</h5><p>휴무 · 이벤트 소식을 보내고 열람까지 확인합니다.</p></div>
     </div>
-    <div class="pf-visual"><div class="mk-tablet"><div class="mk-screen">
-  <div class="mk-head"><b>공지 작성</b><span>대상: 전체 회원</span></div>
-  <div class="mk-block"><div class="bk-title">8월 여름휴가 휴무 안내</div>
-    <div class="mk-sub">8/11(월)~8/13(수) 휴무입니다. 해당 주 수업은 미리 보강 예약을 잡아드릴게요.</div></div>
-  <div class="mk-stats">
-    <div class="mk-stat"><b>48</b><span>발송</span></div>
-    <div class="mk-stat"><b>41</b><span>열람</span></div>
-    <div class="mk-stat mint"><b>85%</b><span>열람율</span></div>
-  </div>
-  <div class="mk-save">푸시 알림으로 발송하기</div></div></div></div>
+    <div class="pc-card">
+      <div class="pc-ico">🗒️</div>
+      <div class="pc-body"><span class="pf-tag trainer">🏋️ 강사</span><h5>팀의 인수인계가 한곳에</h5><p>기구 점검 · 공유 사항을 워크스페이스 전체가 함께 봅니다.</p></div>
+    </div>
   </div>
 </div>
 
@@ -638,9 +511,9 @@
 </section>
 
 <div class="container">
-  <div class="pd-cat">
-    <div class="cat-label">운영 대시보드</div>
-    <h3>출근하면 오늘 할 일이 정해져 있습니다</h3>
+  <div class="pd-cat" id="cat-dash">
+    <div class="cat-label"><i>01</i>운영 대시보드</div>
+    <h3>매일 아침, 센터의 상태가 한눈에</h3>
   </div>
 
   <div class="pf-card">
@@ -648,7 +521,7 @@
       <span class="pf-tag admin">🏢 관리자</span>
       <div class="fn">업무 알림</div>
       <h4>이탈 · 만료 · 신규를<br>앱이 먼저 알려줍니다</h4>
-      <p>출석이 끊긴 회원, 수강권 만료가 임박한 회원, 신규 발급 내역을 매일 아침 알림으로 받습니다. 알림에서 정산 입력이나 채팅으로 바로 이동합니다.</p>
+      <p>출석이 끊긴 회원, 만료 임박 수강권, 신규 발급을 매일 아침 알림으로 받습니다. 알림에서 정산 · 채팅으로 바로 이동합니다.</p>
     </div>
     <div class="pf-visual"><div class="mk-desk"><div class="mk-bar"><i></i><i></i><i></i></div><div class="mk-screen">
   <div class="mk-head"><b>업무 알림</b><span>오늘 12건</span></div>
@@ -657,76 +530,33 @@
   <div class="mk-row"><span class="nm">이O호</span><span class="mt">수강권 3회 남음 · 만료 임박</span><span class="ac">정산 입력</span></div>
   <div class="mk-row"><span class="nm">박O아</span><span class="mt">PT 20회권 신규 발급</span><span class="ac">확인</span></div></div></div></div>
   </div>
-
-  <div class="pf-card rev">
-    <div class="pf-text">
-      <span class="pf-tag admin">🏢 관리자</span>
-      <div class="fn">매출 현황</div>
-      <h4>이번 달 판매를<br>유형별로 확인합니다</h4>
-      <p>시설이용권과 수업권이 각각 몇 건, 얼마나 팔렸는지 한 화면에서 봅니다. 이번 달 흐름이 신규 덕분인지 재등록 덕분인지 구분됩니다.</p>
+  <div class="pc-grid">
+    <div class="pc-card">
+      <div class="pc-ico">💰</div>
+      <div class="pc-body"><span class="pf-tag admin">🏢 관리자</span><h5>이번 달 판매를 유형별로</h5><p>시설이용권 · 수업권 건수와 금액이 한 화면에 잡힙니다.</p></div>
     </div>
-    <div class="pf-visual"><div class="mk-desk"><div class="mk-bar"><i></i><i></i><i></i></div><div class="mk-screen">
-  <div class="mk-head"><b>회원권 판매 현황 (이번달)</b><span>7월</span></div>
-  <div class="mk-stats">
-    <div class="mk-stat"><b>845만</b><span>판매 금액(원)</span></div>
-    <div class="mk-stat"><b>6건</b><span>시설이용권</span></div>
-    <div class="mk-stat"><b>14건</b><span>수업권</span></div>
-  </div>
-  <div class="mk-bars">
-    <div class="br"><em>수업권</em><i style="width:70%"></i><b>620만</b></div>
-    <div class="br"><em>시설</em><i class="blue" style="width:26%"></i><b>225만</b></div>
-  </div></div></div></div>
-  </div>
-
-  <div class="pf-card">
-    <div class="pf-text">
-      <span class="pf-tag admin">🏢 관리자</span>
-      <div class="fn">운영 위험도</div>
-      <h4>잠재부채까지<br>보입니다</h4>
-      <p>이미 결제받았지만 아직 제공하지 않은 수업 금액이 자동 계산됩니다. 환불 리스크가 커지기 전에 소진 관리를 시작할 수 있습니다.</p>
+    <div class="pc-card">
+      <div class="pc-ico">⚠️</div>
+      <div class="pc-body"><span class="pf-tag admin">🏢 관리자</span><h5>잠재부채까지 보입니다</h5><p>미소진 수업 금액이 자동 계산되어 환불 리스크를 미리 관리합니다.</p></div>
     </div>
-    <div class="pf-visual"><div class="mk-desk"><div class="mk-bar"><i></i><i></i><i></i></div><div class="mk-screen">
-  <div class="mk-head"><b>운영 위험도</b><span>매주 월요일 확인 권장</span></div>
-  <div class="mk-stats">
-    <div class="mk-stat"><b style="color:#C65A2E">3명</b><span>이탈 위험</span></div>
-    <div class="mk-stat"><b>1,230만</b><span>잠재부채(원)</span></div>
-    <div class="mk-stat"><b>95회</b><span>미소진 수업</span></div>
-  </div>
-  <div class="mk-comment"><b>잠재부채란?</b>이미 결제받았지만 아직 제공하지 않은 수업의 금액. 환불 요청이 몰리면 그대로 현금 부담이 됩니다.</div></div></div></div>
-  </div>
-
-  <div class="pf-card rev">
-    <div class="pf-text">
-      <span class="pf-tag admin">🏢 관리자</span>
-      <div class="fn">공지 성과</div>
-      <h4>보낸 공지가 읽혔는지<br>숫자로 확인합니다</h4>
-      <p>발송 · 열람 · 액션 건수와 열람율이 집계됩니다. 열람율이 낮으면 발송 시간을, 액션율이 낮으면 내용을 바꿔볼 근거가 생깁니다.</p>
+    <div class="pc-card">
+      <div class="pc-ico">📬</div>
+      <div class="pc-body"><span class="pf-tag admin">🏢 관리자</span><h5>보낸 공지가 읽혔는지 숫자로</h5><p>발송 · 열람 · 액션율이 집계됩니다.</p></div>
     </div>
-    <div class="pf-visual"><div class="mk-desk"><div class="mk-bar"><i></i><i></i><i></i></div><div class="mk-screen">
-  <div class="mk-head"><b>알림 현황</b><span>최근 30일</span></div>
-  <div class="mk-stats">
-    <div class="mk-stat"><b>120</b><span>발송</span></div>
-    <div class="mk-stat"><b>96</b><span>열람</span></div>
-    <div class="mk-stat"><b>41</b><span>액션</span></div>
-  </div>
-  <div class="mk-bars">
-    <div class="br"><em>열람율</em><i class="mint" style="width:66%"></i><b>80%</b></div>
-    <div class="br"><em>액션율</em><i class="blue" style="width:29%"></i><b>34%</b></div>
-  </div></div></div></div>
   </div>
 </div>
 <div class="container">
-  <div class="pd-cat">
-    <div class="cat-label">회원 관리</div>
+  <div class="pd-cat" id="cat-members">
+    <div class="cat-label"><i>02</i>회원 관리</div>
     <h3>담당이 없어도, 전체가 보입니다</h3>
   </div>
 
-  <div class="pf-card">
+  <div class="pf-card rev">
     <div class="pf-text">
       <span class="pf-tag admin">🏢 관리자</span>
       <div class="fn">전체 회원 조회</div>
       <h4>센터의 모든 회원을<br>한 화면에서</h4>
-      <p>활성 · 일시정지 · 만료 · 미배정 필터로 걸러보고, 이름과 연락처로 검색합니다. 담당 강사와 상품 현황이 목록에서 바로 보입니다.</p>
+      <p>활성 · 만료 · 미배정 필터로 걸러보고 이름으로 검색합니다. 담당 강사와 상품 현황이 목록에서 바로 보입니다.</p>
     </div>
     <div class="pf-visual"><div class="mk-desk"><div class="mk-bar"><i></i><i></i><i></i></div><div class="mk-screen">
   <div class="mk-head"><b>전체 회원</b><span>총 128명</span></div>
@@ -738,42 +568,20 @@
     <tr><td>박지훈</td><td><b style="color:#C65A2E">미배정</b></td><td>~10/02</td><td>—</td></tr>
   </table></div></div></div>
   </div>
-
-  <div class="pf-card rev">
-    <div class="pf-text">
-      <span class="pf-tag admin">🏢 관리자</span>
-      <div class="fn">담당 강사 배정</div>
-      <h4>미배정 회원을<br>강사에게 연결합니다</h4>
-      <p>강사별 현재 담당 인원을 보면서 배정합니다. 담당이 바뀌어도 이전 수업일지와 기록은 새 담당자에게 그대로 이어집니다.</p>
+  <div class="pc-grid">
+    <div class="pc-card">
+      <div class="pc-ico">🤝</div>
+      <div class="pc-body"><span class="pf-tag admin">🏢 관리자</span><h5>미배정 회원을 강사에게 연결</h5><p>담당이 바뀌어도 기록은 그대로 이어집니다.</p></div>
     </div>
-    <div class="pf-visual"><div class="mk-desk"><div class="mk-bar"><i></i><i></i><i></i></div><div class="mk-screen">
-  <div class="mk-head"><b>담당 강사 배정</b><span>미배정 1명</span></div>
-  <div class="mk-row"><span class="nm">박준형</span><span class="mt">완료 214건 · 현재 담당 18명</span><span class="ac">배정</span></div>
-  <div class="mk-row"><span class="nm">최유나</span><span class="mt">완료 189건 · 현재 담당 15명</span><span class="ac">배정</span></div>
-  <div class="mk-row"><span class="nm">이수진</span><span class="mt">완료 96건 · 현재 담당 9명</span><span class="ac">배정</span></div>
-  <div class="mk-toast">✓ 박지훈님에게 배정했어요</div></div></div></div>
-  </div>
-
-  <div class="pf-card">
-    <div class="pf-text">
-      <span class="pf-tag admin">🏢 관리자</span>
-      <div class="fn">회원 구성 분석</div>
-      <h4>누가, 어떤 상품으로<br>다니는지 그래프로</h4>
-      <p>성별 · 연령대 구성과 상품 유형 분포가 도넛 그래프로 정리됩니다. 어떤 층에 어떤 상품을 제안할지 판단이 쉬워집니다.</p>
+    <div class="pc-card">
+      <div class="pc-ico">🧭</div>
+      <div class="pc-body"><span class="pf-tag admin">🏢 관리자</span><h5>누가, 어떤 상품으로 다니는지</h5><p>성별 · 연령 · 상품 분포가 그래프로 정리됩니다.</p></div>
     </div>
-    <div class="pf-visual"><div class="mk-desk"><div class="mk-bar"><i></i><i></i><i></i></div><div class="mk-screen">
-  <div class="mk-head"><b>회원 구성 분석</b><span>현재 기준</span></div>
-  <div class="mk-donut-wrap">
-    <div class="mk-donut-card"><b>활성 회원 구성</b><div class="mk-donut d1"></div>
-      <div class="mk-legend">■ 남성 42% · <span style="color:#4F8EF7">■</span> 여성 58%</div></div>
-    <div class="mk-donut-card"><b>회원권 유형 분포</b><div class="mk-donut d2"></div>
-      <div class="mk-legend"><span style="color:#1FDBA8">■</span> 개인수업 38% · ■ 시설 34% · <span style="color:#9AA5B4">■</span> 그룹 28%</div></div>
-  </div></div></div></div>
   </div>
 </div>
 <div class="container">
-  <div class="pd-cat">
-    <div class="cat-label">정산과 팀</div>
+  <div class="pd-cat" id="cat-payroll">
+    <div class="cat-label"><i>03</i>정산과 팀</div>
     <h3>월말 정산, 화면 안에서 끝냅니다</h3>
   </div>
 
@@ -782,65 +590,39 @@
       <span class="pf-tag admin">🏢 관리자</span>
       <div class="fn">급여 자동 계산</div>
       <h4>수업 건수가<br>곧 정산입니다</h4>
-      <p>완료된 수업이 자동 집계되어 단가제 · 비율제로 수당이 계산됩니다. 사업소득세 3.3% 원천징수까지 반영된 실지급액이 나옵니다.</p>
+      <p>완료된 수업이 자동 집계되어 단가제 · 비율제로 계산됩니다. 원천징수 3.3%까지 반영된 실지급액이 나옵니다.</p>
     </div>
     <div class="pf-visual"><div class="mk-desk"><div class="mk-bar"><i></i><i></i><i></i></div><div class="mk-screen">
   <div class="mk-head"><b>급여 정산 · 박준형</b><span>7월분</span></div>
   <div class="mk-block"><div class="bk-title">개인수업 정산 <i>단가제</i></div>
     <div class="mk-sub">회당 35,000원 × 완료 42회 = <b style="color:#282828">1,470,000원</b></div></div>
-  <div class="mk-block"><div class="bk-title">그룹수업 정산 <i>18건</i></div>
-    <div class="mk-sub">건별 입력 · [전체 입력]으로 일괄 적용 가능</div></div>
   <div class="mk-block"><div class="bk-title">사업소득세 원천징수 <i>3.3% 적용</i></div>
-    <div class="mk-sub">공제 예상액 <b style="color:#C65A2E">-81,510원</b></div></div></div></div></div>
+    <div class="mk-sub">공제 예상액 <b style="color:#C65A2E">-81,510원</b></div></div>
+  <div class="mk-save">명세서 발송</div></div></div></div>
+  </div>
+  <div class="pc-grid">
+    <div class="pc-card">
+      <div class="pc-ico">📨</div>
+      <div class="pc-body"><span class="pf-tag admin">🏢 관리자</span><h5>명세서는 버튼 하나로 전달</h5><p>발송 이력이 남아 서로 확인할 일이 없습니다.</p></div>
+    </div>
+    <div class="pc-card">
+      <div class="pc-ico">🔑</div>
+      <div class="pc-body"><span class="pf-tag admin">🏢 관리자</span><h5>초대부터 권한까지 한곳에서</h5><p>고용 정보와 권한 등급으로 접근을 관리합니다.</p></div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="pd-cat" id="cat-ai">
+    <div class="cat-label"><i>04</i>AI 어시스턴트</div>
+    <h3>물어보면 데이터로 답합니다</h3>
   </div>
 
   <div class="pf-card rev">
     <div class="pf-text">
-      <span class="pf-tag admin">🏢 관리자</span>
-      <div class="fn">명세서 발송</div>
-      <h4>버튼 하나로<br>팀원에게 전달합니다</h4>
-      <p>기본급 · 수당 · 공제액이 정리된 명세서를 미리 확인하고 발송합니다. 발송 이력이 남아 서로 확인할 일이 없습니다.</p>
-    </div>
-    <div class="pf-visual"><div class="mk-desk"><div class="mk-bar"><i></i><i></i><i></i></div><div class="mk-screen">
-  <div class="mk-head"><b>급여명세서</b><span>7월분 · 발송 전</span></div>
-  <table class="mk-table">
-    <tr><th>항목</th><th style="text-align:right">금액</th></tr>
-    <tr><td>기본급</td><td style="text-align:right">1,800,000</td></tr>
-    <tr><td>개인수업 수당</td><td style="text-align:right">1,470,000</td></tr>
-    <tr><td>공제 (3.3%)</td><td style="text-align:right;color:#C65A2E">-107,910</td></tr>
-    <tr><td><b>실수령액</b></td><td style="text-align:right"><b>3,162,090</b></td></tr>
-  </table>
-  <div class="mk-save">명세서 발송</div></div></div></div>
-  </div>
-
-  <div class="pf-card">
-    <div class="pf-text">
-      <span class="pf-tag admin">🏢 관리자</span>
-      <div class="fn">팀원 · 권한 관리</div>
-      <h4>초대부터 권한까지<br>한곳에서</h4>
-      <p>팀원을 초대하고 입사일 · 계약 형태 · 기본급 같은 고용 정보를 기록합니다. 권한 등급으로 운영 데이터 접근을 관리합니다.</p>
-    </div>
-    <div class="pf-visual"><div class="mk-desk"><div class="mk-bar"><i></i><i></i><i></i></div><div class="mk-screen">
-  <div class="mk-head"><b>팀원 관리</b><span>워크스페이스</span></div>
-  <div class="mk-filters"><span class="on">재직 5</span><span>퇴직 1</span><span>대기 1</span></div>
-  <div class="mk-row"><span class="nm">김대표</span><span class="mt">대표 · 2023.01 입사</span><span class="ac">소유자</span></div>
-  <div class="mk-row"><span class="nm">박준형</span><span class="mt">강사 · 2024.03 입사</span><span class="ac">권한</span></div>
-  <div class="mk-row"><span class="nm">최유나</span><span class="mt">관리자 · 2023.09 입사</span><span class="ac">권한</span></div>
-  <div class="mk-save">＋ 팀원 초대</div></div></div></div>
-  </div>
-</div>
-<div class="container">
-  <div class="pd-cat">
-    <div class="cat-label">AI 어시스턴트</div>
-    <h3>물어보면 데이터로 답합니다</h3>
-  </div>
-
-  <div class="pf-card">
-    <div class="pf-text">
-      <span class="pf-tag admin">🏢 관리자</span>
+      <span class="pf-tag admin">🏢 관리자</span><span class="pf-tag ai">✨ AI</span>
       <div class="fn">자연어 질문</div>
-      <h4>"이번 달 매출 왜 줄었어?"<br>질문하면 즉시</h4>
-      <p>매출 · 회원 · 정산에 대해 말로 물어보면 센터의 실제 데이터를 근거로 답합니다. 답변에서 해당 화면으로 바로 이동합니다.</p>
+      <h4>"이번 달 매출 왜 줄었어?"<br>물어보면 즉시</h4>
+      <p>센터의 실제 데이터를 근거로 답하고, 답변에서 해당 화면으로 바로 이동합니다.</p>
     </div>
     <div class="pf-visual"><div class="mk-desk"><div class="mk-bar"><i></i><i></i><i></i></div><div class="mk-screen">
   <div class="mk-head"><b>AI 어시스턴트</b><span>센터 데이터 연결됨</span></div>
@@ -851,20 +633,11 @@
     <div class="mk-bubble aians">42건 완료, 예정 6건입니다. 작성률은 96%예요.</div>
   </div></div></div></div>
   </div>
-
-  <div class="pf-card rev">
-    <div class="pf-text">
-      <span class="pf-tag admin">🏢 관리자</span>
-      <div class="fn">팀 가시성</div>
-      <h4>강사별 작성률과<br>팀 전체 일정을 한눈에</h4>
-      <p>강사별 수업 완료 건수와 수업일지 작성률이 집계됩니다. 일정 탭의 팀 전체 보기로 시간대별 강사 배치까지 확인합니다.</p>
+  <div class="pc-grid single">
+    <div class="pc-card">
+      <div class="pc-ico">🕒</div>
+      <div class="pc-body"><span class="pf-tag admin">🏢 관리자</span><h5>강사별 작성률과 팀 일정을 한눈에</h5><p>수업 완료 건수와 시간대별 배치까지 — 관리 공백이 보입니다.</p></div>
     </div>
-    <div class="pf-visual"><div class="mk-desk"><div class="mk-bar"><i></i><i></i><i></i></div><div class="mk-screen">
-  <div class="mk-head"><b>강사별 현황</b><span>7월</span></div>
-  <div class="mk-row"><span class="nm">박준형</span><span class="mt">완료 42건 · 현재 담당 18명</span><span class="ac">작성률 96%</span></div>
-  <div class="mk-row"><span class="nm">최유나</span><span class="mt">완료 38건 · 현재 담당 15명</span><span class="ac">작성률 88%</span></div>
-  <div class="mk-row"><span class="nm">김태호</span><span class="mt">완료 21건 · 현재 담당 9명</span><span class="ac warn">작성률 71%</span></div>
-  <div class="mk-comment" style="margin-top:8px"><b>일정 탭 · 팀 전체 보기</b>시간대별 강사 배치를 컬럼으로 — 몰리는 시간과 비는 시간이 보입니다.</div></div></div></div>
   </div>
 </div>
 <div class="pd-dark-end"></div>

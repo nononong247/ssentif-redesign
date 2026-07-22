@@ -23,23 +23,28 @@
   border-bottom: 1px solid var(--border);
 }
 .guide-hero h1 { font-size: clamp(1.7rem, 3vw, 2.3rem); margin-bottom: 10px; }
-/* 서비스 구조 스트립 (탭 전환과 무관하게 3개 페이지 전부 동일) */
+/* 서비스 구조 스트립 — 지원 기기 중심 (3개 페이지 전부 동일) */
 .guide-structure {
-  display: flex; align-items: stretch; gap: 30px;
-  margin: 0 0 30px; padding: 4px 0;
+  display: flex; align-items: stretch; gap: 34px;
+  margin: 0 0 30px; padding: 6px 0;
   overflow-x: auto;
 }
-.gs-group { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.gs-group { display: flex; flex-direction: column; gap: 10px; }
 .gs-tag {
-  font-size: 11px; font-weight: 900; letter-spacing: 0.06em; text-transform: uppercase;
-  color: var(--gray-400);
+  font-size: 11px; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--gray-400); text-align: center;
 }
-.gs-row { display: flex; gap: 26px; }
-.gs-item { display: flex; flex-direction: column; align-items: center; gap: 5px; min-width: 66px; }
-.gs-icon { font-size: 30px; line-height: 1; }
-.gs-label { font-size: 12.5px; font-weight: 800; color: var(--gray-800); white-space: nowrap; }
-.gs-device { font-size: 10.5px; color: var(--gray-400); white-space: nowrap; }
-.gs-divider { width: 1px; align-self: center; height: 54px; background: var(--border); }
+.gs-row { display: flex; gap: 12px; }
+.gs-card {
+  display: flex; flex-direction: column; align-items: center; gap: 7px;
+  padding: 14px 18px; min-width: 124px;
+  background: var(--white); border: 1px solid var(--border); border-radius: 14px;
+}
+.gs-devices { display: flex; align-items: flex-end; gap: 7px; height: 30px; }
+.gs-devices svg { display: block; color: var(--gray-800); }
+.gs-name { font-size: 13px; font-weight: 800; color: var(--black); white-space: nowrap; }
+.gs-spec { font-size: 11.5px; font-weight: 600; color: var(--gray-400); white-space: nowrap; }
+.gs-divider { width: 1px; align-self: stretch; background: var(--border); margin-top: 26px; }
 
 /* 모드 전환 탭 */
 .mode-tabs { display: flex; gap: 4px; }
@@ -178,15 +183,21 @@
       <div class="gs-group">
         <div class="gs-tag">코치앱</div>
         <div class="gs-row">
-          <div class="gs-item">
-            <span class="gs-icon">🏋️</span>
-            <span class="gs-label">강사 모드</span>
-            <span class="gs-device">태블릿 · 모바일 앱</span>
+          <div class="gs-card">
+            <div class="gs-devices">
+            <svg width="23" height="29" viewBox="0 0 23 29" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="1" width="21" height="27" rx="2.6"/><line x1="9" y1="24" x2="14" y2="24"/></svg>
+            <svg width="17" height="26" viewBox="0 0 17 26" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="1" width="15" height="24" rx="3"/><line x1="6.5" y1="21" x2="10.5" y2="21"/></svg>
+            </div>
+            <span class="gs-name">강사 모드</span>
+            <span class="gs-spec">태블릿 · 모바일</span>
           </div>
-          <div class="gs-item">
-            <span class="gs-icon">🏢</span>
-            <span class="gs-label">관리자 모드</span>
-            <span class="gs-device">태블릿 · PC</span>
+          <div class="gs-card">
+            <div class="gs-devices">
+            <svg width="30" height="27" viewBox="0 0 30 27" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="1" width="28" height="19" rx="2.2"/><line x1="15" y1="20" x2="15" y2="24"/><line x1="9.5" y1="25.5" x2="20.5" y2="25.5"/></svg>
+            <svg width="23" height="29" viewBox="0 0 23 29" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="1" width="21" height="27" rx="2.6"/><line x1="9" y1="24" x2="14" y2="24"/></svg>
+            </div>
+            <span class="gs-name">관리자 모드</span>
+            <span class="gs-spec">PC · 태블릿</span>
           </div>
         </div>
       </div>
@@ -194,10 +205,12 @@
       <div class="gs-group">
         <div class="gs-tag">회원 앱</div>
         <div class="gs-row">
-          <div class="gs-item">
-            <span class="gs-icon">👤</span>
-            <span class="gs-label">회원 모드</span>
-            <span class="gs-device">모바일</span>
+          <div class="gs-card">
+            <div class="gs-devices">
+            <svg width="17" height="26" viewBox="0 0 17 26" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="1" width="15" height="24" rx="3"/><line x1="6.5" y1="21" x2="10.5" y2="21"/></svg>
+            </div>
+            <span class="gs-name">회원 모드</span>
+            <span class="gs-spec">모바일</span>
           </div>
         </div>
       </div>

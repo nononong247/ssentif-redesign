@@ -29,11 +29,7 @@
   margin: 0 0 30px; padding: 6px 0;
   overflow-x: auto;
 }
-.gs-group { display: flex; flex-direction: column; gap: 10px; }
-.gs-tag {
-  font-size: 11px; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase;
-  color: var(--gray-400); text-align: center;
-}
+.gs-group { display: flex; }
 .gs-row { display: flex; gap: 12px; }
 .gs-card {
   display: flex; flex-direction: column; align-items: center; gap: 7px;
@@ -44,7 +40,7 @@
 .gs-devices svg { display: block; color: var(--gray-800); }
 .gs-name { font-size: 13px; font-weight: 800; color: var(--black); white-space: nowrap; }
 .gs-spec { font-size: 11.5px; font-weight: 600; color: var(--gray-400); white-space: nowrap; }
-.gs-divider { width: 1px; align-self: stretch; background: var(--border); margin-top: 26px; }
+.gs-divider { width: 1px; align-self: stretch; background: var(--border); }
 
 /* 모드 전환 탭 */
 .mode-tabs { display: flex; gap: 4px; }
@@ -181,7 +177,6 @@
     <h1>센티프 사용 가이드</h1>
     <div class="guide-structure">
       <div class="gs-group">
-        <div class="gs-tag">코치앱</div>
         <div class="gs-row">
           <div class="gs-card">
             <div class="gs-devices">
@@ -203,7 +198,6 @@
       </div>
       <div class="gs-divider"></div>
       <div class="gs-group">
-        <div class="gs-tag">회원 앱</div>
         <div class="gs-row">
           <div class="gs-card">
             <div class="gs-devices">

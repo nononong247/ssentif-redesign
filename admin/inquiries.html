@@ -322,16 +322,16 @@ tbody td { padding: 10px 14px; font-size: 12.5px; color: #374151; vertical-align
         <button class="filter-tab active" data-filter="all" onclick="setFilter('all',this)">
           전체 <span class="tab-count" id="cnt-all">8</span>
         </button>
-        <button class="filter-tab" data-filter="new" onclick="setFilter('new',this)">
+        <button class="filter-tab" data-filter="신규" onclick="setFilter('신규',this)">
           신규 <span class="tab-count" id="cnt-new">3</span>
         </button>
-        <button class="filter-tab" data-filter="review" onclick="setFilter('review',this)">
+        <button class="filter-tab" data-filter="검토중" onclick="setFilter('검토중',this)">
           검토중 <span class="tab-count" id="cnt-review">2</span>
         </button>
-        <button class="filter-tab" data-filter="done" onclick="setFilter('done',this)">
+        <button class="filter-tab" data-filter="완료" onclick="setFilter('완료',this)">
           완료 <span class="tab-count" id="cnt-done">2</span>
         </button>
-        <button class="filter-tab" data-filter="hold" onclick="setFilter('hold',this)">
+        <button class="filter-tab" data-filter="보류" onclick="setFilter('보류',this)">
           보류 <span class="tab-count" id="cnt-hold">1</span>
         </button>
       </div>
@@ -427,10 +427,10 @@ tbody td { padding: 10px 14px; font-size: 12.5px; color: #374151; vertical-align
       <div class="modal-status-wrap">
         <span class="modal-status-label">상태 변경</span>
         <select class="modal-status-select" id="modalStatus" onchange="updateStatusFromModal()">
-          <option value="new">신규</option>
-          <option value="review">검토중</option>
-          <option value="done">완료</option>
-          <option value="hold">보류</option>
+          <option value="신규">신규</option>
+          <option value="검토중">검토중</option>
+          <option value="완료">완료</option>
+          <option value="보류">보류</option>
         </select>
       </div>
       <button class="btn-save" onclick="saveStatus()">저장</button>
@@ -452,8 +452,9 @@ let currentFilter = 'all';
 let currentSort = { key: 'date', asc: false };
 let openInquiryId = null;
 
-const statusLabel = { new:'신규', review:'검토중', done:'완료', hold:'보류' };
-const statusClass = { new:'new', review:'review', done:'done', hold:'hold' };
+// DB(inquiries.status)와 동일한 한글 상태값을 프론트 전역에서 그대로 사용한다.
+// (CHECK 제약: '신규','검토중','완료','보류' 만 허용)
+const STATUSES = ['신규', '검토중', '완료', '보류'];
 
 function getFiltered() {
   const q = document.getElementById('searchInput').value.toLowerCase();
@@ -470,11 +471,11 @@ function renderTable() {
   const empty = document.getElementById('emptyState');
 
   document.getElementById('cnt-all').textContent    = inquiries.length;
-  document.getElementById('cnt-new').textContent    = inquiries.filter(r=>r.status==='new').length;
-  document.getElementById('cnt-review').textContent = inquiries.filter(r=>r.status==='review').length;
-  document.getElementById('cnt-done').textContent   = inquiries.filter(r=>r.status==='done').length;
-  document.getElementById('cnt-hold').textContent   = inquiries.filter(r=>r.status==='hold').length;
-  document.getElementById('newBadge').textContent   = inquiries.filter(r=>r.status==='new').length;
+  document.getElementById('cnt-new').textContent    = inquiries.filter(r=>r.status==='신규').length;
+  document.getElementById('cnt-review').textContent = inquiries.filter(r=>r.status==='검토중').length;
+  document.getElementById('cnt-done').textContent   = inquiries.filter(r=>r.status==='완료').length;
+  document.getElementById('cnt-hold').textContent   = inquiries.filter(r=>r.status==='보류').length;
+  document.getElementById('newBadge').textContent   = inquiries.filter(r=>r.status==='신규').length;
   document.getElementById('pageInfo').textContent   = `총 ${data.length}건`;
 
   if (!data.length) { tbody.innerHTML = ''; empty.style.display = 'block'; return; }
@@ -496,8 +497,8 @@ function renderTable() {
       <td style="color:#9CA3AF;font-size:11.5px;font-variant-numeric:tabular-nums">${r.date}</td>
       <td>
         <select class="status-select" onclick="event.stopPropagation()" onchange="updateStatus(${r.id}, this.value)">
-          ${['new','review','done','hold'].map(s =>
-            `<option value="${s}" ${r.status===s?'selected':''}>${statusLabel[s]}</option>`
+          ${STATUSES.map(s =>
+            `<option value="${s}" ${r.status===s?'selected':''}>${s}</option>`
           ).join('')}
         </select>
       </td>
@@ -567,7 +568,7 @@ function exportCSV() {
   const headers = ['#','성함','직함','연락처','이메일','센터명','센터규모','접수일','상태','문의내용'];
   const rows = data.map(r => [
     r.id, r.name, r.role, r.phone, r.email,
-    r.center, r.size, r.date, statusLabel[r.status],
+    r.center, r.size, r.date, r.status,
     `"${r.message.replace(/"/g,'""')}"`
   ]);
   const csv = [headers, ...rows].map(r => r.join(',')).join('\n');

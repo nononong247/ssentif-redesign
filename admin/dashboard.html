@@ -405,9 +405,9 @@ async function loadDashboard() {
 
   // ── 스탯 카드 ──
   const total   = all.length;
-  const newCnt  = all.filter(r => r.status === 'new').length;
-  const revCnt  = all.filter(r => r.status === 'review').length;
-  const doneCnt = all.filter(r => r.status === 'done').length;
+  const newCnt  = all.filter(r => r.status === '신규').length;
+  const revCnt  = all.filter(r => r.status === '검토중').length;
+  const doneCnt = all.filter(r => r.status === '완료').length;
 
   document.getElementById('stat-total').textContent  = total;
   document.getElementById('stat-new').textContent    = newCnt;
@@ -428,7 +428,7 @@ async function loadDashboard() {
   if (navBadge) navBadge.textContent = newCnt;
 
   // ── 신규 문의 테이블 ──
-  const newItems = all.filter(r => r.status === 'new');
+  const newItems = all.filter(r => r.status === '신규');
   const countEl  = document.getElementById('newCount');
   if (newItems.length > 0) {
     countEl.textContent    = `${newItems.length}건`;

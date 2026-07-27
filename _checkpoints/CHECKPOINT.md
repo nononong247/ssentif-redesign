@@ -200,7 +200,7 @@ request_access(apps: ["com.nvng.ssentif-coach", "com.nvng.ssentif-members"])
 - 인원 1명당 **24,900원/월**, owner 포함 전원 과금. 월 선불, 연간 플랜 없음.
 - 1인: 무료/유료 선택(무료 = 조회 30일 제한). 2인 이상: 무조건 유료.
 - 명칭 Free/Pro/Enterprise. **"14일 무료 체험"은 없는 정책** — 재등장 금지.
-- 가격 변경 시 `pricing.html` 10곳(메타5·카드2·계산기 초기값·수식2·**JS 상수 `SEAT_PRICE`**) + 문서 2곳.
+- 가격 변경 시 `pricing.html` 10곳(메타5·카드2·계산기 초기값·수식2·**JS 상수 `SEAT_PRICE`**) + **`index.html` JSON-LD `offers.highPrice`(2026-07-23 추가)** + 문서 2곳.
 
 ### 워딩 톤 (가이드 3종 적용 완료)
 - 어미는 **`~합니다` 체**. `~해주세요` 요청문은 유지.

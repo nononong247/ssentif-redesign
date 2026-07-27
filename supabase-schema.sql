@@ -53,6 +53,10 @@ create policy "관리자만 상태 변경 가능"
   on inquiries for update
   using (auth.role() = 'authenticated');
 
+create policy "관리자만 삭제 가능"
+  on inquiries for delete
+  using (auth.role() = 'authenticated');
+
 
 -- =============================================
 -- 2. 운영지원실 아티클 테이블

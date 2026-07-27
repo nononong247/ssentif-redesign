@@ -14,6 +14,7 @@ create table if not exists inquiries (
   center_size   text,
   plan          text,
   message       text,
+  memo          text,                          -- 관리자 메모(백오피스 상세 팝업)
   status        text not null default '신규',  -- 신규 | 검토중 | 완료 | 보류
   submitted_at  timestamptz not null default now(),
   updated_at    timestamptz not null default now()

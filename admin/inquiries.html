@@ -240,6 +240,23 @@ tbody td { padding: 10px 14px; font-size: 12.5px; color: #374151; vertical-align
 }
 .modal-memo::placeholder { color: #9CA3AF; }
 .modal-memo:focus { outline: none; border-color: #1FDBA8; background: #fff; }
+/* 유입경로 배지 / 등록 체크박스 / 전환율 요약 / 추가 버튼 / 폼 입력 */
+.src-badge { display: inline-block; padding: 2px 9px; border-radius: 20px; font-size: 11px;
+  font-weight: 600; background: #EEF2F7; color: #4B5563; white-space: nowrap; }
+.conv-check { width: 17px; height: 17px; accent-color: #1FDBA8; cursor: pointer; vertical-align: middle; }
+.conv-stat { font-size: 12px; color: #6B7280; font-weight: 600; }
+.conv-stat b { color: #0A9E75; }
+.btn-add { display: inline-flex; align-items: center; gap: 5px; height: 34px; padding: 0 14px;
+  border: none; border-radius: 8px; background: #111318; color: #fff; font-size: 12.5px;
+  font-weight: 600; cursor: pointer; }
+.btn-add:hover { background: #000; }
+.modal-conv-wrap { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px;
+  color: #374151; font-weight: 600; cursor: pointer; }
+.modal-input, .modal-src-select { width: 100%; box-sizing: border-box; height: 40px; padding: 0 12px;
+  border: 1px solid #E5E8EC; border-radius: 8px; font-size: 13px; color: #111318;
+  background: #fff; font-family: inherit; }
+.modal-input:focus, .modal-src-select:focus { outline: none; border-color: #1FDBA8; }
+.modal-input::placeholder { color: #9CA3AF; }
 .modal-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
 
 .modal-footer {
@@ -316,7 +333,8 @@ tbody td { padding: 10px 14px; font-size: 12.5px; color: #374151; vertical-align
 <div class="main">
   <div class="topbar">
     <span class="topbar-title">문의 내역</span>
-    <div class="topbar-right">
+    <div class="topbar-right" style="display:flex;gap:8px;align-items:center">
+      <button class="btn-add" onclick="openAddModal()">+ 문의 추가</button>
       <button class="btn-export" onclick="exportCSV()">
         <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 1.5v7M4 6.5l2.5 2.5 2.5-2.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M1.5 9.5v1.5a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
         CSV 내보내기
@@ -360,8 +378,10 @@ tbody td { padding: 10px 14px; font-size: 12.5px; color: #374151; vertical-align
             <th>연락처</th>
             <th>센터명</th>
             <th>규모</th>
+            <th>유입경로</th>
             <th class="sort" onclick="sortBy('date')">접수일 ↕</th>
             <th>상태</th>
+            <th>등록</th>
             <th></th>
           </tr>
         </thead>
@@ -373,6 +393,7 @@ tbody td { padding: 10px 14px; font-size: 12.5px; color: #374151; vertical-align
       </div>
       <div class="pagination">
         <span id="pageInfo">총 8건</span>
+        <span id="convStat" class="conv-stat" style="margin-left:14px"></span>
         <div class="page-btns">
           <button class="page-btn">‹</button>
           <button class="page-btn active">1</button>
@@ -425,6 +446,10 @@ tbody td { padding: 10px 14px; font-size: 12.5px; color: #374151; vertical-align
           <div class="modal-label">접수일</div>
           <div class="modal-value" id="m-date">—</div>
         </div>
+        <div class="modal-field">
+          <div class="modal-label">유입경로</div>
+          <div class="modal-value" id="m-source">—</div>
+        </div>
       </div>
       <div class="modal-field">
         <div class="modal-label">문의 내용</div>
@@ -444,8 +469,86 @@ tbody td { padding: 10px 14px; font-size: 12.5px; color: #374151; vertical-align
           <option value="완료">완료</option>
           <option value="보류">보류</option>
         </select>
+        <label class="modal-conv-wrap" style="margin-left:14px">
+          <input type="checkbox" class="conv-check" id="modalConverted">
+          등록(유료 전환)
+        </label>
       </div>
       <button class="btn-save" onclick="saveStatus()">저장</button>
+    </div>
+  </div>
+</div>
+
+<!-- 직접 문의 등록 모달 -->
+<div class="modal-overlay" id="addModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>문의 직접 등록</h3>
+      <button class="modal-close" onclick="closeAddModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <form id="addForm" onsubmit="return false">
+        <div class="modal-row">
+          <div class="modal-field">
+            <div class="modal-label">신청자 *</div>
+            <input class="modal-input" id="a-name" placeholder="이름">
+          </div>
+          <div class="modal-field">
+            <div class="modal-label">직함</div>
+            <input class="modal-input" id="a-role" placeholder="대표, 실장 등">
+          </div>
+        </div>
+        <div class="modal-row">
+          <div class="modal-field">
+            <div class="modal-label">연락처 *</div>
+            <input class="modal-input" id="a-phone" placeholder="01012345678">
+          </div>
+          <div class="modal-field">
+            <div class="modal-label">이메일</div>
+            <input class="modal-input" id="a-email" placeholder="선택">
+          </div>
+        </div>
+        <div class="modal-row">
+          <div class="modal-field">
+            <div class="modal-label">센터명 *</div>
+            <input class="modal-input" id="a-center" placeholder="센터 이름">
+          </div>
+          <div class="modal-field">
+            <div class="modal-label">센터 규모</div>
+            <select class="modal-src-select" id="a-size">
+              <option value="">선택 안 함</option>
+              <option>1인 (개인 또는 혼자 운영)</option>
+              <option>2~5인</option>
+              <option>6~10인</option>
+              <option>11인 이상 · 다지점</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-row">
+          <div class="modal-field">
+            <div class="modal-label">유입경로</div>
+            <select class="modal-src-select" id="a-source">
+              <option>전화</option>
+              <option>카카오톡</option>
+              <option>인스타그램</option>
+              <option>지인소개</option>
+              <option>홈페이지</option>
+              <option>기타</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-field">
+          <div class="modal-label">문의 내용</div>
+          <textarea class="modal-memo" id="a-message" placeholder="문의 내용 (선택)"></textarea>
+        </div>
+        <div class="modal-field">
+          <div class="modal-label">관리자 메모</div>
+          <textarea class="modal-memo" id="a-memo" placeholder="내부 메모 (선택)"></textarea>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer" style="justify-content:flex-end">
+      <button class="btn-save" id="addSubmitBtn" onclick="submitNewInquiry()">등록</button>
     </div>
   </div>
 </div>
@@ -467,6 +570,8 @@ let openInquiryId = null;
 // DB(inquiries.status)와 동일한 한글 상태값을 프론트 전역에서 그대로 사용한다.
 // (CHECK 제약: '신규','검토중','완료','보류' 만 허용)
 const STATUSES = ['신규', '검토중', '완료', '보류'];
+// 유입경로(채널) — 직접 등록 시 선택. 홈페이지 폼 문의는 DB 기본값 '홈페이지'.
+const SOURCES = ['홈페이지', '전화', '카카오톡', '인스타그램', '지인소개', '기타'];
 
 function getFiltered() {
   const q = document.getElementById('searchInput').value.toLowerCase();
@@ -490,6 +595,12 @@ function renderTable() {
   document.getElementById('newBadge').textContent   = inquiries.filter(r=>r.status==='신규').length;
   document.getElementById('pageInfo').textContent   = `총 ${data.length}건`;
 
+  // 전환율(문의 대비 등록) — 전체 기준
+  const convCnt = inquiries.filter(r => r.converted).length;
+  const rate = inquiries.length ? Math.round(convCnt / inquiries.length * 100) : 0;
+  const convEl = document.getElementById('convStat');
+  if (convEl) convEl.innerHTML = `문의 ${inquiries.length} · 등록 <b>${convCnt}</b> · 전환율 <b>${rate}%</b>`;
+
   if (!data.length) { tbody.innerHTML = ''; empty.style.display = 'block'; return; }
   empty.style.display = 'none';
 
@@ -506,6 +617,7 @@ function renderTable() {
       </td>
       <td>${r.center}</td>
       <td class="size-tag">${r.size}</td>
+      <td><span class="src-badge">${r.source || '홈페이지'}</span></td>
       <td style="color:#9CA3AF;font-size:11.5px;font-variant-numeric:tabular-nums">${r.date}</td>
       <td>
         <select class="status-select" onclick="event.stopPropagation()" onchange="updateStatus(${r.id}, this.value)">
@@ -513,6 +625,10 @@ function renderTable() {
             `<option value="${s}" ${r.status===s?'selected':''}>${s}</option>`
           ).join('')}
         </select>
+      </td>
+      <td style="text-align:center" onclick="event.stopPropagation()">
+        <input type="checkbox" class="conv-check" ${r.converted ? 'checked' : ''}
+               title="유료 등록(전환) 여부" onchange="toggleConverted(${r.id}, this.checked)">
       </td>
       <td><button class="detail-btn" onclick="event.stopPropagation(); openDetail(${r.id})">상세</button></td>
     </tr>
@@ -545,6 +661,19 @@ async function updateStatus(id, status) {
   if (error) console.error('상태 업데이트 실패:', error.message);
 }
 
+// 목록에서 등록(유료 전환) 여부 토글
+async function toggleConverted(id, converted) {
+  const r = inquiries.find(r => r.id === id);
+  if (r) r.converted = converted;
+  renderTable(); // 전환율 수치 즉시 갱신
+  const { error } = await db.from('inquiries').update({ converted }).eq('id', id);
+  if (error) {
+    console.error('등록여부 업데이트 실패:', error.message);
+    alert('등록여부 저장 실패\n' + error.message +
+      '\n\n※ inquiries 테이블에 converted 컬럼이 있어야 합니다.');
+  }
+}
+
 function openDetail(id) {
   const r = inquiries.find(r => r.id === id);
   if (!r) return;
@@ -559,7 +688,9 @@ function openDetail(id) {
   document.getElementById('m-date').textContent    = r.date;
   document.getElementById('m-message').textContent = r.message;
   document.getElementById('m-memo').value          = r.memo || '';
+  document.getElementById('m-source').textContent  = r.source || '홈페이지';
   document.getElementById('modalStatus').value     = r.status;
+  document.getElementById('modalConverted').checked = !!r.converted;
   document.getElementById('detailModal').classList.add('open');
 }
 
@@ -572,17 +703,18 @@ function updateStatusFromModal() {}
 
 async function saveStatus() {
   if (!openInquiryId) { closeModal(); return; }
-  const id     = openInquiryId;
-  const status = document.getElementById('modalStatus').value;
-  const memo   = document.getElementById('m-memo').value.trim();
+  const id        = openInquiryId;
+  const status    = document.getElementById('modalStatus').value;
+  const memo      = document.getElementById('m-memo').value.trim();
+  const converted = document.getElementById('modalConverted').checked;
 
   // 낙관적 반영
   const r = inquiries.find(x => x.id === id);
-  if (r) { r.status = status; r.memo = memo; }
+  if (r) { r.status = status; r.memo = memo; r.converted = converted; }
   renderTable();
 
-  // 상태 + 메모를 함께 저장
-  const { error } = await db.from('inquiries').update({ status, memo }).eq('id', id);
+  // 상태 + 메모 + 등록여부를 함께 저장
+  const { error } = await db.from('inquiries').update({ status, memo, converted }).eq('id', id);
   if (error) {
     console.error('저장 실패:', error.message);
     alert('저장에 실패했습니다.\n' + error.message +
@@ -594,10 +726,11 @@ async function saveStatus() {
 
 function exportCSV() {
   const data = getFiltered();
-  const headers = ['#','성함','직함','연락처','이메일','센터명','센터규모','접수일','상태','문의내용','관리자메모'];
+  const headers = ['#','성함','직함','연락처','이메일','센터명','센터규모','유입경로','접수일','상태','등록여부','문의내용','관리자메모'];
   const rows = data.map(r => [
     r.id, r.name, r.role, r.phone, r.email,
-    r.center, r.size, r.date, r.status,
+    r.center, r.size, (r.source||'홈페이지'), r.date, r.status,
+    (r.converted ? '등록' : '미등록'),
     `"${(r.message||'').replace(/"/g,'""')}"`,
     `"${(r.memo||'').replace(/"/g,'""')}"`
   ]);
@@ -612,7 +745,10 @@ function exportCSV() {
 document.getElementById('detailModal').addEventListener('click', function(e) {
   if (e.target === this) closeModal();
 });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+document.getElementById('addModal').addEventListener('click', function(e) {
+  if (e.target === this) closeAddModal();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeAddModal(); } });
 
 async function loadInquiries() {
   const { data, error } = await db
@@ -624,11 +760,57 @@ async function loadInquiries() {
 
   inquiries = (data || []).map(r => ({
     ...r,
-    center: r.center_name,
-    size:   r.center_size,
-    date:   r.submitted_at?.slice(0, 10) || '',
+    center:    r.center_name,
+    size:      r.center_size,
+    date:      r.submitted_at?.slice(0, 10) || '',
+    source:    r.source || '홈페이지',
+    converted: !!r.converted,
   }));
   renderTable();
+}
+
+// ── 직접 문의 등록 ──────────────────────────────
+function openAddModal() {
+  const f = document.getElementById('addForm');
+  if (f) f.reset();
+  document.getElementById('addModal').classList.add('open');
+}
+function closeAddModal() {
+  document.getElementById('addModal').classList.remove('open');
+}
+async function submitNewInquiry() {
+  const val = id => document.getElementById(id).value.trim();
+  const name   = val('a-name');
+  const phone  = val('a-phone');
+  const center = val('a-center');
+  if (!name || !phone || !center) {
+    alert('신청자 · 연락처 · 센터명은 필수입니다.');
+    return;
+  }
+  const payload = {
+    name,
+    role:        val('a-role') || null,
+    phone,
+    email:       val('a-email') || null,
+    center_name: center,
+    center_size: val('a-size') || null,
+    source:      val('a-source'),
+    message:     val('a-message') || null,
+    memo:        val('a-memo') || null,
+    // status 는 DB 기본값 '신규', converted 는 기본 false
+  };
+  const btn = document.getElementById('addSubmitBtn');
+  btn.disabled = true;
+  const { error } = await db.from('inquiries').insert([payload]);
+  btn.disabled = false;
+  if (error) {
+    console.error('문의 등록 실패:', error.message);
+    alert('문의 등록에 실패했습니다.\n' + error.message +
+      '\n\n※ inquiries 테이블에 source · converted 컬럼이 있어야 합니다.');
+    return;
+  }
+  closeAddModal();
+  await loadInquiries();
 }
 </script>
 </body>

@@ -1,7 +1,7 @@
 # SSENTIF 홈페이지 — 작업 체크포인트
 
 > **목적**: 컨텍스트가 압축되거나 세션이 바뀌어도 흐름이 끊기지 않도록 현재 상태·결정·다음 할 일을 기록한 핸드오프 문서.
-> **마지막 갱신**: 2026-07-23 저녁 (배포 최신 `8ccd9f5` / **미커밋 7건 — §0 참조**)
+> **마지막 갱신**: 2026-07-30 (요금제 4카드 재설계 **배포 완료**. 세부는 §0 "방금 끝낸 것"·§B. 미커밋: brand-kit.html — 별개 작업)
 
 ---
 
@@ -13,16 +13,30 @@
 
 ### ▶ 지금 하던 일 / 다음에 할 일
 
-**방금 끝낸 것**: ① index.html — 히어로 1 + 모드 소개 3 + 6 STEP 중 5를 실제 앱 캡처로 교체. ② **product-new.html — 목업 10개 중 9개를 실제 앱 캡처로 교체**(기기 프레임 제거, 화면만 그림자로 띄움). 전부 로컬 검증 완료. **미배포.**
+**방금 끝낸 것(이번 세션, 전부 배포·라이브 반영 완료)**:
+1. **홈페이지 시각요소 실물 캡처 교체** — index 히어로·모드소개 3·6STEP 중 5 / product-new.html 목업 9개. (캡처·마스킹·합성 방법은 아래 "화면 캡처 방법" 참조)
+2. **백오피스 문의 관리 대개편** (`admin/inquiries.html`) — ⓐ 상태값 한글 버그픽스 ⓑ 관리자 메모 ⓒ **직접 문의 등록**(+유입경로) ⓓ **등록(유료 전환) 체크 + 전환율 수치** ⓔ **삭제**. (상세는 §A)
+3. **DB**: 권순열 문의 id 재지정(1) + inquiries에 컬럼 3개(memo·source·converted) + DELETE RLS 정책 + 슬랙 알림 조건. (§A)
+4. **SEO**: 홈 제목에 '센티프' 넣고 간결화 + PT센터→피트니스 센터 통일 + JSON-LD 가격 정정.
+5. **요금제·문구**: 개인 요금제 미디어 다운로드 차이, 팀 카드 정리, 도입절차 STEP1 문구.
 
-⚠️ **product 페이지는 `product-new.html`에만 반영했다.** 배포본 `product.html`은 손대지 않았다 — 원래 계획대로 product-new.html이 product.html을 대체할 때 함께 반영된다.
+**✅ 요금제 4카드 재설계 — 배포 완료 (2026-07-30)**
+- 4카드(FREE·STANDARD·TEAM·ENTERPRISE) 전면 반영, 가격 정책 개정(1인 20,900 / 팀 1인당 24,900), FAQ·계산기 갱신, JSON-LD·CLAUDE.md 동기화까지 전부 배포됨.
+- 🟡 **FREE·STANDARD 버튼이 임시로 `consulting.html`로 연결됨** — 사용자가 **앱 다운로드 링크 제공 예정**. 받으면 `<!-- TODO(앱 다운로드 링크 대기) -->` 주석 2곳(`pricing.html`)을 실제 링크로 교체할 것.
+- 상세는 §B.
 
-🔴 **`_checkpoints/build_product.py`는 이제 stale.** 이 스크립트를 재실행하면 방금 넣은 캡처 9장이 전부 CSS 목업으로 되돌아간다. 구조를 다시 바꿔야 하면 스크립트에 이미지 삽입을 먼저 반영할 것. 미사용 `mk-*` CSS 41개도 남아 있다(정리하려면 스크립트 쪽에서).
+**바로 다음(그 외 열린 항목)**:
+1. **벤토 5카드 실물 교체 여부** — 사용자 확인 대기. (index.html, AI매니저 카드는 앱 AI 미구현이라 대체 불가)
+2. **`product-new.html` → `product.html` 교체 배포** — 현재 "제품" 메뉴는 아직 구버전(`product.html`)을 가리킴. product-new가 정식 대체본.
+3. 가이드 3종(`guide*.html`) `📸 캡처 예정` 실물 교체.
+4. `cases.html`·`lab.html` 카피 검토, 지표 통일(재등록률 등 페이지마다 제각각).
+5. **브랜드 키트** — `brand-kit.html`(repo, 미커밋) + PNG(`~/Desktop/센티프 콘텐츠/`). 로고색 `#1FDBA8`. 수정 후 Chrome 헤드리스로 PNG 재추출(§C).
 
-🔴 **기본기능 8종(extras-strip)은 실물로 바꿨다가 사용자 지시로 원상 복구했다 — 다시 바꾸지 말 것.** CSS 목업이 정답이다(카드가 264×244로 작아 실제 화면을 넣으면 판독이 안 되고, 카드마다 톤이 제각각이 된다). 되돌릴 때는 `git show HEAD:index.html`에서 `<section class="extras-strip">` ~ 그 뒤 첫 `</style>` 구간을 통째로 가져오면 된다(그 style 블록엔 itv-* 인터뷰 규칙도 함께 들어있으나 손대지 않았으므로 안전).
+🔴 **기본기능 8종(extras-strip)은 실물로 바꿨다가 사용자 지시로 원상 복구 — 다시 바꾸지 말 것.** CSS 목업이 정답(카드 264×244로 작아 실제 화면 판독 불가). 되돌릴 땐 `git show HEAD:index.html`에서 `<section class="extras-strip">`~첫 `</style>` 구간 통째로.
 
-**바로 다음**: 벤토 5카드 교체 여부를 사용자에게 먼저 확인. 남은 항목은 아래 '실물 대체 불가' 참조.
-사용자가 "있는그대로 캡처해서 넣어달라"고 명시 → product.html과 달리 **CSS 재현이 아니라 실제 이미지 삽입**.
+🔴 **`_checkpoints/build_product.py`는 stale.** 재실행하면 product-new의 캡처 9장이 CSS 목업으로 되돌아감. 구조 변경 시 스크립트에 이미지 삽입부터 반영할 것.
+
+🟢 **작업 확인 워크플로(사용자 요청, 메모리 저장됨)**: 편집을 완료할 때마다 결과를 **크롬 창에 띄운다** — `open -a "Google Chrome" <URL>`. 미배포는 로컬 dev(`python3 dev-server.py`, :8990), 배포 후엔 라이브 URL. **admin 페이지는 localhost 로그인 세션이 없어 로컬 미리보기 불가** → 목업 스텁을 주입한 독립 프리뷰 HTML을 만들어 보여준다(스크래치패드, 재생성용 방법은 §A).
 
 ### ✅ 화면 캡처 방법 확립 (2026-07-23, 해결됨)
 
@@ -47,22 +61,116 @@ python3 _checkpoints/capwin.py "센티프 코치" out.png    # 창 버퍼만 캡
 
 **확보한 캡처**: 원본은 스크래치패드 `caps/`(세션 종료 시 소멸). 최종 산출물은 `assets/app/` 참조.
 
-### ⚠️ 미커밋 7건
+### ✅ 이번 세션 배포 (전부 완료 · working tree clean)
 
-| 파일 | 내용 |
+```
+0a6a430  백오피스 문의 삭제 기능
+db8f2f1  백오피스 문의 관리 개편(직접등록·유입경로·전환율) + 요금제 표 수정
+eb0700b  문의 팝업 관리자 메모 + 도입절차 STEP1 문구
+d1d962e  SEO: 홈 제목 '센티프' 추가·간결화, PT센터→피트니스 센터, JSON-LD 가격 정정
+a0ad5a4  실제 앱 캡처로 시각요소 교체 + admin 상태값 버그픽스
+```
+
+### A. 백오피스 "문의 내역" — 현재 스펙 & DB (이번 세션 핵심)
+
+**화면(`admin/inquiries.html`)이 하는 일**: 홈페이지 폼 문의 + **다른 채널(전화·카톡 등) 직접 등록** 문의를 한 목록에서 관리.
+- 상단 **`+ 문의 추가`** → 폼(신청자*·직함·연락처*·이메일·센터명*·규모·**유입경로**·문의내용·메모) → `inquiries` insert. 상태 기본 `신규`.
+- 목록: 유입경로 **배지** + '상태' 옆 **등록(유료 전환) 체크박스**(클릭 토글) + 하단 **전환율 수치**(`문의 N · 등록 M · 전환율 X%`, 전체 기준).
+- 상세 팝업: 유입경로 표시 + 상태 select + **등록 체크** + **관리자 메모**(textarea) + **삭제**(빨간 버튼, confirm 후 hard delete). `저장`은 상태+메모+등록을 함께 저장.
+- CSV: 유입경로·등록여부 열 포함.
+- **상태값은 한글**(`신규/검토중/완료/보류`)로 프론트·DB·CHECK 제약 통일 완료. 영문(`new` 등) 재도입 금지 — 예전에 이걸로 탭 카운트 0 + 드롭다운 저장 실패 버그 있었음.
+
+**`inquiries` 테이블 컬럼**: id(bigint identity) · name · role · phone · email · center_name · center_size · plan(미사용) · message · **memo** · **source**(default `홈페이지`) · **converted**(bool default false) · status(default 신규) · submitted_at · updated_at.
+**RLS**: INSERT=anon 허용 / SELECT·UPDATE·**DELETE**=authenticated. (DELETE 정책은 이번에 추가)
+**슬랙 알림**: 트리거 `on_inquiry_insert_notify_slack`에 **`when (new.source = '홈페이지')`** 조건을 붙여, 직접 등록분은 알림 안 감(홈페이지 폼만 알림). 함수 본문(`notify_slack_on_inquiry`, 슬랙 URL 하드코딩)은 안 건드리고 트리거만 재생성했다. → §6 참조.
+
+> **DB 작업 방식**: 컬럼 추가·정책·트리거는 **Supabase SQL Editor**에서 사용자가 직접 실행(anon 키론 DDL 불가). Claude가 SQL을 만들어 주고, 사용자가 실행 완료를 알리면 배포한다. **순서 주의**: 컬럼/정책 SQL을 먼저 실행 → 그 다음 배포(안 그러면 저장/삭제 시 오류).
+
+> **admin 로컬 미리보기 불가**: admin 페이지는 Supabase 세션이 origin별이라 localhost에선 로그인 안 됨. UI를 보여줄 땐 **목업 스텁 프리뷰**를 만든다 — `admin/inquiries.html`을 복사해 ① `../style.css` 인라인 ② supabase `<script src>` 2줄 제거 ③ 인증 가드 IIFE를 `const MOCK=[...]; const db={from(){...}}; setTimeout(loadInquiries,0)` 스텁으로 치환(스텁 `db.from()`에 select/update/delete/insert 다 넣어 no-op). `loadInquiries`가 `let inquiries` TDZ에 안 걸리게 `setTimeout`으로 지연 호출하는 게 포인트.
+
+> **권순열 문의 id 재지정(2026-07-23)**: 문의 목록 NO가 DB `id` 직결인데, 삭제된 테스트 16건이 시퀀스를 올려 실제 첫 문의가 NO 17로 떴다. `id` 17→1 재지정 + identity restart 2로 해결(사용자가 SQL 실행). 실제 첫 고객 문의 = 스카이휘트니스 권순열(2~5인, 2026-07-22).
+
+---
+
+## B. 요금제 4카드 재설계 (✅ 배포 완료, 2026-07-30)
+
+**적용 위치**: `pricing.html` 실물 반영·배포 완료. 시안 `_checkpoints/drafts/pricing4_preview.html`은 **역할 종료**(참고용으로만 보관).
+
+### 이번에 실제로 바꾼 것
+
+| 파일 | 변경 |
 |---|---|
-| `product-new.html` (untracked) | product v3 + 실물 기반 목업 재현. **사용자 확인 완료, 배포 대기** |
-| `_checkpoints/build_product.py` | v3 생성 스크립트(실물 재현 반영) |
-| `_checkpoints/build_product_v2_backup.py` (untracked) | v2 백업, 롤백용 |
-| `_checkpoints/CHECKPOINT.md` | 이 문서 |
-| `index.html` | 히어로+모드소개 3+6STEP 중 5를 실제 앱 캡처로 교체 + 죽은 CSS 제거 |
-| `assets/app/*.webp` (untracked) | 앱 캡처들(마스킹 완료) — index용 + product용(ssentif-pd-*) |
-| `_checkpoints/capwin.py`·`mask.py`·`mask2.py`·`mask3.py`·`compose.py` (untracked) | 캡처·마스킹·합성 스크립트 |
-| `admin/inquiries.html`·`admin/dashboard.html` | **상태값 한글 통일 버그픽스**(아래) |
+| `pricing.html` | 인라인 `<style>` 전면 교체(`.aud-*`·`.plan-view/card/...` 삭제 → `.plan-groups`/`.pg-*` 신설) · 토글+2뷰 마크업 → 4카드 2패널 · **인원 계산기는 패널 아래 전체폭으로 이동**(TEAM 기준 문구 추가) · 토글 JS 삭제(`SEAT_PRICE`는 유지) · **메타 5곳** 가격 갱신 · TEAM 하위 기능 9종 문구 재작성(앱 소스 grep 검증, 아래 참조) · "이전 요금제의 모든 기능 +" 컴포넌트를 pill→텍스트 라벨로 교체(아래 참조) |
+| `consulting.html` | FAQ 복제본 동기화 (블록 MD5 = pricing.html과 동일 확인) |
+| `index.html` | JSON-LD `offers.offerCount` 2→4 (`lowPrice 0`·`highPrice 24900`은 그대로 유효) |
+| `CLAUDE.md` | §요금제 구조를 **4티어 개정판**으로 교체 (2026-07-21 단일가 정책 대체) |
 
-**admin 상태값 버그픽스 (2026-07-23)**: 프론트가 상태를 영문(`new/review/done/hold`)으로 비교했는데 DB·CHECK 제약은 한글(`신규/검토중/완료/보류`)이라 ① 상단 탭 카운트가 항상 0, ② 행 드롭다운이 영문값을 DB로 보내 **CHECK 위반 → 상태변경이 조용히 실패**하던 문제. 프론트 전역을 한글로 통일(필터탭 `setFilter` 인자·카운트·행/모달 `<select>` value·CSV·dashboard 카운트/신규테이블). dead였던 `statusLabel`/`statusClass`는 `STATUSES=['신규','검토중','완료','보류']`로 대체. **DB·스키마는 무변경**(이미 한글이 정답). 코드 변경이라 **배포해야 라이브 백오피스에 반영**됨.
+### 🟡 배포 후 남은 것: 앱 다운로드 링크 교체
 
-> **DB 반영 완료(2026-07-23)**: 권순열 님 문의 `id` 17→**1** 재지정 + 시퀀스 restart 2. 사용자가 Supabase SQL Editor에서 실행, `1 | 권순열` 확인. NO 컬럼은 DB `id` 직결이라 라이브 백오피스에서 즉시 NO 1로 표시(코드 배포 불필요). 실제 첫 고객 문의 = 스카이휘트니스 권순열(2~5인, 2026-07-22).
+FREE·STANDARD 카드 버튼(`가입하기`/`시작하기`)은 **임시로 `consulting.html`에 연결**해 배포함(사용자 승인). 앱 다운로드 링크를 받으면 `pricing.html`의 `<!-- TODO(앱 다운로드 링크 대기) -->` 주석 2곳을 실제 링크로 교체할 것.
+
+### "이전 요금제의 모든 기능 +" 컴포넌트 — pill → 텍스트 라벨 (2026-07-30 배포 후 수정)
+
+- **문제**: 원래 옅은 민트 배경 pill(전체폭 + 둥근 모서리)이 바로 위 CTA 버튼과 형태가 겹쳐 보였다(사용자 피드백, 스크린샷 기반).
+- **결정**: 배경·모서리 없는 순수 텍스트 라벨로 교체(`.pg-feats li.inc`). 색은 `--accent-dark`(#15B88E) 그대로 쓰면 배경이 없어져 대비가 2.4~2.6:1로 떨어지므로, **`#0E7A5F`로 어둡게 조정**해 흰 패널 5.29:1 / 민트 패널 4.9:1(WCAG AA 통과)을 확보했다. 이 색값은 코드 주석에도 남겨둠 — 재작업 시 임의로 원래 `--accent-dark`로 되돌리지 말 것.
+- 후보 A(라벨+이어지는 선)/B(밑줄형)/C(+원형 아이콘) 3안을 스크린샷으로 비교 제시했고, 사용자가 **A(선 없이)** 선택.
+- **TEAM 카드에 한해 라벨 2줄**: `STANDARD의 모든 기능 +`(회색, `.inc-muted`)가 위, `관리자 모드 기능 +`(민트 강조)가 아래. `.pg-feats`가 flex `gap:11px`라 margin-bottom만으로는 줄 간격이 안 좁혀져서(gap이 항상 더해짐) **음수 마진(`-9px`)으로 상쇄**해 2px로 좁혔다 — 이 패턴은 flex-gap 리스트에서 특정 항목 사이만 좁힐 때 재사용 가능.
+
+### TEAM 카드 하위 기능 9종 — 앱 소스 grep으로 검증 후 재작성
+
+Explore 서브에이전트로 `~/Desktop/작업파일/GRIP_NOTE-main/`(coach 앱)을 grep 조사해 관리자 모드에서 실제로 강화되는 기능을 확인(파일: `coach_mode.dart`, `manager_dashboard_screen.dart`, `schedule_screen.dart`, `workspace_settings_dialog.dart` 등). 확인된 것:
+- 일정 "팀 전체" 뷰(강사별 컬럼, 임의 강사 명의 일정 등록), 회원 추가 시 "담당 강사" 지정 — 관리자 모드 전용으로 실재.
+- **워크스페이스 설정의 "결제"·"회원 데이터 가져오기(CSV)" 메뉴는 UI만 있고 미구현**(플레이스홀더) — 카피에 넣으면 과장이라 제외.
+
+최종 확정 문구(사용자 리스트업 지시로 교체): 매출 현황 대시보드 / 팀원(재직) 관리 / 페이롤 급여 정산 / 팀 전체 공유 캘린더 / 그룹수업 예약 관리 / 강사별 회원관리·성과 모니터링 / 잠재부채 분석 / 팀원간 채팅 / 공유 메모장.
+(구 9종 "업무 대시보드·매출 현황 관리·잠재부채 분석·재직 관리·페이롤 급여 정산·공유 캘린더·회원관리 현황 모니터링·팀 채팅·공유 메모장"은 폐기.)
+
+### 검증한 것 (재작업 시 이 방법 재사용)
+
+- 죽은 CSS 0 / 정의 없는 클래스 0 — 인라인 `<style>`의 `\.([\w-]+)` 셀렉터 집합 vs `class="..."` 사용 집합 양방향 대조(파이썬).
+- HTML 태그 균형 — `html.parser`로 스택 검사, 불일치·미닫힘 0.
+- 가로 오버플로 0 — 500/760/1000/1180px에서 `documentElement.scrollWidth == innerWidth`.
+  ⚠️ **Chrome 헤드리스는 window-size 최소 폭이 500px로 클램프된다.** `--window-size=390`을 줘도 실제 뷰포트는 500이고 이미지만 390으로 잘린다 → "모바일에서 오버플로 났다"고 오판하기 쉽다(이번에 겪음). 390px 검증이 정말 필요하면 다른 수단을 쓸 것.
+- FAQ 복제본 — pricing/consulting FAQ 블록 MD5 대조로 동일 확인.
+
+### 확정된 카피·정책 (§0 요약의 상세)
+
+**시안**: `_checkpoints/drafts/pricing4_preview.html` (역할 종료, 참고용 보관)
+
+**구조** — 팀/개인 토글 제거, 4카드 한 화면. 좌우 2패널(Notion식):
+- **좌 "혼자서"** (흰 배경): **FREE**(무료) · **STANDARD**(20,900원/월·1인)
+- **우 "팀으로"** (옅은 민트 `#E9FAF3` 배경): **TEAM**(24,900원/월·1인당, 권장) · **ENTERPRISE**(맞춤 견적)
+
+**CTA 색(민트 통일)**: FREE·STANDARD=옅은 민트(`.pg-soft`) / TEAM=솔리드 민트(`.btn-primary`, 권장) / ENTERPRISE=흰 버튼(`.pg-white`).
+※ 시안의 `btn-soft`/`btn-mint`/`btn-white`는 이식하며 사이트 `.btn` 체계에 맞춰 이름이 바뀌었다(모서리도 시안의 11px → 사이트 pill 100px).
+
+**CTA 라벨**: FREE=가입하기 / STANDARD=시작하기 / TEAM·ENTERPRISE=**도입 상담 신청**(전역 CTA 정책 통일. 시안의 "영업팀에 문의하기"는 폐기).
+
+**제공 항목 표기 규칙(사용자 확정)**:
+- 헤더는 모두 **"제공 사항"**.
+- **FREE만 전체 항목 나열**(차이 3개 볼드 + 공통 10). 나머지는 **"이전 요금제의 모든 기능 +"** 방식.
+- **"이전 요금제의 모든 기능 +"** = 배경·모서리 없는 **텍스트 라벨**(`.inc`, 색 `#0E7A5F`) — pill이었으나 CTA 버튼과 겹쳐 보여 텍스트로 교체됨(위 항목 참조). 그 아래 **추가 기능은 볼드**(`.df`) — "이 티어는 이전보다 더 있다"를 강조.
+- FREE 차이: 무제한 회원 프로필 등록 / 회원 연동 3명까지 / 데이터 조회 최근 30일 / 제한된 AI 기능 사용.
+- STANDARD(무료+): 회원 연동 무제한 / 데이터 조회 전체 기간 / 무제한 AI 기능 사용 / 미디어(사진/영상) 파일 다운로드.
+- TEAM(STANDARD+, **9종, 앱 소스 grep 검증 후 재작성**): 매출 현황 대시보드 / 팀원(재직) 관리 / 페이롤 급여 정산 / 팀 전체 공유 캘린더 / 그룹수업 예약 관리 / 강사별 회원관리·성과 모니터링 / 잠재부채 분석 / 팀원간 채팅 / 공유 메모장. (위 검증 내역 참조)
+- ENTERPRISE(TEAM+): 다지점 통합 운영 대시보드 / 온보딩 교육 / 전담 CS 매니저 / 계약 조건 개별 협의.
+
+**FAQ 갱신 내역** (pricing + consulting 양쪽 동일):
+- `PRO` → `STANDARD`/`TEAM` 명칭 교체, 가격(20,900·24,900) 명시.
+- **신규 문항 1개**: "STANDARD를 쓰다가 팀원을 초대하면 어떻게 되나요?" — 2패널 구조가 새로 만드는 질문이라 추가.
+- "관리할 수 있는 회원 수" 답변 **정정** — 예전 답("무료·유료 모두 제한 없음")이 FREE의 **회원 연동 3명 제한**과 모순됐다. 프로필 등록 무제한 / 연동은 FREE만 3명으로 분리 서술.
+- 용어: 퇴사한 **직원**→**팀원**, "직원 수"→"팀원 수" (§3 용어 통일).
+- "네, **완전** 무료입니다" → "네, 무료입니다" (§3 강한 수식어 금지).
+
+**남은 것**: 앱 다운로드 링크 받으면 FREE·STANDARD 버튼 교체(위 참조).
+
+## C. 브랜드 키트
+
+**파일**: `brand-kit.html`(repo, **미커밋**) — 다크 미니멀 1페이지. **PNG**: `~/Desktop/센티프 콘텐츠/`(사용자가 하위 폴더로 정리).
+- 팔레트: Space black `#1D1D1F` / Bone white `#F5F5F2` / **Sentif teal `#1FDBA8`**(= 홈 좌상단 로고색 `--accent`, `SSEN`+`TIF`의 TIF). 사용비율 70/25/5. 폰트 Pretendard + Nanum Pen. 보이스(~합니다 체·강한 수식어 금지)·DO/DON'T 포함.
+- **PNG 재추출**(폰트까지 정확히): 페이지 높이 잰 뒤 Chrome 헤드리스 —
+  `"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --hide-scrollbars --force-device-scale-factor=2 --window-size=<W>,<H> --default-background-color=<hex>FF --virtual-time-budget=6000 --screenshot=out.png "file://<경로>"`
+  (`--headless=new`는 window-size = 뷰포트만 캡처하므로 H를 실제 콘텐츠 높이로 줘야 전체가 나온다. 높이는 인앱 브라우저에서 `document.documentElement.scrollHeight`로 측정.)
 
 ---
 
@@ -196,11 +304,15 @@ request_access(apps: ["com.nvng.ssentif-coach", "com.nvng.ssentif-members"])
 
 ## 3. 확정 정책 (되돌리면 안 됨)
 
-### 요금제
-- 인원 1명당 **24,900원/월**, owner 포함 전원 과금. 월 선불, 연간 플랜 없음.
-- 1인: 무료/유료 선택(무료 = 조회 30일 제한). 2인 이상: 무조건 유료.
-- 명칭 Free/Pro/Enterprise. **"14일 무료 체험"은 없는 정책** — 재등장 금지.
-- 가격 변경 시 `pricing.html` 10곳(메타5·카드2·계산기 초기값·수식2·**JS 상수 `SEAT_PRICE`**) + **`index.html` JSON-LD `offers.highPrice`(2026-07-23 추가)** + 문서 2곳.
+### 요금제 (2026-07-30 개정 — 4티어)
+
+> 구 정책("전원 인원당 24,900원 단일 / Free·Pro·Enterprise 3티어")은 **폐기**. 되돌리지 말 것.
+
+- **FREE** 무료(1인) · **STANDARD** 20,900원/월(1인) · **TEAM** 24,900원/월 1인당(2인 이상, owner 포함 전원 과금) · **ENTERPRISE** 맞춤 견적.
+- FREE 제한 3종: 회원 연동 3명 / 조회 최근 30일 / AI 제한. **회원 프로필 등록은 무제한**.
+- 월 선불, **연간 플랜 없음**. **"14일 무료 체험"은 없는 정책** — 재등장 금지.
+- 명칭은 **대문자 FREE/STANDARD/TEAM/ENTERPRISE**. 구 명칭 `Pro`·"개인 요금제/팀 요금제" 재사용 금지.
+- 가격 변경 시: `pricing.html` 10곳(메타5·카드2·계산기 초기값·수식2·**JS 상수 `SEAT_PRICE`**) + `index.html` JSON-LD `offers` + `consulting.html` FAQ 복제본 + 문서 2곳(CLAUDE.md·이 파일).
 
 ### 워딩 톤 (가이드 3종 적용 완료)
 - 어미는 **`~합니다` 체**. `~해주세요` 요청문은 유지.
@@ -289,12 +401,13 @@ guide.html 강사 25항목 · guide-admin.html 관리자 24항목 · guide-membe
 ## 6. 문의 폼 → 슬랙 알림 구조 ★
 
 ```
-consulting.html 폼 → inquiries INSERT
-  → 트리거 on_inquiry_insert_notify_slack (AFTER INSERT)
+consulting.html 폼 → inquiries INSERT (source 미지정 → 기본값 '홈페이지')
+  → 트리거 on_inquiry_insert_notify_slack (AFTER INSERT, WHEN source='홈페이지')
   → DB 함수 notify_slack_on_inquiry()   ← 슬랙 URL이 여기 하드코딩
   → pg_net(net.http_post) → 슬랙 직접 POST
 ```
 
+- 🟢 **(2026-07-27) 백오피스 직접 등록분은 슬랙 알림 안 감** — 트리거에 `when (new.source = '홈페이지')` 조건을 붙였다(함수 본문은 무변경, 트리거만 `drop`+`create` 재생성). 홈페이지 폼 문의만 `source='홈페이지'`라 알림 감. §A 참조.
 - 🔴 **Edge Function은 이 흐름에 없다.** `supabase/functions/notify-slack/`은 죽은 코드였고 삭제함. 다시 만들지 말 것.
 - 채널 변경 = `create or replace function notify_slack_on_inquiry()` 전체 재작성, `slack_url text := '...'` 한 줄 교체.
 - 진단: `select * from net._http_response order by id desc limit 5;` — 200 ok = 슬랙이 받음 = 채널만 다른 상황.
@@ -320,16 +433,15 @@ consulting.html 폼 → inquiries INSERT
 
 ---
 
-## 8. 다음 할 일 (우선순위)
+## 8. 다음 할 일 (우선순위) — §0 "바로 다음"이 최신 요약, 여기는 상세
 
-1. **▶ index.html 시각화 요소를 앱 캡처로 교체** — 화면 기록 권한 확보 후 §2 표대로. 모드 소개 3개 최우선
-2. **미커밋 4건 배포** (product-new.html → product.html 교체 포함)
-3. **가이드 3종 `📸 캡처 예정` 교체** — 같은 방식
-4. **회원 모드 가이드 검토** — `시작하기` 3개만 사용자 검토 완료, 10개 남음
-5. **앱 용어 통일 전달** — `APP_TERMINOLOGY_HANDOFF.md`를 개발자님께
-6. **카피 검토**: lab.html, cases.html
-7. **백엔드**: 백오피스 로그인/RLS 완성, lab 뉴스레터 연동, `inquiries.plan` 컬럼 정리
-8. 🔴 **`₩` 표기 정책 위반 18곳 (index.html, 미해결)** — 확정 정책은 "`₩` 금지, 숫자 뒤 '원'"인데 index.html에만 18곳 남아있다(모드 소개 플로팅 `₩8.4M`·`₩2.2M`, 잠재부채 `₩1.32억`, 페이롤 `₩2,388,490` 등). 일부만 고치면 페이지 내 불일치가 커져 **손대지 않고 보류** — 일괄 정리 여부 사용자 결정 필요.
+1. **벤토 5카드 실물 교체 여부** 사용자 확인 → 진행.
+2. **`product-new.html` → `product.html` 교체 배포** (제품 메뉴가 아직 구버전 가리킴).
+3. **가이드 3종 `📸 캡처 예정` 실물 교체** — §A 캡처 방법 재사용. 회원 모드 가이드 10개 검토 남음.
+4. **앱 용어 통일 전달** — `_checkpoints/APP_TERMINOLOGY_HANDOFF.md`를 개발자에게.
+5. **카피 검토**: lab.html, cases.html.
+6. **백엔드**: lab 뉴스레터 연동, `inquiries.plan` 컬럼 정리(이제 항상 빈 값 — source 컬럼이 대체). (백오피스 로그인·문의 CRUD·RLS는 사실상 완성됨.)
+7. 🔴 **`₩` 표기 정책 위반 18곳 (index.html, 미해결)** — 확정 정책은 "`₩` 금지, 숫자 뒤 '원'"인데 index.html에만 18곳 남아있다(모드 소개 플로팅 `₩8.4M`·`₩2.2M`, 잠재부채 `₩1.32억`, 페이롤 `₩2,388,490` 등). 일부만 고치면 페이지 내 불일치가 커져 **손대지 않고 보류** — 일괄 정리 여부 사용자 결정 필요.
    - 부수 문제: 모드 소개 플로팅 카드 `이번 달 매출 ₩8.4M` 이 **바로 옆 실제 캡처의 `2,280,000원` 과 모순**된다. 캡처를 실물로 바꾸면서 생긴 충돌 — 숫자를 맞추거나 플로팅 카드를 빼야 한다.
 9. **지표 통일 (미해결)** — 재등록률이 index `60%` / consulting `90%` / cases `+12%·+18%·92%`로 제각각. 강사 사용률도 `99%` vs `100%`. **consulting 수치는 사용자 제공값이라 임의 수정 금지** — 어느 값으로 통일할지 사용자 결정 필요.
 10. (정책 대기) Enterprise 가격, 다지점 구조, 인원 감소 반영 시점
@@ -339,11 +451,12 @@ consulting.html 폼 → inquiries INSERT
 ## 9. 최근 커밋
 
 ```
-8ccd9f5  상담 폼 수정 + 슬랙 알림 죽은 코드 정리
-2494eaf  요금제 인당 가격 24,900원으로 조정
-6b69914  product.html 리디자인 — 히어로 카드 + 컴팩트 그리드 2단 위계
-2460c6e  product.html 전면 재구성 — 경험 중심 2묶음 구조
-81a7b51  가이드 3페이지 워딩 톤 정리
+0a6a430  백오피스 문의 삭제 기능
+db8f2f1  백오피스 문의 관리 개편(직접등록·유입경로·전환율) + 요금제 표 수정
+eb0700b  문의 팝업 관리자 메모 + 도입절차 STEP1 문구
+d1d962e  SEO: 홈 제목 '센티프' 추가·간결화, PT센터→피트니스 센터, JSON-LD 가격 정정
+a0ad5a4  실제 앱 캡처로 시각요소 교체 + admin 상태값 버그픽스
+8ccd9f5  (이전) 상담 폼 수정 + 슬랙 알림 죽은 코드 정리
 ```
 
 ## 10. 파일 지도 (`_checkpoints/`)
@@ -354,9 +467,12 @@ consulting.html 폼 → inquiries INSERT
 - `capwin.py` — 창 단위 캡처(§0 참조)
 - `mask.py` — 모드 소개 3장 마스킹
 - `mask2.py` — 6 STEP 캡처 마스킹(좌표는 **스크린샷 1372x882 기준**으로 적으면 `compose.R()`이 변환)
+- `mask3.py` — 제품 페이지(product-new)·전체회원 테이블·강사홈 등 마스킹
 - `compose.py` — 부분 크롭 → 세로/가로 합성 유틸(`piece`/`stack`/`row`)
 - `APP_TERMINOLOGY_HANDOFF.md` — 개발자 전달용 앱 용어 통일 조사 내역
 - `OPERATION_PROCESS_HANDOFF.md` — (구) 운영 프로세스 문서
+- `drafts/pricing4_preview.html` — **요금제 4카드 재설계 시안**(§B, 미반영). 크롬으로 열어 확인
+- (repo 루트) `brand-kit.html` — 브랜드 키트 1페이지(§C, 미커밋)
 
 ## 11. 참고 링크
 

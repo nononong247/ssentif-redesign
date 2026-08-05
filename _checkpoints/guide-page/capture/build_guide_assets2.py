@@ -88,7 +88,9 @@ def build(name, out, trim=False, crop=None):
 JOBS = [
     ("login_portrait_social_light", "01-login", {}),
     ("guide_signup", "02-signup", {}),
-    ("workspace_create_portrait", "03-workspace-create", {}),
+    # 카드 주변 여백이 화면의 절반이라 카드 기준으로 좁힌다.
+    ("workspace_create_portrait", "03-workspace-create",
+     {"crop": (0.146, 0.051, 0.854, 0.850)}),
     ("portrait_nav_coach_phone_light", "04-modes", {}),
     ("guide_settings", "05-profile", {}),
     ("guide_account_settings", "06-account", {}),
@@ -100,8 +102,7 @@ JOBS = [
     # 하단 시트 — barrier 가 위쪽만 검정이라 자동 트림이 걸리지 않는다.
     ("guide_member_link", "12-member-link", {"crop": (0.0, 0.0, 1.0, 0.415)}),
     ("info_tab_delete_light", "13-member-delete", {}),
-    # 우측 상단 CTA 라벨이 캡처 환경 폰트 폴백으로 □ 로 찍혀 헤더 밴드를 제외한다.
-    ("guide_products", "14-products", {"crop": (0.0, 0.085, 1.0, 1.0)}),
+    ("guide_products", "14-products", {}),
     ("guide_membership_issue", "15-membership-issue", {"trim": True}),
     ("membership_tab_light", "16-membership-tab", {}),
     ("membership_payment_edit_light", "17-membership-edit", {"trim": True}),
@@ -110,8 +111,7 @@ JOBS = [
     ("session_detail_dialog_light", "20-attendance", {"trim": True}),
     ("guide_exercise_library", "21-exercise-library", {}),
     ("custom_exercise_video_field_light", "22-custom-exercise", {"trim": True}),
-    # 좌하단 '운동 추가' 버튼이 같은 폰트 폴백 이슈로 □ — 빈 세트 행과 함께 잘라낸다.
-    ("guide_class_log", "23-class-log", {"crop": (0.0, 0.0, 1.0, 0.62)}),
+    ("guide_class_log", "23-class-log", {}),
     ("previous_records_dialog_light", "24-previous-records", {"trim": True}),
     ("member_activity_feedback_tablet_light", "25-member-verify", {"trim": True}),
     ("guide_activity_daily", "26-activity-tab", {}),

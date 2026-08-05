@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>강사 모드 가이드 — SSENTIF | 회원 등록부터 수업일지까지</title>
-<meta name="description" content="센티프 강사 모드 사용 가이드. 회원 프로필 등록, 상품(수강권) 발급, 수업 예약과 출석 처리, 수업일지 기록까지 화면과 함께 단계별로 안내합니다.">
+<meta name="description" content="센티프 강사 모드 사용 가이드. 회원 등록·계정 연동, 상품 발급, 일정 예약과 출석 처리, 수업 일지 작성, 체성분·상담 기록까지 실제 앱 화면과 함께 단계별로 안내합니다.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://www.ssentif.kr/guide.html">
 <meta property="og:type" content="website">
@@ -114,17 +114,26 @@
 .g-callout.warn { background: #FFF6ED; }
 
 
-/* ── 화면 캡처 자리 (실제 앱 캡처 + 빨간 표시 이미지로 교체 예정) ── */
-.g-capture {
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
-  border: 1.5px dashed var(--gray-200); border-radius: 14px;
+/* ── 실제 앱 화면 캡처 ── */
+.g-shot { margin: 18px 0 24px; }
+.g-shot img {
+  display: block; width: 100%; height: auto;
+  border-radius: 14px; border: 1px solid var(--border);
   background: var(--gray-50);
-  min-height: 150px; margin: 16px 0; padding: 20px;
-  text-align: center;
 }
-.g-capture i { font-style: normal; font-size: 20px; }
-.g-capture b { font-size: 13px; font-weight: 700; color: var(--gray-500); }
-.g-capture span { font-size: 12px; color: var(--gray-400); }
+.g-shot figcaption {
+  margin-top: 9px; font-size: 12.5px; line-height: 1.6; color: var(--gray-400);
+}
+/* 세로 화면(모바일) 캡처는 폭을 묶지 않으면 문서를 다 차지한다 */
+.g-shot.phone img { max-width: 280px; }
+.g-shot.narrow img { max-width: 460px; }
+.g-shot.mid img { max-width: 620px; }
+.g-shot-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+.g-shot-row .g-shot { margin: 18px 0 0; }
+@media (max-width: 700px) {
+  .g-shot-row { grid-template-columns: 1fr; }
+  .g-shot.phone img, .g-shot.narrow img, .g-shot.mid img { max-width: 100%; }
+}
 
 /* 모바일 */
 @media (max-width: 880px) {
@@ -224,11 +233,11 @@
     <aside class="guide-toc" id="guideToc">
       <div class="toc-group">
         <div class="toc-group-label">공통</div>
-        <a class="toc-link" href="#account">회원 가입</a>
+        <a class="toc-link" href="#account">회원 가입과 로그인</a>
         <a class="toc-link" href="#workspace">워크스페이스 생성·참여</a>
         <a class="toc-link" href="#modes">강사 모드와 관리자 모드</a>
-        <a class="toc-link" href="#profile">프로필 정보 수정</a>
-        <a class="toc-link" href="#app-settings">앱 설정과 로그아웃</a>
+        <a class="toc-link" href="#profile">내 프로필 정보</a>
+        <a class="toc-link" href="#app-settings">앱 설정·계정 관리·로그아웃</a>
         <a class="toc-link" href="#chat">1:1 채팅</a>
         <a class="toc-link" href="#notice">회원 공지 발송</a>
         <a class="toc-link" href="#memo">공유 메모장</a>
@@ -237,33 +246,38 @@
         <div class="toc-group-label">시작하기</div>
         <a class="toc-link" href="#home">홈 화면 한눈에 보기</a>
         <a class="toc-link" href="#member-add">회원 프로필 등록하기</a>
+        <a class="toc-link" href="#member-link">회원 계정 연동하기</a>
         <a class="toc-link" href="#member-delete">회원 프로필 삭제하기</a>
       </div>
       <div class="toc-group">
         <div class="toc-group-label">상품(수강권) 관리</div>
-        <a class="toc-link" href="#product-template">상품 템플릿 생성</a>
-        <a class="toc-link" href="#product-issue">상품(수강권) 발급</a>
-        <a class="toc-link" href="#product-edit">상품(수강권) 편집</a>
+        <a class="toc-link" href="#product-catalog">판매할 상품 만들기</a>
+        <a class="toc-link" href="#product-issue">회원에게 상품 발급하기</a>
+        <a class="toc-link" href="#product-manage">발급 내역 확인·수정·삭제</a>
       </div>
       <div class="toc-group">
-        <div class="toc-group-label">스케줄 관리</div>
-        <a class="toc-link" href="#schedule-personal">개인수업 예약 및 취소</a>
-        <a class="toc-link" href="#schedule-group">그룹수업 만들기와 예약</a>
-        <a class="toc-link" href="#attendance">출석 처리</a>
+        <div class="toc-group-label">일정 관리</div>
+        <a class="toc-link" href="#schedule-personal">개인수업 예약하기</a>
+        <a class="toc-link" href="#schedule-repeat">여러 날짜·반복 예약</a>
+        <a class="toc-link" href="#schedule-group">그룹수업·기타 일정</a>
+        <a class="toc-link" href="#attendance">출석·결석 처리</a>
       </div>
       <div class="toc-group">
         <div class="toc-group-label">운동 라이브러리</div>
-        <a class="toc-link" href="#exercise-db">커스텀 운동 DB 만들기</a>
+        <a class="toc-link" href="#exercise-library">운동 찾아보기</a>
+        <a class="toc-link" href="#exercise-custom">내 운동 직접 추가하기</a>
       </div>
       <div class="toc-group">
         <div class="toc-group-label">회원 관리</div>
-        <a class="toc-link" href="#class-log">수업일지 기록 및 공유</a>
-        <a class="toc-link" href="#routine-assign">운동루틴 처방</a>
-        <a class="toc-link" href="#diet">식단 관리</a>
-        <a class="toc-link" href="#insights">PT 성과 데이터</a>
-        <a class="toc-link" href="#history">이전 수업 내역 보기</a>
-        <a class="toc-link" href="#body-data">체성분 및 체형사진</a>
-        <a class="toc-link" href="#consultation">첫 상담 기록 작성</a>
+        <a class="toc-link" href="#class-log">수업 일지 작성하기</a>
+        <a class="toc-link" href="#previous-records">이전 기록과 비교하기</a>
+        <a class="toc-link" href="#member-verify">회원 인증 확인·피드백</a>
+        <a class="toc-link" href="#activity">회원 활동 기록 보기</a>
+        <a class="toc-link" href="#performance">수업 성과 분석</a>
+        <a class="toc-link" href="#history">지난 수업 일지 다시 보기</a>
+        <a class="toc-link" href="#body-data">체성분·체형 사진 기록</a>
+        <a class="toc-link" href="#consultation">상담 기록 작성</a>
+        <a class="toc-link" href="#pause">회원 일시정지</a>
       </div>
     </aside>
 
@@ -276,82 +290,146 @@
         <div class="g-callout">🧭 <div>이 <strong>공통</strong> 기능은 <strong>강사 모드와 관리자 모드에서 동일하게</strong> 동작합니다. 어느 모드에서 보셔도 같은 내용입니다.</div></div>
 
 <article class="g-item" id="account">
-          <h3>회원 가입</h3>
+          <h3>회원 가입과 로그인</h3>
           <p class="g-intro">센티프를 처음 사용하신다면 강사 계정을 먼저 만들어야 합니다. 1분이면 충분합니다.</p>
-          <h4 class="g-sub">1. 계정 만들기</h4>
-          <div class="g-step"><span class="g-step-num">1</span><p>앱을 켰을 때 보이는 <strong>[회원가입]</strong>을 눌러주세요.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>가입 화면의 빈칸을 채워주세요. <strong>이메일</strong>은 공지사항과 센티프 자료를 받는 주소로 쓰이고, <strong>비밀번호</strong>는 8자 이상으로 만들어주세요.</p></div>
-          <div class="g-step"><span class="g-step-num">3</span><p>이름 · 휴대폰 번호 · 생년월일 · 성별까지 입력한 뒤 <strong>[가입하기]</strong>를 누르면 가입이 완료됩니다.</p></div>
-          <div class="g-capture"><i>📸</i><b>캡처 예정 — 회원가입 화면</b><span>입력 필드와 [가입하기] 버튼에 빨간 표시</span></div>
-          <h4 class="g-sub">2. 계정 삭제</h4>
-          <div class="g-callout warn">⚠️ <div>계정을 삭제하면 작성한 수업일지, 회원 기록, 상품 발급 내역이 함께 삭제됩니다. <strong>삭제된 데이터는 복구되지 않으며, 계정을 다시 만들어도 이전 기록은 되돌아오지 않습니다.</strong> 이용에 불편한 점이 있다면 삭제 전에 카카오채널로 문의해주세요.</div></div>
-          <div class="g-step"><span class="g-step-num">1</span><p><strong>[마이탭]</strong> 우상단의 <strong>[설정]</strong>을 눌러주세요.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p><strong>[계정 관리] → [계정 탈퇴]</strong>에서 계정을 삭제할 수 있습니다.</p></div>
-          <div class="g-step"><span class="g-step-num">3</span><p>탈퇴 처리에 동의하면 모든 정보가 삭제되며 탈퇴가 완료됩니다.</p></div>
-          <div class="g-capture"><i>📸</i><b>캡처 예정 — 설정 → 계정 관리 화면</b><span>[계정 탈퇴] 메뉴에 빨간 표시</span></div>
+
+          <h4 class="g-sub">1. 간편 로그인으로 시작하기</h4>
+          <div class="g-step"><span class="g-step-num">1</span><p>앱을 켜면 로그인 화면이 나옵니다. <strong>카카오 · 네이버</strong>(아이폰은 <strong>Apple</strong>까지) 버튼으로 바로 시작할 수 있습니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>처음 이용하는 계정이라면 이름 · 휴대폰 인증 · 생년월일 · 성별만 추가로 입력하면 가입이 끝납니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>이메일로 가입하고 싶다면 <strong>[이메일로 로그인]</strong> → <strong>[회원가입]</strong>으로 들어갑니다.</p></div>
+
+          <h4 class="g-sub">2. 이메일로 가입하기</h4>
+          <div class="g-step"><span class="g-step-num">1</span><p>이메일을 입력하고 오른쪽 <strong>[중복 확인]</strong>을 눌러 사용 가능한 주소인지 먼저 확인합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>비밀번호는 <strong>8자 이상</strong>으로 만들고 아래 칸에 한 번 더 입력합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>이름을 적고, 휴대폰 번호 오른쪽 <strong>[인증 요청]</strong>으로 본인 인증을 마칩니다.</p></div>
+          <div class="g-step"><span class="g-step-num">4</span><p>생년월일과 성별까지 고른 뒤 <strong>[가입하기]</strong>를 누르면 완료됩니다.</p></div>
+
+          <div class="g-shot-row">
+            <figure class="g-shot phone">
+              <img src="assets/guide/01-login.png" alt="센티프 코치 앱 로그인 화면 — 카카오·네이버 간편 로그인 버튼과 이메일로 로그인 버튼" loading="lazy">
+              <figcaption>로그인 화면 — 간편 로그인 또는 [이메일로 로그인]</figcaption>
+            </figure>
+            <figure class="g-shot phone">
+              <img src="assets/guide/02-signup.png" alt="센티프 코치 앱 회원가입 화면 — 이메일 중복 확인, 비밀번호, 이름, 휴대폰 인증 요청, 생년월일, 성별 입력 폼" loading="lazy">
+              <figcaption>이메일 회원가입 — 이메일 중복 확인과 휴대폰 인증이 필요합니다</figcaption>
+            </figure>
+          </div>
+
+          <h4 class="g-sub">3. 계정 탈퇴</h4>
+          <div class="g-step"><span class="g-step-num">1</span><p>하단 <strong>[프로필]</strong> 탭 → <strong>[계정 관리]</strong>로 들어갑니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p><strong>[계정 탈퇴]</strong>를 눌러 탈퇴를 진행합니다.</p></div>
+          <div class="g-callout warn">⚠️ <div>계정을 삭제하면 작성한 수업 일지, 회원 기록, 상품 발급 내역이 함께 삭제됩니다. <strong>삭제된 데이터는 복구되지 않으며, 계정을 다시 만들어도 이전 기록은 되돌아오지 않습니다.</strong> 이용에 불편한 점이 있다면 삭제 전에 카카오채널로 문의해주세요.</div></div>
         </article>
 
 <article class="g-item" id="workspace">
           <h3>워크스페이스 생성·참여</h3>
           <p class="g-intro">워크스페이스는 우리 센터의 공간입니다. 혼자라면 새로 만들고, 이미 운영 중인 센터에 합류한다면 초대를 받아 참여하세요.</p>
+
           <h4 class="g-sub">1. 새 워크스페이스 만들기</h4>
-          <div class="g-step"><span class="g-step-num">1</span><p>가입 후 워크스페이스 선택 화면에서 <strong>[새 워크스페이스 만들기]</strong>를 눌러주세요.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>센터 이름을 입력하면 나만의 워크스페이스가 생성됩니다.</p></div>
+          <div class="g-step"><span class="g-step-num">1</span><p>가입 후 워크스페이스 선택 화면에서 <strong>[새 워크스페이스 생성]</strong>을 눌러주세요.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p><strong>워크스페이스 이름</strong>만 필수입니다. 센터 사진·로고, 대표 주소, 대표 연락처는 나중에 설정에서 추가해도 됩니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>주소는 직접 타이핑하지 않고 <strong>우편번호 검색</strong>으로 고릅니다. 만든 사람은 자동으로 <strong>대표</strong>가 됩니다.</p></div>
+
+          <figure class="g-shot narrow">
+            <img src="assets/guide/03-workspace-create.png" alt="워크스페이스 생성 화면 — 사진/로고 선택, 워크스페이스 이름, 대표 주소, 대표 연락처 입력" loading="lazy">
+            <figcaption>워크스페이스 생성 — 이름만 필수, 로고는 회원 앱에도 표시됩니다</figcaption>
+          </figure>
+
           <h4 class="g-sub">2. 기존 워크스페이스 참여하기</h4>
-          <div class="g-step"><span class="g-step-num">1</span><p>관리자(원장님)에게 초대를 요청하세요. 초대를 받으면 참여할 워크스페이스가 선택 화면에 나타납니다.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>워크스페이스를 선택하면 센터의 회원·일정 데이터와 연결됩니다.</p></div>
-          <div class="g-callout">💡 <div>두 번째 인원부터는 워크스페이스에 <strong>결제수단이 등록되어 있어야</strong> 초대를 보낼 수 있습니다. 자세한 내용은 <a href="pricing.html">요금제</a>를 확인해주세요.</div></div>
-          <div class="g-capture"><i>📸</i><b>캡처 예정 — 워크스페이스 선택 화면</b></div>
+          <div class="g-step"><span class="g-step-num">1</span><p>내 <strong>고유코드</strong>(8자)를 원장님께 알려주세요. 프로필 화면의 <strong>초대코드</strong> 항목에서 복사할 수 있습니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>원장님이 그 코드로 초대하면, 참여할 워크스페이스가 선택 화면에 나타납니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>워크스페이스를 선택해 <strong>수락</strong>하면 센터의 회원·일정 데이터와 연결됩니다. 요금은 이 <strong>수락 시점</strong>에 원장님이 등록해둔 결제수단에서 결제되며, 강사님이 결제하실 것은 없습니다.</p></div>
+          <div class="g-step"><span class="g-step-num">4</span><p>원장님 쪽 결제가 실패하면 합류가 취소되고 초대가 사라집니다. 이때는 원장님께 <strong>다시 초대를 요청</strong>해주세요.</p></div>
+          <div class="g-callout">💡 <div>두 번째 인원부터는 <strong>초대를 보낼 때 워크스페이스에 결제수단을 등록</strong>해야 합니다. 초대를 보낸 것만으로는 요금이 나가지 않고, <strong>초대받은 분이 수락하는 순간</strong> 그 결제수단에서 결제됩니다. 자세한 내용은 <a href="pricing.html">요금제</a>를 확인해주세요.</div></div>
         </article>
 
         <article class="g-item" id="modes">
           <h3>강사 모드와 관리자 모드</h3>
           <p class="g-intro">센티프 앱은 하나의 앱 안에서 두 가지 모드로 동작합니다. 사람마다 앱을 따로 설치할 필요가 없습니다.</p>
-          <div class="g-step"><span class="g-step-num">1</span><p><strong>강사 모드</strong>는 내가 담당하는 회원의 수업·기록·소통에 집중한 화면입니다. 홈 · 회원 · 일정 · 채팅 · 메모 탭으로 구성됩니다.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p><strong>관리자 모드</strong>는 센터 전체의 매출 · 회원 · 팀원 · 정산을 보는 화면입니다. 대시보드 · 회원관리 · 팀원 · 상품 탭이 추가됩니다.</p></div>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>강사 모드</strong>는 내가 담당하는 회원의 수업·기록·소통에 집중한 화면입니다. <strong>홈 · 회원 · 일정 · 채팅 · 프로필</strong> 탭으로 구성됩니다(가로 태블릿에서는 마지막 탭이 <strong>메모</strong>).</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p><strong>관리자 모드</strong>는 센터 전체의 매출 · 회원 · 팀원 · 상품을 보는 화면입니다. <strong>대시보드</strong>가 첫 탭이 되고 <strong>팀원 · 상품</strong> 탭이 더해집니다.</p></div>
           <div class="g-step"><span class="g-step-num">3</span><p>관리자 권한을 가진 분은 두 모드를 자유롭게 오갈 수 있고, 강사 권한만 있다면 강사 모드로만 사용합니다.</p></div>
-          <div class="g-callout">💡 <div>이 <strong>공통</strong> 문서의 기능들은 어떤 모드에서든 동일하게 동작합니다. 모드별 전용 기능은 각 탭에서 확인해주세요.</div></div>
-          <div class="g-capture"><i>📸</i><b>캡처 예정 — 모드 전환 메뉴</b><span>강사 모드 / 관리자 모드 항목에 빨간 표시</span></div>
+
+          <h4 class="g-sub">모드 전환하는 방법</h4>
+          <p class="g-intro">쓰고 있는 기기에 따라 전환 방법이 다릅니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>태블릿 · PC</strong> — 화면 <strong>왼쪽 아래의 전환 버튼</strong>을 누르면 강사 모드와 관리자 모드가 바뀝니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p><strong>모바일</strong> — 하단 <strong>[프로필]</strong> 탭을 <strong>연속으로 두 번</strong> 누르면 전환됩니다. 보고 있던 화면은 그대로 두고 모드만 바뀝니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>모바일에서는 홈·프로필 화면 <strong>우측 상단의 모드 칩</strong>(예: <strong>[⇄ 강사]</strong>)을 눌러 바꿀 수도 있습니다.</p></div>
+
+          <div class="g-callout">💡 <div>모드 전환 수단은 <strong>대표·관리자 권한에만</strong> 보입니다. 강사 권한이라면 전환 버튼이나 프로필 탭 두 번 누르기가 동작하지 않습니다 — 정상입니다.</div></div>
+          <div class="g-callout">💡 <div>이 <strong>공통</strong> 문서의 기능들은 두 모드에서 동일하게 동작합니다.</div></div>
+
+          <figure class="g-shot phone">
+            <img src="assets/guide/04-modes.png" alt="강사 모드 하단 탭 — 홈, 회원, 일정, 채팅, 프로필" loading="lazy">
+            <figcaption>강사 모드 하단 탭 구성 — 마지막 [프로필] 탭을 두 번 누르면 모드가 바뀝니다</figcaption>
+          </figure>
         </article>
 
         <article class="g-item" id="profile">
-          <h3>프로필 정보 수정</h3>
-          <p class="g-intro">이름·연락처 같은 내 정보는 모드와 관계없이 같은 설정 화면에서 관리합니다.</p>
-          <div class="g-step"><span class="g-step-num">1</span><p>하단 탭 우측의 <strong>[마이]</strong>에서 <strong>[설정]</strong>을 열어주세요.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>프로필 사진을 눌러 사진을 바꾸고, <strong>이메일 · 연락처 · 생년월일 · 성별</strong>을 수정할 수 있습니다.</p></div>
-          <div class="g-step"><span class="g-step-num">3</span><p>수정한 내용은 저장하면 즉시 반영되고, 회원 앱에서 보이는 내 프로필에도 함께 적용됩니다.</p></div>
-          <div class="g-capture"><i>📸</i><b>캡처 예정 — 설정 → 프로필 화면</b><span>프로필 사진과 각 입력 필드에 빨간 표시</span></div>
+          <h3>내 프로필 정보</h3>
+          <p class="g-intro">이름·연락처 같은 내 정보는 모드와 관계없이 <strong>프로필</strong> 화면에서 확인합니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p>하단 탭 맨 오른쪽 <strong>[프로필]</strong>을 눌러주세요. 가로 태블릿에서는 왼쪽 사이드바 상단의 워크스페이스 아이콘 → <strong>[내 계정]</strong>입니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>가운데 <strong>프로필 사진</strong>을 누르면 갤러리에서 사진을 고를 수 있습니다. 바꾼 사진은 서버에 저장되어 <strong>다른 기기와 회원 앱에서도 함께 바뀝니다.</strong></p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>이메일 · 연락처 · 생년월일 · 성별과 내 <strong>초대코드</strong>를 확인할 수 있습니다. 초대코드 우측 아이콘을 누르면 복사됩니다.</p></div>
+
+          <figure class="g-shot phone">
+            <img src="assets/guide/05-profile.png" alt="프로필 화면 — 프로필 사진, 이름, 역할 배지, 이메일·연락처·생년월일·성별·초대코드" loading="lazy">
+            <figcaption>프로필 화면 — 사진을 누르면 변경, 초대코드는 탭해서 복사</figcaption>
+          </figure>
         </article>
 
         <article class="g-item" id="app-settings">
-          <h3>앱 설정과 로그아웃</h3>
-          <div class="g-step"><span class="g-step-num">1</span><p>같은 <strong>[설정]</strong> 화면에서 <strong>테마 모드</strong>(라이트 · 다크)를 바꿀 수 있습니다.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p><strong>초대코드</strong> 항목에서 내가 속한 워크스페이스 정보를 확인합니다.</p></div>
-          <div class="g-step"><span class="g-step-num">3</span><p><strong>[로그아웃]</strong>을 누르면 계정에서 안전하게 나갑니다. 다시 로그인하면 데이터는 그대로 남아 있습니다.</p></div>
-          <div class="g-capture"><i>📸</i><b>캡처 예정 — 설정 화면 하단</b><span>테마 모드 · 로그아웃 항목에 빨간 표시</span></div>
+          <h3>앱 설정·계정 관리·로그아웃</h3>
+          <p class="g-intro">프로필 화면 아래쪽에 앱 설정 메뉴가 모여 있습니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>[테마 설정]</strong>에서 라이트 · 다크 · 시스템 기본값을 고를 수 있습니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p><strong>[알림 설정]</strong>에서 받을 알림 종류를 켜고 끕니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p><strong>[계정 관리]</strong>에는 연락처 변경 · 비밀번호 변경 · 계정 탈퇴가 있습니다.</p></div>
+          <div class="g-step"><span class="g-step-num">4</span><p>맨 아래 <strong>[로그아웃]</strong>을 누르면 계정에서 안전하게 나갑니다. 다시 로그인하면 데이터는 그대로 남아 있습니다.</p></div>
+          <div class="g-callout">💡 <div><strong>[운동 라이브러리]</strong>와 <strong>[AI 코칭 스타일 설정]</strong>도 이 화면에서 바로 들어갈 수 있습니다.</div></div>
+
+          <figure class="g-shot phone">
+            <img src="assets/guide/06-account.png" alt="계정 관리 화면 — 연락처 변경, 비밀번호 변경, 계정 탈퇴 메뉴" loading="lazy">
+            <figcaption>프로필 → 계정 관리</figcaption>
+          </figure>
         </article>
 
 <article class="g-item" id="chat">
           <h3>1:1 채팅</h3>
-          <div class="g-step"><span class="g-step-num">1</span><p><strong>[채팅]</strong>에서 연동된 회원과의 대화방을 열 수 있습니다.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>일정 변경 요청, 운동 질문 등을 실시간 메시지로 주고받으세요.</p></div>
-          <div class="g-callout">💡 <div>개인 연락처를 공개하지 않고도 회원과 소통할 수 있습니다.</div></div>
-          <div class="g-capture"><i>📸</i><b>캡처 예정 — 채팅 화면</b></div>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>[채팅]</strong> 탭에서 연동된 회원과의 대화방을 열 수 있습니다. 상단 <strong>회원 / 코치</strong> 탭으로 상대를 나눠 볼 수 있습니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>우측 상단 <strong>[+]</strong>로 새 대화를 시작합니다. 담당 회원, 동료 코치, 그리고 여러 명을 묶은 <strong>단체방</strong>까지 만들 수 있습니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>일정 변경 요청, 운동 질문, 사진 전달을 실시간으로 주고받으세요. 읽지 않은 메시지는 빨간 숫자로 표시됩니다.</p></div>
+          <div class="g-callout">💡 <div>개인 연락처를 공개하지 않고도 회원과 소통할 수 있습니다. 회원이 보낸 <strong>수업 변경·취소 요청</strong>은 채팅 카드에서 바로 승인·거절할 수 있습니다.</div></div>
+
+          <figure class="g-shot phone">
+            <img src="assets/guide/07-chat.png" alt="채팅 목록 화면 — 회원별 대화방과 미읽음 배지" loading="lazy">
+            <figcaption>채팅 탭 — 회원/코치 전환, 미읽음 개수 표시</figcaption>
+          </figure>
         </article>
 
 <article class="g-item" id="notice">
           <h3>회원 공지 발송</h3>
-          <div class="g-step"><span class="g-step-num">1</span><p><strong>[공지]</strong>에서 <strong>[공지 작성]</strong>을 눌러주세요.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>제목과 내용을 작성하고 발송하면, 연동된 회원들의 앱에 푸시 알림으로 전달됩니다.</p></div>
-          <div class="g-step"><span class="g-step-num">3</span><p>휴무 안내, 이벤트, 센터 소식을 단체 문자 비용 없이 전달해보세요.</p></div>
-          <div class="g-capture"><i>📸</i><b>캡처 예정 — 공지 작성 화면</b></div>
+          <div class="g-step"><span class="g-step-num">1</span><p>홈 화면의 <strong>공지사항</strong> 카드에서 <strong>[전체보기]</strong>를 누르거나, 세로 화면에서는 좌측 상단 <strong>[≡]</strong> → <strong>[회원 공지]</strong>로 들어갑니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p><strong>[공지 작성]</strong>을 누르고 <strong>카테고리</strong>(휴무 · 시설정비 · 이벤트 · 공지)를 고른 뒤 제목과 내용을 작성합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>저장하면 연동된 회원들의 앱에 공지가 전달됩니다. 휴무 안내, 이벤트, 센터 소식을 단체 문자 비용 없이 전달해보세요.</p></div>
+          <div class="g-callout">💡 <div>작성한 공지는 목록에서 <strong>길게 눌러</strong> 수정·삭제할 수 있습니다.</div></div>
+
+          <figure class="g-shot">
+            <img src="assets/guide/08-notice.png" alt="회원 공지 목록 화면과 공지 작성 버튼" loading="lazy">
+            <figcaption>회원 공지 — 목록에서 작성·수정·삭제</figcaption>
+          </figure>
         </article>
 
 <article class="g-item" id="memo">
           <h3>공유 메모장</h3>
-          <div class="g-step"><span class="g-step-num">1</span><p><strong>[메모]</strong>에서 워크스페이스 구성원이 함께 보는 메모를 작성할 수 있습니다.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>인수인계, 기구 점검, 공유 사항을 기록하면 팀 전체가 같은 내용을 봅니다.</p></div>
-          <div class="g-capture"><i>📸</i><b>캡처 예정 — 메모장 화면</b></div>
+          <div class="g-step"><span class="g-step-num">1</span><p>가로 태블릿에서는 <strong>[메모]</strong> 탭, 세로 화면에서는 좌측 상단 <strong>[≡]</strong> → <strong>[메모]</strong>에서 열 수 있습니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>메모마다 <strong>개인 메모</strong>와 <strong>공유 메모</strong>를 고를 수 있습니다. 공유로 두면 지정한 팀원이 같은 내용을 봅니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>본문 아래 <strong>사진 첨부</strong> 칸으로 기구 사진·화이트보드 사진을 함께 남길 수 있습니다.</p></div>
+          <div class="g-callout">💡 <div>인수인계, 기구 점검, 재고 확인처럼 <strong>말로 전하면 사라지는 것</strong>을 남겨두는 용도로 쓰기 좋습니다.</div></div>
+
+          <figure class="g-shot mid">
+            <img src="assets/guide/09-memo.png" alt="메모 편집 화면 — 본문과 사진 첨부 영역, 하단 공유 범위 배지" loading="lazy">
+            <figcaption>메모 편집 — 사진 첨부와 공유 범위</figcaption>
+          </figure>
         </article>
       </section>
 
@@ -362,147 +440,221 @@
 
         <article class="g-item" id="home">
           <h3>홈 화면 한눈에 보기</h3>
-          <p class="g-intro">앱을 열면 가장 먼저 만나는 화면입니다. 오늘 하루의 수업과 해야 할 일이 정리되어 있습니다.</p>
-          <div class="g-step"><span class="g-step-num">1</span><p><strong>오늘의 수업</strong> — 시간순으로 정렬된 오늘 일정과 회원 정보를 확인합니다.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p><strong>회원 활동 피드</strong> — 회원이 올린 개인운동·식단이 실시간으로 올라옵니다. 바로 피드백을 남길 수 있습니다.</p></div>
-          <div class="g-step"><span class="g-step-num">3</span><p><strong>알림</strong> — 예약 변경, 미작성 수업일지 등 놓치면 안 되는 일이 모입니다.</p></div>
-          <div class="g-capture"><i>📸</i><b>캡처 예정 — 홈 화면</b><span>주요 영역 3곳에 빨간 표시</span></div>
+          <p class="g-intro">앱을 열면 가장 먼저 만나는 화면입니다. <strong>지금 할 일</strong>이 위에, 참고 정보가 아래에 놓입니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>다음 일정</strong> — 오늘 남은 일정 중 가장 가까운 수업이 큰 카드로 뜹니다. 카드에서 바로 <strong>[수업 기록]</strong>·<strong>[출석]</strong>·<strong>[결석]</strong>을 처리할 수 있습니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p><strong>업무 알림</strong> — 시설이용권 만료 임박, 잔여 횟수 소진, 상담 후 수강권 미등록처럼 <strong>지금 조치가 필요한 회원</strong>이 모입니다. 항목을 누르면 처리할 수 있는 화면으로 바로 이동합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p><strong>회원 인증</strong> — 회원이 올린 식단·개인운동·체성분·체형 사진이 모입니다. 눌러서 확인하고 댓글·이모지로 피드백하세요.</p></div>
+          <div class="g-step"><span class="g-step-num">4</span><p><strong>이번달 성과 · 공지사항 · 도구 카드</strong>(운동 라이브러리, AI 코칭 스타일)가 함께 배치됩니다.</p></div>
+
+          <figure class="g-shot">
+            <img src="assets/guide/10-home.png" alt="강사 홈 화면 — 다음 일정 카드, 이번달 성과, 업무 알림, 공지사항, 회원 인증" loading="lazy">
+            <figcaption>강사 홈(가로 태블릿) — 좌측 다음 일정, 가운데 성과·업무 알림, 우측 공지·회원 인증</figcaption>
+          </figure>
+          <div class="g-callout">💡 <div>세로 화면(휴대폰)에서는 같은 카드들이 <strong>위에서 아래로</strong> 이어집니다.</div></div>
         </article>
 
         <article class="g-item" id="member-add">
           <h3>회원 프로필 등록하기</h3>
-          <p class="g-intro">수업을 시작하려면 먼저 회원 프로필을 만들어야 합니다. 프로필만 만들어도 수업 관리가 가능하고, 회원 계정과 연결(연동)하면 온라인 코칭까지 가능해집니다.</p>
-          <h4 class="g-sub">1. 프로필 등록하기</h4>
-          <div class="g-step"><span class="g-step-num">1</span><p><strong>[회원탭]</strong> 우상단 <strong>[프로필 추가]</strong> 버튼으로 <strong>미연동</strong> 프로필을 등록할 수 있습니다.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>이름 · 나이 · 성별을 입력합니다.</p></div>
-          <div class="g-step"><span class="g-step-num">3</span><p>이어서 상품(수강권) 정보를 입력합니다 — 색상 / 종류 / 이름 / 횟수 / 회당 진행 시간 / 만료일자.</p></div>
-          <div class="g-step"><span class="g-step-num">4</span><p><strong>[수강권 발급하기]</strong> 버튼을 눌러 프로필 등록을 마무리합니다.</p></div>
-          <div class="g-capture"><i>📸</i><b>캡처 예정 — 회원탭 → 프로필 추가 흐름</b></div>
-          <h4 class="g-sub">2. 회원 프로필 확인하기</h4>
-          <div class="g-step"><span class="g-step-num">1</span><p><strong>[회원탭]</strong> 아래쪽 <strong>미연동</strong> 칸에서 방금 만든 프로필을 확인할 수 있습니다.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>프로필을 클릭하면 해당 회원의 상세페이지를 관리할 수 있습니다.</p></div>
-          <div class="g-callout">💡 <div>프로필은 2가지 상태가 있습니다. <strong>미연동</strong>은 회원 계정과 아직 연결되지 않은 프로필, <strong>연동 완료</strong>는 회원 계정과 연결된 프로필입니다.</div></div>
-          <h4 class="g-sub">3. 연동하기</h4>
-          <div class="g-step"><span class="g-step-num">1</span><p><strong>[회원탭]</strong>에서 <strong>미연동</strong> 프로필의 <strong>[연동하기]</strong> 버튼을 클릭해주세요.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>휴대폰 번호를 입력하면 해당 번호로 가입한 회원님의 계정 정보가 나타납니다.</p></div>
-          <div class="g-step"><span class="g-step-num">3</span><p>내 회원이 맞는지 확인하고 <strong>[회원으로 등록]</strong>을 클릭합니다.</p></div>
-          <div class="g-step"><span class="g-step-num">4</span><p><strong>미연동</strong>이던 프로필이 <strong>연동 완료</strong>로 바뀐 것을 확인할 수 있습니다. 이제 모든 기능이 회원과 연동됩니다.</p></div>
-          <div class="g-callout">💡 <div>연동하려면 회원도 센티프 앱에 가입되어 있어야 합니다. 아직 가입 전이라면 <strong>앱 다운로드 링크가 대신 전달</strong>됩니다.</div></div>
-          <div class="g-capture"><i>📸</i><b>캡처 예정 — 연동하기 흐름</b><span>[연동하기] → 번호 검색 → [회원으로 등록] 순서 표시</span></div>
+          <p class="g-intro">수업을 시작하려면 먼저 회원 프로필을 만들어야 합니다. 프로필만 만들어도 일정·기록 관리가 되고, 회원 계정과 <strong>연동</strong>하면 온라인 코칭까지 가능해집니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>[회원]</strong> 탭 상단의 <strong>[회원 추가]</strong>를 눌러주세요.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p><strong>이름</strong>과 <strong>성별</strong>은 필수, 휴대폰 번호와 나이는 선택입니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p><strong>[추가하기]</strong>를 누르면 등록이 끝납니다. 아직 상품이 없으므로 이 회원은 <strong>대기</strong> 상태로 들어갑니다.</p></div>
+
+          <figure class="g-shot narrow">
+            <img src="assets/guide/11-member-add.png" alt="회원 추가 다이얼로그 — 이름, 휴대폰 번호, 성별, 나이 입력" loading="lazy">
+            <figcaption>회원 추가 — 이름·성별만 필수입니다</figcaption>
+          </figure>
+
+          <div class="g-callout">💡 <div>회원 목록의 <strong>대기</strong> 탭에서 방금 만든 회원을 볼 수 있습니다. <a href="#product-issue">상품을 발급</a>하면 <strong>활성</strong>으로 바뀝니다.</div></div>
+        </article>
+
+        <article class="g-item" id="member-link">
+          <h3>회원 계정 연동하기</h3>
+          <p class="g-intro">회원이 센티프 <strong>회원 앱</strong>을 쓰고 있다면 프로필과 계정을 연결하세요. 연동하면 수업 일지 전달, 채팅, 식단·운동 인증이 모두 이어집니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p>회원 상세 화면 우측 상단의 <strong>[연동하기]</strong>를 누릅니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>회원 앱에서 발급된 <strong>8자 연동 코드</strong>를 입력하거나, <strong>[QR 스캔]</strong>으로 회원 화면의 QR을 찍습니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>코드 주인의 이름·연락처가 나타나면 내 회원이 맞는지 확인하고 <strong>[연동]</strong>을 누릅니다.</p></div>
+          <div class="g-step"><span class="g-step-num">4</span><p>회원 목록의 배지가 <strong>미연동 → 연동</strong>으로 바뀝니다.</p></div>
+
+          <figure class="g-shot">
+            <img src="assets/guide/12-member-link.png" alt="회원 연동 시트 — 8자 코드 입력 필드와 QR 스캔 진입" loading="lazy">
+            <figcaption>회원 연동 — 회원 앱의 8자 코드 또는 QR 스캔</figcaption>
+          </figure>
+
+          <div class="g-callout warn">⚠️ <div>연동은 <strong>되돌릴 수 없습니다.</strong> 그래서 연동 전에 코드 주인의 정보를 반드시 확인해주세요. 회원이 아직 앱에 가입하지 않았다면 먼저 가입을 안내해야 합니다.</div></div>
         </article>
 
         <article class="g-item" id="member-delete">
           <h3>회원 프로필 삭제하기</h3>
-          <div class="g-callout warn">⚠️ <div>프로필을 삭제하려면 먼저 <strong>연동을 해제</strong>해야 합니다. 연동 해제는 회원이 앱에서 계정을 삭제하거나, SSENTIF 카카오채널로 문의 주시면 도와드립니다.</div></div>
-          <div class="g-step"><span class="g-step-num">1</span><p><strong>[회원탭]</strong>에서 삭제하고 싶은 <strong>[회원 프로필]</strong>에 들어가세요.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>우상단 <strong>[수강권]</strong> 모양의 버튼을 클릭합니다.</p></div>
-          <div class="g-step"><span class="g-step-num">3</span><p>하단의 <strong>[삭제하기]</strong> 버튼으로 프로필을 삭제할 수 있습니다.</p></div>
-          <div class="g-callout warn">⚠️ <div>회원 프로필을 삭제하면 해당 회원의 수업일지, 상품 발급 내역, 체성분·체형 기록이 함께 삭제됩니다. <strong>삭제된 기록은 복구되지 않습니다.</strong></div></div>
-          <div class="g-capture"><i>📸</i><b>캡처 예정 — 프로필 삭제 화면</b><span>[삭제하기] 버튼에 빨간 표시</span></div>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>[회원]</strong> 탭에서 삭제할 회원을 열고 <strong>[기본 정보]</strong> 탭으로 이동합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>맨 아래 <strong>회원 프로필 삭제</strong> 카드에서 <strong>[삭제하기]</strong>를 누릅니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>안내를 읽고 동의에 체크하면 삭제가 진행됩니다.</p></div>
+
+          <figure class="g-shot">
+            <img src="assets/guide/13-member-delete.png" alt="회원 기본 정보 탭 하단의 회원 프로필 삭제 카드" loading="lazy">
+            <figcaption>기본 정보 탭 → 회원 프로필 삭제 (삭제 진입점은 이곳 하나입니다)</figcaption>
+          </figure>
+
+          <div class="g-callout warn">⚠️ <div><strong>수강권이 하나라도 남아 있으면 삭제되지 않습니다.</strong> 먼저 상품을 정리해주세요. 또 담당 회원이 아니라면 대표·관리자만 삭제할 수 있습니다. <strong>삭제된 기록은 복구되지 않습니다.</strong></div></div>
         </article>
       </section>
 
       <section class="g-section" id="sec-product">
         <div class="g-cat">상품(수강권) 관리</div>
-        <h2>템플릿부터 발급, 편집까지</h2>
+        <h2>상품을 만들고, 회원에게 발급하기</h2>
 
-        <article class="g-item" id="product-template">
-          <h3>상품 템플릿 생성</h3>
-          <p class="g-intro">자주 발급하는 상품 구성(예: PT 10회권, 30회권)을 템플릿으로 저장해두면, 매번 정보를 입력하지 않고 바로 발급할 수 있습니다.</p>
-          <div class="g-step"><span class="g-step-num">1</span><p>상품 템플릿 화면에서 <strong>[템플릿 추가]</strong>를 눌러주세요.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>상품 이름 · 횟수 · 회당 진행 시간 · 유효기간 등 기본 구성을 저장합니다.</p></div>
-          <div class="g-step"><span class="g-step-num">3</span><p>이후 회원에게 상품을 발급할 때 저장한 템플릿을 선택하면 정보가 자동으로 채워집니다.</p></div>
-          <div class="g-capture"><i>📸</i><b>캡처 예정 — 상품 템플릿 화면</b></div>
+        <div class="g-callout">🧭 <div>센티프의 상품은 <strong>두 단계</strong>로 동작합니다. ① 센터가 <strong>판매할 상품</strong>을 만들어두고 → ② 회원에게 그 상품을 <strong>발급</strong>합니다. 상품 만들기는 <strong>관리자 모드</strong>에서 합니다.</div></div>
+
+        <article class="g-item" id="product-catalog">
+          <h3>판매할 상품 만들기</h3>
+          <p class="g-intro">개인수업 10회권, 시설이용권 3개월처럼 센터가 파는 구성을 한 번 만들어두면 발급할 때 골라 쓰기만 하면 됩니다.</p>
+
+          <div class="g-callout warn">⚠️ <div><strong>상품 만들기는 관리자 모드에서만 가능합니다.</strong> 모드 전환은 <strong>대표·관리자 권한</strong>에만 보이므로, <strong>소속 강사(직원)라면 이 화면에 들어갈 수 없습니다.</strong> 필요한 상품이 있다면 센터 <strong>대표 또는 관리자에게 만들어 달라고 요청</strong>해주세요. 만들어진 상품은 곧바로 강사 모드의 <a href="#product-issue">상품 발급</a>에서 선택할 수 있습니다.</div></div>
+
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>관리자 모드</strong>로 전환한 뒤 <strong>[상품]</strong> 탭을 엽니다(세로 화면에서는 <strong>[≡]</strong> → <strong>[상품]</strong>).</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>우측 상단 <strong>[신규 상품 생성]</strong>을 누르고 <strong>분류</strong>를 고릅니다 — 개인수업 · 그룹수업 · 시설이용권 · 회원복 · 락커 · 기타 · 결합상품.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>분류에 따라 필요한 값만 입력합니다. 개인수업이라면 <strong>횟수 · 회당 진행시간 · 판매가</strong>, 시설이용권이라면 <strong>유효기간 · 판매가</strong>입니다.</p></div>
+          <div class="g-step"><span class="g-step-num">4</span><p>만든 상품은 카드로 쌓입니다. 카드의 <strong>[판매 중 / 판매 중지]</strong> 토글로 잠시 내려둘 수 있고, <strong>[수정]</strong>·<strong>[삭제]</strong>도 카드에서 바로 합니다.</p></div>
+
+          <figure class="g-shot">
+            <img src="assets/guide/14-products.png" alt="상품 관리 화면 — 분류 필터와 상품 카드 목록, 판매 중 토글" loading="lazy">
+            <figcaption>상품 관리(관리자 모드) — 분류별 필터와 상품 카드. [신규 상품 생성]은 화면 우측 상단에 있습니다</figcaption>
+          </figure>
+
+          <div class="g-callout">💡 <div>여러 상품을 한 번에 파는 패키지는 <strong>결합상품</strong>으로 만들면 됩니다. 예) 개인수업 30회 + 운동복 세트 + 락커 6개월.</div></div>
         </article>
 
         <article class="g-item" id="product-issue">
-          <h3>상품(수강권) 발급</h3>
-          <div class="g-callout">💡 <div>기본적으로 처음 프로필을 만드는 과정에서 상품(수강권)을 발급합니다. 여기서는 <strong>추가 발급</strong> 방법을 안내합니다.</div></div>
-          <div class="g-step"><span class="g-step-num">1</span><p><strong>[회원탭] → [회원 프로필]</strong>에 들어가세요.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>우상단 <strong>[수강권]</strong> 모양 버튼을 클릭하면 이전에 발급한 상품들의 정보를 확인할 수 있습니다.</p></div>
-          <div class="g-step"><span class="g-step-num">3</span><p>가장 오른쪽의 <strong>[수강권 발급하기]</strong> 버튼으로 상품을 추가 발급할 수 있습니다. 저장해둔 <strong>상품 템플릿</strong>을 선택하면 정보가 자동으로 채워집니다.</p></div>
-          <div class="g-capture"><i>📸</i><b>캡처 예정 — 상품(수강권) 목록 → 발급 화면</b></div>
+          <h3>회원에게 상품 발급하기</h3>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>[회원]</strong> 탭에서 회원을 열고 <strong>[상품]</strong> 탭으로 이동합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>‘구매 이력’ 오른쪽의 <strong>[+ 발급하기]</strong>를 누르면 <strong>상품 등록</strong> 창이 열립니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p><strong>[추가하기]</strong>로 판매 상품을 고릅니다. 여러 개를 한 번에 담을 수 있습니다.</p></div>
+          <div class="g-step"><span class="g-step-num">4</span><p><strong>등록 유형</strong>(신규 · 재등록), <strong>시작일</strong>, <strong>결제 기준</strong>(부가세 포함 여부)을 확인합니다. 이미 이용 중인 기간제 상품이 있으면 시작일이 <strong>그 만료일 다음 날</strong>로 자동 제안됩니다.</p></div>
+          <div class="g-step"><span class="g-step-num">5</span><p><strong>결제 수단</strong>을 고르고(복수 선택 시 수단별 금액을 나눠 입력) <strong>[발급하기]</strong>를 누릅니다.</p></div>
+
+          <figure class="g-shot narrow">
+            <img src="assets/guide/15-membership-issue.png" alt="상품 등록 다이얼로그 — 상품 선택, 등록 유형, 시작일, 결제 기준, 결제 수단" loading="lazy">
+            <figcaption>상품 등록 — 상품 선택 후 시작일·결제 정보 입력</figcaption>
+          </figure>
+
+          <div class="g-callout">💡 <div>결제 수단을 여러 개 고르면 <strong>수단별 금액의 합계가 총액과 같아야</strong> 발급됩니다(예: 카드 50만 + 현금 20만 = 70만).</div></div>
         </article>
 
-        <article class="g-item" id="product-edit">
-          <h3>상품(수강권) 편집</h3>
-          <p class="g-intro">발급한 상품 정보를 수정하거나, 만료 처리하거나, 삭제할 수 있습니다.</p>
-          <div class="g-step"><span class="g-step-num">1</span><p>발급했던 상품(수강권)을 클릭합니다.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>오른쪽 위의 <strong>[⋯]</strong> 버튼에서 아래 작업을 선택할 수 있습니다.</p></div>
-          <div class="g-step"><span class="g-step-num"> </span><p><strong>수정</strong> — 색상 / 종류 / 이름 / 횟수 / 회당 진행시간 / 만료일자 / 잔여횟수를 수정합니다.<br><strong>만료처리</strong> — 상품을 비활성 상태로 만듭니다. 더 이상 사용할 수 없지만 이전 수업일정과 기록은 그대로 확인할 수 있습니다.<br><strong>삭제</strong> — 상품을 삭제합니다.</p></div>
-          <div class="g-callout warn">⚠️ <div>상품을 <strong>삭제</strong>하면 해당 상품으로 진행된 수업일정과 기록이 <strong>함께 삭제</strong>됩니다. <strong>삭제된 기록은 복구되지 않습니다.</strong> 기록을 남겨야 한다면 삭제 대신 <strong>만료처리</strong>를 사용해주세요.</div></div>
-          <div class="g-capture"><i>📸</i><b>캡처 예정 — 상품 편집 메뉴</b><span>[⋯] 버튼과 수정/만료처리/삭제 메뉴 표시</span></div>
+        <article class="g-item" id="product-manage">
+          <h3>발급 내역 확인·수정·삭제</h3>
+          <p class="g-intro">발급한 상품은 회원의 <strong>[상품]</strong> 탭에 결제 건 단위로 쌓입니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p>카드 위쪽에 <strong>등록유형 · 결제일 · 결제수단 · 금액</strong>이, 아래에 상품별 <strong>잔여 횟수</strong>나 <strong>만료 D-day</strong>가 표시됩니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>결제 카드 우측 상단의 <strong>[⋯]</strong>에서 <strong>수정하기</strong> 또는 <strong>삭제</strong>를 고릅니다(대표·관리자 권한).</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p><strong>수정하기</strong>는 <strong>유효기간</strong>을 조정하는 창입니다. 상품별 시작일·종료일을 바꾸면 우측에 <strong>바뀐 일수</strong>가 함께 표시됩니다.</p></div>
+
+          <div class="g-shot-row">
+            <figure class="g-shot">
+              <img src="assets/guide/16-membership-tab.png" alt="회원 상품 탭 — 결제 건 카드와 상품별 잔여 횟수·만료일" loading="lazy">
+              <figcaption>상품 탭 — 결제 건별 발급 내역</figcaption>
+            </figure>
+            <figure class="g-shot">
+              <img src="assets/guide/17-membership-edit.png" alt="유효기간 수정 다이얼로그 — 상품별 시작일·종료일과 변경 일수" loading="lazy">
+              <figcaption>유효기간 수정 — 변경된 일수를 바로 확인</figcaption>
+            </figure>
+          </div>
+
+          <div class="g-callout warn">⚠️ <div>결제 건을 <strong>삭제</strong>하면 그 상품으로 잡힌 <strong>개인수업 일정이 함께 삭제</strong>되고(그룹수업은 그 회원만 제외), <strong>매출에서도 빠집니다</strong>. 삭제 전에 어떤 일정이 지워지는지 확인 창에서 알려드립니다. <strong>되돌릴 수 없습니다.</strong></div></div>
         </article>
       </section>
 
       <section class="g-section" id="sec-schedule">
-        <div class="g-cat">스케줄 관리</div>
-        <h2>개인수업과 그룹수업</h2>
+        <div class="g-cat">일정 관리</div>
+        <h2>예약하고, 출석을 처리하기</h2>
 
         <article class="g-item" id="schedule-personal">
-          <h3>개인수업 예약 및 취소</h3>
-          <div class="g-callout">💡 <div>일정을 예약하면 <strong>하루 전날</strong> 연동된 회원에게 리마인드 알림이 발송됩니다.</div></div>
-          <h4 class="g-sub">1. 수업 일정 예약하기</h4>
-          <div class="g-step"><span class="g-step-num">1</span><p><strong>[캘린더 탭]</strong>에서 원하는 날짜/시간 칸을 클릭한 뒤 <strong>'수업'</strong> 일정을 선택합니다.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>3가지 정보를 입력합니다 — <strong>시작 시간</strong>(종료 시간은 상품에 설정된 소요시간만큼 자동 계산) / <strong>회원 선택</strong>(사용 가능한 상품이 있는 회원이 노출) / <strong>수강권 정보</strong>(차감할 상품 선택).</p></div>
-          <div class="g-step"><span class="g-step-num">3</span><p><strong>[예약완료]</strong>를 누르면 '예약' 상태의 수업일정이 캘린더에 표시됩니다.</p></div>
-          <div class="g-capture"><i>📸</i><b>캡처 예정 — 캘린더 → 수업 예약 화면</b></div>
-          <h4 class="g-sub">2. 기타 일정 예약하기</h4>
-          <div class="g-callout">💡 <div>기타 일정은 강사의 <strong>개인 스케줄</strong>(청소, 개인운동 등)을 관리하는 기능입니다. 기타 일정이 잡힌 시간대에는 회원이 예약을 요청할 수 없습니다.</div></div>
-          <div class="g-step"><span class="g-step-num">1</span><p>일정명 · 시작 시간 · 종료 시간을 입력합니다.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p><strong>[예약완료]</strong>를 누르면 기타 일정이 캘린더에 표시됩니다.</p></div>
-          <h4 class="g-sub">3. 예약 취소하기</h4>
-          <div class="g-step"><span class="g-step-num">1</span><p><strong>[캘린더 탭]</strong>에서 취소하고 싶은 일정을 클릭해주세요.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p><strong>[예약 취소]</strong> 버튼을 누릅니다. 수업 일정이었다면 연결된 회원에게 취소 알림이 전달됩니다.</p></div>
+          <h3>개인수업 예약하기</h3>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>[일정]</strong> 탭에서 우측 상단 <strong>[일정 등록]</strong>을 누르거나, 달력의 빈 시간 칸을 바로 누릅니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>맨 위에서 <strong>일정 타입</strong>을 고릅니다 — <strong>개인수업 · 그룹수업 · 상담 · 센터 일정 · 개인 일정</strong>.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p><strong>회원을 먼저 선택</strong>합니다. 예약 가능한 횟수가 남은 회원만 목록에 뜨고, 이름 옆에 <strong>예약가능 N회</strong>가 표시됩니다.</p></div>
+          <div class="g-step"><span class="g-step-num">4</span><p>날짜와 시작 시간을 정합니다. <strong>종료 시간은 상품에 설정된 진행시간만큼 자동 계산</strong>됩니다.</p></div>
+          <div class="g-step"><span class="g-step-num">5</span><p><strong>[등록]</strong>을 누르면 달력에 <strong>수업예정</strong> 상태로 표시됩니다.</p></div>
+
+          <figure class="g-shot narrow">
+            <img src="assets/guide/18-schedule-create.png" alt="일정 등록 다이얼로그 — 일정 타입 선택, 회원 선택, 예약할 일정 갯수, 날짜와 시간" loading="lazy">
+            <figcaption>일정 등록 — 타입 → 회원 → 날짜·시간 순서로 입력</figcaption>
+          </figure>
+
+          <div class="g-callout">💡 <div>같은 날짜에 이미 잡힌 일정은 날짜 아래 <strong>미리보기 칩</strong>으로 보여줍니다. 겹치는 시간을 피해 잡기 좋습니다.</div></div>
+          <div class="g-callout">💡 <div>일정을 취소하려면 달력에서 일정을 누르고 <strong>[일정 삭제]</strong>를 선택하세요.</div></div>
+        </article>
+
+        <article class="g-item" id="schedule-repeat">
+          <h3>여러 날짜·반복 예약</h3>
+          <p class="g-intro">‘매주 월·수·금 오후 7시’처럼 반복되는 수업은 한 번에 잡을 수 있습니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p>일정 등록 창의 <strong>예약할 일정 갯수</strong>에서 <strong>[여러 일정]</strong> 또는 <strong>[반복 일정]</strong>을 고릅니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p><strong>여러 일정</strong>은 달력에서 원하는 날짜를 직접 여러 개 고르는 방식입니다. 날짜마다 시간을 다르게 줄 수도 있고, ‘모든 날짜에 같은 시간 적용’으로 한 번에 맞출 수도 있습니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p><strong>반복 일정</strong>은 <strong>요일 + 종료일</strong>로 규칙을 만듭니다. 아래에 <strong>“○○까지 총 N개의 일정”</strong>으로 결과 개수를 미리 알려줍니다.</p></div>
+
+          <figure class="g-shot">
+            <img src="assets/guide/19-schedule-repeat.png" alt="반복 설정 화면 — 요일 선택, 종료일, 요일별 시간, 생성될 일정 개수 요약" loading="lazy">
+            <figcaption>반복 설정 — 요일과 종료일을 정하면 개수를 미리 알려줍니다</figcaption>
+          </figure>
+
+          <div class="g-callout">💡 <div>개인수업은 <strong>회원의 남은 횟수보다 많이 예약할 수 없습니다.</strong> 초과하면 기존 예약의 시간을 조정할 수 있는 창이 뜹니다.</div></div>
         </article>
 
         <article class="g-item" id="schedule-group">
-          <h3>그룹수업 만들기와 예약</h3>
-          <p class="g-intro">여러 회원이 함께하는 그룹수업도 캘린더에서 관리할 수 있습니다.</p>
-          <div class="g-step"><span class="g-step-num">1</span><p><strong>[캘린더 탭]</strong>에서 날짜/시간을 선택하고 <strong>그룹수업</strong> 유형을 선택합니다.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>수업명과 정원, 시간을 설정한 뒤 참여할 회원들을 선택합니다. 회원마다 차감할 상품을 지정할 수 있습니다.</p></div>
-          <div class="g-step"><span class="g-step-num">3</span><p><strong>[예약완료]</strong>를 누르면 그룹수업이 캘린더에 표시되고, 참여 회원 전원에게 알림이 갑니다.</p></div>
-          <div class="g-capture"><i>📸</i><b>캡처 예정 — 그룹수업 만들기 화면</b><span>정원·회원 선택 영역 표시</span></div>
+          <h3>그룹수업·기타 일정</h3>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>그룹수업</strong>은 일정 타입에서 <strong>[그룹수업]</strong>을 고른 뒤 <strong>수업명</strong>과 <strong>정원</strong>을 정하고 참여 회원을 선택합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p><strong>상담</strong> 타입은 기존 회원을 고르거나, 아직 등록 전인 사람을 <strong>직접 입력</strong>(이름·연락처·성별)해 잡을 수 있습니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p><strong>센터 일정</strong>(단체 휴무·시설 점검)과 <strong>개인 일정</strong>(청소·개인운동)은 일정명만 적으면 됩니다.</p></div>
+          <div class="g-callout">💡 <div><strong>개인 일정</strong>이 잡힌 시간대에는 회원이 예약을 요청할 수 없습니다. 비워두고 싶은 시간을 미리 막아두는 용도로 쓰세요.</div></div>
         </article>
 
         <article class="g-item" id="attendance">
-          <h3>출석 처리</h3>
-          <p class="g-intro">개인수업과 그룹수업은 출석을 처리하는 화면 구조가 다릅니다. 순서대로 안내합니다.</p>
+          <h3>출석·결석 처리</h3>
+          <p class="g-intro">수업이 끝나면 출석을 처리해야 수강권이 차감되고 성과 데이터가 쌓입니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>[홈]</strong>의 다음 일정 카드나 <strong>[일정]</strong> 탭에서 해당 수업을 누릅니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>일정 상세에서 <strong>[출석 완료]</strong>를 누르면 상품이 <strong>1회 차감</strong>되고 상태가 <strong>수업완료</strong>로 바뀝니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>노쇼라면 <strong>[결석 차감]</strong>을 누릅니다. 횟수는 차감되지만 <strong>결석</strong>으로 구분되어 기록됩니다.</p></div>
+          <div class="g-step"><span class="g-step-num">4</span><p>상태에 따라 달력 블록 색이 바뀝니다 — <strong>수업예정(파랑) → 수업완료(초록)</strong>, <strong>결석(빨강)</strong>, <strong>취소(회색)</strong>.</p></div>
 
-          <h4 class="g-sub">1. 개인수업 출석 처리하기</h4>
-          <div class="g-step"><span class="g-step-num">1</span><p><strong>[홈 탭]</strong> 또는 <strong>[캘린더 탭]</strong>에서 출석 처리를 원하는 일정을 누릅니다.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>일정 상세 화면에서 <strong>[출석 완료]</strong>를 누르면 상품(수강권)이 1회 차감되고 일정이 출석완료 상태가 됩니다.</p></div>
-          <div class="g-step"><span class="g-step-num">3</span><p>출석 처리되면 일정 색깔이 <strong>민트색에서 파란색으로</strong> 바뀝니다.</p></div>
-          <div class="g-capture"><i>📸</i><b>캡처 예정 — 개인수업 일정 상세 → 출석 완료 화면</b><span>[출석 완료] 버튼과 색 변화 표시</span></div>
+          <figure class="g-shot narrow">
+            <img src="assets/guide/20-attendance.png" alt="일정 상세 다이얼로그 — 수강권 잔여 정보와 수업 기록, 출석 완료, 결석 차감 버튼" loading="lazy">
+            <figcaption>일정 상세 — 잔여 횟수를 확인하고 출석·결석 처리</figcaption>
+          </figure>
 
-          <h4 class="g-sub">2. 개인수업 출석 취소하기</h4>
-          <div class="g-step"><span class="g-step-num">1</span><p>출석완료 상태의 일정을 <strong>[홈 탭]</strong> 또는 <strong>[캘린더 탭]</strong>에서 누릅니다.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p><strong>[출석 취소]</strong>를 누르면 잔여횟수가 +1 되고 일정이 다시 '예약' 상태로 돌아옵니다.</p></div>
-
-          <h4 class="g-sub">3. 그룹수업 출석 처리하기</h4>
-          <div class="g-callout">💡 <div>그룹수업은 참여 회원이 여러 명이라, 회원별로 각각 출석을 체크합니다.</div></div>
-          <div class="g-step"><span class="g-step-num">1</span><p><strong>[홈 탭]</strong> 또는 <strong>[캘린더 탭]</strong>에서 그룹수업 일정을 누르면 참여 회원 명단이 나타납니다.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>출석한 회원을 하나씩 <strong>[출석 완료]</strong> 처리합니다. 처리된 회원은 상품이 1회 차감됩니다.</p></div>
-          <div class="g-step"><span class="g-step-num">3</span><p>전원 처리가 끝나면 그룹수업 일정 전체가 출석완료 상태로 표시됩니다.</p></div>
-          <div class="g-capture"><i>📸</i><b>캡처 예정 — 그룹수업 참여 명단 → 출석 완료 화면</b><span>회원별 출석 체크 영역 표시</span></div>
-
-          <h4 class="g-sub">4. 그룹수업 출석 취소하기</h4>
-          <div class="g-step"><span class="g-step-num">1</span><p>참여 명단에서 출석완료 상태인 회원을 다시 누릅니다.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p><strong>[출석 취소]</strong>를 누르면 해당 회원만 잔여횟수가 +1 되고 '예약' 상태로 돌아옵니다. 다른 회원의 출석 상태는 영향받지 않습니다.</p></div>
+          <div class="g-callout">💡 <div>잘못 눌렀다면 같은 일정을 다시 열어 <strong>[출석 취소]</strong>를 누르세요. 차감된 횟수가 되돌아옵니다.</div></div>
+          <div class="g-callout">💡 <div><strong>그룹수업</strong>은 참여 회원 명단에서 <strong>한 명씩</strong> 출석을 처리합니다. 한 명을 취소해도 다른 회원은 영향받지 않습니다.</div></div>
         </article>
       </section>
 
       <section class="g-section" id="sec-exercise">
         <div class="g-cat">운동 라이브러리</div>
-        <h2>나만의 운동 DB 만들기</h2>
+        <h2>수업에 쓸 운동 준비하기</h2>
 
-        <article class="g-item" id="exercise-db">
-          <h3>커스텀 운동 DB 만들기</h3>
-          <p class="g-intro">센티프가 기본 제공하는 운동 외에, 내가 자주 쓰는 운동을 직접 등록해 나만의 운동 DB를 만들 수 있습니다.</p>
-          <div class="g-step"><span class="g-step-num">1</span><p>운동 라이브러리에서 <strong>[운동 추가]</strong>를 눌러주세요.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>운동 이름과 부위, 필요하면 설명·사진을 함께 등록합니다.</p></div>
-          <div class="g-step"><span class="g-step-num">3</span><p>등록한 운동은 수업일지 작성과 루틴 처방에서 기본 운동과 똑같이 검색·선택할 수 있습니다.</p></div>
-          <div class="g-capture"><i>📸</i><b>캡처 예정 — 커스텀 운동 등록 화면</b></div>
+        <article class="g-item" id="exercise-library">
+          <h3>운동 찾아보기</h3>
+          <p class="g-intro">센티프는 기본 운동 카탈로그를 제공합니다. 수업 일지를 쓸 때 여기서 골라 담습니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p>홈의 <strong>운동 라이브러리</strong> 카드를 누르거나, <strong>[프로필]</strong> → <strong>[운동 라이브러리]</strong>로 들어갑니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>이름으로 검색하거나 <strong>유형</strong>(근력 · 유산소 · 필라테스 · 기능성 · 스트레칭 · 요가)으로 좁혀 봅니다. 근력은 <strong>부위</strong>, 필라테스는 <strong>기구</strong>로 한 번 더 좁힐 수 있습니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>운동을 누르면 가이드 시트가 열립니다. <strong>가이드 영상</strong>이 등록된 운동은 그 자리에서 바로 재생됩니다.</p></div>
+
+          <figure class="g-shot">
+            <img src="assets/guide/21-exercise-library.png" alt="운동 라이브러리 화면 — 검색, 유형·부위 필터 칩, 운동 목록" loading="lazy">
+            <figcaption>운동 라이브러리 — 유형과 부위로 좁혀 찾기</figcaption>
+          </figure>
+        </article>
+
+        <article class="g-item" id="exercise-custom">
+          <h3>내 운동 직접 추가하기</h3>
+          <p class="g-intro">기본 카탈로그에 없는 동작은 직접 등록해 나만의 운동으로 쓸 수 있습니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p>운동 라이브러리 또는 수업 일지의 운동 추가 창에서 <strong>[직접 추가]</strong>를 누릅니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p><strong>운동명</strong>과 <strong>운동 유형</strong>을 고르고(근력·필라테스는 하위 분류까지), <strong>측정 방법</strong>을 정합니다 — 무게·횟수 / 횟수 / 시간 / 거리.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>필요하면 <strong>설명</strong>과 <strong>가이드 영상</strong>을 붙입니다. 영상은 <strong>링크</strong>(유튜브 등) 또는 <strong>파일 업로드</strong>(최대 100MB) 중 하나입니다.</p></div>
+          <div class="g-step"><span class="g-step-num">4</span><p><strong>공개 범위</strong>를 고릅니다. <strong>개인 운동</strong>은 나만 보이고, <strong>워크스페이스</strong>는 센터 전체가 함께 씁니다(대표·관리자만 선택 가능).</p></div>
+
+          <figure class="g-shot narrow">
+            <img src="assets/guide/22-custom-exercise.png" alt="커스텀 운동 등록 화면의 영상 파일 첨부 영역" loading="lazy">
+            <figcaption>직접 추가 — 가이드 영상은 링크 또는 파일로 첨부</figcaption>
+          </figure>
+
+          <div class="g-callout">💡 <div>등록한 운동은 <strong>수정·삭제</strong>할 수 있습니다. 단 <strong>이미 기록에 쓰인 운동은 측정 방법을 바꿀 수 없고</strong>, 삭제하더라도 <strong>이미 작성된 수업 일지는 그대로 남습니다.</strong></div></div>
         </article>
       </section>
 
@@ -510,68 +662,160 @@
         <div class="g-cat">회원 관리</div>
         <h2>기록과 데이터로 회원을 관리하기</h2>
 
+        <div class="g-callout">🧭 <div>회원을 누르면 <strong>활동 · 수업 · 신체변화 · 상품 · 기본 정보</strong> 5개 탭이 나옵니다. 아래 기능들은 모두 이 탭 안에 있습니다.</div></div>
+
         <article class="g-item" id="class-log">
-          <h3>수업일지 기록 및 공유</h3>
-          <p class="g-intro">수업이 끝나면 오늘 무엇을 했는지 기록합니다. 템플릿 기반이라 1분이면 충분하고, 기록은 회원 앱으로도 전달됩니다.</p>
-          <div class="g-step"><span class="g-step-num">1</span><p>일정 상세 또는 <strong>[수업 기록]</strong> 화면에서 오늘 수업을 선택합니다.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>수행한 운동을 검색해 추가하고 세트 · 횟수 · 무게를 입력합니다.</p></div>
-          <div class="g-step"><span class="g-step-num">3</span><p>수업 중 찍은 사진·영상과 코멘트를 함께 남길 수 있습니다.</p></div>
-          <div class="g-step"><span class="g-step-num">4</span><p>저장하면 연동된 회원의 앱에서도 오늘 수업 기록을 확인할 수 있습니다.</p></div>
-          <div class="g-callout">💡 <div>수업일지를 작성하지 않으면 <strong>알림</strong>으로 안내합니다. 기록이 쌓일수록 회원의 성장 데이터가 축적됩니다.</div></div>
-          <div class="g-capture"><i>📸</i><b>캡처 예정 — 수업일지 작성 화면</b><span>운동 추가·사진 첨부 영역 표시</span></div>
+          <h3>수업 일지 작성하기</h3>
+          <p class="g-intro">수업이 끝나면 오늘 무엇을 했는지 기록합니다. 기록은 연동된 회원 앱으로도 전달됩니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p>홈의 다음 일정 카드 또는 일정 상세에서 <strong>[수업 기록]</strong>을 누르면 전체 화면 일지가 열립니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>좌측 <strong>[+ 운동 추가]</strong>로 오늘 수행한 운동을 담습니다. 세로 화면에서는 상단 운동 레일의 <strong>[+ 운동]</strong>을 누르세요.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>가운데 <strong>세트 기록</strong> 표에 무게·횟수를 입력합니다. 마지막 줄을 채우면 <strong>다음 줄이 자동으로 생깁니다.</strong> 태블릿에서는 펜으로 숫자를 써도 인식됩니다.</p></div>
+          <div class="g-step"><span class="g-step-num">4</span><p>우측에 <strong>사진·영상</strong>을 붙이고 <strong>운동 메모</strong>를 적습니다. 메모를 쓴 뒤 <strong>[AI 메모 정리]</strong>를 누르면 문장을 다듬어 줍니다.</p></div>
+          <div class="g-step"><span class="g-step-num">5</span><p>작성 중에도 <strong>자동 저장</strong>되며, 다 끝나면 우측 상단 <strong>[수업 완료]</strong>를 누릅니다.</p></div>
+          <div class="g-step"><span class="g-step-num">6</span><p>완료 창에서 <strong>대표 사진</strong> 선택, <strong>수업 종합 메모</strong>(AI 작성 제안 가능), <strong>회원 서명</strong>을 남기고 저장하면 <strong>수강권이 1회 차감</strong>됩니다.</p></div>
+
+          <figure class="g-shot">
+            <img src="assets/guide/23-class-log.png" alt="수업 기록 화면 — 좌측 운동 목록, 가운데 세트 기록 표, 우측 사진·영상과 운동 메모" loading="lazy">
+            <figcaption>수업 기록 — 운동 목록 · 세트 표 · 사진/메모가 한 화면에</figcaption>
+          </figure>
         </article>
 
-        <article class="g-item" id="routine-assign">
-          <h3>운동루틴 처방</h3>
-          <p class="g-intro">수업이 없는 날에도 회원이 따라할 수 있도록 개인운동 루틴을 처방합니다.</p>
-          <div class="g-step"><span class="g-step-num">1</span><p>회원 상세에서 <strong>[루틴 처방]</strong>을 선택합니다.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>운동 라이브러리에서 운동을 골라 세트 · 횟수를 설정합니다.</p></div>
-          <div class="g-step"><span class="g-step-num">3</span><p>처방을 보내면 회원 앱에 루틴이 도착합니다. 회원은 동작 영상과 카운터로 따라할 수 있습니다.</p></div>
-          <div class="g-capture"><i>📸</i><b>캡처 예정 — 루틴 처방 화면</b></div>
+        <article class="g-item" id="previous-records">
+          <h3>이전 기록과 비교하기</h3>
+          <p class="g-intro">지난번에 몇 kg을 들었는지 찾아 헤맬 필요가 없습니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p>세트 표 왼쪽의 <strong>지난 기록</strong> 칸에 직전 수업의 값이 회색으로 표시됩니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>더 자세히 보려면 운동 이름 오른쪽의 <strong>[이전 기록]</strong>을 누릅니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>왼쪽에 <strong>지표 추이 그래프</strong>(추정 1RM · 최고중량 · 볼륨), 오른쪽에 <strong>날짜별 세트 기록</strong>이 나옵니다.</p></div>
+          <div class="g-step"><span class="g-step-num">4</span><p>상단 필터로 <strong>수업 / 개인운동</strong>을 나눠 볼 수 있습니다. 회원이 혼자 한 운동까지 하나의 흐름으로 확인됩니다.</p></div>
+
+          <figure class="g-shot">
+            <img src="assets/guide/24-previous-records.png" alt="이전 기록 다이얼로그 — 좌측 지표 추이 그래프, 우측 날짜별 세트 기록 카드" loading="lazy">
+            <figcaption>이전 기록 — 추이 그래프와 회차별 세트를 나란히</figcaption>
+          </figure>
+
+          <div class="g-callout">💡 <div>빈 세트 줄의 <strong>⇓</strong> 버튼은 <strong>직전 세트 값 복사</strong>, <strong>⟲</strong> 버튼은 <strong>지난 수업 값 채우기</strong>입니다. 같은 무게로 이어갈 때 편합니다.</div></div>
         </article>
 
-        <article class="g-item" id="diet">
-          <h3>식단 관리</h3>
-          <p class="g-intro">회원이 올린 식단 사진을 확인하고 코멘트를 남깁니다.</p>
-          <div class="g-step"><span class="g-step-num">1</span><p>회원 상세의 <strong>[식단]</strong> 탭에서 회원이 올린 식단 기록을 확인합니다.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>끼니별 사진에 코멘트·이모지로 피드백을 남겨주세요.</p></div>
-          <div class="g-step"><span class="g-step-num">3</span><p>회원 앱에서 식단 인증을 요청할 수도 있습니다. 요청을 받으면 회원에게 알림이 갑니다.</p></div>
-          <div class="g-capture"><i>📸</i><b>캡처 예정 — 식단 피드 화면</b></div>
+        <article class="g-item" id="member-verify">
+          <h3>회원 인증 확인·피드백</h3>
+          <p class="g-intro">회원이 올린 식단·운동·체성분·체형 사진은 홈의 <strong>회원 인증</strong>에 쌓입니다. 확인하면 목록에서 정리됩니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p>홈의 <strong>회원 인증</strong> 카드에서 회원을 누릅니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>왼쪽 목록에서 항목을 고르면 오른쪽에 사진·수치가 크게 나옵니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>각 항목 우측의 <strong>[확인]</strong>을 누르거나, 여러 건이면 위쪽 <strong>[전체 확인]</strong>으로 한 번에 처리합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">4</span><p><strong>소통</strong> 탭에서 댓글과 이모지로 피드백을 남기면 회원 앱에 그대로 전달됩니다.</p></div>
+
+          <figure class="g-shot">
+            <img src="assets/guide/25-member-verify.png" alt="회원 인증 다이얼로그 — 좌측 인증 항목 목록과 확인 버튼, 우측 상세 내용" loading="lazy">
+            <figcaption>회원 인증 — 확인하고 그 자리에서 피드백</figcaption>
+          </figure>
+
+          <div class="g-callout">💡 <div>회원이 올리지 않고 있다면 빈 화면의 <strong>[인증 요청 전송]</strong>으로 여러 회원에게 한 번에 요청할 수 있습니다.</div></div>
         </article>
 
-        <article class="g-item" id="insights">
-          <h3>PT 성과 데이터</h3>
-          <p class="g-intro">수업일지와 기록이 쌓이면 회원의 성과가 데이터로 정리됩니다. 상담과 재등록 대화의 근거가 됩니다.</p>
-          <div class="g-step"><span class="g-step-num">1</span><p>회원 상세의 <strong>[인사이트]</strong> 탭을 열어주세요.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>수업 횟수, 운동 볼륨, 체성분 변화 추이를 그래프로 확인합니다.</p></div>
-          <div class="g-step"><span class="g-step-num">3</span><p>정리된 데이터를 회원과의 상담에 바로 활용해보세요.</p></div>
-          <div class="g-capture"><i>📸</i><b>캡처 예정 — 인사이트 탭 화면</b><span>성과 그래프 영역 표시</span></div>
+        <article class="g-item" id="activity">
+          <h3>회원 활동 기록 보기</h3>
+          <div class="g-step"><span class="g-step-num">1</span><p>회원 상세의 <strong>[활동]</strong> 탭을 엽니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>월별 <strong>캘린더</strong>에 그 날의 기록이 색 점으로 표시됩니다 — 개인수업(초록) · 그룹수업(파랑) · 상담(주황) · 개인운동(빨강) · 식단(보라) · 변화(회색).</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>날짜를 누르면 오른쪽에 그날의 기록이 시간순으로 펼쳐집니다.</p></div>
+
+          <figure class="g-shot">
+            <img src="assets/guide/26-activity-tab.png" alt="회원 활동 탭 일별 보기 — 월별 캘린더의 활동 도트와 우측 그날의 활동 기록 목록" loading="lazy">
+            <figcaption>일별 보기 — 캘린더 도트로 참여도를 한눈에, 날짜를 누르면 우측에 상세</figcaption>
+          </figure>
+
+          <div class="g-step"><span class="g-step-num">4</span><p>우측 상단에서 <strong>[월별]</strong>로 바꾸면 그 달에 올라온 <strong>사진이 한 화면에</strong> 모입니다. <strong>전체 / 식단 / 개인운동 / 체성분 / 체형</strong>으로 걸러 볼 수 있습니다.</p></div>
+          <div class="g-step"><span class="g-step-num">5</span><p>사진을 누르면 상세와 <strong>소통</strong> 탭이 열려 댓글·이모지로 피드백할 수 있습니다.</p></div>
+
+          <figure class="g-shot">
+            <img src="assets/guide/27-activity-grid.png" alt="회원 활동 탭 월별 보기 — 식단·개인운동·체형 사진이 격자로 모인 화면" loading="lazy">
+            <figcaption>월별 보기 — 식단·운동·체형 사진이 한 달치로 모입니다</figcaption>
+          </figure>
+        </article>
+
+        <article class="g-item" id="performance">
+          <h3>수업 성과 분석</h3>
+          <p class="g-intro">기록이 쌓이면 성과가 자동으로 정리됩니다. 재등록 상담의 근거가 됩니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p>회원 상세의 <strong>[수업]</strong> 탭을 엽니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>맨 위 <strong>요약 4카드</strong>에서 완료 수업 · 출석률 · 운동 종목 수 · 회당 볼륨을 확인합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p><strong>운동 분석</strong>에서 어떤 부위를 얼마나 했는지 도넛 그래프로 보고, 옆의 <strong>배운 운동 종목</strong>에서 지금까지 다룬 동작을 확인합니다.</p></div>
+
+          <figure class="g-shot">
+            <img src="assets/guide/28-session-analysis.png" alt="회원 수업 탭 — 운동 유형별 비율 도넛 그래프와 배운 운동 종목 목록" loading="lazy">
+            <figcaption>수업 탭 — 운동 유형별 비율과 종목 아카이브</figcaption>
+          </figure>
         </article>
 
         <article class="g-item" id="history">
-          <h3>이전 수업 내역 보기</h3>
-          <div class="g-step"><span class="g-step-num">1</span><p>회원 상세에서 <strong>[수업 내역]</strong>을 열면 지금까지의 수업 기록이 시간순으로 정리되어 있습니다.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>기록을 클릭하면 그날의 운동 · 사진 · 코멘트를 다시 볼 수 있습니다.</p></div>
+          <h3>지난 수업 일지 다시 보기</h3>
+          <div class="g-step"><span class="g-step-num">1</span><p>같은 <strong>[수업]</strong> 탭 아래쪽에 <strong>예정된 수업</strong>과 <strong>수업 일지</strong>가 나뉘어 쌓입니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>카드에는 회차 · 날짜 · 운동 기록 · 종합 메모가 요약되어 있고, 누르면 그날의 일지가 그대로 열립니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>아직 기록하지 않은 수업은 <strong>[기록하기]</strong> 버튼으로, 처리하지 않은 지난 수업은 <strong>처리 필요</strong> 배지로 표시됩니다.</p></div>
+          <div class="g-step"><span class="g-step-num">4</span><p>섹션 우측의 <strong>목록 / 피드</strong>를 바꾸면 대표 사진 위주의 갤러리로 볼 수 있습니다.</p></div>
+
+          <figure class="g-shot phone">
+            <img src="assets/guide/29-session-journal.png" alt="수업 일지 카드 목록 — 회차, 날짜, 운동 기록 요약과 기록하기 버튼" loading="lazy">
+            <figcaption>수업 일지 카드 — 회차·운동·메모가 한눈에</figcaption>
+          </figure>
+
           <div class="g-callout">💡 <div>수업 시작 전에 지난 기록을 훑어보면 오늘 수업의 방향을 잡기 쉽습니다.</div></div>
-          <div class="g-capture"><i>📸</i><b>캡처 예정 — 이전 수업 내역 화면</b></div>
         </article>
 
         <article class="g-item" id="body-data">
-          <h3>체성분 및 체형사진</h3>
-          <p class="g-intro">인바디 수치와 체형사진을 기록하면 회원의 몸 변화가 시각적으로 쌓입니다.</p>
-          <div class="g-step"><span class="g-step-num">1</span><p>회원 상세의 <strong>[체성분]</strong> 탭에서 측정값(체중·골격근량·체지방률 등)을 입력합니다.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p><strong>[체형 기록]</strong> 탭에서 정면 · 측면 · 후면 3각도 사진을 등록합니다.</p></div>
-          <div class="g-step"><span class="g-step-num">3</span><p>기록이 쌓이면 이전 사진과 나란히 비교해 변화를 한눈에 확인할 수 있습니다.</p></div>
-          <div class="g-capture"><i>📸</i><b>캡처 예정 — 체성분·체형 기록 화면</b><span>3각도 사진 슬롯 표시</span></div>
+          <h3>체성분·체형 사진 기록</h3>
+          <p class="g-intro">인바디 수치와 체형 사진을 기록하면 회원의 몸 변화가 눈에 보이게 쌓입니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p>회원 상세의 <strong>[신체변화]</strong> 탭을 엽니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p><strong>체성분 측정 정보</strong> 제목 옆 <strong>[+]</strong>를 눌러 측정값을 입력합니다 — 측정 날짜 · 키 · 체중(필수) · 골격근량 · 체지방량 · 체지방률.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>지표 카드를 누르면 그 항목의 <strong>변화 추이 그래프</strong>가 아래에 그려집니다.</p></div>
+          <div class="g-step"><span class="g-step-num">4</span><p><strong>체형 사진 기록</strong>의 <strong>[+]</strong>로 <strong>정면 · 측면 · 후면</strong> 3장을 촬영·등록합니다. 사진에 자세 가이드선을 그려 넣을 수도 있습니다.</p></div>
+          <div class="g-step"><span class="g-step-num">5</span><p><strong>[전체보기]</strong> → <strong>[비교하기]</strong>로 두 시점의 사진을 나란히 놓고 변화를 확인합니다.</p></div>
+
+          <figure class="g-shot phone">
+            <img src="assets/guide/30-body-composition.png" alt="체성분 변화 추이 화면 — 지표 카드와 라인 차트" loading="lazy">
+            <figcaption>체성분 — 지표를 고르면 추이 그래프가 바뀝니다</figcaption>
+          </figure>
+
+          <div class="g-callout">💡 <div>등록한 체형 사진은 <a href="#activity">활동 탭 월별 보기</a>에서 정면·측면·후면이 함께 모여 보입니다.</div></div>
+
+          <div class="g-callout">💡 <div>키와 성별이 입력되어 있으면 인바디처럼 <strong>표준 대비 그래프</strong>로 보여줍니다. 첫 측정 때 키를 꼭 넣어주세요.</div></div>
         </article>
 
         <article class="g-item" id="consultation">
-          <h3>첫 상담 기록 작성</h3>
-          <p class="g-intro">신규 회원의 첫 상담 내용을 구조화해 기록합니다. 목표와 특이사항이 남아 있으면 어떤 강사가 이어받아도 맥락이 유지됩니다.</p>
-          <div class="g-step"><span class="g-step-num">1</span><p>회원 상세에서 <strong>[상담 기록]</strong>을 열어주세요.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>운동 목표 · 부상 이력 · 생활 패턴 등 체크리스트를 따라 상담 내용을 기록합니다.</p></div>
-          <div class="g-step"><span class="g-step-num">3</span><p>작성한 상담 리포트는 언제든 다시 확인하고 수정할 수 있습니다.</p></div>
-          <div class="g-capture"><i>📸</i><b>캡처 예정 — 상담 기록 화면</b></div>
+          <h3>상담 기록 작성</h3>
+          <p class="g-intro">첫 상담 내용을 구조화해 남기면, 어떤 강사가 이어받아도 맥락이 유지됩니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p>회원 상세의 <strong>[기본 정보]</strong> 탭 → <strong>상담 기록</strong> 카드에서 <strong>[상담 추가]</strong>를 누릅니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>방식을 고릅니다 — <strong>상담 일정으로 등록</strong>(날짜·시간을 정해 일정표에도 남김) 또는 <strong>상담 기록만 작성</strong>(일정 없이 기록만).</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>상담 리포트는 <strong>커버 → 측정 및 상담 → 리포트</strong> 3단계입니다.</p></div>
+          <div class="g-step"><span class="g-step-num">4</span><p><strong>측정 및 상담</strong>에서 <strong>운동 목적</strong>(다이어트·근력·재활·체형교정 또는 직접 입력), <strong>체성분</strong>, <strong>체형 사진</strong>, <strong>상담 메모</strong>를 채웁니다.</p></div>
+          <div class="g-step"><span class="g-step-num">5</span><p><strong>리포트</strong> 단계에서 회원에게 전달될 화면을 미리 보고 저장합니다. 여기서 남긴 체성분·체형은 <strong>신체변화 탭에도 함께 반영</strong>됩니다.</p></div>
+
+          <div class="g-shot-row">
+            <figure class="g-shot">
+              <img src="assets/guide/31-consultation-entry.png" alt="상담 추가 방식 선택 다이얼로그 — 상담 일정으로 등록, 상담 기록만 작성" loading="lazy">
+              <figcaption>상담 추가 — 일정까지 잡을지 먼저 고릅니다</figcaption>
+            </figure>
+            <figure class="g-shot">
+              <img src="assets/guide/32-consultation-report.png" alt="상담 리포트의 운동 목적 선택 영역" loading="lazy">
+              <figcaption>운동 목적 — 프리셋 또는 직접 입력</figcaption>
+            </figure>
+          </div>
+
+          <div class="g-callout">💡 <div>가장 최근 상담에 적은 <strong>운동 목적</strong>은 회원 프로필에도 자동으로 반영됩니다.</div></div>
+        </article>
+
+        <article class="g-item" id="pause">
+          <h3>회원 일시정지</h3>
+          <p class="g-intro">부상·출장·유학 등으로 잠시 쉬는 회원은 <strong>일시정지</strong>로 처리하세요. 정지 기간만큼 기간제 상품의 만료일이 자동으로 밀립니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p>회원 상세 우측 상단 <strong>[⋯]</strong> → <strong>[일시정지 처리]</strong>를 누릅니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>시작일과 종료일을 정하면, 어떤 상품이 <strong>며칠 연장되는지</strong> 미리 보여줍니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>정지 중에는 회원 상세 위쪽에 안내 배너가 뜨고, 그 기간에는 <strong>일정을 잡을 수 없습니다</strong>(상담은 가능).</p></div>
+          <div class="g-step"><span class="g-step-num">4</span><p>일찍 복귀하면 배너의 <strong>[해제하기]</strong>로 바로 정지를 풀 수 있습니다.</p></div>
+
+          <figure class="g-shot narrow">
+            <img src="assets/guide/33-member-pause.png" alt="회원 일시정지 다이얼로그 — 기간 선택과 연장될 상품 미리보기" loading="lazy">
+            <figcaption>일시정지 — 연장될 상품과 일수를 미리 확인</figcaption>
+          </figure>
+
+          <div class="g-callout">💡 <div>회원 목록의 <strong>일시정지</strong> 탭에서 정지 중인 회원과 남은 일수를 모아 볼 수 있습니다.</div></div>
         </article>
       </section>
 

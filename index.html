@@ -676,7 +676,7 @@
 
             <!-- 실제 앱 캡처: 관리자 대시보드 (2026-07-23 교체) -->
             <!-- 스크롤 rotateX/scale 애니메이션은 상위 #heroCardScrollWrap에 걸려있어 이 안쪽을 바꿔도 유지됨 -->
-            <img src="assets/app/ssentif-hero-dashboard.webp" width="1600" height="1005"
+            <img src="assets/app/ssentif-hero-dashboard.webp" width="2496" height="1568"
                  alt="센티프 관리자 대시보드 — 업무 알림, 카테고리별 매출 현황, 운영 위험도를 한 화면에서 확인"
                  fetchpriority="high" decoding="async"
                  style="width:100%;height:100%;object-fit:cover;display:block;">
@@ -1377,14 +1377,10 @@
           <div class="ms-phone">
             <div class="ms-phone-notch"></div>
             <div class="ms-phone-screen">
-              <img src="assets/app/ssentif-member-home.webp" width="328" height="584"
+              <img src="assets/app/ssentif-member-home.webp" width="492" height="908"
                    alt="센티프 회원 앱 홈 화면 — 주간 캘린더와 오늘의 기록(식단·운동·체성분·체형사진)"
                    loading="lazy" decoding="async">
             </div>
-          </div>
-          <div class="ms-float-card ms-float-1">
-            <div class="ms-float-label">잔여 세션</div>
-            <div class="ms-float-value">D-3</div>
           </div>
         </div>
         <h4 class="modes-title">센티프 회원 앱</h4>
@@ -1395,20 +1391,21 @@
       <!-- 관리자 웹 -->
       <div class="modes-col fade-up" style="transition-delay:0.1s">
         <div class="modes-visual modes-visual-wide">
-          <div class="ms-browser">
-            <div class="ms-browser-topbar">
-              <span class="ms-browser-dot"></span><span class="ms-browser-dot"></span><span class="ms-browser-dot"></span>
-              <div class="ms-browser-url">app.ssentif.kr</div>
+          <div class="ms-laptop">
+            <div class="ms-laptop-screen">
+              <div class="ms-laptop-body">
+                <div class="ms-browser-topbar">
+                  <span class="ms-browser-dot"></span><span class="ms-browser-dot"></span><span class="ms-browser-dot"></span>
+                  <div class="ms-browser-url">app.ssentif.kr</div>
+                </div>
+                <div class="ms-browser-body">
+                  <img src="assets/app/ssentif-admin-dashboard.webp" width="1014" height="637"
+                       alt="센티프 관리자 대시보드 — 업무 알림, 매출 현황 카테고리별 집계, 운영 위험도"
+                       loading="lazy" decoding="async">
+                </div>
+              </div>
             </div>
-            <div class="ms-browser-body">
-              <img src="assets/app/ssentif-admin-dashboard.webp" width="676" height="425"
-                   alt="센티프 관리자 대시보드 — 업무 알림, 매출 현황 카테고리별 집계, 운영 위험도"
-                   loading="lazy" decoding="async">
-            </div>
-          </div>
-          <div class="ms-float-card ms-float-2">
-            <div class="ms-float-label">이번 달 매출</div>
-            <div class="ms-float-value">₩8.4M</div>
+            <div class="ms-laptop-base"></div>
           </div>
         </div>
         <h4 class="modes-title">센티프 관리자 웹</h4>
@@ -1422,14 +1419,10 @@
           <div class="ms-tablet">
             <div class="ms-tablet-cam"></div>
             <div class="ms-tablet-screen">
-              <img src="assets/app/ssentif-coach-home.webp" width="560" height="352"
-                   alt="센티프 강사 앱 홈 화면 — 이번달 성과, AI 매니저, 업무 알림, 회원 인증"
+              <img src="assets/app/ssentif-coach-home.webp" width="840" height="528"
+                   alt="센티프 강사 앱 — 회원 상세 신체변화 화면. 체성분 추이 그래프와 정면·측면·후면 체형 사진"
                    loading="lazy" decoding="async">
             </div>
-          </div>
-          <div class="ms-float-card ms-float-3">
-            <div class="ms-float-label">이번 달 정산</div>
-            <div class="ms-float-value">₩2.2M</div>
           </div>
         </div>
         <h4 class="modes-title">센티프 강사 앱</h4>
@@ -1468,64 +1461,93 @@
   margin-bottom: 28px;
 }
 
-/* 폰 프레임 */
-.ms-phone {
-  width: 180px;
-  background: var(--black);
-  border-radius: 26px;
-  padding: 8px;
-  box-shadow: 0 24px 48px rgba(13,15,18,0.16), 0 4px 12px rgba(13,15,18,0.08);
+/* ── 기기 프레임 공통 (2026-08-05 고퀄리티 개편) ──
+   베젤을 실제 기기 수준으로 얇게 하고, 금속 테두리 하이라이트 + 다층 그림자로 입체감을 준다.
+   구 프레임은 padding 8~10px 라 화면이 작아 보이고 테두리가 납작했다. */
+:root {
+  --dev-body: linear-gradient(160deg, #2A2E2C 0%, #171A19 42%, #0D0F0E 100%);
+  --dev-edge: 0 0 0 0.5px rgba(255,255,255,0.16), inset 0 0 0 1px rgba(255,255,255,0.06);
+  --dev-shadow: 0 32px 60px rgba(13,15,18,0.20), 0 12px 22px rgba(13,15,18,0.12), 0 2px 6px rgba(13,15,18,0.08);
 }
+
+/* 폰 프레임 (회원 앱) — 얇은 베젤 + 다이나믹 아일랜드 + 측면 버튼 */
+.ms-phone {
+  position: relative;
+  width: 186px;
+  background: var(--dev-body);
+  border-radius: 30px;
+  padding: 5px;
+  box-shadow: var(--dev-edge), var(--dev-shadow);
+}
+/* 측면 버튼 — 볼륨(좌) / 전원(우) */
+.ms-phone::before, .ms-phone::after {
+  content: ''; position: absolute; width: 2px; border-radius: 2px;
+  background: linear-gradient(180deg, #3A3F3C, #202422);
+}
+.ms-phone::before { left: -2px; top: 74px; height: 30px; box-shadow: 0 42px 0 #2A2E2C; }
+.ms-phone::after  { right: -2px; top: 96px; height: 44px; }
 .ms-phone-notch {
-  width: 50px; height: 5px; border-radius: 4px;
-  background: rgba(255,255,255,0.2);
-  margin: 0 auto 6px;
+  position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
+  width: 54px; height: 15px; border-radius: 999px;
+  background: #050706; z-index: 2;
+  box-shadow: inset 0 0 0 0.5px rgba(255,255,255,0.07);
 }
 .ms-phone-screen {
   background: var(--white);
-  border-radius: 19px;
-  aspect-ratio: 328 / 584;
+  border-radius: 26px;
+  aspect-ratio: 390 / 720;
   overflow: hidden;
+  position: relative;
 }
 .ms-phone-screen img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
 
-/* 태블릿 프레임 (강사 앱) */
+/* 태블릿 프레임 (강사 앱) — 균일한 얇은 베젤 + 전면 카메라 */
 .ms-tablet {
-  width: 300px;
-  background: var(--black);
+  position: relative;
+  width: 344px;
+  background: var(--dev-body);
   border-radius: 20px;
-  padding: 10px;
-  box-shadow: 0 24px 48px rgba(13,15,18,0.16), 0 4px 12px rgba(13,15,18,0.08);
+  padding: 7px;
+  box-shadow: var(--dev-edge), var(--dev-shadow);
 }
 .ms-tablet-cam {
-  width: 5px; height: 5px; border-radius: 50%;
-  background: rgba(255,255,255,0.25);
-  margin: 0 auto 6px;
+  position: absolute; top: 50%; left: 3.5px; transform: translateY(-50%);
+  width: 3.5px; height: 3.5px; border-radius: 50%;
+  background: #050706; z-index: 2;
+  box-shadow: inset 0 0 0 0.5px rgba(255,255,255,0.14);
 }
 .ms-tablet-screen {
   background: var(--white);
-  border-radius: 13px;
+  border-radius: 14px;
   aspect-ratio: 560 / 352;
   overflow: hidden;
 }
 .ms-tablet-screen img { width: 100%; height: 100%; object-fit: cover; object-position: top left; display: block; }
-/* 브라우저 프레임 */
+
+/* PC(랩탑) 프레임 (관리자 웹) — 화면 + 브라우저 크롬 + 하판 */
 .modes-visual-wide { height: 340px; }
-.ms-browser {
-  width: 100%; max-width: 340px;
-  background: var(--white);
-  border-radius: 14px;
-  border: 1px solid var(--border);
-  box-shadow: 0 24px 48px rgba(13,15,18,0.14), 0 4px 12px rgba(13,15,18,0.06);
+.ms-laptop { width: 100%; max-width: 348px; }
+.ms-laptop-screen {
+  background: var(--dev-body);
+  border-radius: 12px 12px 3px 3px;
+  padding: 8px 8px 0;
+  box-shadow: var(--dev-edge), var(--dev-shadow);
+}
+.ms-laptop-body {
+  border-radius: 6px 6px 0 0;
   overflow: hidden;
+  background: var(--white);
 }
 .ms-browser-topbar {
-  display: flex; align-items: center; gap: 6px;
-  padding: 10px 12px;
+  display: flex; align-items: center; gap: 5px;
+  padding: 8px 10px;
   background: var(--gray-50);
   border-bottom: 1px solid var(--border);
 }
-.ms-browser-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--gray-200); }
+.ms-browser-dot { width: 7px; height: 7px; border-radius: 50%; background: #E2E4E7; }
+.ms-browser-dot:nth-child(1) { background: #FF5F57; }
+.ms-browser-dot:nth-child(2) { background: #FEBC2E; }
+.ms-browser-dot:nth-child(3) { background: #28C840; }
 .ms-browser-url {
   margin-left: 8px; font-size: 9.5px; color: var(--gray-400);
   background: var(--white); border: 1px solid var(--border);
@@ -1533,9 +1555,21 @@
 }
 .ms-browser-body { aspect-ratio: 676 / 425; overflow: hidden; }
 .ms-browser-body img { width: 100%; height: 100%; object-fit: cover; object-position: top left; display: block; }
+/* 하판 — 화면보다 넓게 빼서 랩탑 실루엣을 만든다 */
+.ms-laptop-base {
+  height: 11px; margin: 0 -18px;
+  background: linear-gradient(180deg, #D3D7DB 0%, #AEB4BA 55%, #8E959C 100%);
+  border-radius: 2px 2px 9px 9px;
+  position: relative;
+  box-shadow: 0 12px 22px rgba(13,15,18,0.14);
+}
+.ms-laptop-base::after {
+  content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: 68px; height: 4px;
+  background: rgba(13,15,18,0.16);
+  border-radius: 0 0 5px 5px;
+}
 
-/* 플로팅 카드 */
-.ms-float-card {
   position: absolute;
   background: var(--white);
   border: 1px solid var(--border);
@@ -1543,12 +1577,6 @@
   padding: 10px 16px;
   box-shadow: 0 12px 28px rgba(13,15,18,0.14);
 }
-.ms-float-label { font-size: 9.5px; color: var(--gray-400); font-weight: 600; }
-.ms-float-value { font-size: 15px; font-weight: 900; color: var(--black); letter-spacing: -0.02em; margin-top: 1px; }
-.ms-float-1 { bottom: 8px; right: -8px; }
-.ms-float-2 { top: 4px; right: 4px; }
-.ms-float-3 { bottom: 8px; left: -8px; }
-@media(max-width:900px){ .ms-float-1, .ms-float-3 { left: auto; right: 16px; } .ms-float-2 { right: 16px; } }
 
 /* 텍스트 */
 .modes-title { font-size: 17px; font-weight: 800; color: var(--black); margin-bottom: 6px; }
@@ -1951,29 +1979,6 @@
 }
 .fd-visual-shot img { width: 100%; height: auto; display: block; }
 
-/* 목업 UI 공통 요소 */
-.mock-row {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 14px 16px;
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  font-size: 13.5px;
-}
-.mock-name { font-weight: 700; font-size: 13.5px; }
-.mock-sub  { font-size: 11.5px; color: var(--gray-400); margin-top: 2px; }
-.mock-badge {
-  font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 8px;
-}
-.mock-badge.green  { background: rgba(31,219,168,0.15); color: var(--accent-dark); }
-.mock-badge.red    { background: rgba(239,68,68,0.1);   color: #DC2626; }
-.mock-badge.yellow { background: rgba(251,191,36,0.15);  color: #D97706; }
-
-.mock-title {
-  font-size: 11px; font-weight: 700; color: var(--gray-400);
-  letter-spacing: 0.08em; text-transform: uppercase;
-  margin-bottom: 4px;
-}
 
 @media(max-width:860px){
   .fd-item { grid-template-columns:1fr; gap:40px; }
@@ -1998,8 +2003,8 @@
         <p>회원 정보와 상담 기록이 한 곳에 모이고, 전체적으로 통일된 회원관리 시스템으로 회원은 상담부터 신뢰감을 느낍니다.</p>
       </div>
       <div class="fd-visual fd-visual-shot">
-        <img src="assets/app/ssentif-step-trust.webp" width="896" height="912"
-             alt="센티프 회원 상세 화면 — 회원 정보와 상담 기록이 한 화면에 정리된 모습"
+        <img src="assets/app/ssentif-step-trust.webp" width="1032" height="860"
+             alt="센티프 회원 프로필 상세 — 회원 정보·목표·특이사항·보유 상품과 상담 활동 기록이 한 화면에 정리된 모습"
              loading="lazy" decoding="async">
       </div>
     </div>
@@ -2015,8 +2020,8 @@
         <p>식단, 개인 운동, 컨디션 피드백까지. 주고받은 기록이 쌓일수록 회원과의 관계도 깊어집니다.</p>
       </div>
       <div class="fd-visual fd-visual-shot">
-        <img src="assets/app/ssentif-step-communication.webp" width="896" height="568"
-             alt="센티프 회원 활동 기록 — 식단 인증과 수업 일정, 체성분 변화 추이"
+        <img src="assets/app/ssentif-step-communication.webp" width="1032" height="860"
+             alt="센티프 수업일지 — 운동 세트 기록과 수업 미디어, 코치 메모, 수업 후 회원과 주고받은 대화"
              loading="lazy" decoding="async">
       </div>
     </div>
@@ -2032,8 +2037,8 @@
         <p>출석이 줄어든 회원, 만료가 임박한 회원을 감지합니다. 재등록 타이밍을 놓치지 마세요.</p>
       </div>
       <div class="fd-visual fd-visual-shot">
-        <img src="assets/app/ssentif-step-detect.webp" width="896" height="644"
-             alt="센티프 업무 알림 — 만료 임박·신규 발급 회원을 상태별로 감지해 알려주는 목록"
+        <img src="assets/app/ssentif-step-detect.webp" width="1032" height="860"
+             alt="센티프 업무 알림 이탈 탭 — 출석이 줄어든 회원을 위험도별로 감지해 알려주는 화면"
              loading="lazy" decoding="async">
       </div>
     </div>
@@ -2049,8 +2054,8 @@
         <p>미소진 수업은 언젠가 돌려줘야 할 부채입니다. 얼마나 쌓였는지, 지금 센터가 안전한지 한 화면에서 확인하세요.</p>
       </div>
       <div class="fd-visual fd-visual-shot">
-        <img src="assets/app/ssentif-step-diagnose.webp" width="896" height="1055"
-             alt="센티프 운영 위험도와 매출 현황 — 잠재부채 규모와 카테고리별 매출을 한 화면에서 확인"
+        <img src="assets/app/ssentif-step-diagnose.webp" width="1032" height="860"
+             alt="센티프 매출 내역 위에 표시된 운영 위험도 — 미소진 수업 잠재부채와 소진율을 숫자로 확인"
              loading="lazy" decoding="async">
       </div>
     </div>
@@ -2066,8 +2071,8 @@
         <p>강사별 급여 조건과 수업 건수를 기반으로 급여가 자동 계산됩니다. 총 인건비부터 강사별 명세서까지 버튼 하나로 완료됩니다.</p>
       </div>
       <div class="fd-visual fd-visual-shot">
-        <img src="assets/app/ssentif-step-payroll.webp" width="896" height="488"
-             alt="센티프 급여 정산 — 총 예정 실지급액 요약과 팀원별 급여 명세 카드"
+        <img src="assets/app/ssentif-step-payroll.webp" width="1032" height="860"
+             alt="센티프 급여 정산 — 강사 한 명의 급여 명세와 정산 보고서가 자동 계산된 화면"
              loading="lazy" decoding="async">
       </div>
     </div>
@@ -2082,23 +2087,10 @@
         <h3>제대로 하고 있는지,<br>이제 보입니다</h3>
         <p>강사별 수업일지 작성 여부, 회원관리 현황, 수업 진행 상황까지. 보이지 않던 현장을 언제 어디서나 확인할 수 있습니다.</p>
       </div>
-      <div class="fd-visual">
-        <div class="mock-title">강사별 수업일지 현황</div>
-        <div class="mock-row">
-          <div><div class="mock-name">박준형 강사</div><div class="mock-sub">이번 달 수업 24건</div></div>
-          <div class="mock-badge green">작성률 100%</div>
-        </div>
-        <div class="mock-row">
-          <div><div class="mock-name">김민지 강사</div><div class="mock-sub">이번 달 수업 18건</div></div>
-          <div class="mock-badge yellow">작성률 72%</div>
-        </div>
-        <div class="mock-row">
-          <div><div class="mock-name">이서연 강사</div><div class="mock-sub">이번 달 수업 21건</div></div>
-          <div class="mock-badge red">작성률 38%</div>
-        </div>
-        <div style="margin-top:8px;padding:12px 16px;background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.15);border-radius:12px;font-size:13px;color:#DC2626;font-weight:600">
-          ⚠️ 이서연 강사 미작성 수업 13건 — 알림 발송됨
-        </div>
+      <div class="fd-visual fd-visual-shot">
+        <img src="assets/app/ssentif-step-execution.webp" width="1032" height="860"
+             alt="센티프 팀 일정 — 코치별 컬럼 스케줄러에서 수업 진행과 수업일지 작성 여부를 확인"
+             loading="lazy" decoding="async">
       </div>
     </div>
 

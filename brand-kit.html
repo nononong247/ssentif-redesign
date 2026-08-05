@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SSENTIF — 브랜드 키트</title>
+<style>
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap');
+
+:root{
+  --space-black:#1D1D1F;
+  --bone-white:#F5F5F2;
+  --teal:#1FDBA8;           /* 홈페이지 좌상단 로고 색 (site --accent) */
+  --ink-90:rgba(245,245,242,0.92);
+  --ink-55:rgba(245,245,242,0.55);
+  --ink-38:rgba(245,245,242,0.38);
+  --line:rgba(245,245,242,0.12);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  background:var(--space-black); color:var(--ink-90);
+  font-family:'Pretendard',-apple-system,BlinkMacSystemFont,sans-serif;
+  -webkit-font-smoothing:antialiased; line-height:1.5;
+}
+.wrap{max-width:1120px; margin:0 auto; padding:96px 40px 120px}
+.eyebrow{
+  font-size:13px; font-weight:700; letter-spacing:0.16em; text-transform:uppercase;
+  color:var(--ink-38); margin-bottom:22px;
+}
+.mood-h{
+  font-size:clamp(30px,4.6vw,46px); font-weight:800; letter-spacing:-0.02em;
+  line-height:1.34; color:var(--bone-white);
+}
+.mood-sub{margin-top:26px; font-size:16px; color:var(--ink-55); max-width:560px; line-height:1.8}
+
+section{margin-top:88px}
+.sec-label{
+  font-size:13px; font-weight:700; letter-spacing:0.16em; text-transform:uppercase;
+  color:var(--ink-38); margin-bottom:26px;
+}
+
+/* ── 컬러 팔레트 ── */
+.palette{display:grid; grid-template-columns:repeat(3,1fr); gap:24px}
+.swatch{}
+.swatch .chip{height:190px; border-radius:16px}
+.swatch.black .chip{background:var(--space-black); border:1px solid var(--line)}
+.swatch.white .chip{background:var(--bone-white)}
+.swatch.teal  .chip{background:var(--teal)}
+.swatch .name{margin-top:20px; font-size:19px; font-weight:700; color:var(--bone-white)}
+.swatch .hex{margin-top:6px; font-size:15px; color:var(--ink-55);
+  font-family:'SF Mono',ui-monospace,Menlo,monospace; letter-spacing:0.02em}
+.swatch .use{margin-top:10px; font-size:14px; color:var(--ink-38)}
+
+/* ── 사용 비율 ── */
+.ratio-bar{display:flex; height:11px; border-radius:99px; overflow:hidden; margin-bottom:16px; gap:0}
+.ratio-bar span{display:block; height:100%}
+.rb-black{flex:70; background:var(--space-black); border:1px solid var(--line); border-right:none}
+.rb-white{flex:25; background:var(--bone-white)}
+.rb-teal {flex:5;  background:var(--teal)}
+.ratio-legend{display:flex; justify-content:space-between; font-size:13.5px; color:var(--ink-38)}
+.ratio-note{margin-top:20px; font-size:14px; color:var(--ink-55); line-height:1.8; max-width:640px}
+.ratio-note b{color:var(--teal); font-weight:700}
+
+/* ── 타이포그래피 ── */
+.type-grid{display:grid; grid-template-columns:1.4fr 1fr; gap:24px}
+.card{background:rgba(245,245,242,0.03); border:1px solid var(--line); border-radius:18px; padding:32px}
+.card .k{font-size:13px; font-weight:700; letter-spacing:0.06em; color:var(--ink-38); text-transform:uppercase}
+.type-main .sample{font-size:38px; font-weight:800; color:var(--bone-white); margin:18px 0 6px; letter-spacing:-0.02em}
+.type-main .meta{font-size:14px; color:var(--ink-55)}
+.weights{display:flex; flex-wrap:wrap; gap:22px; margin-top:26px}
+.weights div{color:var(--bone-white)}
+.w-400{font-weight:400}.w-500{font-weight:500}.w-700{font-weight:700}.w-800{font-weight:800}
+.weights span{display:block; font-size:12px; color:var(--ink-38); font-weight:500; margin-top:2px}
+.type-hand .hand{font-family:'Nanum Pen Script',cursive; font-size:46px; color:var(--teal); margin:14px 0 6px; line-height:1.2}
+.type-hand .meta{font-size:14px; color:var(--ink-55)}
+
+/* ── 로고 / 워드마크 ── */
+.logo-grid{display:grid; grid-template-columns:1fr 1fr; gap:24px}
+.logo-box{border-radius:18px; padding:56px 40px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px}
+.logo-box.on-dark{background:rgba(245,245,242,0.03); border:1px solid var(--line)}
+.logo-box.on-light{background:var(--bone-white)}
+.wordmark{font-size:38px; font-weight:800; letter-spacing:-0.03em}
+.wordmark .tif{color:var(--teal)}
+.on-dark .wordmark{color:var(--bone-white)}
+.on-light .wordmark{color:var(--space-black)}
+.kr{font-size:16px; font-weight:600; letter-spacing:0.02em}
+.on-dark .kr{color:var(--ink-55)} .on-light .kr{color:#6B7280}
+.logo-cap{margin-top:14px; font-size:13px; color:var(--ink-38); text-align:center}
+.logo-rule{margin-top:22px; font-size:14px; color:var(--ink-55); line-height:1.9}
+.logo-rule b{color:var(--bone-white); font-weight:700}
+
+/* ── 보이스 & 톤 ── */
+.voice-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px}
+.voice-card{background:rgba(245,245,242,0.03); border:1px solid var(--line); border-radius:16px; padding:26px}
+.voice-card h4{font-size:16px; font-weight:700; color:var(--bone-white); margin-bottom:10px}
+.voice-card p{font-size:14px; color:var(--ink-55); line-height:1.75}
+.dodont{margin-top:26px; display:grid; grid-template-columns:1fr 1fr; gap:16px}
+.dd{border-radius:14px; padding:20px 22px; font-size:14.5px; line-height:1.7}
+.dd .tag{font-size:12px; font-weight:800; letter-spacing:0.04em; margin-bottom:10px; display:inline-block}
+.dd.do{background:rgba(31,219,168,0.08); border:1px solid rgba(31,219,168,0.28)}
+.dd.do .tag{color:var(--teal)}
+.dd.dont{background:rgba(245,120,110,0.06); border:1px solid rgba(245,120,110,0.22)}
+.dd.dont .tag{color:#EF8A82}
+.dd .line{color:var(--ink-90)}
+.dd .line + .line{margin-top:8px}
+.dd s{color:var(--ink-38)}
+
+/* ── CTA 적용 예시 ── */
+.apply{display:flex; gap:16px; flex-wrap:wrap; align-items:center; margin-top:24px}
+.btn-teal{background:var(--teal); color:#08110D; font-weight:700; font-size:15px;
+  padding:14px 28px; border-radius:12px; border:none}
+.btn-ghost{background:transparent; color:var(--bone-white); font-weight:700; font-size:15px;
+  padding:14px 28px; border-radius:12px; border:1px solid var(--line)}
+.apply .cap{font-size:13px; color:var(--ink-38)}
+
+.foot{margin-top:104px; padding-top:34px; border-top:1px solid var(--line);
+  display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:12px}
+.foot .fm{font-size:15px; font-weight:700; color:var(--bone-white)}
+.foot .fm .tif{color:var(--teal)}
+.foot .fs{font-size:13px; color:var(--ink-38)}
+
+@media(max-width:820px){
+  .wrap{padding:64px 24px 90px}
+  .palette,.voice-grid{grid-template-columns:1fr}
+  .type-grid,.logo-grid,.dodont{grid-template-columns:1fr}
+  .swatch .chip{height:150px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ── 브랜드 무드 ── -->
+  <header>
+    <div class="eyebrow">SSENTIF 2.0 — Brand Kit</div>
+    <h1 class="mood-h">설명이 필요 없을 만큼,<br>현장에 자연스럽게 스며듭니다.</h1>
+    <p class="mood-sub">센티프는 화려함으로 눈에 띄지 않습니다. 무채색을 바탕으로 절제된 민트 하나만 남겨,
+      센터 어디에 놓여도 도구처럼 조용히 자리 잡습니다.</p>
+  </header>
+
+  <!-- ── 컬러 팔레트 ── -->
+  <section>
+    <div class="sec-label">Color Palette</div>
+    <div class="palette">
+      <div class="swatch black">
+        <div class="chip"></div>
+        <div class="name">Space black</div>
+        <div class="hex">#1D1D1F</div>
+        <div class="use">배경, 타이포그래피</div>
+      </div>
+      <div class="swatch white">
+        <div class="chip"></div>
+        <div class="name">Bone white</div>
+        <div class="hex">#F5F5F2</div>
+        <div class="use">여백, 카드, 디바이스 배경</div>
+      </div>
+      <div class="swatch teal">
+        <div class="chip"></div>
+        <div class="name">Sentif teal</div>
+        <div class="hex">#1FDBA8</div>
+        <div class="use">로고 컬러 · CTA, 포인트 강조</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 사용 비율 ── -->
+  <section>
+    <div class="sec-label">Usage Ratio</div>
+    <div class="ratio-bar">
+      <span class="rb-black"></span>
+      <span class="rb-white"></span>
+      <span class="rb-teal"></span>
+    </div>
+    <div class="ratio-legend">
+      <span>Black 70%</span>
+      <span>White 25%</span>
+      <span>Teal 5%</span>
+    </div>
+    <p class="ratio-note">민트는 <b>포인트</b>입니다. 화면 대부분을 무채색이 차지하고, 민트는 CTA·상태 강조처럼
+      시선을 모아야 하는 5% 지점에만 씁니다. 넓은 면을 민트로 칠하지 않습니다.</p>
+  </section>
+
+  <!-- ── 타이포그래피 ── -->
+  <section>
+    <div class="sec-label">Typography</div>
+    <div class="type-grid">
+      <div class="card type-main">
+        <div class="k">Primary · Pretendard</div>
+        <div class="sample">회원을 데이터로 관리합니다</div>
+        <div class="meta">본문·헤드라인·UI 전 영역. 한글 가독성과 숫자 정렬(tabular)에 강합니다.</div>
+        <div class="weights">
+          <div class="w-400">Regular<span>400 · 본문</span></div>
+          <div class="w-500">Medium<span>500 · 보조</span></div>
+          <div class="w-700">Bold<span>700 · 소제목</span></div>
+          <div class="w-800">ExtraBold<span>800 · 헤드라인</span></div>
+        </div>
+      </div>
+      <div class="card type-hand">
+        <div class="k">Accent · Nanum Pen Script</div>
+        <div class="hand">현장의 손글씨처럼</div>
+        <div class="meta">감성 한 스푼이 필요한 자리에만 아주 절제해서. 본문에는 쓰지 않습니다.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 로고 / 워드마크 ── -->
+  <section>
+    <div class="sec-label">Logo · Wordmark</div>
+    <div class="logo-grid">
+      <div class="logo-box on-dark">
+        <div class="wordmark">SSEN<span class="tif">TIF</span></div>
+        <div class="kr">센티프</div>
+        <div class="logo-cap">다크 배경 — 잉크 화이트 + 민트</div>
+      </div>
+      <div class="logo-box on-light">
+        <div class="wordmark">SSEN<span class="tif">TIF</span></div>
+        <div class="kr">센티프</div>
+        <div class="logo-cap">라이트 배경 — 스페이스 블랙 + 민트</div>
+      </div>
+    </div>
+    <p class="logo-rule">영문 <b>SSENTIF</b> · 한글 <b>센티프</b>. 워드마크는 <b>SSEN</b>(무채색) + <b>TIF</b>(민트)로 조합합니다.
+      이전 표기(DAIS · 데이즈 · Grip Note)는 사용하지 않습니다.</p>
+  </section>
+
+  <!-- ── 보이스 & 톤 ── -->
+  <section>
+    <div class="sec-label">Voice &amp; Tone</div>
+    <div class="voice-grid">
+      <div class="voice-card">
+        <h4>차분한 존댓말</h4>
+        <p>어미는 ‘~합니다’ 체로 정돈합니다. 요청은 ‘~해주세요’로 부드럽게. 과장된 감탄이나 이모지로 톤을 높이지 않습니다.</p>
+      </div>
+      <div class="voice-card">
+        <h4>수식어보다 구체성</h4>
+        <p>‘가장 강력한 · 완전히 · 절대’ 같은 강한 수식어를 쓰지 않습니다. 무엇을, 얼마나 해주는지 숫자와 사실로 말합니다.</p>
+      </div>
+      <div class="voice-card">
+        <h4>도구처럼 담백하게</h4>
+        <p>브랜드가 앞서지 않고 현장 업무가 주인공입니다. 화면도 말도, 필요한 것만 남기고 덜어냅니다.</p>
+      </div>
+    </div>
+    <div class="dodont">
+      <div class="dd do">
+        <span class="tag">DO</span>
+        <div class="line">“회원 이탈 신호를 먼저 감지해 알려드립니다.”</div>
+        <div class="line">“1인은 무료, 함께 쓰면 인원당 24,900원입니다.”</div>
+      </div>
+      <div class="dd dont">
+        <span class="tag">DON’T</span>
+        <div class="line"><s>“가장 강력한 회원관리, 지금 바로!! 🔥”</s></div>
+        <div class="line"><s>“완전 초강력 이탈방지 솔루션이에요~”</s></div>
+      </div>
+    </div>
+    <div class="apply">
+      <button class="btn-teal">도입 상담 신청</button>
+      <button class="btn-ghost">기능 둘러보기</button>
+      <span class="cap">← 민트는 이렇게 시선을 모아야 하는 자리에만. 넓은 면은 무채색으로 둡니다.</span>
+    </div>
+  </section>
+
+  <div class="foot">
+    <div class="fm">SSEN<span class="tif">TIF</span> · 센티프</div>
+    <div class="fs">브랜드 원칙: 무채색이 지배하고, 민트는 절제한다.</div>
+  </div>
+
+</div>
+</body>
+</html>

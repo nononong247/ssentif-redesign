@@ -30,7 +30,7 @@
 2. ~~product-new → product 교체 배포~~ → **완료(2026-07-30)**. product.html이 v3(실물 캡처 9장) 정식본, product-new.html은 repo에서 삭제. SEO 메타는 구버전 것 그대로 이식.
 3. 가이드 3종(`guide*.html`) `📸 캡처 예정` 실물 교체.
 4. `cases.html`·`lab.html` 카피 검토, 지표 통일(재등록률 등 페이지마다 제각각).
-5. **브랜드 키트** — `brand-kit.html`(repo, 미커밋) + PNG(`~/Desktop/센티프 SSENTIF/센티프 콘텐츠/`). 로고색 `#1FDBA8`. 수정 후 Chrome 헤드리스로 PNG 재추출(§C).
+5. **브랜드 키트** — `brand-kit.html`(repo, 미커밋) + PNG(`~/Desktop/센티프 SSENTIF/Marketing/`). 로고색 `#1FDBA8`. 수정 후 Chrome 헤드리스로 PNG 재추출(§C).
 
 🔴 **기본기능 8종(extras-strip)은 실물로 바꿨다가 사용자 지시로 원상 복구 — 다시 바꾸지 말 것.** CSS 목업이 정답(카드 264×244로 작아 실제 화면 판독 불가). 되돌릴 땐 `git show HEAD:index.html`에서 `<section class="extras-strip">`~첫 `</style>` 구간 통째로.
 
@@ -118,7 +118,7 @@ FREE·STANDARD 카드 버튼(`가입하기`/`시작하기`)은 **임시로 `cons
 
 ### TEAM 카드 하위 기능 9종 — 앱 소스 grep으로 검증 후 재작성
 
-Explore 서브에이전트로 `~/Desktop/센티프 SSENTIF/작업파일/GRIP_NOTE-main/`(coach 앱)을 grep 조사해 관리자 모드에서 실제로 강화되는 기능을 확인(파일: `coach_mode.dart`, `manager_dashboard_screen.dart`, `schedule_screen.dart`, `workspace_settings_dialog.dart` 등). 확인된 것:
+Explore 서브에이전트로 `~/Desktop/센티프 SSENTIF/Product/GRIP_NOTE-main/`(coach 앱)을 grep 조사해 관리자 모드에서 실제로 강화되는 기능을 확인(파일: `coach_mode.dart`, `manager_dashboard_screen.dart`, `schedule_screen.dart`, `workspace_settings_dialog.dart` 등). 확인된 것:
 - 일정 "팀 전체" 뷰(강사별 컬럼, 임의 강사 명의 일정 등록), 회원 추가 시 "담당 강사" 지정 — 관리자 모드 전용으로 실재.
 - **워크스페이스 설정의 "결제"·"회원 데이터 가져오기(CSV)" 메뉴는 UI만 있고 미구현**(플레이스홀더) — 카피에 넣으면 과장이라 제외.
 
@@ -172,13 +172,13 @@ Explore 서브에이전트로 `~/Desktop/센티프 SSENTIF/작업파일/GRIP_NOT
 
 - **FAQ 1문항 수정(미커밋·미배포)**: "STANDARD를 쓰다가 팀원을 초대하면" 답변이 구정책("다음 결제일부터 계산")이라 확정 정책(즉시 일할)과 모순 → 양쪽(pricing·consulting) 동기 수정 완료(MD5 일치). **배포 필요.**
 - ~~핸드오프 문서에 개발자 확인 대기 5건~~ → **전부 확정 완료**(아래 v2~v4 개정에 반영).
-- **정책 정본이 HTML 문서로 이동**: `~/Desktop/센티프 SSENTIF/작업파일/센티프-결제정책.html` (라이트 브랜드 디자인, 사용자 검토·다듬기용. 현재 **v4**, 미결 0건). 확정 선언 나오면 `BILLING_POLICY_HANDOFF.md` 재작성 + FAQ 최종 대조.
+- **정책 정본이 HTML 문서로 이동**: `~/Desktop/센티프 SSENTIF/Product/센티프-결제정책.html` (라이트 브랜드 디자인, 사용자 검토·다듬기용. 현재 **v4**, 미결 0건). 확정 선언 나오면 `BILLING_POLICY_HANDOFF.md` 재작성 + FAQ 최종 대조.
 - **v2~v4 주요 개정**(채팅 확정): ①앵커일 오전 8시 정기결제 ②결제 실패 = 유예 1일 + D+1 재시도 1회 → **잠금(제한)** — "강등"과 용어 분리(§2 용어 정의 신설, 팀 구성·플랜 유지, 관리자·강사만 제한·회원 앱 정상, 재결제 시 앵커 유지) ③STANDARD→TEAM 시 owner 차액 미청구(D 케이스 12,450원만) ④일할 반올림 ⑤수동 강등 = **다운그레이드 예약**(앵커일 자동 전환·결제 미실행·전까지 취소 가능) ⑥**FREE 연동 제한 개정: "상태 3명" 폐기 → "월 2회"**(매월 1일 리셋·성공 시 차감·재연동 차감·연동 수 무제한) — 이에 따라 "유지할 연동 3명 선택 UI"도 폐기 ⑦잠금 복구 옵션 2종(재결제 이어가기 / 요금제 재설정+초대·방출).
 - **사이트 반영(미커밋)**: pricing.html FREE 카드 "회원 연동 3명까지"→"회원 연동 월 2회" + FAQ 연동 문항 수정(pricing·consulting 동기, MD5 일치).
 
 ## C. 브랜드 키트
 
-**파일**: `brand-kit.html`(repo, **미커밋**) — 다크 미니멀 1페이지. **PNG**: `~/Desktop/센티프 SSENTIF/센티프 콘텐츠/`(사용자가 하위 폴더로 정리).
+**파일**: `brand-kit.html`(repo, **미커밋**) — 다크 미니멀 1페이지. **PNG**: `~/Desktop/센티프 SSENTIF/Marketing/`(사용자가 하위 폴더로 정리).
 - 팔레트: Space black `#1D1D1F` / Bone white `#F5F5F2` / **Sentif teal `#1FDBA8`**(= 홈 좌상단 로고색 `--accent`, `SSEN`+`TIF`의 TIF). 사용비율 70/25/5. 폰트 Pretendard + Nanum Pen. 보이스(~합니다 체·강한 수식어 금지)·DO/DON'T 포함.
 - **PNG 재추출**(폰트까지 정확히): 페이지 높이 잰 뒤 Chrome 헤드리스 —
   `"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --hide-scrollbars --force-device-scale-factor=2 --window-size=<W>,<H> --default-background-color=<hex>FF --virtual-time-budget=6000 --screenshot=out.png "file://<경로>"`
@@ -483,7 +483,7 @@ a0ad5a4  실제 앱 캡처로 시각요소 교체 + admin 상태값 버그픽스
 - `compose.py` — 부분 크롭 → 세로/가로 합성 유틸(`piece`/`stack`/`row`)
 - `APP_TERMINOLOGY_HANDOFF.md` — 개발자 전달용 앱 용어 통일 조사 내역
 - `OPERATION_PROCESS_HANDOFF.md` — (구) 운영 프로세스 문서
-- `BILLING_POLICY_HANDOFF.md` — 🔴 **구버전(v1 시점)**. 정본은 `~/Desktop/센티프 SSENTIF/작업파일/센티프-결제정책.html`(v4, 검토 중) — 확정 후 이 md를 재작성 예정
+- `BILLING_POLICY_HANDOFF.md` — 🔴 **구버전(v1 시점)**. 정본은 `~/Desktop/센티프 SSENTIF/Product/센티프-결제정책.html`(v4, 검토 중) — 확정 후 이 md를 재작성 예정
 - `drafts/pricing4_preview.html` — **요금제 4카드 재설계 시안**(§B, 미반영). 크롬으로 열어 확인
 - (repo 루트) `brand-kit.html` — 브랜드 키트 1페이지(§C, 미커밋)
 
@@ -491,6 +491,6 @@ a0ad5a4  실제 앱 캡처로 시각요소 교체 + admin 상태값 버그픽스
 
 - GitHub: https://github.com/nononong247/ssentif-redesign · Actions(keepalive) 탭
 - 라이브: https://www.ssentif.kr · 백오피스: https://www.ssentif.kr/admin/login.html
-- 앱 소스: `~/Desktop/센티프 SSENTIF/작업파일/GRIP_NOTE-main/` (docs/ 공용 SSOT 7종 + 앱별 docs·.claude/rules)
+- 앱 소스: `~/Desktop/센티프 SSENTIF/Product/GRIP_NOTE-main/` (docs/ 공용 SSOT 7종 + 앱별 docs·.claude/rules)
 - 레퍼런스: 라포매니저 https://www.rappomanager.info/report · 이전 홈페이지 https://ssentif-fitness.imweb.me/
 - 인터뷰 영상: https://www.youtube.com/@ssentif_official/videos

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>이용약관 — SSENTIF</title>
+<meta name="description" content="센티프(SSENTIF) 서비스 이용약관. 서비스 이용 조건, 회원가입, 이용자·회사의 의무를 안내합니다.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.ssentif.kr/terms.html">
+<link rel="stylesheet" href="style.css?v=2">
+<style>
+.legal-hero { background: var(--gray-50); border-bottom: 1px solid var(--border); padding: 72px 0 44px; }
+.legal-hero .label {
+  display: inline-flex; font-size: 12px; font-weight: 800; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--accent-dark); background: var(--accent-light);
+  padding: 5px 14px; border-radius: 100px; margin-bottom: 16px;
+}
+.legal-hero h1 { font-size: clamp(1.9rem, 4vw, 2.6rem); }
+.legal-hero .meta { margin-top: 14px; font-size: 13.5px; color: var(--gray-500); }
+.legal-hero .meta .dot::before { content: '·'; margin: 0 8px; color: var(--gray-300); }
+
+.legal-wrap { max-width: 760px; margin: 0 auto; padding: 56px 24px 100px; }
+
+.legal-toc {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 48px;
+  padding: 18px; background: var(--gray-50); border: 1px solid var(--border); border-radius: 14px;
+}
+.legal-toc a {
+  font-size: 12.5px; font-weight: 600; color: var(--gray-600);
+  background: var(--white); border: 1px solid var(--border);
+  padding: 6px 12px; border-radius: 100px; transition: all 0.15s;
+}
+.legal-toc a:hover { color: var(--accent-dark); border-color: var(--accent); }
+
+.legal-body h2 {
+  font-size: 1.3rem; font-weight: 800; color: var(--black);
+  margin: 52px 0 16px; padding-top: 8px; letter-spacing: -0.01em;
+}
+.legal-body h2:first-child { margin-top: 0; }
+.legal-body h3 { font-size: 1rem; font-weight: 700; color: var(--black); margin: 22px 0 8px; }
+.legal-body p { font-size: 15px; color: var(--gray-600); line-height: 1.85; margin-bottom: 10px; }
+.legal-body > p.section-intro { font-size: 14.5px; color: var(--gray-500); margin-bottom: 18px; }
+
+.legal-body ol.num { counter-reset: item; margin: 6px 0 18px; }
+.legal-body ol.num > li {
+  counter-increment: item; list-style: none; position: relative;
+  padding-left: 26px; margin-bottom: 10px; font-size: 15px; color: var(--gray-600); line-height: 1.8;
+}
+.legal-body ol.num > li::before {
+  content: counter(item) '.'; position: absolute; left: 0; top: 0;
+  font-weight: 700; color: var(--gray-400);
+}
+.legal-body ol.alpha { margin: 6px 0 18px 26px; }
+.legal-body ol.alpha > li { font-size: 14.5px; color: var(--gray-600); line-height: 1.8; margin-bottom: 6px; }
+.legal-body b { color: var(--black); font-weight: 700; }
+
+.plan-tbl { overflow-x: auto; border: 1px solid var(--border); border-radius: 14px; margin: 16px 0 20px; }
+.plan-tbl table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+.plan-tbl thead th {
+  background: var(--gray-50); color: var(--gray-500); font-size: 12px; font-weight: 700;
+  text-align: left; padding: 11px 16px; border-bottom: 1px solid var(--border); white-space: nowrap;
+}
+.plan-tbl tbody td { padding: 12px 16px; border-bottom: 1px solid var(--border); color: var(--gray-600); vertical-align: top; }
+.plan-tbl tbody tr:last-child td { border-bottom: none; }
+.plan-tbl td.strong { color: var(--black); font-weight: 700; }
+
+.legal-note {
+  display: flex; gap: 10px; background: var(--gray-50); border: 1px solid var(--border);
+  border-radius: 12px; padding: 14px 16px; margin: 16px 0 24px; font-size: 13.5px; color: var(--gray-600); line-height: 1.7;
+}
+.legal-note::before { content: '※'; color: var(--gray-400); font-weight: 700; flex-shrink: 0; }
+
+.biz-info {
+  margin-top: 60px; padding-top: 28px; border-top: 1px solid var(--border);
+  font-size: 13.5px; color: var(--gray-500); line-height: 2;
+}
+.biz-info b { color: var(--gray-700); }
+</style>
+</head>
+<body>
+
+<header class="legal-hero">
+  <div class="container">
+    <div class="label">Terms of Service</div>
+    <h1>이용약관</h1>
+    <div class="meta">시행일 2026년 8월 5일<span class="dot"></span>주식회사 엔브이엔지 (SSENTIF)</div>
+  </div>
+</header>
+
+<div class="legal-wrap legal-body">
+
+  <div class="legal-toc">
+    <a href="#t1">목적</a>
+    <a href="#t2">용어의 정의</a>
+    <a href="#t3">약관의 게시와 개정</a>
+    <a href="#t4">서비스의 제공 및 변경</a>
+    <a href="#t5">서비스의 중단</a>
+    <a href="#t6">회원가입</a>
+    <a href="#t7">회원 탈퇴 및 이용제한</a>
+    <a href="#t8">회원에 대한 통지</a>
+    <a href="#t9">서비스의 종료</a>
+    <a href="#t10">개인정보보호</a>
+    <a href="#t11">이용자의 의무</a>
+    <a href="#t12">회사의 의무</a>
+    <a href="#t13">면책조항</a>
+    <a href="#t14">분쟁 해결 및 준거법</a>
+  </div>
+
+  <p class="section-intro">센티프(SSENTIF)를 이용해 주시는 모든 분들께 감사드립니다. 본 약관은 서비스 이용자의 권리·의무·책임사항 등 서비스를 이용하며 알아야 할 사항을 안내합니다. 이용자는 회원가입 절차에서 &ldquo;동의합니다&rdquo;를 선택하거나 서비스를 이용함으로써 본 약관에 동의한 것으로 간주됩니다.</p>
+  <div class="legal-note">현재 센티프는 무료로 제공됩니다. 유료 요금제 및 결제·환불에 관한 조항은 유료 서비스 도입 시점에 맞추어 본 약관에 추가하고 사전에 공지합니다.</div>
+
+  <h2 id="t1">제1조 목적</h2>
+  <p>이 약관은 주식회사 엔브이엔지(이하 &ldquo;회사&rdquo;)가 운영하는 센티프(SSENTIF, 이하 &ldquo;서비스&rdquo;)의 이용과 관련하여 회사와 이용자 간의 권리, 의무 및 책임사항, 서비스 이용절차 등 필요한 사항을 규정함을 목적으로 합니다.</p>
+
+  <h2 id="t2">제2조 용어의 정의</h2>
+  <ol class="num">
+    <li><b>회사</b> : 주식회사 엔브이엔지</li>
+    <li><b>서비스</b> : 센티프(SSENTIF) — 피트니스 센터 운영을 위한 관리자 웹, 강사 앱, 회원 앱으로 구성된 AI 운영 워크스페이스</li>
+    <li><b>워크스페이스</b> : 하나의 센터(사업장) 단위로 생성되는 서비스 이용 공간</li>
+    <li><b>이용자</b> : 서비스에 가입하여 이를 이용하는 관리자, 강사, 회원을 통칭</li>
+    <li><b>관리자</b> : 워크스페이스를 개설하고 팀원을 관리하는 이용자</li>
+    <li><b>강사</b> : 워크스페이스에 소속되어 수업·회원 관리 기능을 제공받는 이용자</li>
+    <li><b>회원</b> : 강사로부터 PT 등 서비스를 받으며 회원 앱을 이용하는 이용자</li>
+    <li><b>팀원</b> : 워크스페이스에 소속되어 서비스를 이용하는 관리자·강사</li>
+  </ol>
+  <p>본 약관에서 정의되지 않은 용어는 관계 법령 및 서비스 내 안내에 따릅니다.</p>
+
+  <h2 id="t3">제3조 약관의 게시와 개정</h2>
+  <ol class="num">
+    <li>회사는 이 약관의 내용을 이용자가 쉽게 알 수 있도록 서비스 초기화면 또는 연결화면을 통해 게시합니다.</li>
+    <li>회사는 「전자상거래 등에서의 소비자보호에 관한 법률」, 「약관의 규제에 관한 법률」, 「전자문서 및 전자거래기본법」, 「전자금융거래법」, 「정보통신망 이용촉진 및 정보보호 등에 관한 법률」 등 관련 법령을 위배하지 않는 범위에서 이 약관을 개정할 수 있습니다.</li>
+    <li>약관을 개정하는 경우 적용일자와 개정 사유를 명시하여 적용일 <b>7일 전</b>부터 공지하며, 이용자에게 불리한 변경은 <b>30일 이상</b>의 유예기간을 두고 공지합니다.</li>
+    <li>이용자가 개정약관 적용일까지 명시적으로 거부 의사를 표시하지 않고 서비스를 계속 이용하는 경우, 개정약관에 동의한 것으로 간주합니다.</li>
+  </ol>
+
+  <h2 id="t4">제4조 서비스의 제공 및 변경</h2>
+  <ol class="num">
+    <li>회사는 다음과 같은 서비스를 제공합니다.
+      <ol class="alpha">
+        <li>관리자 웹·강사 앱·회원 앱을 통한 센터 운영, 수업 관리, 회원 관리 등 기능 일체</li>
+        <li>기타 회사가 추가로 개발하거나 제휴를 통해 제공하는 일체의 서비스</li>
+      </ol>
+    </li>
+    <li>서비스는 연중무휴 1일 24시간 제공을 원칙으로 하되, 다음의 경우 전부 또는 일부를 제한하거나 중단할 수 있습니다.
+      <ol class="alpha">
+        <li>설비의 점검·보수·교체 등 부득이한 공사가 필요한 경우</li>
+        <li>정전, 설비 장애, 이용량 폭주 등으로 정상적인 서비스 제공이 어려운 경우</li>
+        <li>제3자(클라우드 등 서비스 제공업체)와의 계약 종료 등 회사의 제반 사정으로 유지가 어려운 경우</li>
+        <li>천재지변 등 불가항력적 사유가 있는 경우</li>
+      </ol>
+    </li>
+    <li>회사는 서비스 내용의 변경이 있는 경우 변경 사항을 서비스 내 공지 또는 이메일로 안내합니다.</li>
+  </ol>
+
+  <h2 id="t5">제5조 서비스의 중단</h2>
+  <ol class="num">
+    <li>회사는 정보통신설비의 보수·점검·교체, 통신 두절 등의 사유가 발생한 경우 서비스 제공을 일시적으로 중단할 수 있습니다.</li>
+    <li>회사는 제1항의 사유로 서비스 제공이 중단되어 이용자 또는 제3자가 손해를 입은 경우 이를 배상합니다. 다만 회사의 고의 또는 과실이 없음을 입증하는 경우에는 그러하지 아니합니다.</li>
+    <li>사업 종목 전환, 사업 포기, 회사 간 통합 등의 사유로 서비스를 지속할 수 없는 경우, 회사는 제8조에 정한 방법으로 사전에 통지합니다.</li>
+  </ol>
+
+  <h2 id="t6">제6조 회원가입</h2>
+  <ol class="num">
+    <li>이용자는 회사가 정한 가입 절차에 따라 정보를 제공하고 본 약관에 동의함으로써 회원가입을 신청합니다.</li>
+    <li>회사는 다음 각 호에 해당하지 않는 한 가입 신청을 승낙합니다.
+      <ol class="alpha">
+        <li>등록 내용에 허위, 기재 누락, 오기가 있는 경우</li>
+        <li>기술상 서비스 제공에 현저한 지장이 있다고 판단되는 경우</li>
+      </ol>
+    </li>
+    <li>회원가입 계약은 회사의 승낙이 이용자에게 도달한 시점에 성립합니다.</li>
+    <li>이용자는 가입 시 등록한 정보에 변경이 있는 경우 지체 없이 서비스 내에서 수정해야 합니다.</li>
+  </ol>
+
+  <h2 id="t7">제7조 회원 탈퇴 및 이용제한</h2>
+  <ol class="num">
+    <li>이용자는 언제든지 서비스 내 설정 메뉴를 통해 탈퇴를 요청할 수 있으며, 회사는 관계 법령에서 정한 보관 의무가 있는 정보를 제외하고 지체 없이 처리합니다.</li>
+    <li>회사는 이용자가 본 약관 또는 관계 법령을 위반한 경우 사전 경고 없이 서비스 이용을 제한하거나 계정을 해지할 수 있습니다.</li>
+  </ol>
+
+  <h2 id="t8">제8조 회원에 대한 통지</h2>
+  <ol class="num">
+    <li>회사는 이용자가 등록한 이메일, 서비스 내 알림 등을 통해 필요한 사항을 통지할 수 있습니다.</li>
+    <li>불특정 다수 이용자에 대한 통지는 서비스 내 공지사항 게시로 개별 통지를 갈음할 수 있습니다.</li>
+  </ol>
+
+  <h2 id="t9">제9조 서비스의 종료</h2>
+  <ol class="num">
+    <li>회사는 운영상·기술상 필요에 따라 상당한 사전 공지를 거쳐 서비스의 전부 또는 일부를 변경·종료할 수 있습니다.</li>
+    <li>서비스 종료 시 특별한 규정이 없는 한 별도의 보상을 하지 않으며, 회사는 종료 예정일과 데이터 처리 방법을 사전에 공지합니다.</li>
+  </ol>
+
+  <h2 id="t10">제10조 개인정보보호</h2>
+  <ol class="num">
+    <li>회사는 서비스 제공을 위해 필요한 범위에서 최소한의 개인정보를 수집하며, 수집·이용 목적을 사전에 고지하고 동의를 받습니다.</li>
+    <li>회사는 수집된 개인정보를 목적 외 용도로 이용하지 않으며, 자세한 사항은 별도의 <a href="privacy.html">개인정보처리방침</a>에 따릅니다.</li>
+  </ol>
+
+  <h2 id="t11">제11조 이용자의 의무</h2>
+  <ol class="num">
+    <li>이용자는 관계 법령, 본 약관 및 회사가 공지하는 이용안내·주의사항을 준수해야 하며, 회사의 업무를 방해하는 행위를 해서는 안 됩니다.</li>
+    <li>이용자는 서비스를 통해 얻은 정보를 회사의 사전 승낙 없이 복제·변경·배포하거나 영리 목적으로 이용할 수 없습니다.</li>
+    <li>이용자는 타인의 계정을 도용하거나 허위 정보를 등록해서는 안 됩니다.</li>
+  </ol>
+
+  <h2 id="t12">제12조 회사의 의무</h2>
+  <ol class="num">
+    <li>회사는 법령과 본 약관이 금지하거나 공서양속에 반하는 행위를 하지 않으며, 지속적이고 안정적으로 서비스를 제공하기 위해 노력합니다.</li>
+    <li>회사는 서비스와 관련한 이용자의 의견이나 불만이 정당하다고 인정될 경우 이를 신속히 처리합니다.</li>
+  </ol>
+
+  <h2 id="t13">제13조 면책조항</h2>
+  <ol class="num">
+    <li>회사는 천재지변, 불가항력, 이용자의 귀책사유로 인한 서비스 이용 장애에 대해 책임을 지지 않습니다.</li>
+    <li>회사는 이용자가 서비스를 통해 얻은 정보나 자료의 신뢰도, 정확성에 대해 보증하지 않습니다.</li>
+    <li>회사는 이용자 간 또는 이용자와 제3자 간에 서비스를 매개로 발생한 분쟁에 개입하지 않으며, 이로 인한 손해를 배상할 책임이 없습니다.</li>
+  </ol>
+
+  <h2 id="t14">제14조 분쟁 해결 및 준거법</h2>
+  <p>회사와 이용자는 서비스와 관련하여 발생한 분쟁을 원만히 해결하기 위해 성실히 협의합니다. 협의로 해결되지 않는 경우, 이용자는 아래 기관에 분쟁 조정이나 상담을 신청할 수 있습니다.</p>
+  <ol class="num">
+    <li>한국소비자원 소비자상담센터 : (국번없이) 1372 (www.ccn.go.kr)</li>
+    <li>전자거래분쟁조정위원회 : 1661-5714 (www.ecmc.or.kr)</li>
+    <li>공정거래위원회 : (국번없이) 1670-0007 (www.ftc.go.kr)</li>
+  </ol>
+  <p>「전자상거래 등에서의 소비자보호에 관한 법률」 제36조에 따라, 서비스 이용과 관련하여 회사와 이용자 간에 발생한 소송은 제소 당시 이용자의 주소에 의하고, 주소가 없는 경우 거소를 관할하는 지방법원의 전속관할로 합니다. 다만 제소 당시 이용자의 주소 또는 거소가 분명하지 않거나 이용자가 외국 거주자인 경우에는 민사소송법상의 관할법원에 제기합니다.</p>
+  <p>이 약관에서 정하지 않은 사항은 「전자상거래 등에서의 소비자보호에 관한 법률」, 「약관의 규제에 관한 법률」 등 관계 법령 및 상관례에 따릅니다.</p>
+
+  <div class="biz-info">
+    <div><b>상호명</b> : 주식회사 엔브이엔지</div>
+    <div><b>대표자명</b> : 정진훈</div>
+    <div><b>사업자등록번호</b> : 849-87-03418</div>
+    <div><b>통신판매업 신고번호</b> : 2024-서울서초-4127</div>
+    <div><b>사업장 주소</b> : 서울특별시 서초구 사임당로8길 13, 4층 402-제이637호</div>
+    <div><b>고객센터</b> : 카카오톡 채널 &ldquo;센티프 SSENTIF&rdquo;</div>
+    <div style="margin-top:14px">본 약관은 2026년 8월 5일부터 시행됩니다.</div>
+  </div>
+
+</div>
+
+</body>
+</html>

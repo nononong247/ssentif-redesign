@@ -1,12 +1,5 @@
-"""가이드 이미지 빌드 v2 — 최신 앱 캡처 기준.
-
-- 다이얼로그 캡처의 바깥 barrier 를 자동으로 잘라낸다.
-- 일부 이미지는 잘라낼 영역을 명시한다(헤더 tofu, 하단 버튼 tofu 등).
-"""
-
 import sys
 from pathlib import Path
-
 from PIL import Image
 
 SRC = Path(sys.argv[1])
@@ -73,7 +66,6 @@ def flatten_on_white(im):
 
 
 def build(name, out, trim=False, crop=None):
-    """crop: (left%, top%, right%, bottom%) 비율 크롭."""
     src = SRC / f"{name}.png"
     if not src.exists():
         print(f"  MISSING {name}")
@@ -98,42 +90,31 @@ def build(name, out, trim=False, crop=None):
 
 
 JOBS = [
-    ("login_portrait_social_light", "01-login", {}),
-    ("guide_signup", "02-signup", {}),
-    # 카드 주변 여백이 화면의 절반이라 카드 기준으로 좁힌다.
-    ("workspace_create_portrait", "03-workspace-create",
-     {"crop": (0.146, 0.051, 0.854, 0.850)}),
-    ("guide_modes_nav", "04-modes", {}),
-    ("guide_settings", "05-profile", {}),
-    ("guide_account_settings", "06-account", {}),
-    ("guide_chat", "07-chat", {}),
-    ("member_notices_screen", "08-notice", {}),
-    ("memo_editor_attachments_light", "09-memo", {}),
-    ("coach_home_screen_light", "10-home", {}),
-    ("guide_member_add", "11-member-add", {"trim": True}),
-    # 하단 시트 — barrier 가 위쪽만 검정이라 자동 트림이 걸리지 않는다.
-    ("guide_member_link", "12-member-link", {"crop": (0.0, 0.0, 1.0, 0.415)}),
-    ("info_tab_delete_light", "13-member-delete", {}),
-    ("guide_products", "14-products", {}),
-    ("guide_membership_issue", "15-membership-issue", {"trim": True}),
-    ("membership_tab_light", "16-membership-tab", {}),
-    ("membership_payment_edit_light", "17-membership-edit", {"trim": True}),
-    ("schedule_create_dialog_light", "18-schedule-create", {"trim": True}),
-    ("schedule_date_selection_repeat_light", "19-schedule-repeat", {"trim": True}),
-    ("session_detail_dialog_light", "20-attendance", {"trim": True}),
-    ("guide_exercise_library", "21-exercise-library", {}),
-    ("custom_exercise_video_field_light", "22-custom-exercise", {"trim": True}),
-    ("guide_class_log", "23-class-log", {}),
-    ("previous_records_dialog_light", "24-previous-records", {"trim": True}),
-    ("member_activity_feedback_tablet_light", "25-member-verify", {"trim": True}),
-    ("guide_activity_daily", "26-activity-tab", {}),
-    ("guide_activity_grid", "27-activity-grid", {}),
-    ("session_tab_donut_light", "28-session-analysis", {"trim": True}),
-    ("session_journal_cards_light", "29-session-journal", {}),
-    ("body_composition_charts_light", "30-body-composition", {"trim": True}),
-    ("consultation_entry_mode_light", "31-consultation-entry", {"trim": True}),
-    ("consultation_goals_light", "32-consultation-report", {}),
-    ("member_pause_dialog_light", "33-member-pause", {"trim": True}),
+    ("guide_admin_dashboard", "dashboard-overview", {}),
+    ("guide_admin_alerts", "alerts", {}),
+    ("guide_admin_revenue", "revenue", {}),
+    ("guide_admin_risk", "risk", {}),
+    ("guide_admin_members", "all-members", {}),
+    # 아래 4개는 콘텐츠가 화면 상단 일부만 채우고 나머지가 빈 배경으로 남아
+    # trim 으로 실제 콘텐츠 영역까지 좁힌다(2026-08-06).
+    ("guide_admin_products", "products", {"trim": True}),
+    ("guide_admin_staff", "staff", {"trim": True}),
+    ("guide_admin_staff_detail", "staff-detail", {}),
+    ("guide_admin_payroll", "payroll", {}),
+    ("guide_admin_payslip", "payslip", {"trim": True}),
+    ("guide_admin_schedule_scope", "schedule-scope", {}),
+    ("guide_admin_center_hours", "center-hours", {"trim": True}),
+    ("guide_admin_ai_agent", "ai-agent", {}),
+    # 공통 8개 — 2026-08-06 전면 태블릿 재작업(guide-admin.html 전용, guide.html 원본 미변경)
+    ("login_screen", "login", {}),
+    ("signup_landscape", "signup", {}),
+    ("workspace_create_landscape", "workspace-create", {}),
+    ("guide_admin_modes_tablet", "modes", {}),
+    ("guide_admin_settings_tablet", "profile", {"trim": True}),
+    ("guide_admin_account_settings_tablet", "account-settings", {}),
+    ("guide_admin_chat_tablet", "chat", {}),
+    ("guide_admin_memo_tablet", "memo", {}),
+    ("member_notices_screen", "notice", {}),
 ]
 
 missing = [name for name, out, opts in JOBS if not build(name, out, **opts)]

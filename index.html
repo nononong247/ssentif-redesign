@@ -1747,106 +1747,95 @@
 .ba-head h2 { color: var(--white); font-size: clamp(1.9rem,3.5vw,2.8rem); }
 .ba-head p  { color: rgba(255,255,255,0.5); margin-top: 12px; font-size: 1rem; }
 
-/* 비교표 — 헤더와 값이 같은 그리드를 공유해야 세로 축이 맞음 */
-.ba-cols {
-  display: grid;
-  grid-template-columns: 120px 1fr 24px 1.15fr;
-  column-gap: 18px;
-  /* stretch여야 4개 셀이 행 높이를 함께 채워 구분선 y좌표가 일치함 */
-  align-items: stretch;
-}
-.ba-col-head {
-  font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
-  padding-bottom: 14px;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-  display: flex; align-items: flex-end;
-}
-.ba-col-head.spacer { border-bottom: 1px solid rgba(255,255,255,0.08); }
-.ba-col-head.before { color: rgba(255,255,255,0.35); justify-content: flex-end; }
-.ba-col-head.after  { color: var(--accent); }
-.ba-divider-head { border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 14px; }
+/* 범례 — 표 헤더 대신 한 번만 보여주는 전/후 색 안내. 카드마다 색으로 이미 구분되므로 보조 역할 */
+.ba-legend { display:flex; align-items:center; justify-content:center; gap:22px; margin-bottom:28px; }
+.ba-legend span { display:flex; align-items:center; gap:7px; font-size:12px; font-weight:700; letter-spacing:.04em; }
+.ba-legend i { width:8px; height:8px; border-radius:50%; display:block; }
+.ba-legend .lg-before { color: rgba(255,255,255,0.55); }
+.ba-legend .lg-before i { background: #F65271; }
+.ba-legend .lg-after { color: var(--accent); }
+.ba-legend .lg-after i { background: var(--accent); box-shadow: 0 0 8px rgba(31,219,168,0.6); }
 
-/* display:contents — 래퍼로 행을 묶되 셀은 부모 그리드에 직접 배치되게 */
-.ba-row { display: contents; }
-/* 행: 4개 셀이 각각 같은 높이(88px)를 잡아 하나의 표처럼 정렬 */
-.ba-metric, .ba-before, .ba-arrow, .ba-after {
-  min-height: 88px;
-  display: flex; flex-direction: column; justify-content: center;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+/* 카드형 비교 리스트 — 항목마다 독립된 카드로 묶어야 전/후 대비가 한눈에 들어옴 */
+.ba-list { display: flex; flex-direction: column; gap: 10px; }
+.ba-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 18px;
+  padding: 20px 22px;
 }
-.ba-row-last .ba-metric,
-.ba-row-last .ba-before,
-.ba-row-last .ba-arrow,
-.ba-row-last .ba-after { border-bottom: 0; }
+.ba-metric {
+  font-size: 12.5px; font-weight: 700; color: rgba(255,255,255,0.55);
+  letter-spacing: .01em; margin-bottom: 14px;
+}
+.ba-compare { display: flex; align-items: stretch; gap: 12px; }
 
-.ba-metric { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.45); }
-/* 화살표 쪽으로 붙여야 전→후 연결이 읽힘 */
-.ba-before { font-size: 15px; color: rgba(255,255,255,0.38); align-items: flex-end; text-align: right; }
+/* Before/After 모두 색이 있는 태그(필)로 — 흐린 텍스트 하나로는 눈에 안 들어온다는 피드백 반영 */
+.ba-tag {
+  flex: 1; min-width: 0;
+  border-radius: 13px; padding: 13px 16px;
+  display: flex; align-items: center;
+}
+.ba-tag.before {
+  background: rgba(246,82,113,0.09);
+  border: 1px solid rgba(246,82,113,0.22);
+}
+.ba-tag.before span {
+  position: relative; font-size: 14.5px; font-weight: 500;
+  color: rgba(255,255,255,0.68);
+}
 /* 취소선은 text-decoration이 아닌 실제 선 — 좌→우로 그어야 해서 scaleX 애니메이션 필요 */
-.ba-before span { position: relative; }
-.ba-before span::after {
+.ba-tag.before span::after {
   content: ''; position: absolute; left: 0; right: 0; top: 50%;
   height: 1.5px; margin-top: -0.75px;
-  background: rgba(246,82,113,0.6);
+  background: rgba(246,82,113,0.85);
   transform: scaleX(1); transform-origin: left;
 }
-/* 화살표 — 이 섹션의 주제가 '변화'이므로 주인공 */
-.ba-arrow { align-items: center; }
-.ba-arrow i {
-  display: block; width: 24px; height: 9px; position: relative;
-  background: linear-gradient(90deg, rgba(31,219,168,0) 0%, rgba(31,219,168,0.4) 100%);
-  clip-path: polygon(0 40%, 62% 40%, 62% 0, 100% 50%, 62% 100%, 62% 60%, 0 60%);
+.ba-tag.after {
+  background: rgba(31,219,168,0.11);
+  border: 1px solid rgba(31,219,168,0.32);
+  flex-direction: column; align-items: flex-start;
 }
-.ba-after b {
-  display: block;
-  font-size: 30px; font-weight: 800; color: var(--accent);
-  letter-spacing: -0.02em; line-height: 1.1;
+.ba-tag.after b {
+  font-size: 20px; font-weight: 800; color: var(--accent);
+  letter-spacing: -0.02em; line-height: 1.15;
 }
-.ba-after b em { font-style: normal; font-size: 15px; font-weight: 600; margin-left: 3px; }
-.ba-after small { display: block; font-size: 13px; color: rgba(255,255,255,0.5); margin-top: 6px; }
+.ba-tag.after b em { font-style: normal; font-size: 14px; font-weight: 600; margin-left: 3px; }
+.ba-tag.after small { display: block; font-size: 12.5px; color: rgba(255,255,255,0.6); margin-top: 4px; }
 /* 수치가 아닌 항목(실시간/초안)은 '상태'로 — 대형 숫자 스타일 금지 */
-.ba-after.is-state b { font-size: 20px; font-weight: 700; }
+.ba-tag.after.is-state b { font-size: 17px; font-weight: 700; }
+
+/* 화살표 — 좌우 색 대비를 물리적으로 이어주는 연결 고리 */
+.ba-arrow-ic {
+  flex: 0 0 auto; align-self: center;
+  width: 26px; height: 26px; border-radius: 50%;
+  background: rgba(31,219,168,0.14);
+  display: flex; align-items: center; justify-content: center;
+}
+.ba-arrow-ic svg { display: block; }
 .ba-cta { text-align: center; margin-top: 44px; }
 
-/* 모션 — 뷰포트 진입 시 1회. before → 취소선 → after 순 */
-.ba-cols .ba-metric, .ba-cols .ba-before,
-.ba-cols .ba-arrow,  .ba-cols .ba-after { opacity: 0; }
-.ba-cols.visible .ba-metric,
-.ba-cols.visible .ba-before {
-  animation: baFade 0.3s ease-out both; animation-delay: var(--d, 0s);
+/* 모션 — 뷰포트 진입 시 카드가 한 장씩 순서대로 떠오름 */
+.ba-list .ba-card { opacity: 0; transform: translateY(10px); }
+.ba-list.visible .ba-card {
+  animation: baCardIn 0.4s ease-out both; animation-delay: var(--d, 0s);
 }
-/* 취소선이 좌→우로 그어짐 */
-.ba-cols.visible .ba-before span::after {
+.ba-list.visible .ba-tag.before span::after {
   animation: baStrike 0.3s ease-out both;
-  animation-delay: calc(var(--d, 0s) + 0.15s);
+  animation-delay: calc(var(--d, 0s) + 0.2s);
 }
 @keyframes baStrike { from { transform: scaleX(0) } to { transform: scaleX(1) } }
-.ba-cols.visible .ba-arrow {
-  animation: baFade 0.3s ease-out both; animation-delay: calc(var(--d, 0s) + 0.2s);
-}
-.ba-cols.visible .ba-after {
-  animation: baSlide 0.3s ease-out both; animation-delay: calc(var(--d, 0s) + 0.3s);
-}
-@keyframes baFade  { from { opacity:0 } to { opacity:1 } }
-@keyframes baSlide { from { opacity:0; transform: translateX(8px) } to { opacity:1; transform:none } }
+@keyframes baCardIn { from { opacity:0; transform: translateY(10px) } to { opacity:1; transform:none } }
 
 @media(prefers-reduced-motion: reduce){
-  .ba-cols .ba-metric, .ba-cols .ba-before,
-  .ba-cols .ba-arrow,  .ba-cols .ba-after { opacity: 1; animation: none !important; }
-  .ba-cols.visible .ba-before::after { display: none; }
+  .ba-list .ba-card { opacity: 1; transform: none; animation: none !important; }
+  .ba-list.visible .ba-tag.before span::after { animation: none !important; transform: scaleX(1); }
 }
 
-@media(max-width:768px){
-  .ba-cols { grid-template-columns: 1fr; column-gap: 0; }
-  .ba-col-head, .ba-divider-head { display: none; }
-  .ba-metric, .ba-before, .ba-arrow, .ba-after { min-height: 0; border-bottom: 0; }
-  .ba-metric { padding-top: 22px; }
-  .ba-before { padding: 4px 0 8px; align-items: flex-start; text-align: left; }
-  .ba-after { padding-bottom: 22px; border-bottom: 1px solid rgba(255,255,255,0.06); }
-  .ba-row-last .ba-after { border-bottom: 0; }
-  .ba-arrow { align-items: flex-start; padding-bottom: 8px; }
-  .ba-arrow i { transform: rotate(90deg); }
-  .ba-after b { font-size: 26px; }
+@media(max-width:640px){
+  .ba-compare { flex-direction: column; align-items: stretch; }
+  .ba-tag.before span { display: block; }
+  .ba-arrow-ic { align-self: center; transform: rotate(90deg); }
 }
 </style>
 
@@ -1856,53 +1845,64 @@
       <p>센티프 도입 후, 이렇게 달라집니다</p>
     </div>
 
-    <div class="ba-cols fade-up">
-      <!-- 헤더 — 값 셀과 같은 그리드를 공유해야 세로 축이 맞음 -->
-      <div class="ba-col-head spacer"></div>
-      <div class="ba-col-head before">도입 전</div>
-      <div class="ba-divider-head"></div>
-      <div class="ba-col-head after">도입 후</div>
+    <div class="ba-legend fade-up">
+      <span class="lg-before"><i></i>도입 전</span>
+      <span class="lg-after"><i></i>도입 후</span>
+    </div>
 
-      <div class="ba-row" style="--d:0s">
+    <div class="ba-list fade-up">
+      <div class="ba-card" style="--d:0s">
         <div class="ba-metric">이탈 조짐</div>
-        <div class="ba-before"><span>나가고 나서야 알아챔</span></div>
-        <div class="ba-arrow"><i></i></div>
-        <div class="ba-after is-state"><b>출석률로 판단</b><small>미리 대응</small></div>
+        <div class="ba-compare">
+          <div class="ba-tag before"><span>나가고 나서야 알아챔</span></div>
+          <div class="ba-arrow-ic"><svg width="13" height="13" viewBox="0 0 20 20" fill="none"><path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="ba-tag after is-state"><b>출석률로 판단</b><small>미리 대응</small></div>
+        </div>
       </div>
 
-      <div class="ba-row" style="--d:.06s">
+      <div class="ba-card" style="--d:.06s">
         <div class="ba-metric">수강권 만료 알림</div>
-        <div class="ba-before"><span>별도의 안내 없음</span></div>
-        <div class="ba-arrow"><i></i></div>
-        <div class="ba-after"><b>7/3/1<em>일 전</em></b><small>자동 발송</small></div>
+        <div class="ba-compare">
+          <div class="ba-tag before"><span>별도의 안내 없음</span></div>
+          <div class="ba-arrow-ic"><svg width="13" height="13" viewBox="0 0 20 20" fill="none"><path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="ba-tag after"><b>7/3/1<em>일 전</em></b><small>자동 발송</small></div>
+        </div>
       </div>
 
-      <div class="ba-row" style="--d:.12s">
+      <div class="ba-card" style="--d:.12s">
         <div class="ba-metric">잔여 세션 안내</div>
-        <div class="ba-before"><span>깜빡하고 놓침</span></div>
-        <div class="ba-arrow"><i></i></div>
-        <div class="ba-after"><b>3<em>회</em></b><small>남으면 알림</small></div>
+        <div class="ba-compare">
+          <div class="ba-tag before"><span>깜빡하고 놓침</span></div>
+          <div class="ba-arrow-ic"><svg width="13" height="13" viewBox="0 0 20 20" fill="none"><path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="ba-tag after"><b>3<em>회</em></b><small>남으면 알림</small></div>
+        </div>
       </div>
 
-      <div class="ba-row" style="--d:.18s">
+      <div class="ba-card" style="--d:.18s">
         <div class="ba-metric">매달 급여정산</div>
-        <div class="ba-before"><span>하루종일 붙잡고 계산</span></div>
-        <div class="ba-arrow"><i></i></div>
-        <div class="ba-after is-state"><b>자동 계산</b><small>강사별 급여명세서까지 출력</small></div>
+        <div class="ba-compare">
+          <div class="ba-tag before"><span>하루종일 붙잡고 계산</span></div>
+          <div class="ba-arrow-ic"><svg width="13" height="13" viewBox="0 0 20 20" fill="none"><path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="ba-tag after is-state"><b>자동 계산</b><small>강사별 급여명세서까지 출력</small></div>
+        </div>
       </div>
 
-      <div class="ba-row" style="--d:.24s">
+      <div class="ba-card" style="--d:.24s">
         <div class="ba-metric">홍보글 작성</div>
-        <div class="ba-before"><span>밤새 혼자 써야 함</span></div>
-        <div class="ba-arrow"><i></i></div>
-        <div class="ba-after is-state"><b>AI가 초안 작성</b><small>원장님은 검토/수정만</small></div>
+        <div class="ba-compare">
+          <div class="ba-tag before"><span>밤새 혼자 써야 함</span></div>
+          <div class="ba-arrow-ic"><svg width="13" height="13" viewBox="0 0 20 20" fill="none"><path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="ba-tag after is-state"><b>AI가 초안 작성</b><small>원장님은 검토/수정만</small></div>
+        </div>
       </div>
 
-      <div class="ba-row ba-row-last" style="--d:.3s">
+      <div class="ba-card" style="--d:.3s">
         <div class="ba-metric">수업일지 공유</div>
-        <div class="ba-before"><span>작성되고 있는지 확인 불가</span></div>
-        <div class="ba-arrow"><i></i></div>
-        <div class="ba-after is-state"><b>실시간 확인</b><small>강사별 작성 여부</small></div>
+        <div class="ba-compare">
+          <div class="ba-tag before"><span>작성되고 있는지 확인 불가</span></div>
+          <div class="ba-arrow-ic"><svg width="13" height="13" viewBox="0 0 20 20" fill="none"><path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="ba-tag after is-state"><b>실시간 확인</b><small>강사별 작성 여부</small></div>
+        </div>
       </div>
     </div>
 

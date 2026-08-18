@@ -12,4 +12,7 @@ Allow: /
 # 관리자 페이지 차단
 Disallow: /admin/
 
+# 내부 문서 차단
+Disallow: /brand-kit.html
+
 Sitemap: https://www.ssentif.kr/sitemap.xml

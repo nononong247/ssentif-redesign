@@ -169,6 +169,17 @@ tbody td { padding: 10px 14px; font-size: 12.5px; color: #374151; vertical-align
 .status-badge.published::before { background: #1FDBA8; }
 .status-badge.draft { background: #F3F5F8; color: #6B7280; }
 .status-badge.draft::before { background: #9CA3AF; }
+.status-badge.hidden { background: rgba(245,158,11,0.1); color: #B45309; }
+.status-badge.hidden::before { background: #F59E0B; }
+
+/* 숨기기/다시 보이기 토글 — 별 아이콘(대표 설정)과 같은 톤으로 통일 */
+.visibility-toggle {
+  cursor: pointer; font-size: 15px; opacity: 0.55; transition: opacity 0.1s, transform 0.1s;
+  display: inline-block;
+}
+.visibility-toggle:hover { opacity: 1; transform: scale(1.08); }
+.visibility-toggle.off { opacity: 0.85; }
+.action-placeholder { color: #D1D5DB; font-size: 12px; }
 
 .featured-star {
   font-size: 14px; cursor: pointer; opacity: 0.2; transition: opacity 0.1s; user-select: none;
@@ -440,6 +451,10 @@ tbody td { padding: 10px 14px; font-size: 12.5px; color: #374151; vertical-align
         <div class="mini-stat-num accent" id="cnt-pub">—</div>
       </div>
       <div class="mini-stat">
+        <div class="mini-stat-label">숨김</div>
+        <div class="mini-stat-num" id="cnt-hid">—</div>
+      </div>
+      <div class="mini-stat">
         <div class="mini-stat-label">임시저장</div>
         <div class="mini-stat-num" id="cnt-dft">—</div>
       </div>
@@ -453,6 +468,7 @@ tbody td { padding: 10px 14px; font-size: 12.5px; color: #374151; vertical-align
       <div class="filter-tabs">
         <button class="ftab active" onclick="filterBy('all',this)">전체 <span class="cnt">—</span></button>
         <button class="ftab" onclick="filterBy('published',this)">발행됨 <span class="cnt">—</span></button>
+        <button class="ftab" onclick="filterBy('hidden',this)">숨김 <span class="cnt">—</span></button>
         <button class="ftab" onclick="filterBy('draft',this)">임시저장 <span class="cnt">—</span></button>
       </div>
       <div class="search-wrap">
@@ -647,14 +663,16 @@ function renderTable() {
   const data = getFiltered();
   document.getElementById('cnt-all').textContent = articles.length;
   document.getElementById('cnt-pub').textContent = articles.filter(a=>a.status==='published').length;
+  document.getElementById('cnt-hid').textContent = articles.filter(a=>a.status==='hidden').length;
   document.getElementById('cnt-dft').textContent = articles.filter(a=>a.status==='draft').length;
   document.getElementById('pageInfo').textContent = `총 ${data.length}건`;
 
-  // update ftab counts
+  // update ftab counts — 탭 순서(전체·발행됨·숨김·임시저장)와 인덱스를 맞춘다
   const tabs = document.querySelectorAll('.ftab .cnt');
   if (tabs[0]) tabs[0].textContent = articles.length;
   if (tabs[1]) tabs[1].textContent = articles.filter(a=>a.status==='published').length;
-  if (tabs[2]) tabs[2].textContent = articles.filter(a=>a.status==='draft').length;
+  if (tabs[2]) tabs[2].textContent = articles.filter(a=>a.status==='hidden').length;
+  if (tabs[3]) tabs[3].textContent = articles.filter(a=>a.status==='draft').length;
 
   const tbody = document.getElementById('tableBody');
   tbody.innerHTML = data.map(a => `
@@ -675,9 +693,14 @@ function renderTable() {
         <span class="featured-star ${a.featured ? 'on' : ''}"
           onclick="toggleFeatured(${a.id})" title="${a.featured ? '대표 해제' : '대표로 설정'}">⭐</span>
       </td>
-      <td><span class="status-badge ${a.status}">${a.status === 'published' ? '발행됨' : '임시저장'}</span></td>
+      <td><span class="status-badge ${a.status}">${a.status === 'published' ? '발행됨' : a.status === 'hidden' ? '숨김' : '임시저장'}</span></td>
       <td>
         <div class="action-group">
+          ${a.status !== 'draft'
+            ? `<span class="visibility-toggle ${a.status === 'hidden' ? 'off' : ''}"
+                 onclick="toggleHidden(${a.id})"
+                 title="${a.status === 'hidden' ? '다시 보이게 하기' : '운영지원실에서 숨기기'}">${a.status === 'hidden' ? '🙈' : '👁️'}</span>`
+            : '<span class="action-placeholder">—</span>'}
           <button class="icon-btn edit" title="편집" onclick="openEditor(${a.id})">✏️</button>
           <button class="icon-btn del"  title="삭제" onclick="openDeleteModal(${a.id})">🗑️</button>
         </div>
@@ -691,6 +714,26 @@ function filterBy(f, el) {
   document.querySelectorAll('.ftab').forEach(t => t.classList.remove('active'));
   el.classList.add('active');
   renderTable();
+}
+
+/* 삭제와 달리 되돌릴 수 있는 조치 — status만 published⇄hidden으로 바꾼다.
+   운영지원실 목록·상세 페이지는 이미 status='published'로만 조회하므로,
+   'hidden'으로 바뀌는 즉시 공개 화면에서 내려가고 본문은 DB에 그대로 남는다. */
+async function toggleHidden(id) {
+  const a = articles.find(a => a.id === id);
+  if (!a || a.status === 'draft') return;
+
+  const prevStatus = a.status;
+  const nextStatus = prevStatus === 'hidden' ? 'published' : 'hidden';
+  a.status = nextStatus;
+  renderTable();
+
+  const { error } = await db.from('articles').update({ status: nextStatus }).eq('id', id);
+  if (error) {
+    a.status = prevStatus;
+    renderTable();
+    alert('처리 중 오류가 발생했습니다: ' + error.message);
+  }
 }
 
 async function toggleFeatured(id) {

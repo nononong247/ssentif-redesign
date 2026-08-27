@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- 아티클마다 내용이 달라 제목·설명·OG는 로드 후 JS로 갱신한다(applyMeta) -->
+<title>운영지원실 — SSENTIF</title>
+<meta name="description" content="피트니스 센터 운영에 도움이 되는 데이터 분석, 트레이닝 인사이트, 운영 전략.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.ssentif.kr/article.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="운영지원실 — SSENTIF">
+<meta property="og:description" content="피트니스 센터 운영에 도움이 되는 데이터 분석, 트레이닝 인사이트, 운영 전략.">
+<meta property="og:image" content="https://www.ssentif.kr/og-image.png">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="SSENTIF">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="운영지원실 — SSENTIF">
+<meta name="twitter:description" content="피트니스 센터 운영에 도움이 되는 데이터 분석, 트레이닝 인사이트, 운영 전략.">
+<meta name="twitter:image" content="https://www.ssentif.kr/og-image.png">
+<link rel="stylesheet" href="style.css?v=2">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-client.js"></script>
+<script src="md.js"></script>
+<style>
+/* ── 아티클 헤더 ── */
+.art-hero { padding: 132px 0 0; background: var(--gray-50); border-bottom: 1px solid var(--border); }
+.art-hero .container { max-width: 760px; }
+.art-back {
+  /* inline이면 뒤따르는 카테고리 태그가 같은 줄에 붙어버린다 — 자기 줄을 차지하게 한다 */
+  display: flex; width: fit-content; align-items: center; gap: 6px;
+  font-size: 13.5px; font-weight: 600; color: var(--gray-500);
+  margin-bottom: 26px; transition: color 0.15s;
+}
+.art-back:hover { color: var(--accent-dark); }
+.art-tag {
+  display: inline-block; padding: 5px 12px; border-radius: 100px;
+  background: var(--accent-light); color: var(--accent-dark);
+  font-size: 12px; font-weight: 700; margin-bottom: 16px;
+}
+.art-title {
+  font-size: clamp(1.7rem, 3.6vw, 2.5rem); font-weight: 900;
+  line-height: 1.32; letter-spacing: -0.02em; color: var(--black);
+  margin-bottom: 18px; word-break: keep-all;
+}
+.art-meta {
+  display: flex; align-items: center; gap: 9px;
+  font-size: 13.5px; color: var(--gray-500); padding-bottom: 44px;
+}
+.art-meta .dot { color: var(--gray-300); }
+
+/* 대표 이미지는 헤더와 본문 경계에 걸치게 — 스크롤 시작점을 잡아준다 */
+.art-cover { max-width: 860px; margin: -34px auto 0; padding: 0 20px; }
+.art-cover img {
+  width: 100%; height: auto; display: block;
+  border-radius: var(--radius-lg); border: 1px solid var(--border);
+  box-shadow: var(--shadow-md); background: var(--gray-100);
+}
+
+/* ── 본문 타이포그래피 ── */
+.art-body {
+  max-width: 720px; margin: 0 auto; padding: 56px 20px 40px;
+  font-size: 16.5px; line-height: 1.85; color: var(--gray-700);
+  word-break: keep-all; overflow-wrap: anywhere;
+}
+.art-body > *:first-child { margin-top: 0; }
+.art-body h2 {
+  font-size: 1.42rem; font-weight: 800; color: var(--black);
+  line-height: 1.4; margin: 48px 0 16px; letter-spacing: -0.015em;
+}
+.art-body h3 {
+  font-size: 1.16rem; font-weight: 800; color: var(--black);
+  line-height: 1.45; margin: 36px 0 12px;
+}
+.art-body h4 { font-size: 1.02rem; font-weight: 700; color: var(--gray-800); margin: 28px 0 10px; }
+.art-body p { margin: 0 0 22px; }
+.art-body strong { color: var(--black); font-weight: 700; }
+.art-body a { color: var(--accent-dark); text-decoration: underline; text-underline-offset: 3px; }
+/* style.css 의 전역 리셋(ul{list-style:none})이 본문 글머리표까지 지운다 — 본문 안에서만 되살린다 */
+.art-body ul, .art-body ol { margin: 0 0 22px; padding-left: 22px; }
+.art-body ul { list-style: disc; }
+.art-body ol { list-style: decimal; }
+.art-body li { margin-bottom: 9px; }
+.art-body li::marker { color: var(--accent); font-weight: 700; }
+.art-body blockquote {
+  margin: 28px 0; padding: 18px 22px;
+  background: var(--gray-50); border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  color: var(--gray-600); font-size: 15.5px;
+}
+.art-body code {
+  background: var(--gray-100); border: 1px solid var(--border);
+  border-radius: 5px; padding: 1px 6px; font-size: 0.88em; color: var(--gray-800);
+}
+.art-body hr { border: 0; border-top: 1px solid var(--border); margin: 40px 0; }
+.art-body img {
+  max-width: 100%; height: auto; display: block;
+  margin: 28px auto; border-radius: var(--radius); border: 1px solid var(--border);
+}
+
+/* ── 하단 ── */
+.art-foot { max-width: 720px; margin: 0 auto; padding: 0 20px 20px; }
+.art-foot-line { border-top: 1px solid var(--border); padding-top: 30px; }
+.art-more { background: var(--gray-50); border-top: 1px solid var(--border); padding: 68px 0 88px; margin-top: 56px; }
+.art-more h3 { font-size: 1.3rem; font-weight: 800; margin-bottom: 26px; text-align: center; }
+.art-more-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; max-width: 1000px; margin: 0 auto; }
+@media (max-width: 860px) { .art-more-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .art-more-grid { grid-template-columns: 1fr; } }
+.art-more-card {
+  background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg);
+  overflow: hidden; display: flex; flex-direction: column;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.art-more-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.art-more-card .thumb { aspect-ratio: 16/10; background: var(--gray-100); overflow: hidden; }
+.art-more-card .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.art-more-card .body { padding: 16px 18px 20px; }
+.art-more-card .cat { font-size: 11.5px; font-weight: 700; color: var(--accent-dark); }
+.art-more-card h4 {
+  font-size: 15px; font-weight: 700; color: var(--black); line-height: 1.5;
+  margin: 7px 0 0; word-break: keep-all;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+
+/* ── 상태 ── */
+.art-state { max-width: 720px; margin: 0 auto; padding: 190px 20px 140px; text-align: center; color: var(--gray-500); }
+.art-state h2 { font-size: 1.3rem; color: var(--gray-800); margin-bottom: 10px; }
+.art-state .btn { margin-top: 24px; }
+.art-spinner {
+  width: 26px; height: 26px; margin: 0 auto 16px;
+  border: 3px solid var(--gray-200); border-top-color: var(--accent);
+  border-radius: 50%; animation: artspin 0.8s linear infinite;
+}
+@keyframes artspin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .art-spinner { animation: none; } }
+</style>
+</head>
+<body>
+
+<nav class="nav" id="mainNav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">SSEN<span>TIF</span></a>
+    <div class="nav-links">
+      <a href="product.html">제품</a>
+      <a href="index.html#cases">고객 사례</a>
+      <a href="lab.html" class="active">운영지원실</a>
+    </div>
+    <div class="nav-actions">
+    </div>
+    <button class="nav-hamburger" id="navHamburger" aria-label="메뉴 열기">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="nav-mobile-menu" id="navMobileMenu">
+  <a href="product.html">제품</a>
+  <a href="index.html#cases">고객 사례</a>
+  <a href="lab.html">운영지원실</a>
+</div>
+
+<main id="articleRoot">
+  <div class="art-state">
+    <div class="art-spinner"></div>
+    아티클을 불러오는 중입니다…
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand"><div class="logo">SSEN<span>TIF</span></div><p>피트니스 센터를 위한<br>AI 운영 워크스페이스</p></div>
+    <div class="footer-col"><h5>제품</h5><ul><li><a href="product.html">주요 기능</a></li></ul></div>
+    <div class="footer-col"><h5>회사</h5><ul><li><a href="index.html#cases">고객 사례</a></li><li><a href="lab.html">운영지원실</a></li></ul></div>
+    <div class="footer-col"><h5>지원</h5><ul><li><a href="guide.html">사용 가이드</a></li><li><a href="terms.html" target="_blank" rel="noopener">이용약관</a></li><li><a href="privacy.html" target="_blank" rel="noopener">개인정보처리방침</a></li><li><a href="marketing-consent.html" target="_blank" rel="noopener">마케팅 수신 동의</a></li><li><a href="https://ssentif-manager.kr/" target="_blank">매니저 로그인</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><p>© 2026 SSENTIF. All rights reserved.</p><p>사업자등록번호: 849-87-03418 · <a href="privacy.html" target="_blank" rel="noopener">개인정보처리방침</a> · <a href="terms.html" target="_blank" rel="noopener">이용약관</a></p></div>
+</footer>
+
+<script>
+/* ── nav ── */
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 20));
+
+const hamburger = document.getElementById('navHamburger');
+const mobileMenu = document.getElementById('navMobileMenu');
+if (hamburger) {
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.nav') && !e.target.closest('.nav-mobile-menu')) {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+    }
+  });
+}
+
+/* ── helpers ── */
+function esc(s) {
+  return String(s == null ? '' : s)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+function formatDate(dateStr) {
+  if (!dateStr) return '';
+  const d = new Date(dateStr);
+  if (isNaN(d)) return '';
+  return `${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,'0')}.${String(d.getDate()).padStart(2,'0')}`;
+}
+/* lab.html 과 같은 카테고리 키를 쓴다 — 값이 어긋나면 기본 이미지로 폴백된다 */
+function fallbackImg(category) {
+  const map = {
+    '데이터 분석': 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&auto=format&fit=crop',
+    '운영 전략':   'https://images.unsplash.com/photo-1581009137042-c552e485697a?w=600&auto=format&fit=crop',
+    '트레이너 팁': 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&auto=format&fit=crop',
+    '식단 & 영양': 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=600&auto=format&fit=crop',
+    '업계 트렌드': 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&auto=format&fit=crop',
+  };
+  return map[category] || 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&auto=format&fit=crop';
+}
+
+/* 검색·카카오 공유 미리보기가 아티클별로 뜨도록 메타를 갈아끼운다 */
+function applyMeta(a) {
+  const title = `${a.title} — SSENTIF 운영지원실`;
+  const desc  = a.summary || '피트니스 센터 운영에 도움이 되는 인사이트.';
+  const img   = a.thumb_url || 'https://www.ssentif.kr/og-image.png';
+  const url   = `https://www.ssentif.kr/article.html?id=${a.id}`;
+  document.title = title;
+  const set = (sel, attr, val) => { const el = document.querySelector(sel); if (el) el.setAttribute(attr, val); };
+  set('meta[name="description"]', 'content', desc);
+  set('link[rel="canonical"]', 'href', url);
+  set('meta[property="og:title"]', 'content', title);
+  set('meta[property="og:description"]', 'content', desc);
+  set('meta[property="og:image"]', 'content', img);
+  set('meta[name="twitter:title"]', 'content', title);
+  set('meta[name="twitter:description"]', 'content', desc);
+  set('meta[name="twitter:image"]', 'content', img);
+  let ogUrl = document.querySelector('meta[property="og:url"]');
+  if (!ogUrl) { ogUrl = document.createElement('meta'); ogUrl.setAttribute('property','og:url'); document.head.appendChild(ogUrl); }
+  ogUrl.setAttribute('content', url);
+}
+
+function showState(html) {
+  document.getElementById('articleRoot').innerHTML = `<div class="art-state">${html}</div>`;
+}
+
+function renderArticle(a, others) {
+  const cover = a.thumb_url || fallbackImg(a.category);
+  const dateStr = formatDate(a.published_at);
+
+  const moreCards = others.map(o => `
+    <a href="article.html?id=${o.id}" class="art-more-card">
+      <div class="thumb"><img src="${esc(o.thumb_url || fallbackImg(o.category))}" alt="${esc(o.title)}" loading="lazy" onerror="this.src='${esc(fallbackImg(o.category))}'"></div>
+      <div class="body">
+        <div class="cat">${esc(o.category || '')}</div>
+        <h4>${esc(o.title)}</h4>
+      </div>
+    </a>`).join('');
+
+  document.getElementById('articleRoot').innerHTML = `
+    <header class="art-hero">
+      <div class="container">
+        <a href="lab.html" class="art-back">← 운영지원실</a>
+        ${a.category ? `<div class="art-tag">${esc(a.category)}</div>` : ''}
+        <h1 class="art-title">${esc(a.title)}</h1>
+        <div class="art-meta">
+          ${dateStr ? `<span>${dateStr}</span><span class="dot">·</span>` : ''}
+          <span>읽는 시간 ${a.read_time || 5}분</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="art-cover">
+      <img src="${esc(cover)}" alt="${esc(a.title)}" onerror="this.src='${esc(fallbackImg(a.category))}'">
+    </div>
+
+    <article class="art-body">${renderMarkdown(a.content || '')}</article>
+
+    <div class="art-foot">
+      <div class="art-foot-line">
+        <a href="lab.html" class="art-back" style="margin:0">← 운영지원실의 다른 글 보기</a>
+      </div>
+    </div>
+
+    ${others.length ? `
+    <section class="art-more">
+      <h3>이런 글도 있어요</h3>
+      <div class="art-more-grid">${moreCards}</div>
+    </section>` : ''}
+  `;
+}
+
+/* ── load ── */
+async function loadArticle() {
+  const id = new URLSearchParams(location.search).get('id');
+  if (!id || !/^\d+$/.test(id)) {
+    showState('<h2>주소가 올바르지 않습니다</h2><p>아티클 주소를 다시 확인해주세요.</p><a href="lab.html" class="btn btn-primary">운영지원실로 가기</a>');
+    return;
+  }
+
+  const { data, error } = await db
+    .from('articles')
+    .select('id, title, category, summary, content, thumb_url, read_time, published_at')
+    .eq('id', id)
+    .eq('status', 'published')
+    .maybeSingle();
+
+  if (error) {
+    showState('<h2>아티클을 불러오지 못했습니다</h2><p>잠시 후 다시 시도해주세요.</p><a href="lab.html" class="btn btn-primary">운영지원실로 가기</a>');
+    return;
+  }
+  if (!data) {
+    showState('<h2>아티클을 찾을 수 없습니다</h2><p>삭제되었거나 아직 발행되지 않은 글입니다.</p><a href="lab.html" class="btn btn-primary">운영지원실로 가기</a>');
+    return;
+  }
+
+  applyMeta(data);
+
+  /* 하단 추천 3건 — 실패해도 본문은 이미 보여줄 수 있으므로 조용히 비운다 */
+  let others = [];
+  try {
+    const { data: rest } = await db
+      .from('articles')
+      .select('id, title, category, thumb_url')
+      .eq('status', 'published')
+      .neq('id', data.id)
+      .order('published_at', { ascending: false })
+      .limit(3);
+    others = rest || [];
+  } catch (e) { others = []; }
+
+  renderArticle(data, others);
+  window.scrollTo(0, 0);
+}
+
+loadArticle();
+</script>
+</body>
+</html>

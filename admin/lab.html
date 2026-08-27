@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../style.css">
+<script src="../md.js"></script>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { width: 100%; }
@@ -204,6 +205,7 @@ tbody td { padding: 10px 14px; font-size: 12.5px; color: #374151; vertical-align
 .modal-overlay.open { display: flex; }
 .modal {
   background: #fff; border-radius: 14px; width: 660px; max-width: 100%;
+  /* 본문 에디터가 있는 아티클 모달은 좌우 2단(작성+미리보기)이라 더 넓게 */
   box-shadow: 0 20px 60px rgba(0,0,0,0.18); margin: auto;
 }
 .modal-header {
@@ -217,7 +219,66 @@ tbody td { padding: 10px 14px; font-size: 12.5px; color: #374151; vertical-align
   cursor: pointer; font-size: 14px; color: #9CA3AF; transition: all 0.1s;
 }
 .modal-close:hover { background: #F3F5F8; color: #111318; }
+.modal.wide { width: 1020px; }
 .modal-body { padding: 18px 22px; display: flex; flex-direction: column; gap: 14px; }
+
+/* ── 마크다운 본문 에디터 ── */
+.md-wrap { border: 1px solid #E5E8EC; border-radius: 8px; overflow: hidden; background: #fff; }
+.md-toolbar {
+  display: flex; align-items: center; gap: 3px; flex-wrap: wrap;
+  padding: 6px 8px; background: #FAFBFC; border-bottom: 1px solid #E5E8EC;
+}
+.md-btn {
+  border: 1px solid transparent; background: none; cursor: pointer;
+  padding: 4px 9px; border-radius: 6px; font-size: 12px; font-weight: 700;
+  color: #4A5568; font-family: inherit; line-height: 1.4;
+}
+.md-btn:hover { background: #EDF1F5; color: #111318; }
+.md-sep { width: 1px; height: 15px; background: #E5E8EC; margin: 0 4px; }
+.md-hint { margin-left: auto; font-size: 10.5px; color: #9CA3AF; }
+.md-panes { display: grid; grid-template-columns: 1fr 1fr; min-height: 340px; }
+.md-panes > * { min-width: 0; }
+#e-content {
+  border: 0; border-right: 1px solid #E5E8EC; border-radius: 0;
+  min-height: 340px; resize: vertical; font-size: 13.5px; line-height: 1.8;
+}
+#e-content:focus { box-shadow: none; border-color: #E5E8EC; border-right-color: #E5E8EC; }
+.md-preview {
+  padding: 16px 18px; overflow-y: auto; max-height: 460px;
+  font-size: 13.5px; line-height: 1.8; color: #2D3748; word-break: keep-all;
+}
+.md-preview-label {
+  font-size: 10px; font-weight: 800; letter-spacing: 0.08em; color: #9CA3AF;
+  text-transform: uppercase; margin-bottom: 10px;
+}
+/* 미리보기는 공개 페이지(article.html .art-body)의 축소판 — 위계가 같아야 의미가 있다 */
+.md-preview h2 { font-size: 17px; font-weight: 800; color: #111318; margin: 20px 0 8px; }
+.md-preview h3 { font-size: 15px; font-weight: 800; color: #111318; margin: 16px 0 6px; }
+.md-preview h4 { font-size: 13.5px; font-weight: 700; color: #1E2433; margin: 14px 0 5px; }
+.md-preview > *:first-child { margin-top: 0; }
+.md-preview p { margin: 0 0 12px; }
+.md-preview strong { color: #111318; }
+.md-preview a { color: #15B88E; text-decoration: underline; }
+/* 전역 리셋(ul{list-style:none}) 때문에 미리보기 글머리표가 사라진다 — 여기서만 되살린다 */
+.md-preview ul, .md-preview ol { margin: 0 0 12px; padding-left: 20px; }
+.md-preview ul { list-style: disc; }
+.md-preview ol { list-style: decimal; }
+.md-preview li { margin-bottom: 5px; }
+.md-preview li::marker { color: #1FDBA8; font-weight: 700; }
+.md-preview blockquote {
+  margin: 14px 0; padding: 10px 14px; background: #F8FAFB;
+  border-left: 3px solid #1FDBA8; border-radius: 0 6px 6px 0; color: #4A5568;
+}
+.md-preview code { background: #F1F5F9; border: 1px solid #EAECF0; border-radius: 4px; padding: 1px 5px; font-size: 0.9em; }
+.md-preview hr { border: 0; border-top: 1px solid #EAECF0; margin: 18px 0; }
+.md-preview img { max-width: 100%; height: auto; border-radius: 6px; margin: 12px 0; }
+.md-preview-empty { color: #C0C8D4; }
+@media (max-width: 1080px) {
+  .modal.wide { width: 660px; }
+  .md-panes { grid-template-columns: 1fr; }
+  #e-content { border-right: 0; border-bottom: 1px solid #E5E8EC; }
+  .md-preview { max-height: 240px; }
+}
 
 .form-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .form-group2 { display: flex; flex-direction: column; gap: 5px; }
@@ -432,7 +493,7 @@ tbody td { padding: 10px 14px; font-size: 12.5px; color: #374151; vertical-align
 
 <!-- 작성/편집 모달 -->
 <div class="modal-overlay" id="editorModal">
-  <div class="modal">
+  <div class="modal wide">
     <div class="modal-header">
       <h3 id="modalTitle">새 아티클 작성</h3>
       <button class="modal-close" onclick="closeEditor()">✕</button>
@@ -473,8 +534,41 @@ tbody td { padding: 10px 14px; font-size: 12.5px; color: #374151; vertical-align
         <textarea class="form-textarea2" id="e-summary" style="min-height:68px;resize:none" placeholder="아티클 내용을 두 줄 이내로 요약해주세요."></textarea>
       </div>
       <div class="form-group2">
-        <label class="form-label2">네이버 블로그 링크 *</label>
-        <input class="form-input2" id="e-url" type="url" placeholder="https://blog.naver.com/...">
+        <label class="form-label2">본문 * <span style="color:#9CA3AF;font-weight:400;font-size:10.5px">왼쪽에 쓰면 오른쪽에 실제 발행 모양이 그대로 보입니다</span></label>
+        <div class="md-wrap">
+          <div class="md-toolbar">
+            <button type="button" class="md-btn" onclick="mdWrap('## ','','line')" title="소제목">소제목</button>
+            <button type="button" class="md-btn" onclick="mdWrap('### ','','line')" title="작은 소제목">작은제목</button>
+            <span class="md-sep"></span>
+            <button type="button" class="md-btn" style="font-weight:900" onclick="mdWrap('**','**')" title="굵게">B</button>
+            <button type="button" class="md-btn" style="font-style:italic" onclick="mdWrap('*','*')" title="기울임">I</button>
+            <span class="md-sep"></span>
+            <button type="button" class="md-btn" onclick="mdWrap('- ','','line')" title="글머리 목록">• 목록</button>
+            <button type="button" class="md-btn" onclick="mdWrap('1. ','','line')" title="번호 목록">1. 번호</button>
+            <button type="button" class="md-btn" onclick="mdWrap('&gt; ','','line')" title="인용">인용</button>
+            <span class="md-sep"></span>
+            <button type="button" class="md-btn" onclick="mdLink()" title="링크">링크</button>
+            <button type="button" class="md-btn" onclick="document.getElementById('e-body-img').click()" title="본문에 이미지 넣기">이미지</button>
+            <button type="button" class="md-btn" onclick="mdInsert('\n---\n')" title="구분선">구분선</button>
+            <span class="md-hint">마크다운 문법 그대로 써도 됩니다</span>
+          </div>
+          <div class="md-panes">
+            <textarea class="form-textarea2" id="e-content" placeholder="본문을 작성하세요.
+
+## 소제목은 이렇게
+문단은 빈 줄로 나눕니다.
+
+- 목록 항목
+- 목록 항목
+
+**굵게** 쓰고 싶은 부분은 이렇게."></textarea>
+            <div class="md-preview">
+              <div class="md-preview-label">미리보기</div>
+              <div id="mdPreview"><span class="md-preview-empty">본문을 입력하면 여기에 보입니다.</span></div>
+            </div>
+          </div>
+        </div>
+        <input type="file" id="e-body-img" accept="image/*" style="display:none" onchange="handleBodyImage(this)">
       </div>
       <div class="toggle-row">
         <div>
@@ -617,7 +711,9 @@ function openEditor(id) {
   document.getElementById('e-category').value = a?.category || '';
   document.getElementById('e-readtime').value = a?.readtime || '';
   document.getElementById('e-summary').value  = a?.summary  || '';
-  document.getElementById('e-url').value      = a?.url      || '';
+  document.getElementById('e-content').value  = a?.content  || '';
+  document.getElementById('e-body-img').value = '';
+  updatePreview();
   document.getElementById('e-featured').checked = a?.featured || false;
   currentThumbUrl = a?.thumb || '';
   const area = document.getElementById('thumbUploadArea');
@@ -668,8 +764,9 @@ function resetThumbArea() {
 async function saveArticle(status) {
   const title = document.getElementById('e-title').value.trim();
   if (!title) { alert('제목을 입력해주세요.'); return; }
-  const url = document.getElementById('e-url').value.trim();
-  if (!url) { alert('네이버 블로그 링크를 입력해주세요.'); return; }
+  const content = document.getElementById('e-content').value.trim();
+  /* 임시저장은 본문 없이도 허용 — 쓰다 만 글을 못 저장하면 오히려 불편하다 */
+  if (status === 'published' && !content) { alert('본문을 입력해주세요.'); return; }
 
   const btn = status === 'published'
     ? document.querySelector('.btn-publish')
@@ -700,7 +797,7 @@ async function saveArticle(status) {
     read_time:    parseInt(document.getElementById('e-readtime').value) || 0,
     thumb_url:    thumbUrl || '',
     summary:      document.getElementById('e-summary').value.trim(),
-    url,
+    content,
     featured:     document.getElementById('e-featured').checked,
     published_at,
     status,
@@ -750,6 +847,81 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape') { closeEditor(); closeDeleteModal(); }
 });
 
+/* ── 마크다운 본문 에디터 ──
+   미리보기는 공개 페이지와 같은 renderMarkdown(../md.js)을 쓴다.
+   여기서 본 모양이 곧 발행된 모양이다. */
+function updatePreview() {
+  const ta = document.getElementById('e-content');
+  const box = document.getElementById('mdPreview');
+  if (!ta || !box) return;
+  const src = ta.value.trim();
+  box.innerHTML = src
+    ? renderMarkdown(src)
+    : '<span class="md-preview-empty">본문을 입력하면 여기에 보입니다.</span>';
+}
+
+/* 선택 영역을 감싸거나(굵게), 선택된 줄들 앞에 표시를 붙인다(목록·소제목) */
+function mdWrap(before, after, mode) {
+  const ta = document.getElementById('e-content');
+  before = before.replace(/&gt;/g, '>');
+  const start = ta.selectionStart, end = ta.selectionEnd;
+  const sel = ta.value.slice(start, end);
+
+  if (mode === 'line') {
+    /* 선택이 없으면 커서가 있는 줄 하나를 대상으로 삼는다 */
+    let ls = ta.value.lastIndexOf('\n', start - 1) + 1;
+    let le = ta.value.indexOf('\n', end);
+    if (le === -1) le = ta.value.length;
+    const block = ta.value.slice(ls, le);
+    const marked = block.split('\n').map(l => l.startsWith(before) ? l : before + l).join('\n');
+    ta.setRangeText(marked, ls, le, 'end');
+  } else {
+    ta.setRangeText(before + (sel || '텍스트') + after, start, end, 'end');
+    if (!sel) ta.setSelectionRange(start + before.length, start + before.length + 3);
+  }
+  ta.focus();
+  updatePreview();
+}
+
+function mdInsert(text) {
+  const ta = document.getElementById('e-content');
+  ta.setRangeText(text, ta.selectionStart, ta.selectionEnd, 'end');
+  ta.focus();
+  updatePreview();
+}
+
+function mdLink() {
+  const ta = document.getElementById('e-content');
+  const sel = ta.value.slice(ta.selectionStart, ta.selectionEnd);
+  const url = prompt('연결할 주소를 입력하세요', 'https://');
+  if (!url) return;
+  mdInsert('[' + (sel || '링크 텍스트') + '](' + url + ')');
+}
+
+/* 본문 이미지 — 썸네일과 같은 스토리지 버킷에 올리고 마크다운 문법으로 꽂는다 */
+async function handleBodyImage(input) {
+  const file = input.files[0];
+  if (!file) return;
+  input.value = '';
+  if (file.size > 5 * 1024 * 1024) { alert('이미지는 5MB 이하만 올릴 수 있습니다.'); return; }
+  const ta = document.getElementById('e-content');
+  const marker = '\n![업로드 중…]()\n';
+  ta.setRangeText(marker, ta.selectionStart, ta.selectionEnd, 'end');
+  try {
+    const publicUrl = await uploadThumb(file);
+    ta.value = ta.value.replace(marker, '\n![](' + publicUrl + ')\n');
+  } catch (err) {
+    ta.value = ta.value.replace(marker, '');
+    alert('이미지 업로드 실패: ' + err.message);
+  }
+  updatePreview();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const ta = document.getElementById('e-content');
+  if (ta) ta.addEventListener('input', updatePreview);
+});
+
 async function loadArticles() {
   const { data, error } = await db
     .from('articles')
@@ -763,7 +935,7 @@ async function loadArticles() {
     thumb:    a.thumb_url    || '',
     readtime: a.read_time    || 0,
     date:     a.published_at || '',
-    url:      a.url          || '',
+    content:  a.content      || '',
   }));
   renderTable();
 }

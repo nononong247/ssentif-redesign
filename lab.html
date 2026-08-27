@@ -236,9 +236,8 @@ let activeCategory = '전체';
 /* ── render featured ── */
 function renderFeatured(article) {
   const img = article.thumb_url || fallbackImg(article.category);
-  const href = article.url || '#';
   document.getElementById('featuredArticle').innerHTML = `
-    <a href="${href}" class="featured-article fade-up" style="display:grid;text-decoration:none;color:inherit" ${article.url ? 'target="_blank" rel="noopener"' : ''}>
+    <a href="article.html?id=${article.id}" class="featured-article fade-up" style="display:grid;text-decoration:none;color:inherit">
       <div class="featured-article-img">
         <img src="${img}" alt="${article.title}" onerror="this.src='${fallbackImg(article.category)}'">
       </div>
@@ -288,9 +287,8 @@ function renderGrid() {
   gridEl.innerHTML = `<div class="articles-grid">
     ${filtered.map(a => {
       const img = a.thumb_url || fallbackImg(a.category);
-      const href = a.url || '#';
       return `
-      <a href="${href}" class="article-card fade-up" ${a.url ? 'target="_blank" rel="noopener"' : ''}>
+      <a href="article.html?id=${a.id}" class="article-card fade-up">
         <div class="article-card-img">
           <img src="${img}" alt="${a.title}" onerror="this.src='${fallbackImg(a.category)}'">
         </div>

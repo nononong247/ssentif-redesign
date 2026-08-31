@@ -33,11 +33,6 @@
       "source": "/pricing.html",
       "destination": "/",
       "permanent": false
-    },
-    {
-      "source": "/consulting.html",
-      "destination": "/",
-      "permanent": false
     }
   ]
 }

@@ -616,7 +616,7 @@ function renderTable() {
 
   tbody.innerHTML = data.map((r, i) => `
     <tr onclick="openDetail(${r.id})">
-      <td class="td-num">${i+1}</td>
+      <td class="td-num">${data.length - i}</td>
       <td>
         <div class="td-name">${r.name}</div>
         <div class="td-role">${r.role}</div>

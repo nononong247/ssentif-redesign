@@ -301,9 +301,13 @@ tbody td { padding: 10px 14px; font-size: 12.5px; color: #374151; vertical-align
   text-transform: uppercase; margin-bottom: 10px;
 }
 /* 미리보기는 공개 페이지(article.html .art-body)의 축소판 — 위계가 같아야 의미가 있다 */
-.md-preview h2 { font-size: 17px; font-weight: 800; color: #111318; margin: 20px 0 8px; }
-.md-preview h3 { font-size: 15px; font-weight: 800; color: #111318; margin: 16px 0 6px; }
-.md-preview h4 { font-size: 13.5px; font-weight: 700; color: #1E2433; margin: 14px 0 5px; }
+/* 공개 페이지(.art-body)와 같은 em 배율을 써야 '쓸 때 본 크기 = 발행된 크기'가 맞는다 */
+.md-preview h2 { font-size: 2em;    font-weight: 800; color: #111318; line-height: 1.32; margin: 26px 0 10px; letter-spacing: -0.025em; }
+.md-preview h3 { font-size: 1.62em; font-weight: 800; color: #111318; line-height: 1.38; margin: 22px 0 9px; letter-spacing: -0.02em; }
+.md-preview h4 { font-size: 1.32em; font-weight: 800; color: #111318; line-height: 1.44; margin: 18px 0 7px; }
+.md-preview h5 { font-size: 1.12em; font-weight: 800; color: #111318; margin: 16px 0 6px; }
+.md-preview h6 { font-size: 1em;    font-weight: 800; color: #1E2433; margin: 14px 0 5px; }
+.md-preview .md-blank { height: 1em; }
 .md-preview > *:first-child { margin-top: 0; }
 .md-preview p { margin: 0 0 12px; }
 .md-preview strong { color: #111318; }
@@ -349,15 +353,35 @@ tbody td { padding: 10px 14px; font-size: 12.5px; color: #374151; vertical-align
 }
 .form-textarea2:focus { border-color: #1FDBA8; box-shadow: 0 0 0 2px rgba(31,219,168,0.1); }
 
+/* ── 썸네일 ──
+   같은 이미지가 노출 위치마다 다른 비율로 잘린다(목록 16:9 · 대표 4:3 · 추천 16:10).
+   업로드 전에 세 경우를 다 보여줘야 인물 얼굴이나 글자가 잘리는 걸 미리 잡을 수 있다. */
+.thumb-row { display: flex; gap: 14px; align-items: flex-start; flex-wrap: wrap; }
+.thumb-slot { display: flex; flex-direction: column; gap: 5px; }
+.thumb-cap { font-size: 10.5px; font-weight: 700; color: #9CA3AF; text-align: center; }
 .thumb-preview {
-  height: 120px; border-radius: 8px; border: 1.5px dashed #E5E8EC;
+  width: 360px; max-width: 100%; aspect-ratio: 16/9;
+  border-radius: 8px; border: 1.5px dashed #E5E8EC;
   background: #FAFBFC; display: flex; align-items: center; justify-content: center;
   flex-direction: column; gap: 6px; cursor: pointer; transition: border-color 0.1s; overflow: hidden;
 }
 .thumb-preview:hover { border-color: #1FDBA8; }
+.thumb-preview.has-image { border-style: solid; }
 .thumb-preview img { width: 100%; height: 100%; object-fit: cover; }
 .thumb-preview-placeholder { font-size: 20px; }
 .thumb-preview-text { font-size: 11.5px; color: #9CA3AF; }
+/* 보조 미리보기 — 실제 카드와 같은 방식(cover)으로 잘라 보여준다 */
+.thumb-mini {
+  width: 132px; border-radius: 8px; border: 1px solid #E5E8EC; background: #F8FAFB;
+  background-size: cover; background-position: center;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10.5px; color: #C0C8D4;
+}
+.thumb-mini.r43   { aspect-ratio: 4/3; }
+.thumb-mini.r1610 { aspect-ratio: 16/10; }
+.thumb-mini.has-image { border-color: #D8DEE6; }
+.thumb-mini.has-image::after { content: ''; }
+.thumb-mini:not(.has-image)::after { content: '이미지 없음'; }
 
 .toggle-row {
   display: flex; align-items: center; justify-content: space-between;
@@ -572,11 +596,24 @@ tbody td { padding: 10px 14px; font-size: 12.5px; color: #374151; vertical-align
         </div>
       </div>
       <div class="form-group2">
-        <label class="form-label2">썸네일 이미지</label>
-        <div class="thumb-preview" id="thumbUploadArea" onclick="document.getElementById('e-thumb-file').click()" style="margin-top:0;cursor:pointer">
-          <div class="thumb-preview-placeholder">📁</div>
-          <div class="thumb-preview-text">클릭하여 이미지 선택</div>
-          <div class="thumb-preview-text" style="font-size:10.5px;color:#C0C8D4;margin-top:2px">JPG, PNG, WEBP · 최대 5MB</div>
+        <label class="form-label2">썸네일 이미지 <span style="color:#9CA3AF;font-weight:400;font-size:10.5px">권장 1600×900 이상 · 노출 위치마다 아래처럼 잘립니다</span></label>
+        <div class="thumb-row">
+          <div class="thumb-slot">
+            <div class="thumb-preview" id="thumbUploadArea" onclick="document.getElementById('e-thumb-file').click()">
+              <div class="thumb-preview-placeholder">📁</div>
+              <div class="thumb-preview-text">클릭하여 이미지 선택</div>
+              <div class="thumb-preview-text" style="font-size:10.5px;color:#C0C8D4;margin-top:2px">JPG, PNG, WEBP · 최대 5MB</div>
+            </div>
+            <div class="thumb-cap">운영지원실 목록 · 16:9</div>
+          </div>
+          <div class="thumb-slot">
+            <div class="thumb-mini r43" id="thumbMini43"></div>
+            <div class="thumb-cap">대표 아티클 · 4:3</div>
+          </div>
+          <div class="thumb-slot">
+            <div class="thumb-mini r1610" id="thumbMini1610"></div>
+            <div class="thumb-cap">글 하단 추천 · 16:10</div>
+          </div>
         </div>
         <input type="file" id="e-thumb-file" accept="image/*" style="display:none" onchange="handleThumbSelect(this)">
       </div>
@@ -597,9 +634,11 @@ tbody td { padding: 10px 14px; font-size: 12.5px; color: #374151; vertical-align
             <span class="md-sep"></span>
             <select class="md-select" id="mdHeading" onchange="mdHeading(this.value)" title="글자 크기 (제목 단계)">
               <option value="0">본문</option>
-              <option value="1">제목 1</option>
+              <option value="1">제목 1 (가장 큼)</option>
               <option value="2">제목 2</option>
               <option value="3">제목 3</option>
+              <option value="4">제목 4</option>
+              <option value="5">제목 5</option>
             </select>
             <span class="md-sep"></span>
             <button type="button" class="md-btn" style="font-weight:900" onclick="mdToggleWrap('**','**','굵게 쓸 내용')" title="굵게 (⌘B / Ctrl+B)">B</button>
@@ -808,12 +847,7 @@ function openEditor(id) {
   syncToolbar();
   document.getElementById('e-featured').checked = a?.featured || false;
   currentThumbUrl = a?.thumb || '';
-  const area = document.getElementById('thumbUploadArea');
-  if (a?.thumb) {
-    area.innerHTML = `<img src="${a.thumb}" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:6px">`;
-  } else {
-    resetThumbArea();
-  }
+  renderThumb(currentThumbUrl);
   document.getElementById('editorModal').classList.add('open');
   editorSnapshot = editorState();
 }
@@ -852,9 +886,27 @@ function handleThumbSelect(input) {
     return;
   }
   pendingThumbFile = file;
+  renderThumb(URL.createObjectURL(file));
+}
+
+/* 썸네일 미리보기는 한 곳에서만 그린다 — 주 미리보기(16:9)와 보조 두 칸이
+   항상 같은 이미지를 보여줘야 해서, 예전처럼 여러 곳에서 innerHTML 을 갈아끼우면
+   보조 칸이 갱신되지 않는다. */
+function renderThumb(url) {
   const area = document.getElementById('thumbUploadArea');
-  const localUrl = URL.createObjectURL(file);
-  area.innerHTML = `<img src="${localUrl}" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:6px">`;
+  const minis = [document.getElementById('thumbMini43'), document.getElementById('thumbMini1610')];
+  if (url) {
+    area.classList.add('has-image');
+    area.innerHTML = `<img src="${url}" alt="">`;
+    minis.forEach(el => { if (el) { el.style.backgroundImage = `url("${url}")`; el.classList.add('has-image'); } });
+  } else {
+    area.classList.remove('has-image');
+    area.innerHTML = `
+      <div class="thumb-preview-placeholder">📁</div>
+      <div class="thumb-preview-text">클릭하여 이미지 선택</div>
+      <div class="thumb-preview-text" style="font-size:10.5px;color:#C0C8D4;margin-top:2px">JPG, PNG, WEBP · 최대 5MB</div>`;
+    minis.forEach(el => { if (el) { el.style.backgroundImage = ''; el.classList.remove('has-image'); } });
+  }
 }
 
 async function uploadThumb(file) {
@@ -871,11 +923,7 @@ async function uploadThumb(file) {
 }
 
 function resetThumbArea() {
-  const area = document.getElementById('thumbUploadArea');
-  area.innerHTML = `
-    <div class="thumb-preview-placeholder">📁</div>
-    <div class="thumb-preview-text">클릭하여 이미지 선택</div>
-    <div class="thumb-preview-text" style="font-size:10.5px;color:#C0C8D4;margin-top:2px">JPG, PNG, WEBP · 최대 5MB</div>`;
+  renderThumb('');
   document.getElementById('e-thumb-file').value = '';
 }
 
@@ -1125,7 +1173,7 @@ function syncToolbar() {
   const ta = document.getElementById('e-content');
   const sel = document.getElementById('mdHeading');
   if (!ta || !sel) return;
-  const m = mdCurrentLines(ta).text.match(/^(#{1,3})\s/);
+  const m = mdCurrentLines(ta).text.match(/^(#{1,5})\s/);
   sel.value = m ? String(m[1].length) : '0';
 }
 

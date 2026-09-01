@@ -69,16 +69,25 @@
   word-break: keep-all; overflow-wrap: anywhere;
 }
 .art-body > *:first-child { margin-top: 0; }
+/* 제목 5단계(에디터의 제목 1~5 = 마크다운 #~#####).
+   em 단위라 본문 글자 크기에 비례하고, 관리자 미리보기와 같은 비율로 보인다. */
 .art-body h2 {
-  font-size: 1.42rem; font-weight: 800; color: var(--black);
-  line-height: 1.4; margin: 48px 0 16px; letter-spacing: -0.015em;
+  font-size: 2em; font-weight: 800; color: var(--black);
+  line-height: 1.32; margin: 52px 0 18px; letter-spacing: -0.025em;
 }
 .art-body h3 {
-  font-size: 1.16rem; font-weight: 800; color: var(--black);
-  line-height: 1.45; margin: 36px 0 12px;
+  font-size: 1.62em; font-weight: 800; color: var(--black);
+  line-height: 1.38; margin: 44px 0 15px; letter-spacing: -0.02em;
 }
-.art-body h4 { font-size: 1.02rem; font-weight: 700; color: var(--gray-800); margin: 28px 0 10px; }
+.art-body h4 {
+  font-size: 1.32em; font-weight: 800; color: var(--black);
+  line-height: 1.44; margin: 36px 0 12px; letter-spacing: -0.015em;
+}
+.art-body h5 { font-size: 1.12em; font-weight: 800; color: var(--black); margin: 30px 0 10px; }
+.art-body h6 { font-size: 1em; font-weight: 800; color: var(--gray-800); margin: 26px 0 8px; }
 .art-body p { margin: 0 0 22px; }
+/* 에디터에서 빈 줄을 띄운 만큼 실제 여백으로 반영된다 */
+.art-body .md-blank { height: 1em; }
 .art-body strong { color: var(--black); font-weight: 700; }
 .art-body a { color: var(--accent-dark); text-decoration: underline; text-underline-offset: 3px; }
 /* style.css 의 전역 리셋(ul{list-style:none})이 본문 글머리표까지 지운다 — 본문 안에서만 되살린다 */

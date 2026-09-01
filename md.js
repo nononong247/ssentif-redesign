@@ -38,7 +38,7 @@
   }
 
   var RE_HR      = /^\s*(-{3,}|\*{3,})\s*$/;
-  var RE_HEAD    = /^(#{1,4})\s+(.*)$/;
+  var RE_HEAD    = /^(#{1,5})\s+(.*)$/;
   var RE_QUOTE   = /^>\s?/;
   var RE_UL      = /^\s*[-*+]\s+/;
   var RE_OL      = /^\s*\d+\.\s+/;
@@ -55,15 +55,23 @@
     while (i < lines.length) {
       line = lines[i];
 
-      if (!line.trim()) { i++; continue; }
+      if (!line.trim()) {
+        /* 빈 줄을 띄운 만큼 실제 여백으로 반영한다.
+           첫 빈 줄은 문단 사이 기본 간격이 대신하므로, 두 번째 빈 줄부터 한 칸씩 더한다. */
+        var blanks = 0;
+        while (i < lines.length && !lines[i].trim()) { blanks++; i++; }
+        for (var b = 1; b < blanks; b++) out.push('<div class="md-blank"></div>');
+        continue;
+      }
 
       /* 구분선 — 목록(- 항목)보다 먼저 검사해야 --- 가 목록으로 새지 않는다 */
       if (RE_HR.test(line)) { out.push('<hr>'); i++; continue; }
 
       h = line.match(RE_HEAD);
       if (h) {
-        /* 본문 최상위 제목은 h2부터 — 페이지의 h1(아티클 제목)과 겹치지 않게 한 단계 내린다 */
-        lv = Math.min(h[1].length + 1, 5);
+        /* 본문 최상위 제목은 h2부터 — 페이지의 h1(아티클 제목)과 겹치지 않게 한 단계 내린다.
+           #~##### 다섯 단계를 h2~h6으로 매핑한다. */
+        lv = Math.min(h[1].length + 1, 6);
         out.push('<h' + lv + '>' + inline(esc(h[2])) + '</h' + lv + '>');
         i++; continue;
       }

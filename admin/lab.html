@@ -236,6 +236,29 @@ tbody td { padding: 10px 14px; font-size: 12.5px; color: #374151; vertical-align
 }
 .modal-close:hover { background: #F3F5F8; color: #111318; }
 .modal.wide { width: 1020px; }
+
+/* ── 아티클 편집창은 전체 화면 ──
+   창 형태였을 때 배경을 잘못 클릭하면 작성 중이던 내용이 그대로 날아갔다.
+   화면을 꽉 채워 '클릭할 배경' 자체를 없앤다. 삭제 확인창은 기존대로 작은 창이라
+   #editorModal 로만 한정한다. */
+#editorModal { padding: 0; background: #fff; align-items: stretch; overflow: hidden; }
+#editorModal .modal {
+  width: 100%; max-width: none; height: 100vh; height: 100dvh;
+  margin: 0; border-radius: 0; box-shadow: none;
+  display: flex; flex-direction: column;
+}
+#editorModal .modal-header,
+#editorModal .modal-footer { flex: 0 0 auto; }
+/* 헤더·푸터는 고정하고 가운데 입력 영역만 스크롤된다 */
+#editorModal .modal-body { flex: 1 1 auto; overflow-y: auto; }
+#editorModal .modal-header { padding-left: 28px; padding-right: 28px; }
+#editorModal .modal-footer { padding-left: 28px; padding-right: 28px; }
+#editorModal .modal-body { padding-left: 28px; padding-right: 28px; }
+/* 작성·미리보기 두 칸이 화면 높이를 최대한 쓰도록 — 각 칸은 안에서 스크롤된다 */
+#editorModal .md-panes { min-height: 0; }
+#editorModal #e-content,
+#editorModal .md-preview { height: 54vh; max-height: none; min-height: 260px; }
+
 .modal-body { padding: 18px 22px; display: flex; flex-direction: column; gap: 14px; }
 
 /* ── 마크다운 본문 에디터 ── */
@@ -792,11 +815,31 @@ function openEditor(id) {
     resetThumbArea();
   }
   document.getElementById('editorModal').classList.add('open');
+  editorSnapshot = editorState();
 }
 
-function closeEditor() {
+/* 편집창을 열 때의 입력값 스냅샷 — 이걸과 비교해 '변경사항이 있는지'를 판단한다 */
+let editorSnapshot = '';
+
+function editorState() {
+  const v = id => (document.getElementById(id) || {}).value || '';
+  const featured = document.getElementById('e-featured');
+  return JSON.stringify([
+    v('e-title'), v('e-category'), v('e-readtime'), v('e-summary'), v('e-content'),
+    featured ? featured.checked : false,
+    currentThumbUrl, !!pendingThumbFile
+  ]);
+}
+
+function isEditorDirty() { return editorState() !== editorSnapshot; }
+
+/* force=true 는 저장을 마치고 닫는 경우 — 확인을 묻지 않는다 */
+function closeEditor(force) {
+  if (!force && isEditorDirty() &&
+      !confirm('저장하지 않은 변경사항이 있습니다.\n지금 닫으면 작성한 내용이 사라집니다. 닫을까요?')) return;
   document.getElementById('editorModal').classList.remove('open');
   editingId = null;
+  editorSnapshot = '';
 }
 
 function handleThumbSelect(input) {
@@ -887,7 +930,7 @@ async function saveArticle(status) {
 
   btn.disabled = false; btn.textContent = origText;
   if (error) { alert('저장 중 오류가 발생했습니다: ' + error.message); return; }
-  closeEditor();
+  closeEditor(true);
   await loadArticles();
 }
 
@@ -910,16 +953,24 @@ async function confirmDelete() {
   await loadArticles();
 }
 
-['editorModal','deleteModal'].forEach(id => {
-  document.getElementById(id).addEventListener('click', function(e) {
-    if (e.target === this) {
-      if (id === 'editorModal') closeEditor();
-      else closeDeleteModal();
-    }
-  });
+/* 배경 클릭으로 닫는 건 삭제 확인창에만 남긴다.
+   편집창은 전체 화면이라 클릭할 배경이 없고, 있더라도 작성 중인 글을 날려선 안 된다. */
+document.getElementById('deleteModal').addEventListener('click', function(e) {
+  if (e.target === this) closeDeleteModal();
 });
+
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') { closeEditor(); closeDeleteModal(); }
+  if (e.key !== 'Escape') return;
+  /* 열려 있는 쪽만 닫는다 — 예전엔 둘 다 호출해서, 삭제창을 ESC로 닫을 때
+     이미 닫힌 편집창의 닫기 로직까지 같이 돌았다 */
+  if (document.getElementById('deleteModal').classList.contains('open')) { closeDeleteModal(); return; }
+  if (document.getElementById('editorModal').classList.contains('open')) closeEditor();
+});
+
+/* 편집 중 새로고침·탭 닫기도 브라우저 기본 경고로 한 번 잡아준다 */
+window.addEventListener('beforeunload', e => {
+  const open = document.getElementById('editorModal').classList.contains('open');
+  if (open && isEditorDirty()) { e.preventDefault(); e.returnValue = ''; }
 });
 
 /* ── 마크다운 본문 에디터 ──

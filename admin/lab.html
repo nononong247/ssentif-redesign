@@ -250,6 +250,16 @@ tbody td { padding: 10px 14px; font-size: 12.5px; color: #374151; vertical-align
   color: #4A5568; font-family: inherit; line-height: 1.4;
 }
 .md-btn:hover { background: #EDF1F5; color: #111318; }
+.md-btn:active { background: #E2E8F0; }
+.md-btn.icon { display: inline-flex; align-items: center; justify-content: center; padding: 5px 7px; }
+.md-btn.icon:disabled { opacity: 0.3; cursor: default; background: none; }
+/* 글자 크기(제목 단계) 선택 — 커서 위치에 따라 현재 단계가 자동 반영된다 */
+.md-select {
+  border: 1px solid #E5E8EC; background: #fff; border-radius: 6px;
+  padding: 4px 6px; font-size: 12px; font-weight: 700; color: #4A5568;
+  font-family: inherit; cursor: pointer; outline: none;
+}
+.md-select:focus { border-color: #1FDBA8; }
 .md-sep { width: 1px; height: 15px; background: #E5E8EC; margin: 0 4px; }
 .md-hint { margin-left: auto; font-size: 10.5px; color: #9CA3AF; }
 .md-panes { display: grid; grid-template-columns: 1fr 1fr; min-height: 340px; }
@@ -285,6 +295,7 @@ tbody td { padding: 10px 14px; font-size: 12.5px; color: #374151; vertical-align
   margin: 14px 0; padding: 10px 14px; background: #F8FAFB;
   border-left: 3px solid #1FDBA8; border-radius: 0 6px 6px 0; color: #4A5568;
 }
+.md-preview del { color: #9CA3AF; }
 .md-preview code { background: #F1F5F9; border: 1px solid #EAECF0; border-radius: 4px; padding: 1px 5px; font-size: 0.9em; }
 .md-preview hr { border: 0; border-top: 1px solid #EAECF0; margin: 18px 0; }
 .md-preview img { max-width: 100%; height: auto; border-radius: 6px; margin: 12px 0; }
@@ -554,20 +565,33 @@ tbody td { padding: 10px 14px; font-size: 12.5px; color: #374151; vertical-align
         <label class="form-label2">본문 * <span style="color:#9CA3AF;font-weight:400;font-size:10.5px">왼쪽에 쓰면 오른쪽에 실제 발행 모양이 그대로 보입니다</span></label>
         <div class="md-wrap">
           <div class="md-toolbar">
-            <button type="button" class="md-btn" onclick="mdWrap('## ','','line')" title="소제목">소제목</button>
-            <button type="button" class="md-btn" onclick="mdWrap('### ','','line')" title="작은 소제목">작은제목</button>
+            <button type="button" class="md-btn icon" onclick="mdUndo()" title="실행 취소 (⌘Z / Ctrl+Z)" aria-label="실행 취소">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 7h7.5a3 3 0 0 1 0 6H7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.5 4.5 3 7l2.5 2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button type="button" class="md-btn icon" onclick="mdRedo()" title="다시 실행 (⇧⌘Z / Ctrl+Y)" aria-label="다시 실행">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13 7H5.5a3 3 0 0 0 0 6H9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M10.5 4.5 13 7l-2.5 2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
             <span class="md-sep"></span>
-            <button type="button" class="md-btn" style="font-weight:900" onclick="mdWrap('**','**')" title="굵게">B</button>
-            <button type="button" class="md-btn" style="font-style:italic" onclick="mdWrap('*','*')" title="기울임">I</button>
+            <select class="md-select" id="mdHeading" onchange="mdHeading(this.value)" title="글자 크기 (제목 단계)">
+              <option value="0">본문</option>
+              <option value="1">제목 1</option>
+              <option value="2">제목 2</option>
+              <option value="3">제목 3</option>
+            </select>
             <span class="md-sep"></span>
-            <button type="button" class="md-btn" onclick="mdWrap('- ','','line')" title="글머리 목록">• 목록</button>
-            <button type="button" class="md-btn" onclick="mdWrap('1. ','','line')" title="번호 목록">1. 번호</button>
-            <button type="button" class="md-btn" onclick="mdWrap('&gt; ','','line')" title="인용">인용</button>
+            <button type="button" class="md-btn" style="font-weight:900" onclick="mdToggleWrap('**','**','굵게 쓸 내용')" title="굵게 (⌘B / Ctrl+B)">B</button>
+            <button type="button" class="md-btn" style="font-style:italic;font-family:Georgia,serif" onclick="mdToggleWrap('*','*','기울일 내용')" title="기울임 (⌘I / Ctrl+I)">I</button>
+            <button type="button" class="md-btn" style="text-decoration:line-through" onclick="mdToggleWrap('~~','~~','취소선 내용')" title="취소선">S</button>
+            <button type="button" class="md-btn" style="font-family:ui-monospace,Menlo,monospace" onclick="mdToggleWrap('`','`','코드')" title="인라인 코드">&lt;/&gt;</button>
             <span class="md-sep"></span>
-            <button type="button" class="md-btn" onclick="mdLink()" title="링크">링크</button>
-            <button type="button" class="md-btn" onclick="document.getElementById('e-body-img').click()" title="본문에 이미지 넣기">이미지</button>
-            <button type="button" class="md-btn" onclick="mdInsert('\n---\n')" title="구분선">구분선</button>
-            <span class="md-hint">마크다운 문법 그대로 써도 됩니다</span>
+            <button type="button" class="md-btn" onclick="mdBulletList()" title="글머리 목록">• 목록</button>
+            <button type="button" class="md-btn" onclick="mdOrderedList()" title="번호 목록">1. 번호</button>
+            <button type="button" class="md-btn" onclick="mdLinePrefix('&gt; ')" title="인용">❝ 인용</button>
+            <span class="md-sep"></span>
+            <button type="button" class="md-btn" onclick="mdLink()" title="링크 (⌘K / Ctrl+K)">🔗 링크</button>
+            <button type="button" class="md-btn" onclick="document.getElementById('e-body-img').click()" title="본문에 이미지 넣기">🖼 이미지</button>
+            <button type="button" class="md-btn" onclick="mdInsert('\n---\n')" title="구분선">— 구분선</button>
+            <span class="md-hint">⌘Z 실행취소 · 마크다운 직접 입력도 됩니다</span>
           </div>
           <div class="md-panes">
             <textarea class="form-textarea2" id="e-content" placeholder="본문을 작성하세요.
@@ -758,6 +782,7 @@ function openEditor(id) {
   document.getElementById('e-content').value  = a?.content  || '';
   document.getElementById('e-body-img').value = '';
   updatePreview();
+  syncToolbar();
   document.getElementById('e-featured').checked = a?.featured || false;
   currentThumbUrl = a?.thumb || '';
   const area = document.getElementById('thumbUploadArea');
@@ -910,34 +935,116 @@ function updatePreview() {
     : '<span class="md-preview-empty">본문을 입력하면 여기에 보입니다.</span>';
 }
 
-/* 선택 영역을 감싸거나(굵게), 선택된 줄들 앞에 표시를 붙인다(목록·소제목) */
-function mdWrap(before, after, mode) {
-  const ta = document.getElementById('e-content');
-  before = before.replace(/&gt;/g, '>');
-  const start = ta.selectionStart, end = ta.selectionEnd;
-  const sel = ta.value.slice(start, end);
-
-  if (mode === 'line') {
-    /* 선택이 없으면 커서가 있는 줄 하나를 대상으로 삼는다 */
-    let ls = ta.value.lastIndexOf('\n', start - 1) + 1;
-    let le = ta.value.indexOf('\n', end);
-    if (le === -1) le = ta.value.length;
-    const block = ta.value.slice(ls, le);
-    const marked = block.split('\n').map(l => l.startsWith(before) ? l : before + l).join('\n');
-    ta.setRangeText(marked, ls, le, 'end');
-  } else {
-    ta.setRangeText(before + (sel || '텍스트') + after, start, end, 'end');
-    if (!sel) ta.setSelectionRange(start + before.length, start + before.length + 3);
-  }
+/* 모든 편집은 이 함수를 거친다.
+   execCommand('insertText')는 폐기 예정 API지만, textarea 내용을 코드로 바꾸면서
+   브라우저의 네이티브 실행취소(⌘Z) 스택에 기록을 남기는 유일한 방법이다.
+   setRangeText나 value 대입을 쓰면 값은 바뀌어도 ⌘Z가 그 변경을 되돌리지 못한다. */
+function mdEdit(ta, start, end, text, selFrom, selTo) {
   ta.focus();
+  ta.setSelectionRange(start, end);
+  let ok = false;
+  try { ok = document.execCommand('insertText', false, text); } catch (e) { ok = false; }
+  if (!ok) ta.setRangeText(text, start, end, 'end'); // 폴백: 되돌리기는 안 되지만 편집은 된다
+  if (selFrom != null) ta.setSelectionRange(selFrom, selTo == null ? selFrom : selTo);
   updatePreview();
+  syncToolbar();
+}
+
+/* 커서가 걸친 줄 전체(선택이 여러 줄이면 그 줄들 전부)의 범위 */
+function mdCurrentLines(ta) {
+  const v = ta.value;
+  const ls = v.lastIndexOf('\n', ta.selectionStart - 1) + 1;
+  let le = v.indexOf('\n', ta.selectionEnd);
+  if (le === -1) le = v.length;
+  return { ls, le, text: v.slice(ls, le) };
+}
+
+/* 줄 단위 편집 공통 처리.
+   선택이 있었으면 바뀐 블록을 계속 선택해 둔다 — 그래야 같은 버튼을 한 번 더 눌러
+   해제(토글)할 때 같은 줄들이 다시 대상이 된다. 커서만 있었으면 접두어 길이가
+   바뀐 만큼만 커서를 옮겨 원래 있던 자리를 지킨다. */
+function mdApplyLines(ta, transform) {
+  const hadSel = ta.selectionStart !== ta.selectionEnd;
+  const caret = ta.selectionStart;
+  const { ls, le, text } = mdCurrentLines(ta);
+  const lines = text.split('\n');
+  const nextLines = transform(lines);
+  const next = nextLines.join('\n');
+  if (hadSel) { mdEdit(ta, ls, le, next, ls, ls + next.length); return; }
+  const delta = (nextLines[0] || '').length - (lines[0] || '').length;
+  mdEdit(ta, ls, le, next, Math.max(ls, caret + delta));
+}
+
+/* 굵게·기울임처럼 감싸는 서식 — 이미 적용돼 있으면 해제한다(토글) */
+function mdToggleWrap(before, after, placeholder) {
+  const ta = document.getElementById('e-content');
+  const v = ta.value;
+  const start = ta.selectionStart, end = ta.selectionEnd;
+  const sel = v.slice(start, end);
+  const bl = before.length, al = after.length;
+
+  // 선택 안쪽에 마커가 포함된 경우
+  if (sel.length >= bl + al && sel.startsWith(before) && sel.endsWith(after)) {
+    const inner = sel.slice(bl, sel.length - al);
+    mdEdit(ta, start, end, inner, start, start + inner.length);
+    return;
+  }
+  // 마커가 선택 바로 바깥을 감싸고 있는 경우
+  if (start >= bl && v.slice(start - bl, start) === before && v.slice(end, end + al) === after) {
+    mdEdit(ta, start - bl, end + al, sel, start - bl, start - bl + sel.length);
+    return;
+  }
+  // 새로 감싸기 — 선택이 없으면 안내 문구를 넣고 그 부분을 선택해 바로 덮어쓸 수 있게 한다
+  const body = sel || placeholder;
+  mdEdit(ta, start, end, before + body + after, start + bl, start + bl + body.length);
+}
+
+/* 글자 크기(제목 단계). '0'이면 본문으로 되돌린다 */
+function mdHeading(level) {
+  const ta = document.getElementById('e-content');
+  mdApplyLines(ta, lines => lines.map(l => {
+    const bare = l.replace(/^#{1,6}\s*/, '');
+    return level === '0' ? bare : '#'.repeat(Number(level)) + ' ' + bare;
+  }));
+}
+
+/* 줄 앞에 표시를 붙인다(인용 등). 이미 전부 붙어 있으면 뗀다 */
+function mdLinePrefix(prefix) {
+  const ta = document.getElementById('e-content');
+  prefix = prefix.replace(/&gt;/g, '>');
+  mdApplyLines(ta, lines => {
+    const filled = lines.filter(l => l.trim());
+    const allHave = filled.length > 0 && filled.every(l => l.startsWith(prefix));
+    return lines.map(l => {
+      if (!l.trim()) return l;
+      if (allHave) return l.slice(prefix.length);
+      return l.startsWith(prefix) ? l : prefix + l;
+    });
+  });
+}
+
+function mdBulletList() { mdLinePrefix('- '); }
+
+/* 번호 목록은 줄마다 번호를 다시 매겨야 해서 따로 처리한다 */
+function mdOrderedList() {
+  const ta = document.getElementById('e-content');
+  mdApplyLines(ta, lines => {
+    const filled = lines.filter(l => l.trim());
+    const allHave = filled.length > 0 && filled.every(l => /^\d+\.\s/.test(l));
+    let n = 0;
+    return lines.map(l => {
+      if (!l.trim()) return l;
+      const bare = l.replace(/^\d+\.\s/, '');
+      if (allHave) return bare;
+      n++;
+      return n + '. ' + bare;
+    });
+  });
 }
 
 function mdInsert(text) {
   const ta = document.getElementById('e-content');
-  ta.setRangeText(text, ta.selectionStart, ta.selectionEnd, 'end');
-  ta.focus();
-  updatePreview();
+  mdEdit(ta, ta.selectionStart, ta.selectionEnd, text);
 }
 
 function mdLink() {
@@ -948,6 +1055,39 @@ function mdLink() {
   mdInsert('[' + (sel || '링크 텍스트') + '](' + url + ')');
 }
 
+function mdUndo() {
+  const ta = document.getElementById('e-content');
+  ta.focus();
+  document.execCommand('undo');
+  updatePreview(); syncToolbar();
+}
+
+function mdRedo() {
+  const ta = document.getElementById('e-content');
+  ta.focus();
+  document.execCommand('redo');
+  updatePreview(); syncToolbar();
+}
+
+/* 커서가 놓인 줄의 제목 단계를 툴바 선택창에 반영 */
+function syncToolbar() {
+  const ta = document.getElementById('e-content');
+  const sel = document.getElementById('mdHeading');
+  if (!ta || !sel) return;
+  const m = mdCurrentLines(ta).text.match(/^(#{1,3})\s/);
+  sel.value = m ? String(m[1].length) : '0';
+}
+
+/* 단축키 — ⌘Z/⌘⇧Z(실행취소·재실행)는 가로채지 않고 브라우저 네이티브에 맡긴다 */
+function mdKeydown(e) {
+  if (!(e.metaKey || e.ctrlKey) || e.altKey) return;
+  const k = e.key.toLowerCase();
+  if (k === 'z' || k === 'y') return;
+  if (k === 'b')      { e.preventDefault(); mdToggleWrap('**', '**', '굵게 쓸 내용'); }
+  else if (k === 'i') { e.preventDefault(); mdToggleWrap('*', '*', '기울일 내용'); }
+  else if (k === 'k') { e.preventDefault(); mdLink(); }
+}
+
 /* 본문 이미지 — 썸네일과 같은 스토리지 버킷에 올리고 마크다운 문법으로 꽂는다 */
 async function handleBodyImage(input) {
   const file = input.files[0];
@@ -956,20 +1096,28 @@ async function handleBodyImage(input) {
   if (file.size > 5 * 1024 * 1024) { alert('이미지는 5MB 이하만 올릴 수 있습니다.'); return; }
   const ta = document.getElementById('e-content');
   const marker = '\n![업로드 중…]()\n';
-  ta.setRangeText(marker, ta.selectionStart, ta.selectionEnd, 'end');
+  mdEdit(ta, ta.selectionStart, ta.selectionEnd, marker);
+  /* 업로드가 끝날 때까지 사용자가 계속 타이핑할 수 있으므로,
+     저장해둔 위치가 아니라 그 시점의 실제 마커 위치를 다시 찾아 교체한다 */
   try {
     const publicUrl = await uploadThumb(file);
-    ta.value = ta.value.replace(marker, '\n![](' + publicUrl + ')\n');
+    const at = ta.value.indexOf(marker);
+    if (at !== -1) mdEdit(ta, at, at + marker.length, '\n![](' + publicUrl + ')\n');
   } catch (err) {
-    ta.value = ta.value.replace(marker, '');
+    const at = ta.value.indexOf(marker);
+    if (at !== -1) mdEdit(ta, at, at + marker.length, '');
     alert('이미지 업로드 실패: ' + err.message);
   }
-  updatePreview();
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   const ta = document.getElementById('e-content');
-  if (ta) ta.addEventListener('input', updatePreview);
+  if (!ta) return;
+  ta.addEventListener('input', () => { updatePreview(); syncToolbar(); });
+  ta.addEventListener('keydown', mdKeydown);
+  /* 커서만 옮겨도 제목 단계 표시가 따라오게 */
+  ta.addEventListener('keyup', syncToolbar);
+  ta.addEventListener('click', syncToolbar);
 });
 
 async function loadArticles() {

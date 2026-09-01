@@ -32,6 +32,7 @@
         return '<a href="' + u + '"' + (external ? ' target="_blank" rel="noopener"' : '') + '>' + txt + '</a>';
       })
       .replace(/`([^`]+)`/g, '<code>$1</code>')
+      .replace(/~~([^~]+)~~/g, '<del>$1</del>')
       .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
       .replace(/(^|[^*])\*([^*\n]+)\*/g, '$1<em>$2</em>');
   }

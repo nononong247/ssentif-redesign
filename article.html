@@ -123,7 +123,11 @@
   border-radius: var(--radius-lg); padding: 30px 30px 26px;
 }
 .aa-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; }
-.aa-name { font-size: 1.5rem; font-weight: 900; color: var(--black); letter-spacing: -0.03em; }
+.aa-name {
+  font-size: 1.5rem; font-weight: 900; color: var(--black); letter-spacing: -0.03em;
+  display: flex; align-items: baseline; flex-wrap: wrap; gap: 10px;
+}
+.aa-title { font-size: 13.5px; font-weight: 600; color: var(--gray-500); letter-spacing: 0; }
 .aa-role {
   display: flex; align-items: center; gap: 7px; margin-top: 9px;
   font-size: 14px; font-weight: 600; color: var(--gray-600);
@@ -345,8 +349,8 @@ function renderArticle(a, others) {
       <div class="art-author-card">
         <div class="aa-head">
           <div>
-            <div class="aa-name">정진훈</div>
-            <div class="aa-role"><span class="aa-badge">S</span> 피트니스 운영 인사이트를 꾸준히 전하는 사람</div>
+            <div class="aa-name">정진훈 <span class="aa-title">AI 피트니스 워크스페이스, 센티프 대표</span></div>
+            <div class="aa-role"><span class="aa-badge">S</span> 피트니스 산업의 인사이트를 정리합니다</div>
           </div>
           <a class="aa-photo" href="${AUTHOR_URL}" target="_blank" rel="noopener">
             <img src="assets/profile/jinhun.jpg" alt="정진훈 프로필 사진">

@@ -114,6 +114,52 @@
 }
 
 /* ── 하단 ── */
+/* ── 글쓴이 카드 ──
+   모든 아티클 하단에 자동으로 붙는다. 본문(content)에 들어있지 않으므로
+   글마다 따로 쓸 필요가 없고, 이름·소개·사진을 바꿀 때 이 파일 한 곳만 고치면 된다. */
+.art-author { max-width: 720px; margin: 40px auto 0; padding: 0 20px; }
+.art-author-card {
+  background: var(--gray-50); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 30px 30px 26px;
+}
+.aa-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; }
+.aa-name { font-size: 1.5rem; font-weight: 900; color: var(--black); letter-spacing: -0.03em; }
+.aa-role {
+  display: flex; align-items: center; gap: 7px; margin-top: 9px;
+  font-size: 14px; font-weight: 600; color: var(--gray-600);
+}
+.aa-badge {
+  width: 20px; height: 20px; border-radius: 50%; flex-shrink: 0;
+  background: var(--accent); color: var(--black);
+  font-size: 11px; font-weight: 900; line-height: 20px; text-align: center;
+}
+.aa-photo {
+  width: 84px; height: 84px; border-radius: 50%; flex-shrink: 0;
+  overflow: hidden; background: var(--gray-100);
+  border: 1px solid var(--border); display: block;
+}
+.aa-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.aa-desc {
+  margin: 20px 0 0; font-size: 14.5px; line-height: 1.85;
+  color: var(--gray-600); word-break: keep-all;
+}
+.aa-foot {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--border);
+}
+.aa-handle { font-size: 13.5px; font-weight: 600; color: var(--gray-500); }
+.aa-follow {
+  flex-shrink: 0; padding: 9px 22px; border-radius: 100px;
+  border: 1.5px solid var(--accent); color: var(--accent-dark);
+  font-size: 13.5px; font-weight: 700; transition: all 0.15s;
+}
+.aa-follow:hover { background: var(--accent); color: var(--black); }
+@media (max-width: 560px) {
+  .art-author-card { padding: 24px 20px 22px; }
+  .aa-photo { width: 64px; height: 64px; }
+  .aa-name { font-size: 1.3rem; }
+}
+
 .art-foot { max-width: 720px; margin: 0 auto; padding: 0 20px 20px; }
 .art-foot-line { border-top: 1px solid var(--border); padding-top: 30px; }
 .art-more { background: var(--gray-50); border-top: 1px solid var(--border); padding: 68px 0 88px; margin-top: 56px; }
@@ -210,6 +256,10 @@ if (hamburger) {
   });
 }
 
+/* 글쓴이 프로필 링크 — 카드의 사진·팔로우 버튼이 함께 쓴다.
+   계정이 바뀌면 이 한 줄만 고치면 된다. */
+const AUTHOR_URL = 'https://www.instagram.com/ssentif_founder/';
+
 /* ── helpers ── */
 function esc(s) {
   return String(s == null ? '' : s)
@@ -290,6 +340,25 @@ function renderArticle(a, others) {
     </div>
 
     <article class="art-body">${renderMarkdown(a.content || '')}</article>
+
+    <div class="art-author">
+      <div class="art-author-card">
+        <div class="aa-head">
+          <div>
+            <div class="aa-name">정진훈</div>
+            <div class="aa-role"><span class="aa-badge">S</span> 피트니스 운영 인사이트를 꾸준히 전하는 사람</div>
+          </div>
+          <a class="aa-photo" href="${AUTHOR_URL}" target="_blank" rel="noopener">
+            <img src="assets/profile/jinhun.jpg" alt="정진훈 프로필 사진">
+          </a>
+        </div>
+        <p class="aa-desc">AI로 대충 쓰지 않습니다. 직접 리서치하고, 확인하고, 정리해서 씁니다.<br>느리더라도 깊은 인사이트로 업계와 함께 고민하겠습니다.</p>
+        <div class="aa-foot">
+          <span class="aa-handle">@ssentif_founder</span>
+          <a class="aa-follow" href="${AUTHOR_URL}" target="_blank" rel="noopener">인스타그램 팔로우</a>
+        </div>
+      </div>
+    </div>
 
     <div class="art-foot">
       <div class="art-foot-line">

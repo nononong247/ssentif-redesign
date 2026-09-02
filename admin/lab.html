@@ -335,6 +335,8 @@ tbody td { padding: 10px 14px; font-size: 12.5px; color: #374151; vertical-align
 }
 
 .form-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.form-row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+@media (max-width: 720px) { .form-row3 { grid-template-columns: 1fr; } }
 .form-group2 { display: flex; flex-direction: column; gap: 5px; }
 .form-label2 { font-size: 11.5px; font-weight: 700; color: #374151; }
 .form-input2, .form-select2 {
@@ -578,7 +580,7 @@ tbody td { padding: 10px 14px; font-size: 12.5px; color: #374151; vertical-align
         <label class="form-label2">제목 *</label>
         <input class="form-input2" id="e-title" type="text" placeholder="아티클 제목을 입력하세요">
       </div>
-      <div class="form-row2">
+      <div class="form-row3">
         <div class="form-group2">
           <label class="form-label2">카테고리</label>
           <select class="form-select2" id="e-category">
@@ -589,6 +591,10 @@ tbody td { padding: 10px 14px; font-size: 12.5px; color: #374151; vertical-align
             <option value="식단 & 영양">식단 & 영양</option>
             <option value="업계 트렌드">업계 트렌드</option>
           </select>
+        </div>
+        <div class="form-group2">
+          <label class="form-label2">발행일 <span style="color:#9CA3AF;font-weight:400;font-size:10.5px">글에 표시되는 날짜</span></label>
+          <input class="form-input2" id="e-date" type="date">
         </div>
         <div class="form-group2">
           <label class="form-label2">읽는 시간 (분)</label>
@@ -832,6 +838,14 @@ async function toggleFeatured(id) {
   if (error) console.error('대표 설정 실패:', error.message);
 }
 
+/* 오늘 날짜(YYYY-MM-DD). toISOString()은 UTC 기준이라 한국시간 자정~오전 9시에
+   전날 날짜가 나온다 — 로컬 기준으로 직접 만든다. */
+function todayLocal() {
+  const d = new Date();
+  const p = n => String(n).padStart(2, '0');
+  return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`;
+}
+
 function openEditor(id) {
   editingId = id || null;
   pendingThumbFile = null;
@@ -840,6 +854,7 @@ function openEditor(id) {
   document.getElementById('e-title').value    = a?.title    || '';
   document.getElementById('e-category').value = a?.category || '';
   document.getElementById('e-readtime').value = a?.readtime || '';
+  document.getElementById('e-date').value     = a?.date     || todayLocal();
   document.getElementById('e-summary').value  = a?.summary  || '';
   document.getElementById('e-content').value  = a?.content  || '';
   document.getElementById('e-body-img').value = '';
@@ -859,7 +874,7 @@ function editorState() {
   const v = id => (document.getElementById(id) || {}).value || '';
   const featured = document.getElementById('e-featured');
   return JSON.stringify([
-    v('e-title'), v('e-category'), v('e-readtime'), v('e-summary'), v('e-content'),
+    v('e-title'), v('e-category'), v('e-date'), v('e-readtime'), v('e-summary'), v('e-content'),
     featured ? featured.checked : false,
     currentThumbUrl, !!pendingThumbFile
   ]);
@@ -951,11 +966,8 @@ async function saveArticle(status) {
     }
   }
 
-  const existing = editingId ? articles.find(a => a.id === editingId) : null;
-  let published_at = existing?.date || null;
-  if (status === 'published' && !published_at) {
-    published_at = new Date().toISOString().slice(0, 10);
-  }
+  /* 발행일은 입력한 값을 그대로 쓴다. 비워두면 오늘로 채운다. */
+  const published_at = document.getElementById('e-date').value || todayLocal();
 
   const dbPayload = {
     title,

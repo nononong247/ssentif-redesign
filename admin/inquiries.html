@@ -415,58 +415,12 @@ tbody td { padding: 10px 14px; font-size: 12.5px; color: #374151; vertical-align
   <div class="modal">
     <div class="modal-header">
       <h3 id="modalTitle">문의 상세</h3>
-      <button class="modal-close" onclick="closeModal()">✕</button>
-    </div>
-    <div class="modal-body">
-      <div class="modal-row">
-        <div class="modal-field">
-          <div class="modal-label">성함</div>
-          <div class="modal-value" id="m-name">—</div>
-        </div>
-        <div class="modal-field">
-          <div class="modal-label">직함</div>
-          <div class="modal-value" id="m-role">—</div>
-        </div>
-      </div>
-      <div class="modal-row">
-        <div class="modal-field">
-          <div class="modal-label">연락처</div>
-          <div class="modal-value" id="m-phone">—</div>
-        </div>
-        <div class="modal-field">
-          <div class="modal-label">이메일</div>
-          <div class="modal-value" id="m-email">—</div>
-        </div>
-      </div>
-      <div class="modal-row">
-        <div class="modal-field">
-          <div class="modal-label">센터명</div>
-          <div class="modal-value" id="m-center">—</div>
-        </div>
-        <div class="modal-field">
-          <div class="modal-label">센터 규모</div>
-          <div class="modal-value" id="m-size">—</div>
-        </div>
-      </div>
-      <div class="modal-row">
-        <div class="modal-field">
-          <div class="modal-label">접수일</div>
-          <div class="modal-value" id="m-date">—</div>
-        </div>
-        <div class="modal-field">
-          <div class="modal-label">유입경로</div>
-          <div class="modal-value" id="m-source">—</div>
-        </div>
-      </div>
-      <div class="modal-field">
-        <div class="modal-label">문의 내용</div>
-        <div class="modal-value message" id="m-message">—</div>
-      </div>
-      <div class="modal-field">
-        <div class="modal-label">관리자 메모</div>
-        <textarea class="modal-memo" id="m-memo" placeholder="상담 진행 상황, 통화 내용 등을 기록하세요. 저장 버튼을 누르면 반영됩니다."></textarea>
+      <div style="display:flex;align-items:center;gap:8px">
+        <button class="detail-btn" id="editToggleBtn" onclick="toggleEdit()">편집</button>
+        <button class="modal-close" onclick="closeModal()">✕</button>
       </div>
     </div>
+    <div class="modal-body" id="modalBody"></div>
     <div class="modal-footer">
       <div class="modal-status-wrap">
         <span class="modal-status-label">상태 변경</span>
@@ -684,29 +638,94 @@ async function toggleConverted(id, converted) {
   }
 }
 
+const SIZES = ['1인 (개인 또는 혼자 운영)', '2~5인', '6~10인', '11인 이상 · 다지점'];
+
+let isEditing = false;
+
+function esc(v) {
+  return String(v ?? '').replace(/[&<>"']/g, c =>
+    ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]));
+}
+
+// 저장된 값이 목록에 없어도 사라지지 않도록, 없으면 옵션으로 끼워 넣는다.
+function optionsFor(list, current) {
+  const opts = list.includes(current) || !current ? list : [current, ...list];
+  return ['<option value=""></option>']
+    .concat(opts.map(o => `<option value="${esc(o)}" ${o === current ? 'selected' : ''}>${esc(o)}</option>`))
+    .join('');
+}
+
+function renderDetail(r) {
+  const view  = (v) => `<div class="modal-value">${esc(v) || '—'}</div>`;
+  const input = (id, v) => `<input class="modal-input" id="${id}" value="${esc(v)}">`;
+  const f = (label, id, v) => isEditing
+    ? `<div class="modal-field"><div class="modal-label">${label}</div>${input(id, v)}</div>`
+    : `<div class="modal-field"><div class="modal-label">${label}</div>${view(v)}</div>`;
+  const sel = (label, id, list, v) => isEditing
+    ? `<div class="modal-field"><div class="modal-label">${label}</div>
+         <select class="modal-src-select" id="${id}">${optionsFor(list, v)}</select></div>`
+    : `<div class="modal-field"><div class="modal-label">${label}</div>${view(v)}</div>`;
+
+  document.getElementById('modalBody').innerHTML = `
+    <div class="modal-row">
+      ${f('성함', 'm-name', r.name)}
+      ${f('직함', 'm-role', r.role)}
+    </div>
+    <div class="modal-row">
+      ${f('연락처', 'm-phone', r.phone)}
+      ${f('이메일', 'm-email', r.email)}
+    </div>
+    <div class="modal-row">
+      ${f('센터명', 'm-center', r.center)}
+      ${sel('센터 규모', 'm-size', SIZES, r.size)}
+    </div>
+    <div class="modal-row">
+      ${isEditing
+        ? `<div class="modal-field"><div class="modal-label">접수일</div>
+             <input class="modal-input" type="date" id="m-date" value="${esc(r.date)}"></div>`
+        : `<div class="modal-field"><div class="modal-label">접수일</div>${view(r.date)}</div>`}
+      ${sel('유입경로', 'm-source', SOURCES, r.source || '홈페이지')}
+    </div>
+    <div class="modal-field">
+      <div class="modal-label">문의 내용</div>
+      ${isEditing
+        ? `<textarea class="modal-memo" id="m-message">${esc(r.message)}</textarea>`
+        : `<div class="modal-value message">${esc(r.message) || '—'}</div>`}
+    </div>
+    <div class="modal-field">
+      <div class="modal-label">관리자 메모</div>
+      <textarea class="modal-memo" id="m-memo" placeholder="상담 진행 상황, 통화 내용 등을 기록하세요. 저장 버튼을 누르면 반영됩니다.">${esc(r.memo)}</textarea>
+    </div>`;
+
+  document.getElementById('editToggleBtn').textContent = isEditing ? '편집 취소' : '편집';
+}
+
 function openDetail(id) {
   const r = inquiries.find(r => r.id === id);
   if (!r) return;
   openInquiryId = id;
+  isEditing = false;
   document.getElementById('modalTitle').textContent = `문의 #${r.id} — ${r.name}`;
-  document.getElementById('m-name').textContent    = r.name;
-  document.getElementById('m-role').textContent    = r.role;
-  document.getElementById('m-phone').textContent   = r.phone;
-  document.getElementById('m-email').textContent   = r.email;
-  document.getElementById('m-center').textContent  = r.center;
-  document.getElementById('m-size').textContent    = r.size;
-  document.getElementById('m-date').textContent    = r.date;
-  document.getElementById('m-message').textContent = r.message;
-  document.getElementById('m-memo').value          = r.memo || '';
-  document.getElementById('m-source').textContent  = r.source || '홈페이지';
-  document.getElementById('modalStatus').value     = r.status;
+  renderDetail(r);
+  document.getElementById('modalStatus').value      = r.status;
   document.getElementById('modalConverted').checked = !!r.converted;
   document.getElementById('detailModal').classList.add('open');
+}
+
+// 편집 모드 전환. 편집 중 입력한 값은 저장하지 않고 취소하면 원본으로 되돌린다.
+function toggleEdit() {
+  const r = inquiries.find(x => x.id === openInquiryId);
+  if (!r) return;
+  const memo = document.getElementById('m-memo').value;
+  isEditing = !isEditing;
+  renderDetail(r);
+  document.getElementById('m-memo').value = memo; // 메모는 모드와 무관하게 유지
 }
 
 function closeModal() {
   document.getElementById('detailModal').classList.remove('open');
   openInquiryId = null;
+  isEditing = false;
 }
 
 async function deleteInquiry() {
@@ -732,21 +751,52 @@ function updateStatusFromModal() {}
 async function saveStatus() {
   if (!openInquiryId) { closeModal(); return; }
   const id        = openInquiryId;
+  const r         = inquiries.find(x => x.id === id);
   const status    = document.getElementById('modalStatus').value;
   const memo      = document.getElementById('m-memo').value.trim();
   const converted = document.getElementById('modalConverted').checked;
 
+  const patch = { status, memo, converted };
+
+  if (isEditing) {
+    const val = i => (document.getElementById(i)?.value || '').trim();
+    const name   = val('m-name');
+    const phone  = val('m-phone');
+    const center = val('m-center');
+    if (!name || !phone || !center) {
+      alert('성함 · 연락처 · 센터명은 비워둘 수 없습니다.');
+      return;
+    }
+    patch.name        = name;
+    patch.role        = val('m-role') || null;
+    patch.phone       = phone;
+    patch.email       = val('m-email') || null;
+    patch.center_name = center;
+    patch.center_size = val('m-size') || null;
+    patch.source      = val('m-source') || null;
+    patch.message     = val('m-message') || null;
+
+    // 접수일은 날짜만 편집한다. 바뀐 경우에만 보내고, 시간대 때문에 하루 밀리지 않도록 정오로 고정.
+    const newDate = val('m-date');
+    if (newDate && newDate !== r?.date) {
+      patch.submitted_at = new Date(`${newDate}T12:00:00+09:00`).toISOString();
+    }
+  }
+
   // 낙관적 반영
-  const r = inquiries.find(x => x.id === id);
-  if (r) { r.status = status; r.memo = memo; r.converted = converted; }
+  if (r) {
+    Object.assign(r, patch);
+    r.center = patch.center_name ?? r.center;
+    r.size   = patch.center_size ?? r.size;
+    if (patch.submitted_at) r.date = patch.submitted_at.slice(0, 10);
+  }
   renderTable();
 
-  // 상태 + 메모 + 등록여부를 함께 저장
-  const { error } = await db.from('inquiries').update({ status, memo, converted }).eq('id', id);
+  const { error } = await db.from('inquiries').update(patch).eq('id', id);
   if (error) {
     console.error('저장 실패:', error.message);
-    alert('저장에 실패했습니다.\n' + error.message +
-      '\n\n※ 메모 기능은 inquiries 테이블에 memo 컬럼이 있어야 동작합니다.');
+    alert('저장에 실패했습니다.\n' + error.message);
+    await loadInquiries(); // 낙관적 반영 되돌리기
     return; // 모달 유지 — 다시 시도 가능
   }
   closeModal();

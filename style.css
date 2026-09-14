@@ -614,13 +614,13 @@ p  { color: var(--gray-600); line-height: 1.75; }
   max-width: 1060px;
   margin: 8px auto 0;
   pointer-events: all;
-  /* 메뉴바 아래로 내려오는 등장 */
-  transform: translateY(-12px);
-  opacity: 0;
-  animation: noticeDrop 0.5s cubic-bezier(0.16, 0.84, 0.44, 1) 0.35s forwards;
+  /* 메뉴바 아래로 내려오는 등장. 기본 상태는 '보임' — 애니메이션이 막히는 환경
+     (일부 인앱 브라우저·절전 모드)에서도 띠가 사라지지 않는다. */
+  animation: noticeDrop 0.5s cubic-bezier(0.16, 0.84, 0.44, 1) 0.35s both;
 }
 @keyframes noticeDrop {
-  to { transform: translateY(0); opacity: 1; }
+  from { transform: translateY(-12px); opacity: 0; }
+  to   { transform: translateY(0);     opacity: 1; }
 }
 .notice-inner {
   display: flex;
@@ -708,6 +708,9 @@ body .pf-hero    { padding-top: calc(150px + var(--notice-h)); }
   :root { --notice-h: 48px; }
   body .intro-hero { padding-top: calc(112px + var(--notice-h)); }
   body .pf-hero    { padding-top: calc(120px + var(--notice-h)); }
+}
+@media (max-width: 600px) {
+  body .page-hero  { padding-top: calc(88px + var(--notice-h)); }
 }
 
 

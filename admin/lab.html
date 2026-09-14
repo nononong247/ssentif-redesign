@@ -724,7 +724,16 @@ tbody td { padding: 10px 14px; font-size: 12.5px; color: #374151; vertical-align
   const { data: { session } } = await db.auth.getSession();
   if (!session) { window.location.replace('login.html'); return; }
   await loadArticles();
+  refreshInquiryBadge();
 })();
+
+// 사이드바 '문의 내역' 뱃지 — 하드코딩된 값이 갱신되지 않던 버그 수정
+async function refreshInquiryBadge() {
+  const { data, error } = await db.from('inquiries').select('id').eq('status', '신규');
+  if (error) { console.error('신규 문의 수 조회 실패:', error.message); return; }
+  const badge = document.querySelector('.nav-badge');
+  if (badge) badge.textContent = data.length;
+}
 
 const CATEGORIES = {
   '운영 전략': '운영전략',

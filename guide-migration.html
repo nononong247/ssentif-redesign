@@ -19,12 +19,12 @@
 <meta property="og:image" content="https://www.ssentif.kr/og-image.png">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="SSENTIF">
-<link rel="stylesheet" href="style.css?v=3">
+<link rel="stylesheet" href="style.css?v=5">
 <style>
 /* ══════ 페이지 헤더 ══════ */
 .mg-hero {
   position: relative; overflow: hidden;
-  padding: 136px 0 60px;
+  padding: calc(136px + var(--notice-h)) 0 60px;
   background: linear-gradient(180deg, #E9FBF6 0%, #F6FDFB 60%, var(--white) 100%);
   border-bottom: 1px solid var(--border);
 }
@@ -379,7 +379,7 @@
   .mg-step { grid-template-columns: 280px 1fr; gap: 30px; padding: 26px; }
 }
 @media (max-width: 760px) {
-  .mg-hero { padding: 120px 0 46px; }
+  .mg-hero { padding: calc(120px + var(--notice-h)) 0 46px; }
   .mg-intro { padding-top: 40px; }
   .mg-intro-card { padding: 24px 22px; }
   .mg-compare { gap: 10px; }
@@ -394,7 +394,7 @@
 }
 </style>
 </head>
-<body>
+<body class="notice-single">
 
 <nav class="nav" id="mainNav">
   <div class="nav-inner">
@@ -412,6 +412,42 @@
       <span></span><span></span><span></span>
     </button>
   </div>
+
+  <!-- 공지 띠 — 센티프 2.0 출시 안내 -->
+  <div class="notice-bar" id="noticeBar2">
+    <div class="notice-inner">
+      <a class="notice-link" href="notice-2.0.html">
+        <span class="notice-tag">공지</span>
+        <span class="notice-text"><b>센티프 2.0 출시 안내</b></span>
+        <span class="notice-go">
+          <span>자세히 보기</span>
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M4.5 2.5 8.5 6.5l-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </a>
+      <button class="notice-close" aria-label="닫기">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2.5 2.5l7 7M9.5 2.5l-7 7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </div>
+  <script>
+  /* 안내·공지 띠 닫기 — 이 화면에서만 숨긴다. 다른 페이지로 가면 다시 보인다. */
+  (function () {
+    function sync() {
+      var n = document.querySelectorAll('.notice-bar:not([hidden])').length;
+      var u = window.matchMedia('(max-width: 700px)').matches ? 48 : 52;
+      document.body.style.setProperty('--notice-h', (n * u) + 'px');
+    }
+    document.querySelectorAll('.notice-close').forEach(function (b) {
+      b.addEventListener('click', function () {
+        b.closest('.notice-bar').hidden = true;
+        sync();
+      });
+    });
+    window.addEventListener('resize', function () {
+      if (document.body.style.getPropertyValue('--notice-h')) sync();
+    });
+  })();
+  </script>
 </nav>
 <div class="nav-mobile-menu" id="navMobileMenu">
   <a href="product.html">제품</a>

@@ -53,7 +53,7 @@
   }
 }
 </script>
-<link rel="stylesheet" href="style.css?v=3">
+<link rel="stylesheet" href="style.css?v=5">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
@@ -539,6 +539,23 @@
     </button>
   </div>
 
+  <!-- 공지 띠 — 센티프 2.0 출시 안내 -->
+  <div class="notice-bar" id="noticeBar2">
+    <div class="notice-inner">
+      <a class="notice-link" href="notice-2.0.html">
+        <span class="notice-tag">공지</span>
+        <span class="notice-text"><b>센티프 2.0 출시 안내</b></span>
+        <span class="notice-go">
+          <span>자세히 보기</span>
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M4.5 2.5 8.5 6.5l-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </a>
+      <button class="notice-close" aria-label="닫기">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2.5 2.5l7 7M9.5 2.5l-7 7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </div>
+
   <!-- 안내 띠 — 센티프 1.0 데이터 가져오기 -->
   <div class="notice-bar" id="noticeBar">
     <div class="notice-inner">
@@ -550,8 +567,30 @@
           <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M4.5 2.5 8.5 6.5l-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </span>
       </a>
+      <button class="notice-close" aria-label="닫기">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2.5 2.5l7 7M9.5 2.5l-7 7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+      </button>
     </div>
   </div>
+  <script>
+  /* 안내·공지 띠 닫기 — 이 화면에서만 숨긴다. 다른 페이지로 가면 다시 보인다. */
+  (function () {
+    function sync() {
+      var n = document.querySelectorAll('.notice-bar:not([hidden])').length;
+      var u = window.matchMedia('(max-width: 700px)').matches ? 48 : 52;
+      document.body.style.setProperty('--notice-h', (n * u) + 'px');
+    }
+    document.querySelectorAll('.notice-close').forEach(function (b) {
+      b.addEventListener('click', function () {
+        b.closest('.notice-bar').hidden = true;
+        sync();
+      });
+    });
+    window.addEventListener('resize', function () {
+      if (document.body.style.getPropertyValue('--notice-h')) sync();
+    });
+  })();
+  </script>
 </nav>
 <div class="nav-mobile-menu" id="navMobileMenu">
   <a href="product.html">제품</a>

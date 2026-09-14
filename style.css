@@ -603,6 +603,115 @@ p  { color: var(--gray-600); line-height: 1.75; }
 
 
 /* ════════════════════════════════════════
+   NOTICE BAR — 메뉴바 아래로 내려오는 안내 띠
+════════════════════════════════════════ */
+/* 띠가 차지하는 높이(44px + 위 여백 8px).
+   각 페이지 첫 섹션의 상단 여백이 이 값을 더해 쓰므로, 띠가 제목을 가리지 않는다.
+   띠는 닫을 수 없다 — 모든 페이지·모든 화면 크기에서 항상 보인다. */
+:root { --notice-h: 52px; }
+
+.notice-bar {
+  max-width: 1060px;
+  margin: 8px auto 0;
+  pointer-events: all;
+  /* 메뉴바 아래로 내려오는 등장 */
+  transform: translateY(-12px);
+  opacity: 0;
+  animation: noticeDrop 0.5s cubic-bezier(0.16, 0.84, 0.44, 1) 0.35s forwards;
+}
+@keyframes noticeDrop {
+  to { transform: translateY(0); opacity: 1; }
+}
+.notice-inner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 18px;
+  height: 44px;
+  border-radius: 14px;
+  background: linear-gradient(90deg, #E6FBF5 0%, #F2FDFA 100%);
+  border: 1px solid rgba(31, 219, 168, 0.34);
+  box-shadow: 0 2px 14px rgba(31, 219, 168, 0.16);
+}
+.notice-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  text-decoration: none;
+  color: var(--gray-800);
+}
+.notice-tag {
+  flex-shrink: 0;
+  padding: 3px 8px;
+  border-radius: 100px;
+  background: var(--black);
+  color: var(--white);
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+}
+.notice-text {
+  font-size: 13.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.notice-text b { font-weight: 800; color: var(--black); }
+.notice-go {
+  flex-shrink: 0;
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--accent-dark);
+  white-space: nowrap;
+}
+.notice-link:hover .notice-go { color: var(--black); }
+.notice-go svg { transition: transform 0.15s; }
+.notice-link:hover .notice-go svg { transform: translateX(3px); }
+
+/* 모바일 — 문구는 PC 와 같다. 폭이 좁으니 뱃지·CTA 라벨을 접어 문장에 자리를 준다.
+   그래도 한 줄에 안 들어가면 두 줄로 흐르게 두고(띠 높이 auto), 잘라내지 않는다. */
+@media (max-width: 700px) {
+  .notice-inner {
+    height: auto; min-height: 40px;
+    gap: 8px; padding: 9px 13px;
+  }
+  .notice-tag { display: none; }
+  .notice-text {
+    font-size: 12.5px;
+    white-space: normal;
+    line-height: 1.4;
+    overflow: visible;
+    text-overflow: clip;
+  }
+  .notice-go span { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .notice-bar { animation-duration: 0.01ms; animation-delay: 0s; }
+}
+
+/* 띠가 있는 페이지들의 첫 섹션 상단 여백 보정.
+   각 hero 의 원래 값 + 띠 높이. 페이지별 <style> 보다 우선하도록 선택자를 겹쳐 쓴다. */
+body .page-hero  { padding-top: calc(140px + var(--notice-h)); }
+body .art-hero   { padding-top: calc(132px + var(--notice-h)); }
+body .intro-hero { padding-top: calc(128px + var(--notice-h)); }
+body .guide-hero { padding-top: calc(118px + var(--notice-h)); }
+body .pf-hero    { padding-top: calc(150px + var(--notice-h)); }
+@media (max-width: 700px) {
+  :root { --notice-h: 48px; }
+  body .intro-hero { padding-top: calc(112px + var(--notice-h)); }
+  body .pf-hero    { padding-top: calc(120px + var(--notice-h)); }
+}
+
+
+/* ════════════════════════════════════════
    HAMBURGER / MOBILE NAV
 ════════════════════════════════════════ */
 .nav-hamburger {

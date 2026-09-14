@@ -56,8 +56,8 @@ Future<void> _loadAllFonts() async {
   // 미번들 family 폴백 별칭 (앱 코드가 'Inter'/family 미지정을 쓰는 곳 대응).
   // 'Ahem' 은 flutter tester 의 기본 폰트 — 덮어써서 family 미지정 텍스트도
   // 실기기(시스템 폰트 폴백)처럼 실제 글리프로 렌더되게 한다.
-  // 'monospace' 계열은 코드 칩(초대코드·연동코드)이, 'FlutterTest' 는 최신
-  // flutter_test 의 기본 family 다 — 빠뜨리면 그 텍스트만 □ 로 찍힌다.
+  // 'monospace' 계열은 코드 칩이, 'FlutterTest' 는 최신 flutter_test 의 기본
+  // family 다 — 빠뜨리면 그 텍스트만 □ 로 찍힌다.
   for (final alias in [
     'Inter',
     'Roboto',

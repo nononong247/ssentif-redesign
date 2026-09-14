@@ -667,3 +667,52 @@ day view에서 항상 요일 문자(일/월/화/수/목/금/토)** 이지 날짜
 - **D--36 이중 하이픈**: 전체회원 목록에서 만료 회원의 D-day 표기가 `D--36`처럼 겹쳐
   보이는 포맷 오류. 사용자가 우선순위 최하위로 미루고 진행하라 하지 않음 — **미착수**.
 - 배포(`git commit`/`push`)는 하지 않았다 — 사용자가 "배포해줘"라고 말할 때까지 대기.
+
+---
+
+## 11. 센티프 1.0 이전 안내 페이지 (guide-migration.html) — 2026-09-14
+
+홈페이지 `guide-migration.html` 의 7단계 이미지. **5장이 마이그레이션 마법사 캡처**다.
+
+| 단계 | 이미지 | 출처 |
+|---|---|---|
+| 1 | `assets/guide/02-signup.png` | 기존 가이드 재사용 |
+| 2 | `assets/guide/03-workspace-create.png` | 기존 가이드 재사용 |
+| 3 | `assets/guide/migration/03-settings.png` | 앱 기본 테스트 `workspace_settings_v1_import_capture_test.dart` |
+| 4 | `assets/guide/migration/04-import-menu.png` | 위와 같은 캡처의 **우측 패널 크롭** |
+| 5 | `assets/guide/migration/05-email.png` | **`capture/guide_migration_capture_test.dart`** (이 폴더) |
+| 6 | `assets/guide/migration/06-members.png` | 〃 |
+| 7 | `assets/guide/migration/07-done.png` | 앱 기본 테스트 `v1_import_result_capture_test.dart` |
+
+### 재캡처
+
+```bash
+CP=~/ssentif-redesign/_checkpoints/guide-page/capture
+APP="$HOME/Desktop/센티프 SSENTIF/Product/GRIP_NOTE-main/ssentif-coach"
+cp "$CP/guide_migration_capture_test.dart" "$APP/test_screenshots/"
+# 폰트 별칭 패치(§5) 를 flutter_test_config.dart 에 다시 얹는다
+
+export PATH="$HOME/development/flutter/bin:$PATH"
+cd "$APP"
+SCREENSHOT_DIR=/tmp/shots flutter test \
+  test_screenshots/guide_migration_capture_test.dart \
+  test_screenshots/workspace_settings_v1_import_capture_test.dart \
+  test_screenshots/v1_import_result_capture_test.dart
+python3 "$CP/build_migration_assets.py"
+```
+
+### 함정
+
+- **`_FixedNotifier`** 가 `V1ImportNotifier` 를 상속해 `restoreForWorkspace` 를 no-op 으로
+  덮는다. 이게 없으면 화면 `initState` 가 서버를 부른다.
+- **`_PretendardButtonText`** 래퍼가 `GnTextStyles.button` 에 `fontFamily` 를 박는다 —
+  `TextButton.styleFrom(textStyle:)` 로 넘어간 스타일은 family 가 null 이라 **한글이 □ 로
+  찍힌다**(§5 의 알려진 제약). 앱 코드는 건드리지 않는다.
+- 회원 4명을 **전부 결정**해야 `다음` 이 활성화된다(`4 / 4명 선택함`).
+
+### ⚠️ 페이지 문구는 앱 안내와 맞춰야 한다
+
+`workspace_settings_dialog.dart` 의 `센티프 1.0 가져오기` 안내 5줄이 **고객에게 보이는 정본**이다.
+2026-08-22 설계 문서(`docs/superpowers/specs/2026-08-22-v1-migration-design.md` §5.2)는
+"미래 일정 이관 안 함" 이라고 적혀 있지만 **실제 앱은 "모든 수업 일정을 가져와요" 로 출시**됐다.
+설계 문서보다 앱 문구를 따랐다. 다시 볼 때 이 불일치를 먼저 확인할 것.

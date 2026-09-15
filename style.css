@@ -608,8 +608,9 @@ p  { color: var(--gray-600); line-height: 1.75; }
 /* 띠가 차지하는 높이(44px + 위 여백 8px).
    각 페이지 첫 섹션의 상단 여백이 이 값을 더해 쓰므로, 띠가 제목을 가리지 않는다.
    띠는 닫을 수 없다 — 모든 페이지·모든 화면 크기에서 항상 보인다. */
-:root { --notice-h: 104px; }            /* 띠 2개(공지 + 안내) */
+:root { --notice-h: 52px; }             /* 띠 1개(공지) — 전 페이지 공통 */
 body.notice-single { --notice-h: 52px; } /* 띠 1개인 페이지 */
+body.notice-none { --notice-h: 0px; }    /* 띠 없는 페이지 — 공지 본문 */
 
 .notice-bar {
   max-width: 1060px;
@@ -719,8 +720,9 @@ body .intro-hero { padding-top: calc(128px + var(--notice-h)); }
 body .guide-hero { padding-top: calc(118px + var(--notice-h)); }
 body .pf-hero    { padding-top: calc(150px + var(--notice-h)); }
 @media (max-width: 700px) {
-  :root { --notice-h: 96px; }
+  :root { --notice-h: 48px; }
   body.notice-single { --notice-h: 48px; }
+  body.notice-none { --notice-h: 0px; }
   body .intro-hero { padding-top: calc(112px + var(--notice-h)); }
   body .pf-hero    { padding-top: calc(120px + var(--notice-h)); }
 }

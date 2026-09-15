@@ -34,5 +34,15 @@
       "destination": "/notice-2.0.html",
       "permanent": true
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/app",
+      "destination": "/app.html"
+    },
+    {
+      "source": "/app-member",
+      "destination": "/app-member.html"
+    }
   ]
 }

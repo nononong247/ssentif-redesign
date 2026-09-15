@@ -9,536 +9,18 @@
 <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <title>센티프 2.0 출시 안내 — SSENTIF</title>
-<meta name="description" content="센티프 2.0 출시 안내와 1.0 데이터 가져오는 방법. 달라진 점, 1.0 서비스 종료 일정, 강사/관리자 앱에서 진행하는 가져오기 7단계와 회원 연동 방법을 실제 화면과 함께 안내합니다.">
+<meta name="description" content="센티프 2.0 출시 안내. 달라진 점과 1.0 서비스 종료 일정, 1.0 데이터를 2.0으로 가져오는 방법을 안내합니다.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://www.ssentif.kr/notice-2.0.html">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://www.ssentif.kr/notice-2.0.html">
 <meta property="og:title" content="센티프 2.0 출시 안내 — SSENTIF">
-<meta property="og:description" content="센티프 2.0 출시 안내와 1.0 데이터 가져오는 방법을 한 페이지에 안내합니다.">
+<meta property="og:description" content="센티프 2.0 출시 안내. 달라진 점과 1.0 서비스 종료 일정, 1.0 데이터를 2.0으로 가져오는 방법을 안내합니다.">
 <meta property="og:image" content="https://www.ssentif.kr/og-image.png">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="SSENTIF">
 <link rel="stylesheet" href="style.css?v=6">
-<style>
-/* ══════ 공지 헤더 ══════ */
-.nt-hero {
-  padding: calc(132px + var(--notice-h)) 0 44px;
-  background: var(--gray-50);
-  border-bottom: 1px solid var(--border);
-}
-.nt-hero .container, .nt-body .container { max-width: 760px; }
-/* 한글은 어절 단위로 끊어야 읽힌다 — 좁은 화면에서 단어 중간이 갈라지지 않게 */
-.nt-hero, .nt-body { word-break: keep-all; overflow-wrap: break-word; }
-.nt-kind {
-  display: inline-block; padding: 4px 11px; margin-bottom: 14px;
-  background: var(--black); color: var(--white); border-radius: 100px;
-  font-size: 12px; font-weight: 800; letter-spacing: 0.03em;
-}
-.nt-hero h1 { font-size: clamp(1.7rem, 3.4vw, 2.3rem); line-height: 1.3; margin-bottom: 10px; }
-.nt-date { font-size: 13.5px; color: var(--gray-500); }
-
-.nt-body { padding: 48px 0 72px; }
-.nt-body h2 {
-  font-size: 1.32rem; letter-spacing: -0.025em;
-  margin: 52px 0 18px; padding-top: 32px; border-top: 1px solid var(--border);
-}
-.nt-body h2:first-child { margin-top: 0; padding-top: 0; border-top: 0; }
-.nt-body p { font-size: 15.5px; line-height: 1.85; color: var(--gray-700); margin-bottom: 12px; }
-.nt-body p strong { color: var(--black); font-weight: 700; }
-.nt-body ul { list-style: none; display: grid; gap: 22px; margin: 6px 0 12px; }
-.nt-body ul li {
-  position: relative; padding-left: 19px;
-  font-size: 15px; line-height: 1.78; color: var(--gray-600);
-}
-.nt-body ul li::before {
-  content: ''; position: absolute; left: 0; top: 10px;
-  width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
-}
-/* 제목이 있는 목록 — 제목을 한 줄 세워 항목 단위로 읽히게 한다 */
-.nt-body ul.nt-titled li > strong:first-child {
-  display: block; margin-bottom: 2px;
-  font-size: 15.5px; letter-spacing: -0.025em; line-height: 1.5;
-  color: var(--black); font-weight: 800;
-}
-.nt-body ul.nt-titled li::before { top: 9px; }
-.nt-body a.nt-link {
-  color: var(--accent-dark); font-weight: 700;
-  text-decoration: underline; text-underline-offset: 2px;
-}
-.nt-body a.nt-link:hover { color: var(--black); }
-.nt-cta {
-  display: inline-flex; align-items: center; gap: 8px;
-  margin-top: 6px; padding: 12px 20px; border-radius: 100px;
-  background: var(--black); color: var(--white);
-  font-size: 14.5px; font-weight: 700;
-}
-.nt-cta:hover { background: var(--gray-800); }
-.nt-cta svg { transition: transform 0.15s; }
-.nt-cta:hover svg { transform: translateY(3px); }
-.nt-sign {
-  margin-top: 40px; padding-top: 28px; border-top: 1px solid var(--border);
-  font-size: 15px; line-height: 1.85; color: var(--gray-600);
-}
-
-/* 항목별 도해 */
-.nt-body ul li { min-width: 0; }          /* grid item 이 콘텐츠 폭에 끌려가지 않도록 */
-.nt-body ul li .nt-fig { min-width: 0; margin: 14px 0 18px; }
-.nt-body ul li:last-child .nt-fig { margin-bottom: 4px; }
-.nt-fig .mg-compare { margin: 0; }
-
-/* 모드 흐름 — 관리자 모드 → 강사 모드 */
-.nt-flow { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
-.nf-step {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 9px 14px 9px 10px; border-radius: 12px;
-  background: var(--white); border: 1px solid var(--border);
-  box-shadow: 0 1px 2px rgba(13,15,18,0.04);
-  font-size: 13.5px; font-weight: 700; color: var(--gray-700);
-}
-.nf-mode {
-  padding: 3px 8px; border-radius: 100px; text-decoration: none;
-  background: var(--accent-light); color: var(--accent-dark);
-  font-size: 11px; font-weight: 800; white-space: nowrap;
-}
-.nf-mode.adm { background: var(--black); color: var(--white); }
-.nf-arrow { flex-shrink: 0; color: var(--gray-300); }
-@media (max-width: 560px) {
-  .nt-flow { flex-direction: column; align-items: stretch; }
-  .nf-arrow { transform: rotate(90deg); align-self: center; }
-}
-
-/* 지원 기기 카드 — 사용 가이드와 동일 규칙 */
-.guide-structure {
-  display: flex; align-items: stretch; gap: 26px;
-  padding: 2px 0 4px; overflow-x: auto;
-}
-.gs-group { display: flex; }
-.gs-row { display: flex; gap: 10px; }
-.gs-card {
-  display: flex; flex-direction: column; align-items: center; gap: 6px;
-  padding: 13px 16px; min-width: 112px;
-  background: var(--white); border: 1px solid var(--border); border-radius: 14px;
-}
-.gs-devices { display: flex; align-items: flex-end; gap: 7px; height: 29px; }
-.gs-devices svg { display: block; color: var(--gray-800); }
-.gs-name { font-size: 12.5px; font-weight: 800; color: var(--black); white-space: nowrap; }
-.gs-spec { font-size: 11px; font-weight: 600; color: var(--gray-400); white-space: nowrap; }
-.gs-divider { width: 1px; align-self: stretch; background: var(--border); }
-@media (max-width: 700px) {
-  /* 가로 스크롤 대신 2×2 로 — display:contents 로 그룹을 걷어내
-     네 카드가 바깥 그리드에 직접 배치되게 한다(3+1 로 깨지던 문제) */
-  .guide-structure { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; overflow: visible; padding: 0; }
-  .gs-group, .gs-row { display: contents; }
-  .gs-card { min-width: 0; padding: 14px 10px; }
-  .gs-divider { display: none; }
-}
-
-/* 요금제 이동 버튼 */
-.nt-linkbtn {
-  display: inline-flex; align-items: center; gap: 7px;
-  padding: 10px 16px; border-radius: 100px;
-  background: var(--white); border: 1px solid var(--border);
-  box-shadow: 0 1px 2px rgba(13,15,18,0.05);
-  font-size: 14px; font-weight: 700; color: var(--black);
-  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
-}
-.nt-linkbtn svg { color: var(--accent-dark); transition: transform 0.15s; }
-.nt-linkbtn:hover {
-  border-color: rgba(31,219,168,0.55);
-  box-shadow: 0 4px 14px rgba(31,219,168,0.18);
-  transform: translateY(-1px);
-}
-.nt-linkbtn:hover svg { transform: translateX(3px); }
-/* ══════ 데이터 구조 ══════ */
-/* 1.0 → 2.0 구조 비교 */
-.mg-compare {
-  display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
-  margin: 22px 0 0;
-}
-.mg-cmp {
-  flex: 1; min-width: 220px;
-  padding: 18px 20px; border-radius: 14px;
-  border: 1px solid var(--border); background: var(--gray-50);
-}
-.mg-cmp.now { background: linear-gradient(180deg, #F2FDFA 0%, var(--white) 70%); border-color: rgba(31,219,168,0.4); }
-.cmp-tag {
-  display: inline-block; margin-bottom: 9px;
-  padding: 3px 9px; border-radius: 100px;
-  font-size: 11px; font-weight: 800; letter-spacing: 0.02em;
-  background: var(--gray-200); color: var(--gray-600);
-}
-.mg-cmp.now .cmp-tag { background: var(--black); color: var(--white); }
-.mg-compare .cmp-arrow { flex-shrink: 0; color: var(--gray-300); }
-
-/* 로그인 → 워크스페이스 → 회원 흐름 칩 */
-.cmp-chain { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-.cmp-chip {
-  display: inline-flex; align-items: center;
-  padding: 6px 11px; border-radius: 8px;
-  background: var(--white); border: 1px solid var(--border);
-  font-size: 13.5px; font-weight: 700; color: var(--gray-700);
-}
-.cmp-chain .sep { color: var(--gray-300); font-size: 13px; }
-
-/* 포함 관계 상자: 계정 ⊃ (워크스페이스 ⊃) 데이터 */
-.cmp-box {
-  position: relative;
-  padding: 26px 14px 14px;
-  border: 1.5px dashed var(--gray-300);
-  border-radius: 12px;
-  background: rgba(255,255,255,0.6);
-  flex: 1; min-width: 0;
-}
-.cmp-box > .lbl {
-  position: absolute; top: -9px; left: 12px; white-space: nowrap;
-  padding: 1px 8px; border-radius: 100px;
-  background: var(--white); border: 1px solid var(--gray-300);
-  font-size: 11px; font-weight: 800; color: var(--gray-600); letter-spacing: 0.02em;
-}
-.cmp-box.ws { border-color: rgba(31,219,168,0.6); border-style: solid; background: var(--accent-light); }
-.cmp-box.ws > .lbl { border-color: rgba(31,219,168,0.6); color: var(--accent-dark); }
-.cmp-box .cmp-chip { background: var(--white); }
-.mg-cmp .cmp-chain { margin-top: 6px; display: flex; align-items: center; flex-wrap: nowrap; }
-
-/* ══════ 단계 ══════ */
-.mg-steps-wrap { padding: 64px 0 84px; }
-.mg-steps-wrap .container { max-width: 1000px; }
-
-.mg-head { text-align: center; margin-bottom: 40px; }
-.mg-head h2 { font-size: clamp(1.5rem, 2.8vw, 2rem); }
-.mg-head .mg-sub {
-  max-width: 640px; margin: 12px auto 0;
-  font-size: 15px; line-height: 1.8; color: var(--gray-600);
-}
-
-/* 한눈 요약 칩 */
-/* 요약 칩 — 테두리 없이 면으로 채운다 */
-.mg-facts { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-top: 16px; }
-.mg-fact {
-  display: inline-flex; align-items: center; gap: 5px;
-  padding: 6px 11px;
-  border: 0; border-radius: 100px;
-  background: #E3F8F0;
-  font-size: 11.5px; font-weight: 700; letter-spacing: -0.01em; color: #0E7A5F;
-}
-.mg-fact svg { flex-shrink: 0; width: 11px; height: 11px; color: currentColor; }
-/* 제약 조건 칩 — 혜택 칩과 구분되게 경고 톤 */
-.mg-fact.hi { background: #FBEFD8; color: #8A6519; }
-
-/* 전체 흐름 3단계 도식 */
-.pf {
-  display: flex; align-items: stretch; gap: 10px;
-  margin: 0 0 22px;
-}
-.pf-card {
-  flex: 1; min-width: 0;
-  padding: 18px 20px 19px;
-  background: var(--white); border: 1px solid var(--border); border-radius: 16px;
-  box-shadow: 0 1px 2px rgba(13,15,18,0.04);
-}
-.pf-card.on { background: linear-gradient(180deg, #F2FDFA 0%, var(--white) 72%); border-color: rgba(31,219,168,0.45); }
-.pf-card h4 {
-  font-size: 15px; font-weight: 800; letter-spacing: -0.02em;
-  line-height: 1.4; margin-bottom: 6px;
-}
-.pf-if {
-  display: inline-block; margin-left: 2px; vertical-align: 1.5px;
-  padding: 2px 7px; border-radius: 100px; text-decoration: none;
-  background: var(--gray-100); color: var(--gray-500);
-  font-size: 10.5px; font-weight: 700; letter-spacing: 0;
-}
-.pf-card p { font-size: 13.5px; line-height: 1.65; color: var(--gray-600); }
-.pf-arrow { flex-shrink: 0; align-self: center; color: var(--gray-300); }
-@media (max-width: 760px) {
-  .pf { flex-direction: column; gap: 8px; }
-  .pf-arrow { transform: rotate(90deg); }
-}
-
-/* 한 단계 = 좌 이미지 + 우 설명 */
-.mg-step {
-  display: grid;
-  grid-template-columns: 340px 1fr;
-  gap: 46px;
-  align-items: center;
-  padding: 34px 36px;
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 22px;
-  box-shadow: 0 2px 18px rgba(13,15,18,0.045);
-  margin-bottom: 20px;
-  transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
-}
-.mg-step:last-of-type { margin-bottom: 0; }
-.mg-step:hover {
-  border-color: rgba(31,219,168,0.45);
-  box-shadow: 0 10px 34px rgba(13,15,18,0.09);
-  transform: translateY(-2px);
-}
-
-/* 왼쪽 — 이미지 */
-.mg-shot {
-  display: flex; align-items: center; justify-content: center;
-  min-height: 250px;
-  padding: 18px;
-  background: linear-gradient(165deg, #F3FCF9 0%, var(--gray-50) 100%);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-}
-.mg-shot img {
-  display: block;
-  max-width: 100%; max-height: 340px;
-  border-radius: 10px;
-  box-shadow: 0 6px 22px rgba(13,15,18,0.14);
-}
-/* 오른쪽 — 설명 */
-.mg-copy { min-width: 0; }
-.mg-stepno {
-  display: inline-flex; align-items: center; gap: 8px;
-  margin-bottom: 12px;
-}
-.mg-stepno .n {
-  width: 34px; height: 34px; border-radius: 11px;
-  display: inline-flex; align-items: center; justify-content: center;
-  background: var(--black); color: var(--white);
-  font-size: 15px; font-weight: 900;
-}
-.mg-copy h3 {
-  font-size: clamp(1.15rem, 2vw, 1.4rem);
-  letter-spacing: -0.025em; line-height: 1.4;
-  margin-bottom: 10px;
-}
-.mg-copy > p { font-size: 15px; line-height: 1.8; color: var(--gray-600); }
-.mg-copy strong { color: var(--black); font-weight: 700; }
-
-/* 단계 안 강조 박스 */
-/* 콜아웃 — 외곽선 없이 면(tint)으로 구분하고, 아이콘은 꽉 찬 원형 글리프 */
-.mg-note {
-  display: flex; gap: 11px; align-items: flex-start;
-  margin-top: 14px; padding: 15px 18px;
-  border-radius: 14px;
-  background: #EDFBF6;
-}
-.mg-note svg {
-  flex-shrink: 0; display: block;
-  width: 16px; height: 16px; margin-top: 3px;
-  color: #17AF87;
-}
-.mg-note p { font-size: 13.5px; line-height: 1.72; color: #2F4A43; }
-.mg-note p b { color: #123830; font-weight: 800; }
-
-.mg-note.warn { background: #FDF6E9; }
-.mg-note.warn svg { color: #D2A03A; }
-.mg-note.warn p { color: #6A5324; }
-.mg-note.warn p b { color: #4A3609; }
-
-/* 단계 안 앱 다운로드 버튼 */
-.mg-dl { margin-top: 15px; padding-top: 13px; border-top: 1px solid var(--border); }
-.mg-dl-label { font-size: 12px; font-weight: 700; color: var(--gray-500); margin-bottom: 9px; }
-.mg-dl-row { display: flex; flex-wrap: wrap; gap: 7px; }
-.mg-dlbtn {
-  display: inline-flex; align-items: center; gap: 9px;
-  padding: 8px 13px; border-radius: 10px;
-  background: var(--white); border: 1px solid var(--border);
-  box-shadow: 0 1px 2px rgba(13,15,18,0.05);
-  color: var(--black);
-  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
-}
-.mg-dlbtn:hover {
-  border-color: rgba(31,219,168,0.55);
-  box-shadow: 0 4px 12px rgba(31,219,168,0.16);
-  transform: translateY(-1px);
-}
-.mg-dlbtn svg { flex-shrink: 0; }
-.mg-dlbtn i { display: block; font-style: normal; font-size: 10.5px; font-weight: 600; color: var(--gray-400); }
-.mg-dlbtn b { display: block; font-size: 12.5px; font-weight: 800; letter-spacing: -0.01em; }
-
-/* 단계 안 미니 목록 */
-.mg-mini { list-style: none; margin-top: 12px; display: grid; gap: 7px; }
-.mg-mini li {
-  position: relative; padding-left: 17px;
-  font-size: 14px; line-height: 1.65; color: var(--gray-600);
-}
-.mg-mini li::before {
-  content: ''; position: absolute; left: 1px; top: 8px;
-  width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
-}
-
-/* 회원 연동 — 별도 챕터로 끊는다 */
-.mg-steps-wrap.next {
-  padding-top: 72px;
-  background: var(--gray-50);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-}
-.mg-steps-wrap.next .mg-step { box-shadow: 0 2px 18px rgba(13,15,18,0.05); }
-.mg-chapter {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 5px 14px 5px 6px; margin-bottom: 14px;
-  background: var(--white); border: 1px solid var(--border);
-  border-radius: 100px;
-  font-size: 12.5px; font-weight: 700; color: var(--gray-600);
-}
-.mg-chapter .n {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 20px; height: 20px; border-radius: 50%;
-  background: var(--black); color: var(--white);
-  font-size: 11px; font-weight: 800;
-}
-@media (max-width: 760px) {
-  .mg-steps-wrap.next { padding-top: 52px; }
-}
-
-/* ══════ FAQ · 문의 ══════ */
-.mg-extra { padding: 88px 0 96px; }
-.mg-extra .container { max-width: 1000px; }
-.mg-extra > .container > h2 {
-  font-size: clamp(1.5rem, 2.8vw, 2rem);
-  letter-spacing: -0.02em;
-  text-align: center;
-  margin-bottom: 34px;
-}
-.mg-faq { display: grid; gap: 10px; }
-.mg-faq details {
-  background: var(--white); border: 1px solid var(--border); border-radius: 14px;
-  padding: 0 20px;
-}
-.mg-faq summary {
-  padding: 17px 0; cursor: pointer; list-style: none;
-  font-size: 14.5px; font-weight: 700; color: var(--black);
-  display: flex; align-items: center; justify-content: space-between; gap: 12px;
-}
-.mg-faq summary::-webkit-details-marker { display: none; }
-.mg-faq summary::after {
-  content: ''; flex-shrink: 0;
-  width: 8px; height: 8px; margin-right: 3px;
-  border-right: 2px solid var(--gray-400); border-bottom: 2px solid var(--gray-400);
-  transform: rotate(45deg) translateY(-2px); transition: transform 0.18s;
-}
-.mg-faq details[open] summary::after { transform: rotate(-135deg) translateY(-2px); }
-.mg-faq details p {
-  font-size: 14px; line-height: 1.8; color: var(--gray-600);
-  margin-bottom: 10px;
-}
-.mg-faq details p:first-of-type { margin-top: 2px; }
-.mg-faq details p:last-child { margin-bottom: 18px; }
-.mg-faq ol.faq-flow {
-  list-style: none; counter-reset: fl; display: grid; gap: 8px;
-  margin: 0 0 18px; padding: 14px 16px;
-  background: var(--gray-50); border: 1px solid var(--border); border-radius: 12px;
-}
-.mg-faq ol.faq-flow li {
-  counter-increment: fl; position: relative; padding-left: 28px;
-  font-size: 14px; line-height: 1.7; color: var(--gray-600);
-}
-.mg-faq ol.faq-flow li::before {
-  content: counter(fl); position: absolute; left: 0; top: 2px;
-  width: 19px; height: 19px; border-radius: 50%;
-  background: var(--black); color: var(--white);
-  font-size: 11px; font-weight: 800;
-  display: flex; align-items: center; justify-content: center;
-}
-.mg-faq ol.faq-flow li strong { color: var(--black); font-weight: 700; }
-
-/* 하단 문의 */
-.mg-help {
-  margin-top: 72px; padding: 36px 30px;
-  background: var(--black); border-radius: 22px;
-  text-align: center; color: var(--white);
-}
-.mg-help h2 { font-size: 1.3rem; color: var(--white); margin-bottom: 10px; }
-.mg-help p { font-size: 14.5px; color: rgba(255,255,255,0.7); line-height: 1.75; margin-bottom: 22px; }
-.mg-help-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
-.mg-help .btn-kakao {
-  display: inline-flex; align-items: center; gap: 7px;
-  background: #FEE500; color: #191600; border: none; font-weight: 800;
-}
-.mg-help .btn-kakao:hover { background: #FFD900; }
-.mg-kakao-inline {
-  color: var(--accent-dark); font-weight: 800;
-  text-decoration: underline; text-underline-offset: 2px;
-}
-.mg-kakao-inline:hover { color: var(--black); }
-
-/* ══════ 반응형 ══════ */
-@media (max-width: 900px) {
-  .mg-step { grid-template-columns: 280px 1fr; gap: 30px; padding: 26px; }
-}
-@media (max-width: 760px) {
-  /* ── 모바일 본문 가독성 ── */
-  .nt-hero { padding: calc(112px + var(--notice-h)) 0 32px; }
-  .nt-hero .container, .nt-body .container { padding-left: 22px; padding-right: 22px; }
-  .nt-hero h1 { font-size: 1.6rem; }
-  .nt-kind { margin-bottom: 12px; }
-  .nt-body { padding: 34px 0 48px; }
-  .nt-body h2 {
-    font-size: 1.16rem; letter-spacing: -0.03em;
-    margin: 38px 0 14px; padding-top: 26px;
-  }
-  .nt-body p { font-size: 15px; line-height: 1.92; }
-  .nt-body ul { gap: 18px; }
-  .nt-body ul li { font-size: 14.5px; line-height: 1.9; padding-left: 15px; }
-  .nt-body ul li::before { width: 5px; height: 5px; top: 9px; }
-  .nt-body ul.nt-titled li > strong:first-child { font-size: 15px; margin-bottom: 3px; }
-  /* 좁은 화면에서는 질문도 한 줄 세우고, 자리를 대신하던 줄표는 감춘다 */
-  .nt-body ul.nt-qa li > strong:first-child {
-    display: block; margin-bottom: 3px;
-    font-size: 15px; letter-spacing: -0.025em; line-height: 1.5;
-    color: var(--black); font-weight: 800;
-  }
-  .nt-body ul.nt-qa .nt-dash { display: none; }
-  .nt-body ul li .nt-fig { margin: 12px 0 2px; }
-  .nt-sign { margin-top: 32px; padding-top: 24px; font-size: 14.5px; line-height: 1.92; }
-  .nt-cta { padding: 11px 17px; font-size: 13.5px; }
-  .nt-linkbtn { padding: 9px 14px; font-size: 13.5px; }
-
-  /* 1.0 → 2.0 도해: 세로로 세우고 화살표를 두 상자 사이 가운데에 둔다 */
-  .mg-compare { flex-direction: column; align-items: stretch; flex-wrap: nowrap; gap: 10px; }
-  .mg-cmp { min-width: 0; }
-  .mg-compare .cmp-arrow { transform: rotate(90deg); align-self: center; margin: 0; }
-  /* ── 모바일: 가져오기 단계 · FAQ · 문의 ── */
-  .mg-steps-wrap, .mg-extra { word-break: keep-all; overflow-wrap: break-word; }
-  .mg-steps-wrap .container, .mg-extra .container { padding-left: 22px; padding-right: 22px; }
-  .mg-steps-wrap { padding: 44px 0 52px; }
-  .mg-steps-wrap.next { padding-top: 44px; }
-  .mg-head { margin-bottom: 26px; }
-  .mg-head h2 { font-size: 1.35rem; }
-  .mg-head .mg-sub { font-size: 14.5px; line-height: 1.88; margin-top: 10px; }
-  .mg-chapter { font-size: 12px; margin-bottom: 12px; }
-  .pf-card { padding: 16px 18px 17px; }
-  .pf-card p { font-size: 13.5px; line-height: 1.82; }
-  /* 칩 4개가 3+1 로 흩어지지 않게 2×2 로 맞춘다 */
-  .mg-facts { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-  .mg-fact { justify-content: center; }
-
-  /* 단계 카드: 번호 · 제목 · 설명을 먼저 읽고 이미지로 확인하는 순서 */
-  .mg-step { grid-template-columns: 1fr; gap: 16px; padding: 16px; margin-bottom: 14px; }
-  .mg-step .mg-copy { order: 1; }
-  .mg-step .mg-shot { order: 2; }
-  /* 세로 캡처가 높이에 묶여 125px 폭으로 줄던 문제 — 폭 기준으로 채운다 */
-  .mg-shot { min-height: 0; padding: 10px; border-radius: 13px; }
-  .mg-shot img { width: 100%; height: auto; max-width: 100%; max-height: none; }
-  .mg-copy h3 { font-size: 1.12rem; }
-  .mg-copy > p { font-size: 14.5px; line-height: 1.9; }
-  .mg-stepno { margin-bottom: 9px; }
-  .mg-stepno .n { width: 30px; height: 30px; border-radius: 10px; font-size: 14px; }
-  .mg-mini li { font-size: 13.5px; line-height: 1.82; }
-  .mg-note { padding: 13px 14px; gap: 9px; }
-  .mg-note p { font-size: 13px; line-height: 1.86; }
-  .mg-dl-label { font-size: 11.5px; }
-  .mg-dlbtn { flex: 1; min-width: 0; justify-content: center; padding: 9px 10px; }
-
-  .mg-extra { padding: 48px 0 56px; }
-  .mg-extra > .container > h2 { font-size: 1.35rem; margin-bottom: 22px; }
-  .mg-faq details { padding: 0 16px; }
-  .mg-faq summary { font-size: 14px; padding: 15px 0; line-height: 1.55; }
-  .mg-faq details p { font-size: 13.5px; line-height: 1.9; }
-  .mg-faq ol.faq-flow li { font-size: 13.5px; line-height: 1.84; }
-  .mg-help { margin-top: 40px; padding: 28px 20px; border-radius: 18px; }
-  .mg-help h2 { font-size: 1.15rem; }
-  .mg-help p { font-size: 13.5px; line-height: 1.86; margin-bottom: 18px; }
-}
-</style>
+<link rel="stylesheet" href="notice.css?v=4">
 </head>
 <body class="notice-none">
 
@@ -569,6 +51,8 @@
 </div>
 
 
+
+
 <!-- ══════ 공지 헤더 ══════ -->
 <section class="nt-hero">
   <div class="container">
@@ -577,7 +61,6 @@
     <div class="nt-date">2026. 9. 15.</div>
   </div>
 </section>
-
 
 
 <!-- ══════ 공지 본문 ══════ -->
@@ -688,10 +171,22 @@
     <ul class="nt-qa">
       <li><strong>그동안의 1.0 데이터가 사라지지 않는지</strong><span class="nt-dash"> — </span>하나도 사라지지 않습니다. 회원 프로필과 수강권, 수업 일정과 수업일지, 회원이 쌓아온 운동·식단·체성분·체형사진까지 담당하시던 그대로 2.0으로 옮겨집니다. 옮기신 뒤에도 1.0의 기록은 그대로 남아 있으니, 2.0에서 직접 확인하신 다음 이어서 쓰시면 됩니다. 아래에서 자세한 절차를 확인해 주시기 바랍니다.
         <div class="nt-fig">
-          <a class="nt-cta" href="#migration">
-            1.0 데이터 2.0으로 가져오는 방법 보기
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2.5 5 7 9.5 11.5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
+        <div class="pf">
+          <div class="pf-card">
+            <h4>2.0 앱 가입 · 워크스페이스 생성</h4>
+            <p>강사/관리자 앱을 설치하고, 회원과 기록을 담을 공간을 만듭니다.</p>
+          </div>
+          <svg class="pf-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11M11 5.5l4.5 4.5L11 14.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div class="pf-card on">
+            <h4>1.0 데이터 가져오기</h4>
+            <p>담당하시던 회원과 그동안의 기록이 2.0으로 옮겨집니다.</p>
+          </div>
+          <svg class="pf-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11M11 5.5l4.5 4.5L11 14.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div class="pf-card">
+            <h4>회원 연동 <s class="pf-if">수강 중인 회원이 있다면</s></h4>
+            <p>회원이 회원앱에 가입하고 연동하면, 회원도 본인 기록을 볼 수 있습니다.</p>
+          </div>
+        </div>
         </div>
       </li>
       <li><strong>결제 중인 요금이 어떻게 되는지</strong><span class="nt-dash"> — </span>이미 결제하신 이용 기간은 추가 비용 발생 없이 2.0에서 그대로 유지됩니다. 다음 결제일부터 2.0 요금제로 자동 전환됩니다. Pro 22,900원과 Premium 35,900원의 경우 모두 20,900원으로 전환됩니다. 센터에 일괄 도입하신 경우에는 <a class="nt-link" href="http://pf.kakao.com/_ZvPbG/chat" target="_blank" rel="noopener">카카오톡 채널</a>로 문의해 주시면 안내드리겠습니다.</li>
@@ -708,274 +203,61 @@
 </section>
 
 
-
-<!-- ══════ 가져오기 방법 ══════ -->
-<section class="mg-steps-wrap" id="migration">
+<!-- ══════ 다음에 하실 일 ══════ -->
+<section class="nt-next">
   <div class="container">
-    <div class="mg-head">
-      <span class="mg-chapter"><span class="n">1</span>지금 할 일</span>
-      <h2>가져오기 방법</h2>
-      <div class="mg-facts">
-        <span class="mg-fact hi">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="3.4" y="1.2" width="7.2" height="11.6" rx="1.6" stroke="currentColor" stroke-width="1.4"/><path d="M6.2 10.7h1.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
-          앱에서만 가능
+    <h2>이제 이렇게 진행하시면 됩니다</h2>
+    <div class="nt-next-btns">
+      <a class="nt-bigbtn primary" href="notice-2.0-import.html">
+        <span class="nb-art">
+          <svg viewBox="0 0 200 132" fill="none" aria-hidden="true">
+            <rect x="12" y="27" width="66" height="78" rx="13" fill="var(--art-face)" stroke="var(--art-dim)" stroke-width="1.6"/>
+            <rect x="25" y="45" width="40" height="7" rx="3.5" fill="var(--art-dim)"/>
+            <rect x="25" y="60" width="40" height="7" rx="3.5" fill="var(--art-dim)"/>
+            <rect x="25" y="75" width="27" height="7" rx="3.5" fill="var(--art-dim)"/>
+            <rect x="122" y="27" width="66" height="78" rx="13" fill="var(--art-tint)" stroke="var(--art-accent)" stroke-width="1.6"/>
+            <rect x="135" y="45" width="40" height="7" rx="3.5" fill="var(--art-accent)" opacity="0.32"/>
+            <rect x="135" y="60" width="40" height="7" rx="3.5" fill="var(--art-accent)" opacity="0.32"/>
+            <rect x="135" y="75" width="27" height="7" rx="3.5" fill="var(--art-accent)"/>
+            <path d="M84 66h24" stroke="var(--art-line)" stroke-width="1.8" stroke-linecap="round" stroke-dasharray="1 6"/>
+            <path d="M104 58l8 8-8 8" stroke="var(--art-accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
         </span>
-        <span class="mg-fact">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7.8 1.5 3.2 8h3.4l-.6 4.5L10.8 6H7.4l.4-4.5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
-          자동 가져오기
+        <span class="nb-body">
+          <span class="nb-kind">지금 할 일</span>
+          <b>1.0 데이터 가져오기</b>
+          <i>앱 가입부터 가져오기 완료까지 7단계</i>
+          <svg class="nb-go" width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M5.5 3 10.5 8l-5 5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </span>
-        <span class="mg-fact">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3.2 7.3l2.4 2.4 5.2-5.2" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          원하는 회원 선택
+      </a>
+      <a class="nt-bigbtn" href="notice-2.0-connect.html">
+        <span class="nb-art">
+          <svg viewBox="0 0 200 132" fill="none" aria-hidden="true">
+            <rect x="26" y="37" width="58" height="58" rx="15" fill="var(--art-face)" stroke="var(--art-dim)" stroke-width="1.6"/>
+            <rect x="39" y="50" width="13" height="13" rx="3.5" stroke="var(--art-line)" stroke-width="1.8"/>
+            <rect x="58" y="50" width="13" height="13" rx="3.5" stroke="var(--art-line)" stroke-width="1.8"/>
+            <rect x="39" y="69" width="13" height="13" rx="3.5" stroke="var(--art-line)" stroke-width="1.8"/>
+            <rect x="60" y="71" width="4" height="4" rx="1.2" fill="var(--art-line)"/>
+            <rect x="68" y="79" width="4" height="4" rx="1.2" fill="var(--art-line)"/>
+            <rect x="116" y="37" width="58" height="58" rx="15" fill="var(--art-tint)" stroke="var(--art-accent)" stroke-width="1.6"/>
+            <circle cx="145" cy="58" r="8.5" stroke="var(--art-accent)" stroke-width="1.9"/>
+            <path d="M131 82c0-7.6 6.3-12.5 14-12.5s14 4.9 14 12.5" stroke="var(--art-accent)" stroke-width="1.9" stroke-linecap="round"/>
+            <path d="M88 66h24" stroke="var(--art-line)" stroke-width="1.8" stroke-linecap="round" stroke-dasharray="1 6"/>
+            <circle cx="100" cy="66" r="12" fill="var(--art-accent)"/>
+            <path d="M95 66.2l3.5 3.4 6-6.6" stroke="var(--art-on-accent)" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
         </span>
-        <span class="mg-fact">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M11.7 6.4A4.8 4.8 0 1 1 10 3.2M11.4 1.6v2.2H9.2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          7일 내 되돌리기
+        <span class="nb-body">
+          <span class="nb-kind">다음 단계</span>
+          <b>회원 연동하기</b>
+          <i>회원이 본인 기록을 보게 하는 3단계</i>
+          <svg class="nb-go" width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M5.5 3 10.5 8l-5 5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </span>
-      </div>
-    </div>
-
-    <!-- 전체 흐름 3단계 -->
-    <div class="pf">
-      <div class="pf-card">
-        <h4>2.0 앱 가입 · 워크스페이스 생성</h4>
-        <p>강사/관리자 앱을 설치하고, 회원과 기록을 담을 공간을 만듭니다.</p>
-      </div>
-      <svg class="pf-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11M11 5.5l4.5 4.5L11 14.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      <div class="pf-card on">
-        <h4>1.0 데이터 가져오기</h4>
-        <p>담당하시던 회원과 그동안의 기록이 2.0으로 옮겨집니다.</p>
-      </div>
-      <svg class="pf-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11M11 5.5l4.5 4.5L11 14.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      <div class="pf-card">
-        <h4>회원 연동 <s class="pf-if">수강 중인 회원이 있다면</s></h4>
-        <p>회원이 회원앱에 가입하고 연동하면, 회원도 본인 기록을 볼 수 있습니다.</p>
-      </div>
-    </div>
-
-    <!-- 1 -->
-    <div class="mg-step">
-      <div class="mg-shot">
-        <img src="assets/guide/02-signup.png?v=1785944977" alt="센티프 강사/관리자 앱 회원가입 화면 — 이메일, 비밀번호, 이름, 휴대폰 인증 입력 폼" loading="lazy">
-      </div>
-      <div class="mg-copy">
-        <div class="mg-stepno"><span class="n">1</span></div>
-        <h3>센티프 2.0 회원가입</h3>
-        <p>강사/관리자 앱을 설치하고 계정을 만듭니다. 태블릿과 스마트폰 어느 쪽이든 같습니다. 가입 과정에서 휴대폰 인증을 완료합니다.</p>
-        <div class="mg-dl">
-          <div class="mg-dl-label">강사 · 관리자 앱 내려받기 — 가져오기는 이 앱에서 진행합니다</div>
-          <div class="mg-dl-row">
-            <a class="mg-dlbtn" href="https://apps.apple.com/kr/app/%EC%84%BC%ED%8B%B0%ED%94%84-%EA%B0%95%EC%82%AC-%EA%B4%80%EB%A6%AC%EC%9E%90%EC%9A%A9-%EC%8B%A0%EB%B2%84%EC%A0%84/id6793118501" target="_blank" rel="noopener">
-              <svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.05 12.54c-.03-2.6 2.13-3.85 2.23-3.91-1.22-1.78-3.11-2.03-3.78-2.05-1.61-.16-3.14.94-3.96.94-.82 0-2.07-.92-3.41-.9-1.75.03-3.37 1.02-4.27 2.59-1.82 3.16-.46 7.84 1.31 10.4.86 1.26 1.89 2.66 3.24 2.61 1.3-.05 1.79-.84 3.36-.84 1.57 0 2.01.84 3.38.81 1.4-.02 2.28-1.27 3.13-2.53.99-1.45 1.4-2.86 1.42-2.93-.03-.01-2.72-1.04-2.75-4.13zM14.7 4.9c.72-.87 1.2-2.08 1.07-3.29-1.03.04-2.28.69-3.02 1.56-.66.77-1.24 2-1.09 3.18 1.15.09 2.32-.58 3.04-1.45z"/></svg>
-              <span><i>iPhone · iPad</i><b>App Store</b></span>
-            </a>
-            <a class="mg-dlbtn" href="https://play.google.com/store/apps/details?id=com.nvng.ssentif_coach" target="_blank" rel="noopener">
-              <svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><path fill="#00D7FE" d="M3.7 1.9c-.3.3-.5.8-.5 1.4v17.4c0 .6.2 1.1.5 1.4l.1.1 9.7-9.7v-.2L3.8 1.8z"/><path fill="#FFCE00" d="M16.8 15.7l-3.3-3.2v-.2l3.3-3.3 3.9 2.2c1.1.6 1.1 1.7 0 2.3z"/><path fill="#FF3A44" d="M16.8 15.7L13.5 12.4 3.7 22.1c.4.4 1 .5 1.7.1z"/><path fill="#48FF48" d="M16.8 9L5.4 2.5c-.7-.4-1.3-.4-1.7 0l9.8 9.9z"/></svg>
-              <span><i>Android</i><b>Google Play</b></span>
-            </a>
-          </div>
-        </div>
-        <div class="mg-note warn">
-          <svg viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="9" fill="currentColor"/><rect x="7.9" y="4.4" width="2.2" height="6.1" rx="1.1" fill="#fff"/><circle cx="9" cy="12.85" r="1.15" fill="#fff"/></svg>
-          <p><b>센티프 1.0과 동일한 휴대폰 번호로 가입합니다.</b> 번호가 다르면 본인 확인에 실패해 데이터를 가져올 수 없습니다.</p>
-        </div>
-        <div class="mg-note warn">
-          <svg viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="9" fill="currentColor"/><rect x="7.9" y="4.4" width="2.2" height="6.1" rx="1.1" fill="#fff"/><circle cx="9" cy="12.85" r="1.15" fill="#fff"/></svg>
-          <p><b>가져오기는 강사/관리자 앱에서만 진행할 수 있습니다.</b> 관리자 웹(PC 브라우저)에는 가져오기 메뉴가 없습니다. <b>태블릿 또는 스마트폰</b>에 앱을 설치하신 뒤 진행해 주세요.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- 2 -->
-    <div class="mg-step">
-      <div class="mg-shot">
-        <img src="assets/guide/03-workspace-create.png?v=1785944977" alt="센티프 2.0 워크스페이스 생성 화면 — 센터 이름과 정보 입력" loading="lazy">
-      </div>
-      <div class="mg-copy">
-        <div class="mg-stepno"><span class="n">2</span></div>
-        <h3>워크스페이스 생성</h3>
-        <p>가져온 데이터가 저장될 워크스페이스를 만듭니다.</p>
-        <ul class="mg-mini">
-          <li>워크스페이스 이름은 이후 변경할 수 있습니다.</li>
-          <li>이미 소속된 워크스페이스가 있으면 이 단계를 건너뜁니다.</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- 3 -->
-    <div class="mg-step">
-      <div class="mg-shot">
-        <img src="assets/guide/migration/09-switcher.png?v=1789445040" alt="센티프 강사/관리자 앱 워크스페이스 전환 팝업(태블릿) — 현재 워크스페이스, 워크스페이스 설정, 팀원 초대, 내 워크스페이스 목록, 내 계정" loading="lazy">
-      </div>
-      <div class="mg-copy">
-        <div class="mg-stepno"><span class="n">3</span></div>
-        <h3>워크스페이스 설정 열기</h3>
-        <p>워크스페이스 전환 메뉴를 연 뒤 <strong>[워크스페이스 설정]</strong>을 누릅니다. 진입 방법은 기기에 따라 다릅니다.</p>
-        <ul class="mg-mini">
-          <li><strong>태블릿(가로)</strong> — 좌측 사이드바 상단의 <strong>프로필 사진(워크스페이스 로고)</strong>을 누르면 왼쪽 그림처럼 전환 메뉴가 열립니다.</li>
-          <li><strong>스마트폰(세로)</strong> — 좌측 상단 <strong>[≡]</strong> &rarr; 메뉴 맨 위의 <strong>워크스페이스 이름</strong>을 누릅니다.</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- 4 -->
-    <div class="mg-step">
-      <div class="mg-shot">
-        <img src="assets/guide/migration/03-settings.png?v=1789387616" alt="센티프 강사/관리자 앱 워크스페이스 설정 화면(태블릿) — 좌측 메뉴에서 센티프 1.0 가져오기를 선택한 상태, 우측에 가져오기 안내와 가져오기 열기 버튼" loading="lazy">
-      </div>
-      <div class="mg-copy">
-        <div class="mg-stepno"><span class="n">4</span></div>
-        <h3>[센티프 1.0 가져오기] 선택</h3>
-        <p>설정 메뉴에서 <strong>[센티프 1.0 가져오기]</strong>를 선택합니다. 안내를 확인한 뒤 <strong>[가져오기 열기]</strong>를 누릅니다.</p>
-        <ul class="mg-mini">
-          <li><strong>태블릿</strong> — 왼쪽 메뉴를 고르면 오른쪽에 안내가 표시됩니다.</li>
-          <li><strong>스마트폰</strong> — 메뉴 목록에서 항목을 누르면 안내 화면으로 이동합니다.</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- 5 -->
-    <div class="mg-step">
-      <div class="mg-shot">
-        <img src="assets/guide/migration/05-email.png?v=1789387617" alt="센티프 1.0 가져오기 1단계 본인 확인 화면 — 1.0 가입 이메일 입력란과 계정 확인 결과" loading="lazy">
-      </div>
-      <div class="mg-copy">
-        <div class="mg-stepno"><span class="n">5</span></div>
-        <h3>본인 확인</h3>
-        <p>센티프 1.0 가입 이메일을 입력하고 <strong>[계정 확인]</strong>을 누릅니다. 인증된 휴대폰 번호와 대조해 계정을 찾습니다.</p>
-        <div class="mg-note">
-          <svg viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="9" fill="currentColor"/><circle cx="9" cy="5.15" r="1.15" fill="#fff"/><rect x="7.9" y="7.5" width="2.2" height="6.1" rx="1.1" fill="#fff"/></svg>
-          <p>계정을 찾지 못하면 센티프 1.0 앱에서 이메일과 휴대폰 번호를 다시 한번 확인해주세요. 계속 찾지 못하면 <a class="mg-kakao-inline" href="http://pf.kakao.com/_ZvPbG/chat" target="_blank" rel="noopener">카카오톡 채널로 문의</a>해주세요.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- 6 -->
-    <div class="mg-step">
-      <div class="mg-shot">
-        <img src="assets/guide/migration/06-members.png?v=1789387617" alt="센티프 1.0 가져오기 3단계 회원 선택 화면 — 회원별로 회원 데이터 가져오기 또는 가져오지 않기를 선택" loading="lazy">
-      </div>
-      <div class="mg-copy">
-        <div class="mg-stepno"><span class="n">6</span></div>
-        <h3>회원 선택</h3>
-        <p>센티프 1.0의 회원 목록이 표시됩니다. 회원별로 <strong>[회원 데이터 가져오기]</strong> 또는 <strong>[가져오지 않기]</strong>를 선택합니다.</p>
-        <div class="mg-note warn">
-          <svg viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="9" fill="currentColor"/><rect x="7.9" y="4.4" width="2.2" height="6.1" rx="1.1" fill="#fff"/><circle cx="9" cy="12.85" r="1.15" fill="#fff"/></svg>
-          <p><b>제외한 회원은 나중에 따로 추가할 수 없습니다.</b> 가져오기는 워크스페이스마다 한 번이라, 다시 하시려면 전체를 되돌린 뒤 처음부터 진행해야 합니다.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- 7 -->
-    <div class="mg-step">
-      <div class="mg-shot">
-        <img src="assets/guide/migration/07-done.png?v=1789387617" alt="센티프 1.0 가져오기 완료 화면 — 완료 메시지와 기준 시각, 되돌리기 버튼" loading="lazy">
-      </div>
-      <div class="mg-copy">
-        <div class="mg-stepno"><span class="n">7</span></div>
-        <h3>가져오기 완료</h3>
-        <p>완료 화면이 뜨면 끝입니다. 데이터 양에 따라 몇 분 정도 걸릴 수 있으며, 안전한 이전을 위해 <strong>끝날 때까지 앱을 켜주세요.</strong></p>
-        <div class="mg-note warn">
-          <svg viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="9" fill="currentColor"/><rect x="7.9" y="4.4" width="2.2" height="6.1" rx="1.1" fill="#fff"/><circle cx="9" cy="12.85" r="1.15" fill="#fff"/></svg>
-          <p><b>이제부터는 센티프 2.0에 기록해주세요.</b> 가져오기를 시작한 시점까지의 데이터만 이전됩니다. 그 이후 1.0에 입력한 내용은 2.0으로 넘어오지 않습니다.</p>
-        </div>
-        <div class="mg-note warn">
-          <svg viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="9" fill="currentColor"/><rect x="7.9" y="4.4" width="2.2" height="6.1" rx="1.1" fill="#fff"/><circle cx="9" cy="12.85" r="1.15" fill="#fff"/></svg>
-          <p><b>가져온 수업, 매출 등의 데이터는 2.0의 통계 데이터에 반영됩니다.</b></p>
-        </div>
-        <div class="mg-dl">
-          <div class="mg-dl-label">가져오기를 마치신 뒤에는 PC에서도 보실 수 있습니다</div>
-          <div class="mg-dl-row">
-            <a class="mg-dlbtn" href="https://manager.ssentif.kr/login" target="_blank" rel="noopener">
-              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4" width="19" height="13" rx="2"/><path d="M8.5 21h7M12 17v4"/></svg>
-              <span><i>PC 브라우저</i><b>관리자 웹 로그인</b></span>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-
-<!-- ══════ 회원 연동 ══════ -->
-<section class="mg-steps-wrap next">
-  <div class="container">
-    <div class="mg-head">
-      <span class="mg-chapter"><span class="n">2</span>다음 단계</span>
-      <h2>회원 연동하기</h2>
-      <p class="mg-sub">가져오기가 끝났다면, 회원이 회원앱에서 자기 일정과 기록을 볼 수 있도록 계정을 연동합니다.</p>
-    </div>
-
-    <div class="mg-note" style="margin:0 0 20px">
-      <svg viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="9" fill="currentColor"/><circle cx="9" cy="5.15" r="1.15" fill="#fff"/><rect x="7.9" y="7.5" width="2.2" height="6.1" rx="1.1" fill="#fff"/></svg>
-      <p>
-        가져온 회원은 모두 <b>미연동</b> 상태입니다. 연동하지 않아도 강사/관리자 앱에서 회원 관리와 기록 작성은 그대로 가능합니다.
-      </p>
-    </div>
-
-    <!-- 연동 1 -->
-    <div class="mg-step">
-      <div class="mg-shot">
-        <img src="assets/guide/member/02-connect.png?v=1785947305" alt="센티프 회원앱 내 연동 코드 화면 — QR 코드와 8자리 연동 코드" loading="lazy">
-      </div>
-      <div class="mg-copy">
-        <div class="mg-stepno"><span class="n">1</span></div>
-        <h3>회원이 회원앱에 가입</h3>
-        <p>회원이 센티프 회원앱을 설치하고 가입하면 <strong>8자리 연동 코드</strong>가 발급됩니다. 코드는 <strong>[마이] &rarr; [내 연동 코드]</strong>에서 확인할 수 있습니다.</p>
-        <div class="mg-dl">
-          <div class="mg-dl-label">회원앱 내려받기 — 회원님께 전달해 주세요</div>
-          <div class="mg-dl-row">
-            <a class="mg-dlbtn" href="https://apps.apple.com/kr/app/%EC%84%BC%ED%8B%B0%ED%94%84-%ED%9A%8C%EC%9B%90%EC%9A%A9-%EC%8B%A0%EB%B2%84%EC%A0%84/id6793100631" target="_blank" rel="noopener">
-              <svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.05 12.54c-.03-2.6 2.13-3.85 2.23-3.91-1.22-1.78-3.11-2.03-3.78-2.05-1.61-.16-3.14.94-3.96.94-.82 0-2.07-.92-3.41-.9-1.75.03-3.37 1.02-4.27 2.59-1.82 3.16-.46 7.84 1.31 10.4.86 1.26 1.89 2.66 3.24 2.61 1.3-.05 1.79-.84 3.36-.84 1.57 0 2.01.84 3.38.81 1.4-.02 2.28-1.27 3.13-2.53.99-1.45 1.4-2.86 1.42-2.93-.03-.01-2.72-1.04-2.75-4.13zM14.7 4.9c.72-.87 1.2-2.08 1.07-3.29-1.03.04-2.28.69-3.02 1.56-.66.77-1.24 2-1.09 3.18 1.15.09 2.32-.58 3.04-1.45z"/></svg>
-              <span><i>iPhone</i><b>App Store</b></span>
-            </a>
-            <a class="mg-dlbtn" href="https://play.google.com/store/apps/details?id=com.nvng.ssentif_members" target="_blank" rel="noopener">
-              <svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><path fill="#00D7FE" d="M3.7 1.9c-.3.3-.5.8-.5 1.4v17.4c0 .6.2 1.1.5 1.4l.1.1 9.7-9.7v-.2L3.8 1.8z"/><path fill="#FFCE00" d="M16.8 15.7l-3.3-3.2v-.2l3.3-3.3 3.9 2.2c1.1.6 1.1 1.7 0 2.3z"/><path fill="#FF3A44" d="M16.8 15.7L13.5 12.4 3.7 22.1c.4.4 1 .5 1.7.1z"/><path fill="#48FF48" d="M16.8 9L5.4 2.5c-.7-.4-1.3-.4-1.7 0l9.8 9.9z"/></svg>
-              <span><i>Android</i><b>Google Play</b></span>
-            </a>
-          </div>
-        </div>
-        <ul class="mg-mini">
-          <li>회원은 코드 또는 QR 화면을 강사/관리자에게 보여줍니다.</li>
-          <li>회원이 아직 가입하지 않았다면 가입을 먼저 안내합니다.</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- 연동 2 -->
-    <div class="mg-step">
-      <div class="mg-shot">
-        <img src="assets/guide/migration/08-member-link.png?v=1789400738" alt="강사/관리자 앱 회원 연동 시트 — 8자리 코드 입력 필드, 연동 버튼, QR 코드 스캔" loading="lazy">
-      </div>
-      <div class="mg-copy">
-        <div class="mg-stepno"><span class="n">2</span></div>
-        <h3>강사/관리자가 코드 입력 후 연동</h3>
-        <p>강사/관리자 앱 <strong>[회원]</strong> 탭에서 해당 회원을 열고 상세 화면 우측 상단의 <strong>[연동하기]</strong>를 누릅니다. 회원의 8자리 코드를 입력하거나 <strong>[QR 스캔]</strong>으로 회원 화면의 QR을 찍습니다.</p>
-        <div class="mg-note">
-          <svg viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="9" fill="currentColor"/><circle cx="9" cy="5.15" r="1.15" fill="#fff"/><rect x="7.9" y="7.5" width="2.2" height="6.1" rx="1.1" fill="#fff"/></svg>
-          <p>연동하면 회원도 <b>회원앱에서 자신의 수업 일정과 기록을 직접 확인</b>할 수 있습니다.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- 연동 3 -->
-    <div class="mg-step">
-      <div class="mg-shot">
-        <img src="assets/guide/member/03-home.png?v=1785947305" alt="센티프 회원앱 홈 화면 — 도착한 수업일지 알림, 센터 공지사항, 월 캘린더, 식단·운동·체성분·체형사진 기록 메뉴" loading="lazy">
-      </div>
-      <div class="mg-copy">
-        <div class="mg-stepno"><span class="n">3</span></div>
-        <h3>연동 완료</h3>
-        <p>회원 목록의 배지가 <strong>미연동 &rarr; 연동</strong>으로 바뀌면 끝입니다. 이제 회원은 2.0 회원앱에서 1.0에 저장된 자신의 기록을 그대로 볼 수 있습니다.</p>
-      </div>
+      </a>
     </div>
   </div>
 </section>
 
-
-<!-- ══════ FAQ · 문의 ══════ -->
 <section class="mg-extra">
   <div class="container">
 

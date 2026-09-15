@@ -28,6 +28,8 @@
   border-bottom: 1px solid var(--border);
 }
 .nt-hero .container, .nt-body .container { max-width: 760px; }
+/* 한글은 어절 단위로 끊어야 읽힌다 — 좁은 화면에서 단어 중간이 갈라지지 않게 */
+.nt-hero, .nt-body { word-break: keep-all; overflow-wrap: break-word; }
 .nt-kind {
   display: inline-block; padding: 4px 11px; margin-bottom: 14px;
   background: var(--black); color: var(--white); border-radius: 100px;
@@ -38,21 +40,28 @@
 
 .nt-body { padding: 48px 0 72px; }
 .nt-body h2 {
-  font-size: 1.15rem; letter-spacing: -0.02em;
-  margin: 40px 0 12px; padding-top: 28px; border-top: 1px solid var(--border);
+  font-size: 1.32rem; letter-spacing: -0.025em;
+  margin: 52px 0 18px; padding-top: 32px; border-top: 1px solid var(--border);
 }
 .nt-body h2:first-child { margin-top: 0; padding-top: 0; border-top: 0; }
 .nt-body p { font-size: 15.5px; line-height: 1.85; color: var(--gray-700); margin-bottom: 12px; }
 .nt-body p strong { color: var(--black); font-weight: 700; }
-.nt-body ul { list-style: none; display: grid; gap: 8px; margin: 4px 0 12px; }
+.nt-body ul { list-style: none; display: grid; gap: 22px; margin: 6px 0 12px; }
 .nt-body ul li {
-  position: relative; padding-left: 17px;
-  font-size: 15px; line-height: 1.75; color: var(--gray-700);
+  position: relative; padding-left: 19px;
+  font-size: 15px; line-height: 1.78; color: var(--gray-600);
 }
 .nt-body ul li::before {
-  content: ''; position: absolute; left: 1px; top: 11px;
+  content: ''; position: absolute; left: 0; top: 10px;
   width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
 }
+/* 제목이 있는 목록 — 제목을 한 줄 세워 항목 단위로 읽히게 한다 */
+.nt-body ul.nt-titled li > strong:first-child {
+  display: block; margin-bottom: 2px;
+  font-size: 15.5px; letter-spacing: -0.025em; line-height: 1.5;
+  color: var(--black); font-weight: 800;
+}
+.nt-body ul.nt-titled li::before { top: 9px; }
 .nt-body a.nt-link {
   color: var(--accent-dark); font-weight: 700;
   text-decoration: underline; text-underline-offset: 2px;
@@ -78,6 +87,27 @@
 .nt-body ul li:last-child .nt-fig { margin-bottom: 4px; }
 .nt-fig .mg-compare { margin: 0; }
 
+/* 모드 흐름 — 관리자 모드 → 강사 모드 */
+.nt-flow { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+.nf-step {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 9px 14px 9px 10px; border-radius: 12px;
+  background: var(--white); border: 1px solid var(--border);
+  box-shadow: 0 1px 2px rgba(13,15,18,0.04);
+  font-size: 13.5px; font-weight: 700; color: var(--gray-700);
+}
+.nf-mode {
+  padding: 3px 8px; border-radius: 100px; text-decoration: none;
+  background: var(--accent-light); color: var(--accent-dark);
+  font-size: 11px; font-weight: 800; white-space: nowrap;
+}
+.nf-mode.adm { background: var(--black); color: var(--white); }
+.nf-arrow { flex-shrink: 0; color: var(--gray-300); }
+@media (max-width: 560px) {
+  .nt-flow { flex-direction: column; align-items: stretch; }
+  .nf-arrow { transform: rotate(90deg); align-self: center; }
+}
+
 /* 지원 기기 카드 — 사용 가이드와 동일 규칙 */
 .guide-structure {
   display: flex; align-items: stretch; gap: 26px;
@@ -96,8 +126,12 @@
 .gs-spec { font-size: 11px; font-weight: 600; color: var(--gray-400); white-space: nowrap; }
 .gs-divider { width: 1px; align-self: stretch; background: var(--border); }
 @media (max-width: 700px) {
-  .guide-structure { gap: 16px; padding: 2px 0 6px; }
-  .gs-card { min-width: 104px; padding: 12px 13px; }
+  /* 가로 스크롤 대신 2열로 접어 네 가지 모드를 한눈에 */
+  .guide-structure { display: block; overflow: visible; padding: 0; }
+  .gs-group { display: block; }
+  .gs-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .gs-card { min-width: 0; padding: 13px 10px; }
+  .gs-divider { width: auto; height: 1px; margin: 8px 0; }
 }
 
 /* 요금제 이동 버튼 */
@@ -431,17 +465,68 @@
   .mg-step { grid-template-columns: 280px 1fr; gap: 30px; padding: 26px; }
 }
 @media (max-width: 760px) {
-  .nt-hero { padding: calc(116px + var(--notice-h)) 0 36px; }
-  .nt-body { padding: 36px 0 52px; }
+  /* ── 모바일 본문 가독성 ── */
+  .nt-hero { padding: calc(112px + var(--notice-h)) 0 32px; }
+  .nt-hero .container, .nt-body .container { padding-left: 22px; padding-right: 22px; }
+  .nt-hero h1 { font-size: 1.6rem; }
+  .nt-kind { margin-bottom: 12px; }
+  .nt-body { padding: 34px 0 48px; }
+  .nt-body h2 {
+    font-size: 1.16rem; letter-spacing: -0.03em;
+    margin: 38px 0 14px; padding-top: 26px;
+  }
+  .nt-body p { font-size: 15px; line-height: 1.8; }
+  .nt-body ul { gap: 18px; }
+  .nt-body ul li { font-size: 14.5px; line-height: 1.76; padding-left: 15px; }
+  .nt-body ul li::before { width: 5px; height: 5px; top: 9px; }
+  .nt-body ul.nt-titled li > strong:first-child { font-size: 15px; margin-bottom: 3px; }
+  /* 좁은 화면에서는 질문도 한 줄 세우고, 자리를 대신하던 줄표는 감춘다 */
+  .nt-body ul.nt-qa li > strong:first-child {
+    display: block; margin-bottom: 3px;
+    font-size: 15px; letter-spacing: -0.025em; line-height: 1.5;
+    color: var(--black); font-weight: 800;
+  }
+  .nt-body ul.nt-qa .nt-dash { display: none; }
+  .nt-body ul li .nt-fig { margin: 12px 0 2px; }
+  .nt-sign { margin-top: 32px; padding-top: 24px; font-size: 14.5px; line-height: 1.8; }
+  .nt-cta { padding: 11px 17px; font-size: 13.5px; }
+  .nt-linkbtn { padding: 9px 14px; font-size: 13.5px; }
+
   .mg-compare { gap: 10px; }
   .mg-compare .cmp-arrow { transform: rotate(90deg); margin: 0 auto; }
-  .mg-steps-wrap { padding: 52px 0 60px; }
-  .mg-head { margin-bottom: 34px; }
-  .mg-step { grid-template-columns: 1fr; gap: 20px; padding: 22px; }
-  .mg-shot { min-height: 190px; padding: 14px; }
-  .mg-shot img { max-height: 270px; }
-  .mg-extra { padding: 60px 0 68px; }
-  .mg-help { margin-top: 52px; }
+  /* ── 모바일: 가져오기 단계 · FAQ · 문의 ── */
+  .mg-steps-wrap, .mg-extra { word-break: keep-all; overflow-wrap: break-word; }
+  .mg-steps-wrap .container, .mg-extra .container { padding-left: 22px; padding-right: 22px; }
+  .mg-steps-wrap { padding: 44px 0 52px; }
+  .mg-steps-wrap.next { padding-top: 44px; }
+  .mg-head { margin-bottom: 26px; }
+  .mg-head h2 { font-size: 1.35rem; }
+  .mg-head .mg-sub { font-size: 14.5px; line-height: 1.75; margin-top: 10px; }
+  .mg-chapter { font-size: 12px; margin-bottom: 12px; }
+
+  .mg-step { grid-template-columns: 1fr; gap: 16px; padding: 16px; margin-bottom: 14px; }
+  /* 세로 캡처가 높이에 묶여 125px 폭으로 줄던 문제 — 폭 기준으로 채운다 */
+  .mg-shot { min-height: 0; padding: 10px; border-radius: 13px; }
+  .mg-shot img { width: 100%; height: auto; max-width: 100%; max-height: none; }
+  .mg-copy h3 { font-size: 1.12rem; }
+  .mg-copy > p { font-size: 14.5px; line-height: 1.75; }
+  .mg-stepno { margin-bottom: 9px; }
+  .mg-stepno .n { width: 30px; height: 30px; border-radius: 10px; font-size: 14px; }
+  .mg-mini li { font-size: 13.5px; }
+  .mg-note { padding: 13px 14px; gap: 9px; }
+  .mg-note p { font-size: 13px; }
+  .mg-dl-label { font-size: 11.5px; }
+  .mg-dlbtn { flex: 1; min-width: 0; justify-content: center; padding: 9px 10px; }
+
+  .mg-extra { padding: 48px 0 56px; }
+  .mg-extra > .container > h2 { font-size: 1.35rem; margin-bottom: 22px; }
+  .mg-faq details { padding: 0 16px; }
+  .mg-faq summary { font-size: 14px; padding: 15px 0; }
+  .mg-faq details p { font-size: 13.5px; line-height: 1.75; }
+  .mg-faq ol.faq-flow li { font-size: 13.5px; }
+  .mg-help { margin-top: 40px; padding: 28px 20px; border-radius: 18px; }
+  .mg-help h2 { font-size: 1.15rem; }
+  .mg-help p { font-size: 13.5px; margin-bottom: 18px; }
 }
 </style>
 </head>
@@ -493,47 +578,8 @@
     <p>그동안 센티프 1.0을 이용해 주셔서 감사합니다. 강사님과 회원님께 더 나은 서비스를 제공하기 위해 센티프 2.0을 출시하였습니다. 1.0을 이용 중인 분들이 궁금해하실 내용과 <strong>1.0 데이터를 2.0으로 가져오는 방법</strong>을 이 페이지에 순서대로 안내드립니다.</p>
 
     <h2>무엇이 달라졌나요</h2>
-    <ul>
-      <li><strong>워크스페이스 개념이 추가되었습니다.</strong> 회원을 한 목록에 모아두는 대신 공간을 나눠 관리할 수 있어, 근무하시는 센터가 여러 곳이어도 회원이 섞이지 않습니다.
-        <div class="nt-fig">
-          <div class="mg-compare">
-            <div class="mg-cmp">
-              <span class="cmp-tag">센티프 1.0</span>
-              <div class="cmp-chain">
-                <span class="cmp-chip">로그인</span><span class="sep">&rarr;</span>
-                <div class="cmp-box">
-                  <span class="lbl">계정</span>
-                  <span class="cmp-chip">데이터</span>
-                </div>
-              </div>
-            </div>
-            <svg class="cmp-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11M11 5.5l4.5 4.5L11 14.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <div class="mg-cmp now">
-              <span class="cmp-tag">센티프 2.0</span>
-              <div class="cmp-chain">
-                <span class="cmp-chip">로그인</span><span class="sep">&rarr;</span>
-                <div class="cmp-box">
-                  <span class="lbl">계정</span>
-                  <div class="cmp-box ws">
-                    <span class="lbl">워크스페이스</span>
-                    <span class="cmp-chip">데이터</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </li>
-      <li><strong>요금제가 변경되었습니다.</strong> 개인 요금제와 관리자 요금제로 구분하던 방식이 워크스페이스 인원을 기준으로 하는 팀 요금제로 바뀌었습니다. 혼자 이용하시는 경우의 요금은 22,900원 / 35,900원에서 20,900원으로 내려갔습니다.
-        <div class="nt-fig">
-          <a class="nt-linkbtn" href="pricing.html">
-            센티프 2.0 요금제 보기
-            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M4.5 2.5 8.5 6.5l-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
-        </div>
-      </li>
-      <li><strong>관리자 기능이 대폭 업데이트되었습니다.</strong> 매출 현황, 잠재부채 분석, 페이롤 급여 정산, 공유 캘린더, 업무지시, 출입관리 · 데스크 모드가 추가되어 센터 운영에 필요한 관리 업무를 앱 안에서 처리할 수 있습니다.</li>
-      <li><strong>관리자 · 강사 · 회원이 각자 쓰기 편한 화면으로 나뉘었습니다.</strong> 스마트폰, 태블릿, PC를 모두 지원합니다. 회원앱은 PC를 제공하지 않습니다.
+    <ul class="nt-titled">
+      <li><strong>앱이 강사/관리자용과 회원용으로 나뉘었습니다.</strong> 강사·관리자는 강사/관리자 앱을, 회원은 회원앱을 사용합니다. 스마트폰, 태블릿, PC를 모두 지원하며 회원앱은 PC를 제공하지 않습니다.
         <div class="nt-fig">
           <div class="guide-structure">
             <div class="gs-group">
@@ -577,11 +623,60 @@
             </div>
           </div>
         </div>
-      </li></ul>
+      </li>
+      <li><strong>워크스페이스 개념이 추가되었습니다.</strong> 회원을 한 목록에 모아두는 대신 공간을 나눠 관리할 수 있어, 근무하시는 센터가 여러 곳이어도 회원이 섞이지 않습니다.
+        <div class="nt-fig">
+          <div class="mg-compare">
+            <div class="mg-cmp">
+              <span class="cmp-tag">센티프 1.0</span>
+              <div class="cmp-chain">
+                <span class="cmp-chip">로그인</span><span class="sep">&rarr;</span>
+                <div class="cmp-box">
+                  <span class="lbl">계정</span>
+                  <span class="cmp-chip">데이터</span>
+                </div>
+              </div>
+            </div>
+            <svg class="cmp-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11M11 5.5l4.5 4.5L11 14.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div class="mg-cmp now">
+              <span class="cmp-tag">센티프 2.0</span>
+              <div class="cmp-chain">
+                <span class="cmp-chip">로그인</span><span class="sep">&rarr;</span>
+                <div class="cmp-box">
+                  <span class="lbl">계정</span>
+                  <div class="cmp-box ws">
+                    <span class="lbl">워크스페이스</span>
+                    <span class="cmp-chip">데이터</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li><strong>요금제가 변경되었습니다.</strong> 개인 요금제와 관리자 요금제로 구분하던 방식이 워크스페이스 인원을 기준으로 하는 팀 요금제로 바뀌었습니다. 혼자 이용하시는 경우의 요금은 22,900원 / 35,900원에서 20,900원으로 내려갔습니다.
+        <div class="nt-fig">
+          <a class="nt-linkbtn" href="pricing.html">
+            센티프 2.0 요금제 보기
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M4.5 2.5 8.5 6.5l-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </li>
+      <li><strong>강사/관리자용 앱에서 강사 모드와 관리자 모드가 나뉘었습니다.</strong> 앱 하나 안에서 두 모드로 동작합니다. 강사 모드는 담당하시는 회원의 수업·기록·소통에 집중한 화면이고, 관리자 모드는 센터 전체의 매출·회원·팀원·정산을 봅니다. 관리자 권한이 있으면 두 모드를 오갈 수 있고, 강사 권한만 있으면 강사 모드로 이용합니다.</li>
+      <li><strong>수강권 발급 과정이 변경되었습니다.</strong> 관리자 모드에서 상품을 먼저 만들고, 강사 모드에서 회원을 등록해 그 상품을 발급합니다. 상품 만들기는 관리자 권한에서만 가능하므로, 필요한 상품이 없다면 센터 대표나 관리자에게 요청해 주세요.
+        <div class="nt-fig">
+          <div class="nt-flow">
+            <span class="nf-step"><s class="nf-mode adm">관리자 모드</s>상품 생성</span>
+            <svg class="nf-arrow" width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11M11 5.5l4.5 4.5L11 14.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="nf-step"><s class="nf-mode">강사 모드</s>회원 등록 · 수강권 발급</span>
+          </div>
+        </div>
+      </li>
+      <li><strong>관리자 기능이 대폭 업데이트되었습니다.</strong> 매출 현황, 잠재부채 분석, 페이롤 급여 정산, 공유 캘린더, 업무지시, 출입관리 · 데스크 모드가 추가되어 센터 운영에 필요한 관리 업무를 앱 안에서 처리할 수 있습니다.</li></ul>
 
     <h2>이런 점을 걱정하실 수 있어 미리 안내드립니다</h2>
-    <ul>
-      <li><strong>그동안의 1.0 데이터가 사라지지 않는지</strong> — 하나도 사라지지 않습니다. 회원 프로필과 수강권, 수업 일정과 수업일지, 회원이 쌓아온 운동·식단·체성분·체형사진까지 담당하시던 그대로 2.0으로 옮겨집니다. 옮기신 뒤에도 1.0의 기록은 그대로 남아 있으니, 2.0에서 직접 확인하신 다음 이어서 쓰시면 됩니다. 아래에서 자세한 절차를 확인해 주시기 바랍니다.
+    <ul class="nt-qa">
+      <li><strong>그동안의 1.0 데이터가 사라지지 않는지</strong><span class="nt-dash"> — </span>하나도 사라지지 않습니다. 회원 프로필과 수강권, 수업 일정과 수업일지, 회원이 쌓아온 운동·식단·체성분·체형사진까지 담당하시던 그대로 2.0으로 옮겨집니다. 옮기신 뒤에도 1.0의 기록은 그대로 남아 있으니, 2.0에서 직접 확인하신 다음 이어서 쓰시면 됩니다. 아래에서 자세한 절차를 확인해 주시기 바랍니다.
         <div class="nt-fig">
           <a class="nt-cta" href="#migration">
             1.0 데이터 2.0으로 가져오는 방법 보기
@@ -589,12 +684,14 @@
           </a>
         </div>
       </li>
-      <li><strong>결제 중인 요금이 어떻게 되는지</strong> — 이미 결제하신 이용 기간은 추가 비용 발생 없이 2.0에서 그대로 유지됩니다. 다음 결제일부터 2.0 요금제로 자동 전환됩니다. Pro 22,900원과 Premium 35,900원의 경우 모두 20,900원으로 전환됩니다. 센터에 일괄 도입하신 경우에는 <a class="nt-link" href="http://pf.kakao.com/_ZvPbG/chat" target="_blank" rel="noopener">카카오톡 채널</a>로 문의해 주시면 안내드리겠습니다.</li>
-      <li><strong>회원에게 무엇을 안내해야 하는지</strong> — 가져오기를 마치신 뒤, 담당 회원님께 2.0 회원앱 가입을 안내해 주시면 됩니다. 가입 후 연동만 하면 그동안 쌓인 기록이 회원님 앱에 그대로 나타납니다. 회원님이 기록을 옮기거나 다시 입력하실 일은 없습니다.</li>
+      <li><strong>결제 중인 요금이 어떻게 되는지</strong><span class="nt-dash"> — </span>이미 결제하신 이용 기간은 추가 비용 발생 없이 2.0에서 그대로 유지됩니다. 다음 결제일부터 2.0 요금제로 자동 전환됩니다. Pro 22,900원과 Premium 35,900원의 경우 모두 20,900원으로 전환됩니다. 센터에 일괄 도입하신 경우에는 <a class="nt-link" href="http://pf.kakao.com/_ZvPbG/chat" target="_blank" rel="noopener">카카오톡 채널</a>로 문의해 주시면 안내드리겠습니다.</li>
+      <li><strong>회원에게 무엇을 안내해야 하는지</strong><span class="nt-dash"> — </span>가져오기를 마치신 뒤, 담당 회원님께 2.0 회원앱 가입을 안내해 주시면 됩니다. 가입 후 연동만 하면 그동안 쌓인 기록이 회원님 앱에 그대로 나타납니다. 회원님이 기록을 옮기거나 다시 입력하실 일은 없습니다.</li>
     </ul>
 
     <h2>센티프 1.0은 추후 서비스 종료 예정입니다</h2>
     <p>2.0 출시 안내 후 <strong>약 1~2개월 간</strong>은 1.0을 그대로 이용하실 수 있습니다. 유예 기간이 종료되면 1.0 서비스가 중단이 되어 데이터를 가져올 수 없으므로, 그 전에 이전을 완료해 주시기 바랍니다. 정확한 종료 일정은 확정되는 대로 다시 안내드리겠습니다.</p>
+
+    <p class="nt-sign">데이터 이전 과정에서 불편을 드릴 수 있는 점, 양해 부탁드립니다. 안전하고 신속한 이전을 위해 최선을 다하겠습니다. 앞으로도 센티프에 지속적인 관심과 이용 부탁드립니다.<br><br>센티프 드림</p>
 
 
   </div>
@@ -631,7 +728,7 @@
     <!-- 전체 흐름 3단계 -->
     <div class="pf">
       <div class="pf-card">
-        <h4>앱 가입 · 워크스페이스 생성</h4>
+        <h4>2.0 앱 가입 · 워크스페이스 생성</h4>
         <p>강사/관리자 앱을 설치하고, 회원과 기록을 담을 공간을 만듭니다.</p>
       </div>
       <svg class="pf-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11M11 5.5l4.5 4.5L11 14.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -919,8 +1016,6 @@
         <a class="btn btn-kakao" href="http://pf.kakao.com/_ZvPbG/chat" target="_blank" rel="noopener">카카오톡 채널 문의</a>
       </div>
     </div>
-
-    <p class="nt-sign" style="max-width:760px;margin-left:auto;margin-right:auto;">데이터 이전 과정에서 불편을 드릴 수 있는 점, 미리 안내드립니다. 안전하고 신속한 이전을 위해 최선을 다해 준비하였습니다. 앞으로도 센티프에 지속적인 관심과 이용 부탁드립니다.<br><br>센티프 드림</p>
 
   </div>
 </section>

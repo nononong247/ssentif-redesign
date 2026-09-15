@@ -15,4 +15,7 @@ Disallow: /admin/
 # 내부 문서 차단
 Disallow: /brand-kit.html
 
+# 요금제 — 2.0 출시 공지문(notice-2.0.html)에서만 진입. 메뉴·검색 노출 안 함
+Disallow: /pricing.html
+
 Sitemap: https://www.ssentif.kr/sitemap.xml

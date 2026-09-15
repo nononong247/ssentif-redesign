@@ -72,20 +72,51 @@
   font-size: 15px; line-height: 1.85; color: var(--gray-600);
 }
 
-/* ══════ 데이터 구조 ══════ */
-.mg-intro { padding: 0 0 0; }
-.mg-intro .container { max-width: 1000px; }
-.mg-intro-card {
-  padding: 34px 36px;
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 22px;
-  box-shadow: 0 2px 18px rgba(13,15,18,0.045);
-}
-.mg-intro-card h2 { font-size: 1.3rem; letter-spacing: -0.025em; margin-bottom: 10px; }
-.mg-intro-card > p { font-size: 15px; line-height: 1.85; color: var(--gray-600); }
-.mg-intro-card > p strong { color: var(--black); font-weight: 700; }
+/* 항목별 도해 */
+.nt-body ul li { min-width: 0; }          /* grid item 이 콘텐츠 폭에 끌려가지 않도록 */
+.nt-body ul li .nt-fig { min-width: 0; margin: 14px 0 18px; }
+.nt-body ul li:last-child .nt-fig { margin-bottom: 4px; }
+.nt-fig .mg-compare { margin: 0; }
 
+/* 지원 기기 카드 — 사용 가이드와 동일 규칙 */
+.guide-structure {
+  display: flex; align-items: stretch; gap: 26px;
+  padding: 2px 0 4px; overflow-x: auto;
+}
+.gs-group { display: flex; }
+.gs-row { display: flex; gap: 10px; }
+.gs-card {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  padding: 13px 16px; min-width: 112px;
+  background: var(--white); border: 1px solid var(--border); border-radius: 14px;
+}
+.gs-devices { display: flex; align-items: flex-end; gap: 7px; height: 29px; }
+.gs-devices svg { display: block; color: var(--gray-800); }
+.gs-name { font-size: 12.5px; font-weight: 800; color: var(--black); white-space: nowrap; }
+.gs-spec { font-size: 11px; font-weight: 600; color: var(--gray-400); white-space: nowrap; }
+.gs-divider { width: 1px; align-self: stretch; background: var(--border); }
+@media (max-width: 700px) {
+  .guide-structure { gap: 16px; padding: 2px 0 6px; }
+  .gs-card { min-width: 104px; padding: 12px 13px; }
+}
+
+/* 요금제 이동 버튼 */
+.nt-linkbtn {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 10px 16px; border-radius: 100px;
+  background: var(--white); border: 1px solid var(--border);
+  box-shadow: 0 1px 2px rgba(13,15,18,0.05);
+  font-size: 14px; font-weight: 700; color: var(--black);
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+}
+.nt-linkbtn svg { color: var(--accent-dark); transition: transform 0.15s; }
+.nt-linkbtn:hover {
+  border-color: rgba(31,219,168,0.55);
+  box-shadow: 0 4px 14px rgba(31,219,168,0.18);
+  transform: translateY(-1px);
+}
+.nt-linkbtn:hover svg { transform: translateX(3px); }
+/* ══════ 데이터 구조 ══════ */
 /* 1.0 → 2.0 구조 비교 */
 .mg-compare {
   display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
@@ -148,16 +179,47 @@
 }
 
 /* 한눈 요약 칩 */
-.mg-facts { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 20px; }
+/* 요약 칩 — 테두리 없이 면으로 채운다 */
+.mg-facts { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-top: 16px; }
 .mg-fact {
-  display: flex; align-items: center; gap: 9px;
-  padding: 11px 16px;
-  background: var(--white);
-  border: 1px solid rgba(31,219,168,0.3);
-  border-radius: 100px;
-  font-size: 13.5px; font-weight: 700; color: var(--gray-700);
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 6px 11px;
+  border: 0; border-radius: 100px;
+  background: #E3F8F0;
+  font-size: 11.5px; font-weight: 700; letter-spacing: -0.01em; color: #0E7A5F;
 }
-.mg-fact svg { flex-shrink: 0; color: var(--accent-dark); }
+.mg-fact svg { flex-shrink: 0; width: 11px; height: 11px; color: currentColor; }
+/* 제약 조건 칩 — 혜택 칩과 구분되게 경고 톤 */
+.mg-fact.hi { background: #FBEFD8; color: #8A6519; }
+
+/* 전체 흐름 3단계 도식 */
+.pf {
+  display: flex; align-items: stretch; gap: 10px;
+  margin: 0 0 22px;
+}
+.pf-card {
+  flex: 1; min-width: 0;
+  padding: 18px 20px 19px;
+  background: var(--white); border: 1px solid var(--border); border-radius: 16px;
+  box-shadow: 0 1px 2px rgba(13,15,18,0.04);
+}
+.pf-card.on { background: linear-gradient(180deg, #F2FDFA 0%, var(--white) 72%); border-color: rgba(31,219,168,0.45); }
+.pf-card h4 {
+  font-size: 15px; font-weight: 800; letter-spacing: -0.02em;
+  line-height: 1.4; margin-bottom: 6px;
+}
+.pf-if {
+  display: inline-block; margin-left: 2px; vertical-align: 1.5px;
+  padding: 2px 7px; border-radius: 100px; text-decoration: none;
+  background: var(--gray-100); color: var(--gray-500);
+  font-size: 10.5px; font-weight: 700; letter-spacing: 0;
+}
+.pf-card p { font-size: 13.5px; line-height: 1.65; color: var(--gray-600); }
+.pf-arrow { flex-shrink: 0; align-self: center; color: var(--gray-300); }
+@media (max-width: 760px) {
+  .pf { flex-direction: column; gap: 8px; }
+  .pf-arrow { transform: rotate(90deg); }
+}
 
 /* 한 단계 = 좌 이미지 + 우 설명 */
 .mg-step {
@@ -216,21 +278,46 @@
 .mg-copy strong { color: var(--black); font-weight: 700; }
 
 /* 단계 안 강조 박스 */
+/* 콜아웃 — 외곽선 없이 면(tint)과 아이콘 배지로만 구분한다 */
 .mg-note {
-  display: flex; gap: 10px;
-  margin-top: 14px; padding: 14px 16px;
-  border-radius: 12px;
-  background: var(--accent-light);
-  border: 1px solid rgba(31,219,168,0.34);
+  display: flex; gap: 12px; align-items: flex-start;
+  margin-top: 14px; padding: 15px 18px;
+  border-radius: 14px;
+  background: #EDFBF6;
 }
-.mg-note svg { flex-shrink: 0; margin-top: 2px; color: var(--accent-dark); }
-.mg-note p { font-size: 13.5px; line-height: 1.7; color: var(--gray-700); }
-.mg-note p b { color: var(--black); font-weight: 800; }
+.mg-note svg {
+  flex-shrink: 0; box-sizing: content-box;
+  width: 13px; height: 13px; padding: 5px; border-radius: 50%;
+  background: rgba(31,219,168,0.22); color: #0E7A5F;
+}
+.mg-note p { font-size: 13.5px; line-height: 1.72; color: #2F4A43; padding-top: 3px; }
+.mg-note p b { color: #123830; font-weight: 800; }
 
-.mg-note.warn { background: #FFF8EA; border-color: #F2D49A; }
-.mg-note.warn svg { color: #B4801B; }
-.mg-note.warn p { color: #6B4E12; }
-.mg-note.warn p b { color: #4A350A; }
+.mg-note.warn { background: #FDF6E9; }
+.mg-note.warn svg { background: rgba(196,138,29,0.16); color: #A9761A; }
+.mg-note.warn p { color: #6A5324; }
+.mg-note.warn p b { color: #4A3609; }
+
+/* 단계 안 앱 다운로드 버튼 */
+.mg-dl { margin-top: 15px; padding-top: 13px; border-top: 1px solid var(--border); }
+.mg-dl-label { font-size: 12px; font-weight: 700; color: var(--gray-500); margin-bottom: 9px; }
+.mg-dl-row { display: flex; flex-wrap: wrap; gap: 7px; }
+.mg-dlbtn {
+  display: inline-flex; align-items: center; gap: 9px;
+  padding: 8px 13px; border-radius: 10px;
+  background: var(--white); border: 1px solid var(--border);
+  box-shadow: 0 1px 2px rgba(13,15,18,0.05);
+  color: var(--black);
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+}
+.mg-dlbtn:hover {
+  border-color: rgba(31,219,168,0.55);
+  box-shadow: 0 4px 12px rgba(31,219,168,0.16);
+  transform: translateY(-1px);
+}
+.mg-dlbtn svg { flex-shrink: 0; }
+.mg-dlbtn i { display: block; font-style: normal; font-size: 10.5px; font-weight: 600; color: var(--gray-400); }
+.mg-dlbtn b { display: block; font-size: 12.5px; font-weight: 800; letter-spacing: -0.01em; }
 
 /* 단계 안 미니 목록 */
 .mg-mini { list-style: none; margin-top: 12px; display: grid; gap: 7px; }
@@ -346,7 +433,6 @@
 @media (max-width: 760px) {
   .nt-hero { padding: calc(116px + var(--notice-h)) 0 36px; }
   .nt-body { padding: 36px 0 52px; }
-  .mg-intro-card { padding: 24px 22px; }
   .mg-compare { gap: 10px; }
   .mg-compare .cmp-arrow { transform: rotate(90deg); margin: 0 auto; }
   .mg-steps-wrap { padding: 52px 0 60px; }
@@ -398,6 +484,7 @@
 </section>
 
 
+
 <!-- ══════ 공지 본문 ══════ -->
 <section class="nt-body">
   <div class="container">
@@ -407,81 +494,125 @@
 
     <h2>무엇이 달라졌나요</h2>
     <ul>
-      <li>앱이 <strong>강사/관리자 앱</strong>과 <strong>회원앱</strong>으로 나뉘었습니다. 태블릿, 스마트폰, PC를 모두 지원합니다.</li>
-      <li><strong>워크스페이스</strong>가 신설되었습니다. 회원·수강권·일정·기록을 하나의 공간에서 관리합니다. 혼자 이용하시는 경우에도 워크스페이스 하나를 생성하시면 됩니다.</li>
-      <li>회원이 <strong>회원앱</strong>에서 수업 일정과 본인의 기록을 직접 확인할 수 있습니다.</li>
-      <li><strong>데스크 모드</strong>가 추가되었습니다. 센터 공용 태블릿에서 회원이 QR 또는 휴대폰 뒷 4자리로 입장 체크인을 할 수 있습니다.</li>
-    </ul>
-
-    <h2>이런 점을 걱정하실 수 있어 미리 안내드립니다</h2>
-    <ul>
-      <li><strong>1.0에 쌓아둔 기록이 사라지지 않는지</strong> — 그대로 이전됩니다. 회원 프로필, 수강권, 수업 일정과 수업일지, 회원의 운동·식단·체성분·체형사진 기록까지 2.0 앱에서 직접 가져올 수 있습니다.</li>
-      <li><strong>결제 중인 요금이 어떻게 되는지</strong> — 이미 결제하신 이용 기간은 추가 청구 없이 2.0에서 그대로 유지됩니다. 다음 결제일부터 2.0 요금제로 자동 전환됩니다.</li>
-      <li><strong>회원에게 무엇을 안내해야 하는지</strong> — 회원앱 가입 후 강사/관리자와 연동하면 됩니다. 회원이 기록을 직접 옮기거나 다시 입력할 필요는 없습니다.</li>
-      <li><strong>이전 중 오류가 발생하는 경우</strong> — 완료 화면의 [되돌리기]를 통해 이전 전 상태로 되돌릴 수 있습니다.</li>
-    </ul>
-
-    <h2>센티프 1.0은 당분간 계속 이용하실 수 있습니다</h2>
-    <p>2.0 출시 안내 후 <strong>약 한 달간</strong>은 1.0을 그대로 이용하실 수 있습니다. 유예 기간이 종료되면 1.0 서비스가 중단되어 데이터를 가져올 수 없으므로, 그 전에 이전을 완료해 주시기 바랍니다. 정확한 종료 일정은 확정되는 대로 다시 안내드리겠습니다.</p>
-
-    <h2>데이터 이전 방법</h2>
-    <p>2.0 강사/관리자 앱에서 직접 가져올 수 있습니다. 별도의 파일 전달이나 재입력 없이, 태블릿 또는 스마트폰에서 몇 분 내로 완료됩니다. 아래에서 자세한 절차를 확인해 주시기 바랍니다.</p>
-    <a class="nt-cta" href="#migration">
-      1.0 데이터 가져오는 방법 보기
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2.5 5 7 9.5 11.5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </a>
-
-  </div>
-</section>
-
-
-<!-- ══════ 데이터 구조 ══════ -->
-<section class="mg-intro" id="migration">
-  <div class="container">
-    <div class="mg-intro-card">
-      <h2>2.0에는 '워크스페이스'가 생겼습니다</h2>
-      <p>
-        1.0은 계정에 회원 데이터가 바로 연결되어 있었습니다.
-        2.0은 회원 데이터를 <strong>워크스페이스</strong>라는 공간에 두고, 계정으로 그 공간에 들어가서 봅니다.
-      </p>
-      <div class="mg-compare">
-        <div class="mg-cmp">
-          <span class="cmp-tag">센티프 1.0</span>
-          <div class="cmp-chain">
-            <span class="cmp-chip">로그인</span><span class="sep">&rarr;</span>
-            <div class="cmp-box">
-              <span class="lbl">계정</span>
-              <span class="cmp-chip">데이터</span>
+      <li><strong>워크스페이스 개념이 추가되었습니다.</strong> 회원을 한 목록에 모아두는 대신 공간을 나눠 관리할 수 있어, 근무하시는 센터가 여러 곳이어도 회원이 섞이지 않습니다.
+        <div class="nt-fig">
+          <div class="mg-compare">
+            <div class="mg-cmp">
+              <span class="cmp-tag">센티프 1.0</span>
+              <div class="cmp-chain">
+                <span class="cmp-chip">로그인</span><span class="sep">&rarr;</span>
+                <div class="cmp-box">
+                  <span class="lbl">계정</span>
+                  <span class="cmp-chip">데이터</span>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-        <svg class="cmp-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11M11 5.5l4.5 4.5L11 14.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <div class="mg-cmp now">
-          <span class="cmp-tag">센티프 2.0</span>
-          <div class="cmp-chain">
-            <span class="cmp-chip">로그인</span><span class="sep">&rarr;</span>
-            <div class="cmp-box">
-              <span class="lbl">계정</span>
-              <div class="cmp-box ws">
-                <span class="lbl">워크스페이스</span>
-                <span class="cmp-chip">데이터</span>
+            <svg class="cmp-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11M11 5.5l4.5 4.5L11 14.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div class="mg-cmp now">
+              <span class="cmp-tag">센티프 2.0</span>
+              <div class="cmp-chain">
+                <span class="cmp-chip">로그인</span><span class="sep">&rarr;</span>
+                <div class="cmp-box">
+                  <span class="lbl">계정</span>
+                  <div class="cmp-box ws">
+                    <span class="lbl">워크스페이스</span>
+                    <span class="cmp-chip">데이터</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </li>
+      <li><strong>요금제가 변경되었습니다.</strong> 개인 요금제와 관리자 요금제로 구분하던 방식이 워크스페이스 인원을 기준으로 하는 팀 요금제로 바뀌었습니다. 혼자 이용하시는 경우의 요금은 22,900원 / 35,900원에서 20,900원으로 내려갔습니다.
+        <div class="nt-fig">
+          <a class="nt-linkbtn" href="pricing.html">
+            센티프 2.0 요금제 보기
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M4.5 2.5 8.5 6.5l-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </li>
+      <li><strong>관리자 기능이 대폭 업데이트되었습니다.</strong> 매출 현황, 잠재부채 분석, 페이롤 급여 정산, 공유 캘린더, 업무지시, 출입관리 · 데스크 모드가 추가되어 센터 운영에 필요한 관리 업무를 앱 안에서 처리할 수 있습니다.</li>
+      <li><strong>관리자 · 강사 · 회원이 각자 쓰기 편한 화면으로 나뉘었습니다.</strong> 스마트폰, 태블릿, PC를 모두 지원합니다. 회원앱은 PC를 제공하지 않습니다.
+        <div class="nt-fig">
+          <div class="guide-structure">
+            <div class="gs-group">
+              <div class="gs-row">
+                <div class="gs-card">
+                  <div class="gs-devices">
+                    <svg width="23" height="29" viewBox="0 0 23 29" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="1" width="21" height="27" rx="2.6"/><line x1="9" y1="24" x2="14" y2="24"/></svg>
+                    <svg width="17" height="26" viewBox="0 0 17 26" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="1" width="15" height="24" rx="3"/><line x1="6.5" y1="21" x2="10.5" y2="21"/></svg>
+                  </div>
+                  <span class="gs-name">강사 모드</span>
+                  <span class="gs-spec">태블릿 · 모바일</span>
+                </div>
+                <div class="gs-card">
+                  <div class="gs-devices">
+                    <svg width="30" height="27" viewBox="0 0 30 27" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="1" width="28" height="19" rx="2.2"/><line x1="15" y1="20" x2="15" y2="24"/><line x1="9.5" y1="25.5" x2="20.5" y2="25.5"/></svg>
+                    <svg width="23" height="29" viewBox="0 0 23 29" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="1" width="21" height="27" rx="2.6"/><line x1="9" y1="24" x2="14" y2="24"/></svg>
+                  </div>
+                  <span class="gs-name">관리자 모드</span>
+                  <span class="gs-spec">PC · 태블릿</span>
+                </div>
+                <div class="gs-card">
+                  <div class="gs-devices">
+                    <svg width="30" height="22" viewBox="0 0 30 22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="1" width="28" height="20" rx="2.4"/><rect x="8" y="7" width="14" height="8" rx="1.4"/></svg>
+                  </div>
+                  <span class="gs-name">데스크 모드</span>
+                  <span class="gs-spec">태블릿 (키오스크)</span>
+                </div>
+              </div>
+            </div>
+            <div class="gs-divider"></div>
+            <div class="gs-group">
+              <div class="gs-row">
+                <div class="gs-card">
+                  <div class="gs-devices">
+                    <svg width="17" height="26" viewBox="0 0 17 26" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="1" width="15" height="24" rx="3"/><line x1="6.5" y1="21" x2="10.5" y2="21"/></svg>
+                  </div>
+                  <span class="gs-name">회원 모드</span>
+                  <span class="gs-spec">모바일</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li></ul>
+
+    <h2>이런 점을 걱정하실 수 있어 미리 안내드립니다</h2>
+    <ul>
+      <li><strong>그동안의 1.0 데이터가 사라지지 않는지</strong> — 하나도 사라지지 않습니다. 회원 프로필과 수강권, 수업 일정과 수업일지, 회원이 쌓아온 운동·식단·체성분·체형사진까지 담당하시던 그대로 2.0으로 옮겨집니다. 옮기신 뒤에도 1.0의 기록은 그대로 남아 있으니, 2.0에서 직접 확인하신 다음 이어서 쓰시면 됩니다. 아래에서 자세한 절차를 확인해 주시기 바랍니다.
+        <div class="nt-fig">
+          <a class="nt-cta" href="#migration">
+            1.0 데이터 2.0으로 가져오는 방법 보기
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2.5 5 7 9.5 11.5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </li>
+      <li><strong>결제 중인 요금이 어떻게 되는지</strong> — 이미 결제하신 이용 기간은 추가 비용 발생 없이 2.0에서 그대로 유지됩니다. 다음 결제일부터 2.0 요금제로 자동 전환됩니다. Pro 22,900원과 Premium 35,900원의 경우 모두 20,900원으로 전환됩니다. 센터에 일괄 도입하신 경우에는 <a class="nt-link" href="http://pf.kakao.com/_ZvPbG/chat" target="_blank" rel="noopener">카카오톡 채널</a>로 문의해 주시면 안내드리겠습니다.</li>
+      <li><strong>회원에게 무엇을 안내해야 하는지</strong> — 가져오기를 마치신 뒤, 담당 회원님께 2.0 회원앱 가입을 안내해 주시면 됩니다. 가입 후 연동만 하면 그동안 쌓인 기록이 회원님 앱에 그대로 나타납니다. 회원님이 기록을 옮기거나 다시 입력하실 일은 없습니다.</li>
+    </ul>
+
+    <h2>센티프 1.0은 추후 서비스 종료 예정입니다</h2>
+    <p>2.0 출시 안내 후 <strong>약 1~2개월 간</strong>은 1.0을 그대로 이용하실 수 있습니다. 유예 기간이 종료되면 1.0 서비스가 중단이 되어 데이터를 가져올 수 없으므로, 그 전에 이전을 완료해 주시기 바랍니다. 정확한 종료 일정은 확정되는 대로 다시 안내드리겠습니다.</p>
+
+
   </div>
 </section>
 
 
+
 <!-- ══════ 가져오기 방법 ══════ -->
-<section class="mg-steps-wrap">
+<section class="mg-steps-wrap" id="migration">
   <div class="container">
     <div class="mg-head">
       <span class="mg-chapter"><span class="n">1</span>지금 할 일</span>
       <h2>가져오기 방법</h2>
       <div class="mg-facts">
+        <span class="mg-fact hi">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="3.4" y="1.2" width="7.2" height="11.6" rx="1.6" stroke="currentColor" stroke-width="1.4"/><path d="M6.2 10.7h1.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          앱에서만 가능
+        </span>
         <span class="mg-fact">
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7.8 1.5 3.2 8h3.4l-.6 4.5L10.8 6H7.4l.4-4.5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
           자동 가져오기
@@ -497,12 +628,22 @@
       </div>
     </div>
 
-    <div class="mg-note" style="margin:0 0 20px">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 7.3v3.5M8 5.1h.01" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="8" cy="8" r="6.4" stroke="currentColor" stroke-width="1.4"/></svg>
-      <p>
-        아래 화면은 기기에 따라 스마트폰 또는 태블릿 기준입니다. 화면 배치는 기기별로 다를 수 있으나
-        메뉴 이름과 버튼은 같습니다. 진입 방법이 다른 단계는 기기별로 표기했습니다.
-      </p>
+    <!-- 전체 흐름 3단계 -->
+    <div class="pf">
+      <div class="pf-card">
+        <h4>앱 가입 · 워크스페이스 생성</h4>
+        <p>강사/관리자 앱을 설치하고, 회원과 기록을 담을 공간을 만듭니다.</p>
+      </div>
+      <svg class="pf-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11M11 5.5l4.5 4.5L11 14.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div class="pf-card on">
+        <h4>1.0 데이터 가져오기</h4>
+        <p>담당하시던 회원과 그동안의 기록이 2.0으로 옮겨집니다.</p>
+      </div>
+      <svg class="pf-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11M11 5.5l4.5 4.5L11 14.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div class="pf-card">
+        <h4>회원 연동 <s class="pf-if">수강 중인 회원이 있다면</s></h4>
+        <p>회원이 회원앱에 가입하고 연동하면, 회원도 본인 기록을 볼 수 있습니다.</p>
+      </div>
     </div>
 
     <!-- 1 -->
@@ -514,9 +655,26 @@
         <div class="mg-stepno"><span class="n">1</span></div>
         <h3>센티프 2.0 회원가입</h3>
         <p>강사/관리자 앱을 설치하고 계정을 만듭니다. 태블릿과 스마트폰 어느 쪽이든 같습니다. 가입 과정에서 휴대폰 인증을 완료합니다.</p>
+        <div class="mg-dl">
+          <div class="mg-dl-label">강사 · 관리자 앱 내려받기 — 가져오기는 이 앱에서 진행합니다</div>
+          <div class="mg-dl-row">
+            <a class="mg-dlbtn" href="https://apps.apple.com/kr/app/%EC%84%BC%ED%8B%B0%ED%94%84-%EA%B0%95%EC%82%AC-%EA%B4%80%EB%A6%AC%EC%9E%90%EC%9A%A9-%EC%8B%A0%EB%B2%84%EC%A0%84/id6793118501" target="_blank" rel="noopener">
+              <svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.05 12.54c-.03-2.6 2.13-3.85 2.23-3.91-1.22-1.78-3.11-2.03-3.78-2.05-1.61-.16-3.14.94-3.96.94-.82 0-2.07-.92-3.41-.9-1.75.03-3.37 1.02-4.27 2.59-1.82 3.16-.46 7.84 1.31 10.4.86 1.26 1.89 2.66 3.24 2.61 1.3-.05 1.79-.84 3.36-.84 1.57 0 2.01.84 3.38.81 1.4-.02 2.28-1.27 3.13-2.53.99-1.45 1.4-2.86 1.42-2.93-.03-.01-2.72-1.04-2.75-4.13zM14.7 4.9c.72-.87 1.2-2.08 1.07-3.29-1.03.04-2.28.69-3.02 1.56-.66.77-1.24 2-1.09 3.18 1.15.09 2.32-.58 3.04-1.45z"/></svg>
+              <span><i>iPhone · iPad</i><b>App Store</b></span>
+            </a>
+            <a class="mg-dlbtn" href="https://play.google.com/store/apps/details?id=com.nvng.ssentif_coach" target="_blank" rel="noopener">
+              <svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><path fill="#00D7FE" d="M3.7 1.9c-.3.3-.5.8-.5 1.4v17.4c0 .6.2 1.1.5 1.4l.1.1 9.7-9.7v-.2L3.8 1.8z"/><path fill="#FFCE00" d="M16.8 15.7l-3.3-3.2v-.2l3.3-3.3 3.9 2.2c1.1.6 1.1 1.7 0 2.3z"/><path fill="#FF3A44" d="M16.8 15.7L13.5 12.4 3.7 22.1c.4.4 1 .5 1.7.1z"/><path fill="#48FF48" d="M16.8 9L5.4 2.5c-.7-.4-1.3-.4-1.7 0l9.8 9.9z"/></svg>
+              <span><i>Android</i><b>Google Play</b></span>
+            </a>
+          </div>
+        </div>
         <div class="mg-note warn">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 5v3.4M8 11.2h.01" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="8" cy="8" r="6.4" stroke="currentColor" stroke-width="1.4"/></svg>
           <p><b>센티프 1.0과 동일한 휴대폰 번호로 가입합니다.</b> 번호가 다르면 본인 확인에 실패해 데이터를 가져올 수 없습니다.</p>
+        </div>
+        <div class="mg-note warn">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 5v3.4M8 11.2h.01" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="8" cy="8" r="6.4" stroke="currentColor" stroke-width="1.4"/></svg>
+          <p><b>가져오기는 강사/관리자 앱에서만 진행할 수 있습니다.</b> 관리자 웹(PC 브라우저)에는 가져오기 메뉴가 없습니다. <b>태블릿 또는 스마트폰</b>에 앱을 설치하신 뒤 진행해 주세요.</p>
         </div>
       </div>
     </div>
@@ -618,6 +776,15 @@
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 5v3.4M8 11.2h.01" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="8" cy="8" r="6.4" stroke="currentColor" stroke-width="1.4"/></svg>
           <p><b>가져온 수업, 매출 등의 데이터는 2.0의 통계 데이터에 반영됩니다.</b></p>
         </div>
+        <div class="mg-dl">
+          <div class="mg-dl-label">가져오기를 마치신 뒤에는 PC에서도 보실 수 있습니다</div>
+          <div class="mg-dl-row">
+            <a class="mg-dlbtn" href="https://manager.ssentif.kr/login" target="_blank" rel="noopener">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4" width="19" height="13" rx="2"/><path d="M8.5 21h7M12 17v4"/></svg>
+              <span><i>PC 브라우저</i><b>관리자 웹 로그인</b></span>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -650,6 +817,19 @@
         <div class="mg-stepno"><span class="n">1</span></div>
         <h3>회원이 회원앱에 가입</h3>
         <p>회원이 센티프 회원앱을 설치하고 가입하면 <strong>8자리 연동 코드</strong>가 발급됩니다. 코드는 <strong>[마이] &rarr; [내 연동 코드]</strong>에서 확인할 수 있습니다.</p>
+        <div class="mg-dl">
+          <div class="mg-dl-label">회원앱 내려받기 — 회원님께 전달해 주세요</div>
+          <div class="mg-dl-row">
+            <a class="mg-dlbtn" href="https://apps.apple.com/kr/app/%EC%84%BC%ED%8B%B0%ED%94%84-%ED%9A%8C%EC%9B%90%EC%9A%A9-%EC%8B%A0%EB%B2%84%EC%A0%84/id6793100631" target="_blank" rel="noopener">
+              <svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.05 12.54c-.03-2.6 2.13-3.85 2.23-3.91-1.22-1.78-3.11-2.03-3.78-2.05-1.61-.16-3.14.94-3.96.94-.82 0-2.07-.92-3.41-.9-1.75.03-3.37 1.02-4.27 2.59-1.82 3.16-.46 7.84 1.31 10.4.86 1.26 1.89 2.66 3.24 2.61 1.3-.05 1.79-.84 3.36-.84 1.57 0 2.01.84 3.38.81 1.4-.02 2.28-1.27 3.13-2.53.99-1.45 1.4-2.86 1.42-2.93-.03-.01-2.72-1.04-2.75-4.13zM14.7 4.9c.72-.87 1.2-2.08 1.07-3.29-1.03.04-2.28.69-3.02 1.56-.66.77-1.24 2-1.09 3.18 1.15.09 2.32-.58 3.04-1.45z"/></svg>
+              <span><i>iPhone</i><b>App Store</b></span>
+            </a>
+            <a class="mg-dlbtn" href="https://play.google.com/store/apps/details?id=com.nvng.ssentif_members" target="_blank" rel="noopener">
+              <svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><path fill="#00D7FE" d="M3.7 1.9c-.3.3-.5.8-.5 1.4v17.4c0 .6.2 1.1.5 1.4l.1.1 9.7-9.7v-.2L3.8 1.8z"/><path fill="#FFCE00" d="M16.8 15.7l-3.3-3.2v-.2l3.3-3.3 3.9 2.2c1.1.6 1.1 1.7 0 2.3z"/><path fill="#FF3A44" d="M16.8 15.7L13.5 12.4 3.7 22.1c.4.4 1 .5 1.7.1z"/><path fill="#48FF48" d="M16.8 9L5.4 2.5c-.7-.4-1.3-.4-1.7 0l9.8 9.9z"/></svg>
+              <span><i>Android</i><b>Google Play</b></span>
+            </a>
+          </div>
+        </div>
         <ul class="mg-mini">
           <li>회원은 코드 또는 QR 화면을 강사/관리자에게 보여줍니다.</li>
           <li>회원이 아직 가입하지 않았다면 가입을 먼저 안내합니다.</li>
@@ -706,8 +886,10 @@
         <p>가져온 뒤 수정한 데이터는 삭제 대상에서 제외되며, 제외된 항목은 결과 화면에 표시됩니다.</p>
       </details>
       <details>
-        <summary>혼자 사용해도 워크스페이스가 필요한가요?</summary>
-        <p>필요합니다. 센티프 2.0은 회원과 기록을 워크스페이스 단위로 보관합니다. 워크스페이스 이름은 생성 후 변경할 수 있습니다.</p>
+        <summary>혼자 사용해도 워크스페이스가 필요한가요? 요금은 어떻게 계산되나요?</summary>
+        <p>필요합니다. 센티프 2.0은 회원과 기록을 워크스페이스 단위로 보관하므로, 혼자 이용하시더라도 워크스페이스 하나를 만들고 그 안에서 쓰시면 됩니다. 워크스페이스 이름은 생성 후 변경할 수 있습니다.</p>
+        <p><strong>요금도 워크스페이스 단위로 계산됩니다.</strong> 해당 워크스페이스에 속한 팀원 수가 기준이며, 혼자면 FREE 또는 STANDARD, 2명 이상이면 TEAM 요금제가 적용되어 인원 수만큼 결제됩니다. 워크스페이스를 여러 개 쓰신다면 각 워크스페이스의 인원에 따라 따로 계산됩니다.</p>
+        <p>요금제별 차이는 <a class="mg-kakao-inline" href="pricing.html">요금제 안내</a>에서 확인하실 수 있습니다.</p>
       </details>
       <details>
         <summary>워크스페이스를 여러 개 만들 수 있나요?</summary>
@@ -725,7 +907,7 @@
       </details>
       <details>
         <summary>센티프 1.0 계정은 어떻게 되나요?</summary>
-        <p>센티프 1.0 앱은 2.0 출시 안내 후 약 한 달 뒤 서비스를 종료할 예정입니다. 종료 후에는 데이터를 가져올 수 없으므로 그 전에 가져오기를 완료해 주시기 바랍니다.</p>
+        <p>센티프 1.0 앱은 2.0 출시 안내 후 약 1~2개월 뒤 서비스를 종료할 예정입니다. 종료 후에는 데이터를 가져올 수 없으므로 그 전에 가져오기를 완료해 주시기 바랍니다.</p>
         <p>정확한 종료 일정은 추후 안내드리겠습니다.</p>
       </details>
     </div>
@@ -749,7 +931,7 @@
     <div class="footer-brand"><div class="logo">SSEN<span>TIF</span></div><p>피트니스 센터를 위한<br>AI 운영 워크스페이스</p></div>
     <div class="footer-col"><h5>제품</h5><ul><li><a href="product.html">주요 기능</a></li></ul></div>
     <div class="footer-col"><h5>회사</h5><ul><li><a href="index.html#cases">고객 사례</a></li><li><a href="consulting.html">도입 절차</a></li><li><a href="lab.html">운영지원실</a></li></ul></div>
-    <div class="footer-col"><h5>지원</h5><ul><li><a href="guide.html">사용 가이드</a></li><li><a href="notice-2.0.html">2.0 출시 · 1.0 데이터 가져오기</a></li><li><a href="terms.html" target="_blank" rel="noopener">이용약관</a></li><li><a href="privacy.html" target="_blank" rel="noopener">개인정보처리방침</a></li><li><a href="marketing-consent.html" target="_blank" rel="noopener">마케팅 수신 동의</a></li><li><a href="https://ssentif-manager.kr/" target="_blank">매니저 로그인</a></li></ul></div>
+    <div class="footer-col"><h5>지원</h5><ul><li><a href="guide.html">사용 가이드</a></li><li><a href="notice-2.0.html">2.0 출시 · 1.0 데이터 가져오기</a></li><li><a href="terms.html" target="_blank" rel="noopener">이용약관</a></li><li><a href="privacy.html" target="_blank" rel="noopener">개인정보처리방침</a></li><li><a href="marketing-consent.html" target="_blank" rel="noopener">마케팅 수신 동의</a></li></ul></div>
   </div>
   <div class="footer-bottom"><p>© 2026 SSENTIF. All rights reserved.</p><p>사업자등록번호: 849-87-03418 · <a href="privacy.html" target="_blank" rel="noopener">개인정보처리방침</a> · <a href="terms.html" target="_blank" rel="noopener">이용약관</a></p></div>
 </footer>

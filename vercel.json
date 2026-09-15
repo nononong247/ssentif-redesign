@@ -30,11 +30,6 @@
   ],
   "redirects": [
     {
-      "source": "/pricing.html",
-      "destination": "/",
-      "permanent": false
-    },
-    {
       "source": "/guide-migration.html",
       "destination": "/notice-2.0.html",
       "permanent": true

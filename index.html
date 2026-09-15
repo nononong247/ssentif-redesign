@@ -1609,6 +1609,16 @@
   background: rgba(13,15,18,0.16);
   border-radius: 0 0 5px 5px;
 }
+/* 좁은 화면 가로 스크롤 방지 —
+   ① 목업 고정 폭(태블릿 344px)을 화면에 맞춰 줄이고
+   ② 랩탑 하판의 좌우 -18px 돌출은 섹션에서 잘라낸다.
+   clip 은 스크롤 컨테이너를 만들지 않아 안쪽 sticky/fixed 에 영향 없다. */
+@media (max-width: 760px) {
+  .modes-section { overflow-x: clip; }
+  .ms-tablet { width: 100%; max-width: 344px; }
+  .ms-laptop { max-width: min(348px, 100%); }
+  .ms-phone { max-width: 100%; }
+}
 
   position: absolute;
   background: var(--white);

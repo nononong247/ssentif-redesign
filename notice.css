@@ -538,8 +538,9 @@
 .nt-next { padding: 0 0 76px; }
 .nt-next .container { max-width: 760px; }
 .nt-next h2 {
-  font-size: 1.32rem; letter-spacing: -0.025em;
-  margin: 0 0 18px; padding-top: 32px; border-top: 1px solid var(--border);
+  text-align: center;
+  font-size: clamp(1.45rem, 2.4vw, 1.72rem); letter-spacing: -0.03em; line-height: 1.35;
+  margin: 0 0 24px; padding-top: 44px; border-top: 1px solid var(--border);
 }
 .nt-next .pf { margin-bottom: 22px; }
 
@@ -630,7 +631,7 @@
 @media (max-width: 700px) {
   .nt-back { font-size: 12.5px; margin-bottom: 13px; }
   .nt-next { padding-bottom: 48px; }
-  .nt-next h2 { font-size: 1.16rem; letter-spacing: -0.03em; margin-bottom: 14px; padding-top: 26px; }
+  .nt-next h2 { font-size: 1.28rem; margin-bottom: 18px; padding-top: 32px; }
   .nt-next .pf { margin-bottom: 16px; }
   .nt-next-btns { gap: 9px; }
   .nt-bigbtn { border-radius: 18px; }
@@ -644,4 +645,57 @@
   .nt-next-btns.one .nb-art { flex-basis: 92px; padding: 14px 0 14px 10px; }
   .nt-next-btns.one .nb-body { padding: 16px 16px 16px 4px; }
   .nt-next-btns.one .nt-bigbtn i { display: block; }
+}
+
+/* ══════════════════════════════════════════
+   구버전 · 신버전 앱 구분 — 아이콘과 이름 대조
+══════════════════════════════════════════ */
+.ai-compare {
+  margin: 22px 0 6px; padding: 20px 22px 18px;
+  border-radius: 18px; background: var(--gray-50); border: 1px solid var(--border);
+}
+.ai-head, .ai-row {
+  display: grid; grid-template-columns: 86px 1fr 22px 1fr;
+  align-items: center; gap: 12px;
+}
+.ai-head { margin-bottom: 12px; }
+.ai-col {
+  font-size: 11.5px; font-weight: 800; letter-spacing: 0.02em; text-align: center;
+  padding: 3px 0; border-radius: 100px;
+}
+.ai-col.dim { background: var(--gray-200); color: var(--gray-500); }
+.ai-col.on { background: var(--accent-light); color: var(--accent-dark); }
+
+.ai-row { padding: 13px 0; border-top: 1px solid var(--border); }
+.ai-row:last-child { padding-bottom: 4px; }
+.ai-role { font-size: 12.5px; font-weight: 800; color: var(--gray-600); }
+.ai-side { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.ai-side img {
+  flex-shrink: 0; width: 46px; height: 46px; border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(13,15,18,0.14);
+}
+.ai-side b {
+  font-size: 12.5px; font-weight: 700; line-height: 1.45;
+  color: var(--gray-500); word-break: keep-all;
+}
+.ai-side.new b { color: var(--black); font-weight: 800; }
+.ai-side.old img { opacity: 0.72; }
+.ai-arrow { color: var(--gray-300); justify-self: center; }
+
+@media (max-width: 700px) {
+  .ai-compare { padding: 16px 15px 14px; border-radius: 14px; }
+  /* 좁은 화면에서는 구/신을 위아래로 쌓는다 */
+  .ai-head { display: none; }
+  .ai-row { grid-template-columns: 1fr; gap: 9px; padding: 14px 0; }
+  .ai-role { font-size: 12px; }
+  .ai-side { gap: 9px; }
+  .ai-side img { width: 40px; height: 40px; border-radius: 11px; }
+  .ai-side b { font-size: 12px; }
+  .ai-side::before {
+    flex-shrink: 0; width: 38px;
+    font-size: 10.5px; font-weight: 800; color: var(--gray-400);
+  }
+  .ai-side.old::before { content: '구버전'; }
+  .ai-side.new::before { content: '신버전'; color: var(--accent-dark); }
+  .ai-arrow { transform: rotate(90deg); justify-self: start; margin-left: 18px; }
 }

@@ -126,12 +126,12 @@
 .gs-spec { font-size: 11px; font-weight: 600; color: var(--gray-400); white-space: nowrap; }
 .gs-divider { width: 1px; align-self: stretch; background: var(--border); }
 @media (max-width: 700px) {
-  /* 가로 스크롤 대신 2열로 접어 네 가지 모드를 한눈에 */
-  .guide-structure { display: block; overflow: visible; padding: 0; }
-  .gs-group { display: block; }
-  .gs-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .gs-card { min-width: 0; padding: 13px 10px; }
-  .gs-divider { width: auto; height: 1px; margin: 8px 0; }
+  /* 가로 스크롤 대신 2×2 로 — display:contents 로 그룹을 걷어내
+     네 카드가 바깥 그리드에 직접 배치되게 한다(3+1 로 깨지던 문제) */
+  .guide-structure { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; overflow: visible; padding: 0; }
+  .gs-group, .gs-row { display: contents; }
+  .gs-card { min-width: 0; padding: 14px 10px; }
+  .gs-divider { display: none; }
 }
 
 /* 요금제 이동 버튼 */
@@ -492,8 +492,10 @@
   .nt-cta { padding: 11px 17px; font-size: 13.5px; }
   .nt-linkbtn { padding: 9px 14px; font-size: 13.5px; }
 
-  .mg-compare { gap: 10px; }
-  .mg-compare .cmp-arrow { transform: rotate(90deg); margin: 0 auto; }
+  /* 1.0 → 2.0 도해: 세로로 세우고 화살표를 두 상자 사이 가운데에 둔다 */
+  .mg-compare { flex-direction: column; align-items: stretch; flex-wrap: nowrap; gap: 10px; }
+  .mg-cmp { min-width: 0; }
+  .mg-compare .cmp-arrow { transform: rotate(90deg); align-self: center; margin: 0; }
   /* ── 모바일: 가져오기 단계 · FAQ · 문의 ── */
   .mg-steps-wrap, .mg-extra { word-break: keep-all; overflow-wrap: break-word; }
   .mg-steps-wrap .container, .mg-extra .container { padding-left: 22px; padding-right: 22px; }
@@ -503,8 +505,14 @@
   .mg-head h2 { font-size: 1.35rem; }
   .mg-head .mg-sub { font-size: 14.5px; line-height: 1.75; margin-top: 10px; }
   .mg-chapter { font-size: 12px; margin-bottom: 12px; }
+  /* 칩 4개가 3+1 로 흩어지지 않게 2×2 로 맞춘다 */
+  .mg-facts { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .mg-fact { justify-content: center; }
 
+  /* 단계 카드: 번호 · 제목 · 설명을 먼저 읽고 이미지로 확인하는 순서 */
   .mg-step { grid-template-columns: 1fr; gap: 16px; padding: 16px; margin-bottom: 14px; }
+  .mg-step .mg-copy { order: 1; }
+  .mg-step .mg-shot { order: 2; }
   /* 세로 캡처가 높이에 묶여 125px 폭으로 줄던 문제 — 폭 기준으로 채운다 */
   .mg-shot { min-height: 0; padding: 10px; border-radius: 13px; }
   .mg-shot img { width: 100%; height: auto; max-width: 100%; max-height: none; }

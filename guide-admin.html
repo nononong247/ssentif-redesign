@@ -168,6 +168,18 @@
   .toc-group { margin: 0; flex-shrink: 0; }
   .mode-tab { padding: 10px 14px 12px; font-size: 13.5px; }
 }
+.g-table { width: 100%; border-collapse: collapse; margin: 16px 0 22px; font-size: 13.5px; }
+.g-table th {
+  text-align: left; padding: 10px 14px; background: var(--gray-50);
+  border-bottom: 1px solid var(--border); font-size: 12.5px; font-weight: 800; color: var(--gray-600);
+}
+.g-table td { padding: 11px 14px; border-bottom: 1px solid var(--border); color: var(--gray-700); vertical-align: top; line-height: 1.6; }
+.g-table tr:last-child td { border-bottom: none; }
+.g-table .ok { color: var(--accent-dark); font-weight: 800; white-space: nowrap; }
+.g-table .no { color: #C2410C; font-weight: 800; white-space: nowrap; }
+.g-table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 14px; margin: 16px 0 22px; }
+.g-table-wrap .g-table { margin: 0; }
+.g-msg { font-weight: 700; color: var(--black); }
 </style>
 </head>
 <body>
@@ -258,13 +270,6 @@
             <span class="gs-name">관리자 모드</span>
             <span class="gs-spec">PC · 태블릿</span>
           </div>
-          <div class="gs-card">
-            <div class="gs-devices">
-            <svg width="30" height="22" viewBox="0 0 30 22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="1" width="28" height="20" rx="2.4"/><rect x="8" y="7" width="14" height="8" rx="1.4"/></svg>
-            </div>
-            <span class="gs-name">데스크 모드</span>
-            <span class="gs-spec">태블릿 (키오스크)</span>
-          </div>
         </div>
       </div>
       <div class="gs-divider"></div>
@@ -283,7 +288,6 @@
         <div class="mode-tabs" role="tablist">
       <a class="mode-tab" href="guide.html" style="text-decoration:none">🏋️ 강사 모드</a>
       <button class="mode-tab active" type="button">🏢 관리자 모드</button>
-      <a class="mode-tab" href="guide-fc.html" style="text-decoration:none">🖥️ 데스크 모드</a>
       <a class="mode-tab" href="guide-member.html" style="text-decoration:none">👤 회원 모드</a>
     </div>
   </div>
@@ -334,6 +338,24 @@
         <div class="toc-group-label">스케줄 관리</div>
         <a class="toc-link" href="#schedule-scope">팀 전체 일정 보기</a>
         <a class="toc-link" href="#center-hours">센터 정보·운영 설정</a>
+      </div>
+      <div class="toc-group">
+        <div class="toc-group-label">데이터 가져오기</div>
+        <a class="toc-link" href="#v1-import">센티프 1.0 가져오기</a>
+        <a class="toc-link" href="#member-transfer">담당 회원 데려오기</a>
+      </div>
+      <div class="toc-group">
+        <div class="toc-group-label">데스크 모드</div>
+        <a class="toc-link" href="#desk-intro">데스크 모드란</a>
+        <a class="toc-link" href="#desk-enable">데스크 모드 켜기</a>
+        <a class="toc-link" href="#desk-account">데스크 계정 만들기</a>
+        <a class="toc-link" href="#desk-tablet">태블릿에 로그인하기</a>
+        <a class="toc-link" href="#desk-entry">QR · 뒷 4자리로 입장</a>
+        <a class="toc-link" href="#desk-messages">화면 안내 문구</a>
+        <a class="toc-link" href="#desk-offline">인터넷이 끊겼을 때</a>
+        <a class="toc-link" href="#desk-history">출입 현황 보기</a>
+        <a class="toc-link" href="#desk-permission">데스크 계정 권한</a>
+        <a class="toc-link" href="#desk-password">비밀번호·기기 관리</a>
       </div>
       <div class="toc-group">
         <div class="toc-group-label">AI</div>
@@ -437,7 +459,7 @@
 
           <figure class="g-shot">
             <img src="assets/guide/admin/chat.png" alt="태블릿 가로 화면 — 채팅 탭 분할 뷰. 좌측 대화방 목록(회원별 미읽음 배지), 우측 선택한 대화" loading="lazy">
-            <figcaption>채팅 탭(태블릿) — 좌측 목록·우측 대화, 회원/코치 전환과 미읽음 개수 표시</figcaption>
+            <figcaption>채팅 탭(태블릿) — 좌측 목록·우측 대화, 회원/강사 전환과 미읽음 개수 표시</figcaption>
           </figure>
         </article>
 
@@ -697,6 +719,173 @@
             <img src="assets/guide/admin/center-hours.png" alt="운영 설정 탭 — 워크스페이스 정보, 센터코드 QR, 회원권 관리" loading="lazy">
             <figcaption>운영 → 설정 — 센터 기본 정보와 센터코드</figcaption>
           </figure>
+        </article>
+      </section>
+
+      <section class="g-section" id="sec-data">
+        <div class="g-cat">데이터 가져오기</div>
+        <h2>흩어진 회원 데이터를 센터로 모으기</h2>
+
+        <div class="g-callout">🧭 <div>두 기능 모두 <strong>워크스페이스 설정</strong>에서 들어갑니다. <strong>센티프 1.0을 쓰셨다면 [센티프 1.0 가져오기]</strong>, <strong>다른 센터에서 담당하던 회원을 데려오신다면 [회원 데이터 불러오기]</strong>입니다.</div></div>
+
+        <article class="g-item" id="v1-import">
+          <h3>센티프 1.0 데이터 가져오기</h3>
+          <p class="g-intro">이전 버전(센티프 1.0)에서 쌓으신 회원과 기록을 새 워크스페이스로 옮깁니다. <strong>4단계 마법사</strong>로 진행됩니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>워크스페이스 설정</strong> → <strong>[센티프 1.0 가져오기]</strong>로 들어갑니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p><strong>본인 확인</strong> — 센티프 1.0에서 쓰시던 <strong>이메일</strong>을 입력합니다. 계정을 찾지 못하면 1.0 앱에서 이메일과 휴대폰 번호를 다시 확인해주세요.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p><strong>센터 선택</strong> — 1.0에서 운영하시던 센터 중 가져올 곳을 고릅니다.</p></div>
+          <div class="g-step"><span class="g-step-num">4</span><p><strong>회원 선택</strong> — 데려올 회원을 고릅니다. <strong>[남은 회원 모두 선택하기]</strong>로 한 번에 담을 수 있습니다.</p></div>
+          <div class="g-step"><span class="g-step-num">5</span><p><strong>확인</strong> — 고른 회원 기준으로 <strong>가져오는 데이터</strong>가 항목별 건수와 <strong>수강권 매출</strong>까지 요약됩니다. 확인 후 실행합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">6</span><p>끝나면 <strong>“기존 데이터를 성공적으로 불러왔어요”</strong> 화면이 뜹니다. <strong>[새로워진 센티프 시작하기]</strong>로 넘어가세요.</p></div>
+
+          <div class="g-callout">💡 <div>중간에 <strong>[이전]</strong>으로 돌아가셔도 괜찮습니다. 앞서 확인한 내용을 그대로 이어서 씁니다.</div></div>
+          <div class="g-callout">💡 <div>가져온 결제 건은 등록유형이 <strong>1.0 이관</strong>으로 표시됩니다. 결제수단은 <strong>수단 미상</strong>으로 남습니다 — 1.0에 남아 있지 않은 정보이기 때문입니다.</div></div>
+          <div class="g-callout warn">⚠️ <div>가져오기는 <strong>기간 안에만 되돌릴 수 있습니다.</strong> 결과 화면의 <strong>[되돌리기 (N일 남음)]</strong>에 남은 기간이 표시됩니다.</div></div>
+        </article>
+
+        <article class="g-item" id="member-transfer">
+          <h3>다른 센터에서 담당 회원 데려오기</h3>
+          <p class="g-intro">이직하셨거나 지점을 옮기셨을 때, <strong>다른 워크스페이스에서 담당하시던 회원</strong>을 지금 센터로 옮깁니다. <strong>5단계 마법사</strong>입니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>워크스페이스 설정</strong> → <strong>[회원 데이터 불러오기]</strong>로 들어갑니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p><strong>센터</strong> — 회원을 데려올 워크스페이스를 고릅니다. 담당 회원이 없는 센터는 선택할 수 없습니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p><strong>회원</strong> — 이미 이 센터에 있는 회원은 <strong>이미 등록됨</strong> 배지로 표시되어 선택되지 않습니다. 과거에 나가셨다 돌아온 회원은 <strong>복귀</strong> 배지가 붙고 선택하실 수 있습니다.</p></div>
+          <div class="g-step"><span class="g-step-num">4</span><p><strong>데이터</strong> — 가져올 <strong>기록</strong>을 항목별로 켜고, <strong>수업 일정</strong>은 <strong>가져오지 않음 / 나만 보기 / 팀 전체 공개</strong> 중에 고릅니다.</p></div>
+          <div class="g-step"><span class="g-step-num">5</span><p><strong>수강권</strong> — 남은 수강권을 <strong>이 센터의 상품에 연결</strong>합니다. 조건이 똑같은 상품만 연결할 수 있고, 맞는 상품이 없으면 <strong>[이 조건으로 상품 만들기]</strong>로 즉시 만들거나 <strong>그 회원만 빼고</strong> 진행하실 수 있습니다.</p></div>
+          <div class="g-step"><span class="g-step-num">6</span><p><strong>확인</strong> — 요약을 확인하고 <strong>동의에 체크</strong>하면 실행 버튼이 열립니다.</p></div>
+
+          <div class="g-callout">💡 <div>결과는 <strong>회원 한 분 단위로</strong> 표시됩니다. 일부만 실패할 수 있으니 결과 화면에서 누가 안 넘어왔는지 확인해주세요.</div></div>
+          <div class="g-callout warn">⚠️ <div><strong>회원 이관은 되돌릴 수 없습니다.</strong> 마지막 확인 단계에서 대상과 항목을 한 번 더 살펴봐주세요.</div></div>
+        </article>
+      </section>
+
+      <section class="g-section" id="sec-desk">
+        <div class="g-cat">데스크 모드</div>
+        <h2>공용 태블릿으로 회원 입장 받기</h2>
+
+        <div class="g-callout">🧭 <div><strong>데스크 모드</strong>는 관리자 모드에서 켜고 끄는 기능입니다. 센터 공용 태블릿을 <strong>입장 체크인 키오스크</strong>로 쓰고, 데스크 직원이 함께 쓰는 <strong>데스크 계정</strong>을 함께 관리합니다.</div></div>
+
+        <article class="g-item" id="desk-intro">
+          <h3>센터 공용 기기에 띄워두는 화면</h3>
+          <p class="g-intro">데스크 모드는 <strong>센터 공용 태블릿·PC</strong>에 띄워두는 화면입니다. <strong>관리자 모드</strong>에서만 켤 수 있고, 매출·급여 정산 같은 민감한 정보는 가려집니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>회원 입장 체크인</strong> — 회원이 QR을 대거나 휴대폰 뒷 4자리를 눌러 스스로 체크인합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p><strong>데스크 계정</strong> — 센터당 하나이며 데스크 직원이 함께 씁니다. 회원·일정·수강권 업무는 되고, 돈·사람·계약에 관한 것은 열리지 않습니다.</p></div>
+          <div class="g-callout">💡 <div>입장 체크인과 <strong>수업 출석</strong>은 다릅니다. 회원이 QR을 찍어도 수업 출석은 자동 처리되지 않으며, 강사가 처리합니다.</div></div>
+        </article>
+
+        <article class="g-item" id="desk-enable">
+          <h3>1. 데스크 모드 켜기</h3>
+          <p class="g-intro">소유자·관리자만 켜고 끌 수 있습니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>환경설정</strong> &rarr; <strong>[출입관리 · 데스크 모드]</strong>로 들어갑니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p><strong>[출입관리 · 데스크 모드 활성화하기]</strong>를 누릅니다.</p></div>
+          <figure class="g-shot mid">
+            <img src="assets/guide/fc/01-settings-off.png?v=1789403729" alt="환경설정 출입관리·데스크 모드 탭 — 활성화하기 버튼과 데스크 계정 만들기" loading="lazy">
+            <figcaption>환경설정 → 출입관리 · 데스크 모드</figcaption>
+          </figure>
+          <div class="g-callout warn">⚠️ <div>끄면 <strong>다음 스캔부터 즉시</strong> 데스크 태블릿이 잠깁니다. 출입 기록과 기기 목록은 남습니다.</div></div>
+        </article>
+
+        <article class="g-item" id="desk-account">
+          <h3>2. 데스크 계정 만들기</h3>
+          <div class="g-step"><span class="g-step-num">1</span><p>같은 화면의 <strong>데스크 모드 로그인 계정</strong>에서 <strong>[데스크 계정 만들기]</strong>를 누릅니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p><strong>아이디</strong>(영문 소문자·숫자·하이픈, 4~30자)와 <strong>비밀번호</strong>(8~64자)를 정합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>비밀번호는 만든 직후 <strong>한 번만</strong> 표시됩니다. 창을 닫으면 다시 볼 수 없습니다.</p></div>
+          <div class="g-callout warn">⚠️ <div>계정은 <strong>센터당 하나</strong>입니다. 데스크 담당이 바뀌면 비밀번호를 재설정해주세요.</div></div>
+        </article>
+
+        <article class="g-item" id="desk-tablet">
+          <h3>3. 태블릿에 로그인하기</h3>
+          <div class="g-step"><span class="g-step-num">1</span><p>데스크 태블릿에서 센티프 앱을 열고 <strong>데스크 계정</strong>으로 로그인합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>로그인하면 <strong>키오스크 화면이 바로 켜집니다.</strong> 왼쪽은 번호 키패드, 오른쪽은 QR 카메라입니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>회원이 손 닿는 위치에 세우고 전원에 연결해두세요.</p></div>
+          <figure class="g-shot phone">
+            <img src="assets/guide/fc/03-kiosk-keypad.png?v=1789403729" alt="키오스크 대기 화면 — 휴대폰 번호 뒷 4자리 키패드" loading="lazy">
+            <figcaption>키오스크 대기 화면 — 뒷 4자리 키패드</figcaption>
+          </figure>
+          <div class="g-callout">💡 <div>다른 화면으로 빠져나가지 않도록 태블릿의 <strong>화면 고정</strong> 기능을 켜주세요. 안드로이드 태블릿을 권장합니다.</div></div>
+        </article>
+
+        <article class="g-item" id="desk-entry">
+          <h3>QR로 입장</h3>
+          <div class="g-step"><span class="g-step-num">1</span><p>회원이 회원앱 홈에서 <strong>[센터 입장하기]</strong>를 누르면 입장 QR이 뜹니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>QR을 태블릿 카메라에 대면 바로 판정됩니다.</p></div>
+          <div class="g-callout warn">⚠️ <div>회원앱의 <strong>입장 QR</strong>과 회원 연동용 <strong>연동 QR</strong>은 다릅니다. 입장에는 <strong>[센터 입장하기]</strong> QR을 씁니다.</div></div>
+        </article>
+
+        <article class="g-item">
+          <h3>휴대폰 뒷 4자리로 입장</h3>
+          <div class="g-step"><span class="g-step-num">1</span><p>키패드에 <strong>휴대폰 번호 뒷 4자리</strong>를 누릅니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>같은 번호가 여러 명이면 <strong>가운데 4자리</strong>를 더 누릅니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>그래도 여러 명이면 후보가 뜨고, 회원이 <strong>본인을 선택</strong>합니다.</p></div>
+          <figure class="g-shot mid">
+            <img src="assets/guide/fc/04-kiosk-granted.png?v=1789403729" alt="입장 확인 화면 — 홍*동님, 좋은 운동 되세요" loading="lazy">
+            <figcaption>판정 결과 — 이름은 가려서 표시됩니다</figcaption>
+          </figure>
+        </article>
+
+        <article class="g-item" id="desk-messages">
+          <h3>화면 안내 문구</h3>
+          <p class="g-intro">회원 이름은 <strong>홍*동</strong>처럼 가려서 표시되고, 프로필 사진은 띄우지 않습니다.</p>
+          <div class="g-table-wrap">
+            <table class="g-table">
+              <thead><tr><th>상황</th><th>화면 문구</th></tr></thead>
+              <tbody>
+                <tr><td><span class="ok">통과</span> 이용권 보유</td><td class="g-msg">홍*동님, 좋은 운동 되세요</td></tr>
+                <tr><td><span class="ok">통과</span> 오늘 수업 예약</td><td class="g-msg">홍*동님, 14:00 김강사 수업 확인했어요</td></tr>
+                <tr><td><span class="ok">통과</span> 만료 임박</td><td class="g-msg">이용권이 N일 남았어요. 데스크에서 연장해주세요</td></tr>
+                <tr><td><span class="no">거절</span> 이용권 만료</td><td class="g-msg">이용권이 만료되었어요. 데스크에 문의해주세요</td></tr>
+                <tr><td><span class="no">거절</span> 이용권 정지</td><td class="g-msg">정지 중인 이용권이에요. 데스크에 문의해주세요</td></tr>
+                <tr><td><span class="no">거절</span> 유효한 이용권 없음</td><td class="g-msg">유효한 이용권이 없어요. 데스크에 문의해주세요</td></tr>
+                <tr><td><span class="no">거절</span> 미등록 번호</td><td class="g-msg">등록된 번호를 찾을 수 없어요. 데스크에 말씀해 주세요</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="g-callout">💡 <div>같은 회원이 하루에 두 번 찍어도 통과됩니다. 출입 집계는 <strong>하루 1건</strong>입니다.</div></div>
+        </article>
+
+        <article class="g-item" id="desk-offline">
+          <h3>인터넷이 끊겼을 때</h3>
+          <div class="g-step"><span class="g-step-num">1</span><p>네트워크가 끊겨도 입장 접수는 계속됩니다. 연결이 돌아오면 자동 전송됩니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>못 보낸 기록이 있으면 상단에 <strong>[오프라인 N건]</strong>이 표시됩니다.</p></div>
+          <div class="g-callout warn">⚠️ <div>오프라인 기록이 남은 상태에서는 <strong>연결이 돌아온 뒤 로그아웃</strong>해주세요.</div></div>
+        </article>
+
+        <article class="g-item" id="desk-history">
+          <h3>출입 현황 보기</h3>
+          <div class="g-step"><span class="g-step-num">1</span><p>강사/관리자 앱의 <strong>출입 현황</strong>에서 날짜별 입장·거절 기록을 봅니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>거절 기록은 사유와 함께 남습니다.</p></div>
+          <figure class="g-shot">
+            <img src="assets/guide/fc/05-history.png?v=1789403729" alt="출입 현황 화면 — 날짜별 입장 시간, 이름, 연락처, 보유 이용권, 거절 사유" loading="lazy">
+            <figcaption>출입 현황 — 입장 시간·이용권·거절 사유</figcaption>
+          </figure>
+        </article>
+
+        <article class="g-item" id="desk-permission">
+          <h3>데스크 계정 권한</h3>
+          <p class="g-intro">공용 자리이므로 돈·사람·계약에 관한 것은 열리지 않습니다.</p>
+          <div class="g-table-wrap">
+            <table class="g-table">
+              <thead><tr><th>할 수 있는 일</th><th>할 수 없는 일</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td>회원 등록·수정<br>일정 등록·변경·출석 처리<br>수강권 발급·결제 등록<br>공지·메모·상담 리포트<br>매출 조회<br>출입 현황 확인</td>
+                  <td>급여 정산<br>팀원 초대·권한 변경·내보내기<br>상품 생성·수정·삭제<br>수강권 취소·정지·재개<br>요금제·결제수단 관리<br>센터 설정·초대코드<br>회원–강사 채팅·수업 일지<br>AI 어시스턴트</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+
+        <article class="g-item" id="desk-password">
+          <h3>비밀번호·기기 관리</h3>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>환경설정</strong> &rarr; <strong>[출입관리 · 데스크 모드]</strong>에서 마지막 재설정 일자와 로그인된 기기를 봅니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p><strong>[비밀번호 재설정]</strong>을 누르면 새 비밀번호가 한 번 표시됩니다. 태블릿은 새 비밀번호로 다시 로그인합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>태블릿을 잃어버렸다면 즉시 비밀번호를 재설정합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">4</span><p><strong>[계정 폐기]</strong>를 누르면 계정이 삭제됩니다. 출입 기록은 남습니다.</p></div>
+          <figure class="g-shot mid">
+            <img src="assets/guide/fc/02-settings-on.png?v=1789403729" alt="데스크 모드 사용 중 — 아이디, 마지막 재설정, 계정 폐기·비밀번호 재설정 버튼, 로그인된 데스크 기기 목록" loading="lazy">
+            <figcaption>데스크 계정과 로그인된 기기 목록</figcaption>
+          </figure>
+          <div class="g-callout">💡 <div>재설정 후 <strong>90일</strong>이 지나면 안내 배지가 뜹니다. 강제로 만료되지는 않습니다.</div></div>
         </article>
       </section>
 

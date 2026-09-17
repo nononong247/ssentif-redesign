@@ -313,6 +313,10 @@
 .mg-note.warn svg { color: #D2A03A; }
 .mg-note.warn p { color: #6A5324; }
 .mg-note.warn p b { color: #4A3609; }
+.mg-note.danger { background: #FEF2F2; }
+.mg-note.danger svg { color: #DC2626; }
+.mg-note.danger p { color: #B91C1C; }
+.mg-note.danger p b { color: #991B1B; }
 
 /* 단계 안 앱 다운로드 버튼 */
 .mg-dl { margin-top: 15px; padding-top: 13px; border-top: 1px solid var(--border); }

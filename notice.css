@@ -23,7 +23,11 @@
 }
 .nt-body h2:first-child { margin-top: 0; padding-top: 0; border-top: 0; }
 .nt-body p { font-size: 15.5px; line-height: 1.85; color: var(--gray-700); margin-bottom: 12px; }
-.nt-body p strong { color: var(--black); font-weight: 700; }
+.nt-body p strong { color: var(--accent-dark); font-weight: 700; }
+/* 본문 강조(볼드)는 브랜드 컬러 — 목록 항목 제목(첫 볼드)은 제목 역할이라 검정 유지 */
+.nt-body ul li strong { color: var(--accent-dark); font-weight: 700; }
+.nt-body ul.nt-qa li > strong:first-child { color: var(--black); }
+.mg-faq details p strong { color: var(--accent-dark); }
 .nt-body ul { list-style: none; display: grid; gap: 22px; margin: 6px 0 12px; }
 .nt-body ul li {
   position: relative; padding-left: 19px;

@@ -300,11 +300,11 @@
     <aside class="guide-toc" id="guideToc">
       <div class="toc-group">
         <div class="toc-group-label">공통</div>
-        <a class="toc-link" href="#account">회원 가입</a>
+        <a class="toc-link" href="#account">회원 가입과 로그인</a>
         <a class="toc-link" href="#workspace">워크스페이스 생성·참여</a>
         <a class="toc-link" href="#modes">강사 모드와 관리자 모드</a>
-        <a class="toc-link" href="#profile">프로필 정보 수정</a>
-        <a class="toc-link" href="#app-settings">앱 설정과 로그아웃</a>
+        <a class="toc-link" href="#profile">내 프로필 정보</a>
+        <a class="toc-link" href="#app-settings">앱 설정·계정 관리·로그아웃</a>
         <a class="toc-link" href="#chat">1:1 채팅</a>
         <a class="toc-link" href="#notice">회원 공지 발송</a>
         <a class="toc-link" href="#memo">공유 메모장</a>
@@ -315,9 +315,9 @@
       </div>
       <div class="toc-group">
         <div class="toc-group-label">운영 대시보드</div>
+        <a class="toc-link" href="#todo">오늘 해야할 업무</a>
         <a class="toc-link" href="#alerts">업무 알림</a>
         <a class="toc-link" href="#revenue">매출 현황</a>
-        <a class="toc-link" href="#risk">운영 위험도</a>
         <a class="toc-link" href="#notice-stats">공지사항</a>
       </div>
       <div class="toc-group">
@@ -330,19 +330,18 @@
       <div class="toc-group">
         <div class="toc-group-label">팀원관리</div>
         <a class="toc-link" href="#staff">팀원 초대·권한 관리</a>
-        <a class="toc-link" href="#staff-detail">팀원 정보·고용 정보 관리</a>
+        <a class="toc-link" href="#staff-detail">팀원 상세</a>
         <a class="toc-link" href="#payroll">급여 정산</a>
-        <a class="toc-link" href="#payslip">급여명세서 발송</a>
+        <a class="toc-link" href="#payslip">급여명세서</a>
       </div>
       <div class="toc-group">
         <div class="toc-group-label">스케줄 관리</div>
         <a class="toc-link" href="#schedule-scope">팀 전체 일정 보기</a>
-        <a class="toc-link" href="#center-hours">센터 정보·운영 설정</a>
+        <a class="toc-link" href="#center-hours">워크스페이스 설정</a>
       </div>
       <div class="toc-group">
         <div class="toc-group-label">데이터 가져오기</div>
         <a class="toc-link" href="#v1-import">센티프 1.0 가져오기</a>
-        <a class="toc-link" href="#member-transfer">담당 회원 데려오기</a>
       </div>
       <div class="toc-group">
         <div class="toc-group-label">데스크 모드</div>
@@ -372,134 +371,160 @@
         <div class="g-callout">🧭 <div>이 <strong>공통</strong> 기능은 <strong>강사 모드와 관리자 모드에서 동일하게</strong> 동작합니다. 어느 모드에서 보셔도 같은 내용입니다.</div></div>
 
 <article class="g-item" id="account">
-          <h3>회원 가입</h3>
-          <p class="g-intro">센티프를 처음 사용하신다면 강사 계정을 먼저 만들어야 합니다. 1분이면 충분합니다.</p>
-          <h4 class="g-sub">1. 계정 만들기</h4>
-          <div class="g-step"><span class="g-step-num">1</span><p>앱을 켰을 때 보이는 <strong>[회원가입]</strong>을 눌러주세요.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>가입 화면의 빈칸을 채워주세요. <strong>이메일</strong>은 공지사항과 센티프 자료를 받는 주소로 쓰이고, <strong>비밀번호</strong>는 8자 이상으로 만들어주세요.</p></div>
-          <div class="g-step"><span class="g-step-num">3</span><p>이름 · 휴대폰 번호 · 생년월일 · 성별까지 입력한 뒤 <strong>[가입하기]</strong>를 누르면 가입이 완료됩니다.</p></div>
+          <h3>회원 가입과 로그인</h3>
+          <p class="g-intro">센티프를 처음 사용하신다면 계정을 먼저 만들어야 합니다. 1분이면 충분합니다.</p>
 
+          <h4 class="g-sub">1. 간편 로그인으로 시작하기</h4>
+          <div class="g-step"><span class="g-step-num">1</span><p>앱을 켜면 로그인 화면이 나옵니다. <strong>카카오 · 네이버</strong>(아이폰은 <strong>Apple</strong>까지) 버튼으로 바로 시작할 수 있습니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>처음 이용하는 계정이라면 이름 · 휴대폰 인증 · 생년월일 · 성별만 추가로 입력하면 가입이 끝납니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>이메일로 가입하고 싶다면 <strong>[이메일로 로그인]</strong> → <strong>[회원가입]</strong>으로 들어갑니다.</p></div>
+
+          <h4 class="g-sub">2. 이메일로 가입하기</h4>
+          <div class="g-step"><span class="g-step-num">1</span><p>이메일을 입력하고 오른쪽 <strong>[중복 확인]</strong>을 눌러 사용 가능한 주소인지 먼저 확인합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>비밀번호는 <strong>8자 이상</strong>으로 만들고 아래 칸에 한 번 더 입력합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>이름을 적고, 휴대폰 번호 오른쪽 <strong>[인증 요청]</strong>으로 본인 인증을 마칩니다.</p></div>
+          <div class="g-step"><span class="g-step-num">4</span><p>생년월일과 성별까지 고른 뒤 <strong>[가입하기]</strong>를 누르면 완료됩니다.</p></div>
+
+          <div class="g-shot-row">
           <figure class="g-shot">
             <img src="assets/guide/admin/signup.png" alt="태블릿 가로 화면 — 센티프 코치 앱 회원가입 화면. 좌측 브랜드 패널, 우측 이메일 중복 확인, 비밀번호, 이름, 휴대폰 인증 요청, 생년월일, 성별 입력 폼" loading="lazy">
             <figcaption>회원가입 화면(태블릿) — 빈칸을 채우고 [가입하기]</figcaption>
           </figure>
-
-          <h4 class="g-sub">2. 계정 삭제</h4>
-          <div class="g-callout warn">⚠️ <div>계정을 삭제하면 작성한 수업일지, 회원 기록, 상품 발급 내역이 함께 삭제됩니다. <strong>삭제된 데이터는 복구되지 않으며, 계정을 다시 만들어도 이전 기록은 되돌아오지 않습니다.</strong> 이용에 불편한 점이 있다면 삭제 전에 카카오채널로 문의해주세요.</div></div>
-          <div class="g-step"><span class="g-step-num">1</span><p><strong>[마이탭]</strong> 우상단의 <strong>[설정]</strong>을 눌러주세요.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p><strong>[계정 관리] → [계정 탈퇴]</strong>에서 계정을 삭제할 수 있습니다.</p></div>
-          <div class="g-step"><span class="g-step-num">3</span><p>탈퇴 처리에 동의하면 모든 정보가 삭제되며 탈퇴가 완료됩니다.</p></div>
-
           <figure class="g-shot">
             <img src="assets/guide/admin/account-settings.png" alt="태블릿 가로 화면 — 계정 관리 화면. 연락처 변경, 비밀번호 변경, 계정 탈퇴 메뉴" loading="lazy">
             <figcaption>설정 → 계정 관리 → 계정 탈퇴(태블릿)</figcaption>
           </figure>
+</div>
+
+          <h4 class="g-sub">3. 계정 탈퇴</h4>
+          <p class="g-intro">계정 탈퇴는 앱 안에서 바로 처리할 수 있습니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p>프로필 탭 → <strong>계정 관리</strong>로 이동한 뒤 <strong>[계정 탈퇴]</strong>를 누릅니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>안내 문구를 확인하고 동의에 체크한 뒤 <strong>[탈퇴하기]</strong>를 누르면 즉시 처리됩니다.</p></div>
+          <div class="g-callout warn">⚠️ <div>계정을 삭제하면 작성한 수업 일지, 회원 기록, 상품 발급 내역이 함께 삭제됩니다. <strong>삭제된 데이터는 복구되지 않으며, 계정을 다시 만들어도 이전 기록은 되돌아오지 않습니다.</strong></div></div>
         </article>
 
 <article class="g-item" id="workspace">
           <h3>워크스페이스 생성·참여</h3>
           <p class="g-intro">워크스페이스는 우리 센터의 공간입니다. 혼자라면 새로 만들고, 이미 운영 중인 센터에 합류한다면 초대를 받아 참여하세요.</p>
+
           <h4 class="g-sub">1. 새 워크스페이스 만들기</h4>
-          <div class="g-step"><span class="g-step-num">1</span><p>가입 후 워크스페이스 선택 화면에서 <strong>[새 워크스페이스 만들기]</strong>를 눌러주세요.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>센터 이름을 입력하면 나만의 워크스페이스가 생성됩니다.</p></div>
-          <h4 class="g-sub">2. 기존 워크스페이스 참여하기</h4>
-          <div class="g-step"><span class="g-step-num">1</span><p>관리자(원장님)에게 내 <strong>고유코드</strong>를 알려주고 초대를 요청하세요. 초대를 받으면 참여할 워크스페이스가 선택 화면에 나타납니다.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>워크스페이스를 선택해 <strong>수락</strong>하면 센터의 회원·일정 데이터와 연결됩니다.</p></div>
+          <div class="g-step"><span class="g-step-num">1</span><p>가입 후 워크스페이스 선택 화면에서 <strong>[새 워크스페이스 만들기]</strong>을 눌러주세요.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p><strong>워크스페이스 이름</strong>만 필수입니다. 센터 사진·로고, 대표 주소, 대표 연락처는 나중에 설정에서 추가해도 됩니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>주소는 직접 타이핑하지 않고 <strong>우편번호 검색</strong>으로 고릅니다. 만든 사람은 자동으로 <strong>소유자</strong>가 됩니다.</p></div>
 
           <figure class="g-shot mid">
             <img src="assets/guide/admin/workspace-create.png" alt="태블릿 가로 화면 — 워크스페이스 생성 화면. 사진/로고 선택, 워크스페이스 이름, 대표 주소, 대표 연락처 입력 카드" loading="lazy">
             <figcaption>워크스페이스 생성(태블릿) — 이름만 필수</figcaption>
           </figure>
+<h4 class="g-sub">2. 기존 워크스페이스 참여하기</h4>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>[프로필] → [내 고유코드 보기]</strong>에서 8자리 <strong>고유코드</strong>를 확인해 센터의 소유자나 관리자에게 알려주세요.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>그 코드로 초대를 받으면 워크스페이스 선택 화면의 <strong>받은 초대</strong>에 나타납니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>워크스페이스를 선택해 <strong>수락</strong>하면 센터의 회원·일정 데이터와 연결됩니다.</p></div>
         </article>
 
         <article class="g-item" id="modes">
           <h3>강사 모드와 관리자 모드</h3>
           <p class="g-intro">센티프 앱은 하나의 앱 안에서 두 가지 모드로 동작합니다. 사람마다 앱을 따로 설치할 필요가 없습니다.</p>
-          <div class="g-step"><span class="g-step-num">1</span><p><strong>강사 모드</strong>는 내가 담당하는 회원의 수업·기록·소통에 집중한 화면입니다. 홈 · 회원 · 일정 · 채팅 · 메모 탭으로 구성됩니다.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p><strong>관리자 모드</strong>는 센터 전체의 매출 · 회원 · 팀원 · 정산을 보는 화면입니다. 대시보드 · 회원관리 · 팀원 · 상품 탭이 추가됩니다.</p></div>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>강사 모드</strong>는 내가 담당하는 회원의 수업·기록·소통에 집중한 화면입니다. <strong>홈 · 회원 · 일정 · 채팅 · 프로필</strong> 탭으로 구성됩니다(가로 태블릿에서는 마지막 탭이 <strong>메모</strong>).</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p><strong>관리자 모드</strong>는 센터 전체의 매출 · 회원 · 팀원 · 상품을 보는 화면입니다. <strong>대시보드</strong>가 첫 탭이 되고 <strong>팀원 · 상품</strong> 탭이 더해집니다.</p></div>
           <div class="g-step"><span class="g-step-num">3</span><p>관리자 권한을 가진 분은 두 모드를 자유롭게 오갈 수 있고, 강사 권한만 있다면 강사 모드로만 사용합니다.</p></div>
-          <div class="g-callout">💡 <div>이 <strong>공통</strong> 문서의 기능들은 어떤 모드에서든 동일하게 동작합니다. 모드별 전용 기능은 각 탭에서 확인해주세요.</div></div>
+
+          <h4 class="g-sub">모드 전환하는 방법</h4>
+          <p class="g-intro">쓰고 있는 기기에 따라 전환 방법이 다릅니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>태블릿 · PC</strong> — 화면 <strong>왼쪽 아래의 전환 버튼</strong>을 누르면 강사 모드와 관리자 모드가 바뀝니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p><strong>모바일</strong> — 하단 <strong>[프로필]</strong> 탭을 <strong>연속으로 두 번</strong> 누르면 전환됩니다. 보고 있던 화면은 그대로 두고 모드만 바뀝니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>모바일에서는 홈·프로필 화면 <strong>우측 상단의 모드 칩</strong>(예: <strong>[⇄ 강사]</strong>)을 눌러 바꿀 수도 있습니다.</p></div>
+
+          <div class="g-callout">💡 <div>모드 전환 수단은 <strong>소유자·관리자 권한에만</strong> 보입니다. 강사 권한이라면 전환 버튼이나 프로필 탭 두 번 누르기가 동작하지 않습니다 — 정상입니다.</div></div>
+          <div class="g-callout">💡 <div>이 <strong>공통</strong> 문서의 기능들은 두 모드에서 동일하게 동작합니다.</div></div>
 
           <figure class="g-shot">
             <img src="assets/guide/admin/modes.png" alt="태블릿 가로 화면 — 강사 모드 홈 화면과 좌측 사이드레일. 사이드레일 하단에 강사/관리자 모드 전환 스위치가 있다" loading="lazy">
             <figcaption>태블릿·PC는 좌측 사이드레일 하단 전환 스위치, 모바일은 [프로필] 탭 두 번 누르기로 전환</figcaption>
           </figure>
-        </article>
+</article>
 
         <article class="g-item" id="profile">
-          <h3>프로필 정보 수정</h3>
-          <p class="g-intro">이름·연락처 같은 내 정보는 모드와 관계없이 같은 설정 화면에서 관리합니다.</p>
-          <div class="g-step"><span class="g-step-num">1</span><p>하단 탭 우측의 <strong>[마이]</strong>에서 <strong>[설정]</strong>을 열어주세요.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>프로필 사진을 눌러 사진을 바꾸고, <strong>이메일 · 연락처 · 생년월일 · 성별</strong>을 수정할 수 있습니다.</p></div>
-          <div class="g-step"><span class="g-step-num">3</span><p>수정한 내용은 저장하면 즉시 반영되고, 회원 앱에서 보이는 내 프로필에도 함께 적용됩니다.</p></div>
+          <h3>내 프로필 정보</h3>
+          <p class="g-intro">이름·연락처 같은 내 정보는 모드와 관계없이 <strong>프로필</strong> 화면에서 확인합니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p>하단 탭 맨 오른쪽 <strong>[프로필]</strong>을 눌러주세요. 가로 태블릿에서는 왼쪽 사이드바 상단의 워크스페이스 아이콘 → <strong>[내 계정]</strong>입니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>가운데 <strong>프로필 사진</strong>을 누르면 갤러리에서 사진을 고를 수 있습니다. 바꾼 사진은 서버에 저장되어 <strong>다른 기기와 회원 앱에서도 함께 바뀝니다.</strong></p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>이름 · 연락처 · 생년월일 · 성별을 확인하고, <strong>[내 고유코드 보기]</strong>로 팀원 초대에 쓰는 내 코드를 볼 수 있습니다.</p></div>
 
           <figure class="g-shot">
             <img src="assets/guide/admin/profile.png" alt="태블릿 가로 화면 — 프로필 화면. 좌측 프로필 카드(사진, 이름, 역할 배지)와 우측 설정 목록(이메일·연락처·생년월일·성별·초대코드)" loading="lazy">
             <figcaption>프로필 화면(태블릿) — 좌측 프로필 카드, 우측 설정 목록. 사진을 누르면 변경</figcaption>
           </figure>
-        </article>
+</article>
 
         <article class="g-item" id="app-settings">
-          <h3>앱 설정과 로그아웃</h3>
-          <div class="g-step"><span class="g-step-num">1</span><p>같은 <strong>[설정]</strong> 화면에서 <strong>테마 모드</strong>(라이트 · 다크)를 바꿀 수 있습니다.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p><strong>초대코드</strong> 항목에서 내가 속한 워크스페이스 정보를 확인합니다.</p></div>
-          <div class="g-step"><span class="g-step-num">3</span><p><strong>[로그아웃]</strong>을 누르면 계정에서 안전하게 나갑니다. 다시 로그인하면 데이터는 그대로 남아 있습니다.</p></div>
+          <h3>앱 설정·계정 관리·로그아웃</h3>
+          <p class="g-intro">프로필 화면 아래쪽에 앱 설정 메뉴가 모여 있습니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>[테마 설정]</strong>에서 라이트 · 다크 · 시스템 기본값을 고를 수 있습니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p><strong>[알림 설정]</strong>에서 받을 알림을 <strong>종류별로 따로</strong> 켜고 끕니다 — <strong>예약 · 변경 요청</strong>(개인수업 예약과 수업 변경·취소 요청) / <strong>담당 회원 소식</strong>(담당 회원 배정과 수강권 등록) / <strong>회원 기록 공유</strong>(담당 회원의 식단·운동·체성분·체형사진) / <strong>새 메시지</strong>(회원·동료의 채팅) / <strong>수업 시작 30분 전</strong> / <strong>식단 인증</strong> / <strong>시스템 공지</strong>.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p><strong>[계정 관리]</strong>에서 연락처 변경 · 비밀번호 변경 · 계정 탈퇴를 할 수 있습니다.</p></div>
+          <div class="g-step"><span class="g-step-num">4</span><p>맨 아래 <strong>[로그아웃]</strong>을 누르면 계정에서 안전하게 나갑니다. 다시 로그인하면 데이터는 그대로 남아 있습니다.</p></div>
+          <div class="g-callout">💡 <div><strong>[운동 라이브러리]</strong>와 <strong>[AI 코칭 스타일 설정]</strong>도 이 화면에서 바로 들어갈 수 있습니다.</div></div>
+          <div class="g-callout">💡 <div>알림 설정은 <strong>휴대폰으로 오는 푸시만</strong> 끕니다. 앱 안의 알림 목록과 채팅 미읽음 표시는 그대로 쌓이므로, 나중에 앱에서 확인하실 수 있습니다.</div></div>
 
           <figure class="g-shot">
             <img src="assets/guide/admin/account-settings.png" alt="태블릿 가로 화면 — 계정 관리 화면. 연락처 변경, 비밀번호 변경, 계정 탈퇴 메뉴" loading="lazy">
             <figcaption>프로필 → 계정 관리(태블릿)</figcaption>
           </figure>
-        </article>
+</article>
 
 <article class="g-item" id="chat">
           <h3>1:1 채팅</h3>
-          <div class="g-step"><span class="g-step-num">1</span><p><strong>[채팅]</strong>에서 연동된 회원과의 대화방을 열 수 있습니다.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>일정 변경 요청, 운동 질문 등을 실시간 메시지로 주고받으세요.</p></div>
-          <div class="g-callout">💡 <div>개인 연락처를 공개하지 않고도 회원과 소통할 수 있습니다.</div></div>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>[채팅]</strong> 탭에서 연동된 회원과의 대화방을 열 수 있습니다. 상단 <strong>회원 / 강사</strong> 탭으로 상대를 나눠 볼 수 있습니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>우측 상단 <strong>[+]</strong>로 새 대화를 시작합니다. 담당 회원, 동료 강사, 그리고 여러 명을 묶은 <strong>단체방</strong>까지 만들 수 있습니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>일정 변경 요청, 운동 질문, 사진 전달을 실시간으로 주고받으세요. 읽지 않은 메시지는 빨간 숫자로 표시됩니다.</p></div>
+          <div class="g-callout">💡 <div>개인 연락처를 공개하지 않고도 회원과 소통할 수 있습니다. 회원이 보낸 <strong>수업 변경·취소 요청</strong>은 채팅 카드에서 바로 승인·거절할 수 있습니다.</div></div>
 
           <figure class="g-shot">
             <img src="assets/guide/admin/chat.png" alt="태블릿 가로 화면 — 채팅 탭 분할 뷰. 좌측 대화방 목록(회원별 미읽음 배지), 우측 선택한 대화" loading="lazy">
             <figcaption>채팅 탭(태블릿) — 좌측 목록·우측 대화, 회원/강사 전환과 미읽음 개수 표시</figcaption>
           </figure>
-        </article>
+</article>
 
 <article class="g-item" id="notice">
           <h3>회원 공지 발송</h3>
-          <div class="g-step"><span class="g-step-num">1</span><p><strong>[공지]</strong>에서 <strong>[공지 작성]</strong>을 눌러주세요.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>제목과 내용을 작성하고 발송하면, 연동된 회원들의 앱에 푸시 알림으로 전달됩니다.</p></div>
-          <div class="g-step"><span class="g-step-num">3</span><p>휴무 안내, 이벤트, 센터 소식을 단체 문자 비용 없이 전달해보세요.</p></div>
+          <div class="g-step"><span class="g-step-num">1</span><p>홈 화면의 <strong>공지사항</strong> 카드에서 <strong>[전체보기]</strong>를 누르거나, 세로 화면에서는 좌측 상단 <strong>[≡]</strong> → <strong>[회원 공지]</strong>로 들어갑니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p><strong>[공지 작성]</strong>을 누르고 <strong>카테고리</strong>(휴무 · 시설정비 · 이벤트 · 공지)를 고른 뒤 제목과 내용을 작성합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>저장하면 연동된 회원들의 앱에 공지가 전달됩니다. 휴무 안내, 이벤트, 센터 소식을 단체 문자 비용 없이 전달해보세요.</p></div>
+          <div class="g-callout">💡 <div>작성한 공지는 목록에서 <strong>길게 눌러</strong> 수정·삭제할 수 있습니다.</div></div>
 
           <figure class="g-shot">
             <img src="assets/guide/admin/notice.png" alt="태블릿 가로 화면 — 회원 공지 목록 화면과 공지 작성 버튼" loading="lazy">
             <figcaption>회원 공지(태블릿) — 목록에서 작성·수정·삭제</figcaption>
           </figure>
-        </article>
+</article>
 
 <article class="g-item" id="memo">
           <h3>공유 메모장</h3>
-          <div class="g-step"><span class="g-step-num">1</span><p><strong>[메모]</strong>에서 워크스페이스 구성원이 함께 보는 메모를 작성할 수 있습니다.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>인수인계, 기구 점검, 공유 사항을 기록하면 팀 전체가 같은 내용을 봅니다.</p></div>
+          <div class="g-step"><span class="g-step-num">1</span><p>가로 태블릿에서는 <strong>[메모]</strong> 탭, 세로 화면에서는 좌측 상단 <strong>[≡]</strong> → <strong>[메모]</strong>에서 열 수 있습니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>메모마다 <strong>개인 메모</strong>와 <strong>공유 메모</strong>를 고를 수 있습니다. 공유로 두면 지정한 팀원이 같은 내용을 봅니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>본문 아래 <strong>사진 첨부</strong> 칸으로 기구 사진·화이트보드 사진을 함께 남길 수 있습니다.</p></div>
+          <div class="g-callout">💡 <div>인수인계, 기구 점검, 재고 확인처럼 <strong>말로 전하면 사라지는 것</strong>을 남겨두는 용도로 쓰기 좋습니다.</div></div>
 
           <figure class="g-shot">
             <img src="assets/guide/admin/memo.png" alt="태블릿 가로 화면 — 메모 탭 분할 뷰. 좌측 메모 목록, 우측 선택한 메모 편집 화면(본문·사진 첨부·공유 범위 배지)" loading="lazy">
             <figcaption>메모 탭(태블릿) — 좌측 목록·우측 편집, 사진 첨부와 공유 범위</figcaption>
           </figure>
-        </article>
+</article>
       </section>
-
 
 <section class="g-section" id="sec-start">
         <div class="g-cat">시작하기</div>
         <h2>관리자의 시선으로 전환</h2>
 
-        <article class="g-item" id="mode-switch">
+                <article class="g-item" id="mode-switch">
           <h3>관리자 모드 전환</h3>
-          <p class="g-intro">관리자 권한이 있으면 같은 앱 안에서 강사 모드와 관리자 모드를 오갈 수 있습니다.</p>
-          <div class="g-step"><span class="g-step-num">1</span><p><strong>태블릿·PC</strong>는 좌측 사이드레일 맨 아래의 전환 스위치를 눌러주세요. <strong>모바일</strong>은 하단 <strong>[프로필]</strong> 탭을 연속 두 번 눌러주세요(보고 있던 화면은 그대로 유지됩니다).</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>전환하면 홈이 <strong>운영 대시보드</strong>로 바뀌고, 탭에 <strong>회원관리 · 팀원 · 상품</strong>이 추가됩니다.</p></div>
-          <div class="g-step"><span class="g-step-num">3</span><p>같은 방법으로 <strong>강사 모드</strong>를 다시 선택하면 원래 화면으로 돌아옵니다. 데이터는 그대로 유지됩니다.</p></div>
-          <div class="g-callout">💡 <div>일정 · 채팅 · 메모 탭은 두 모드에서 동일합니다. 다만 일정 탭에는 관리자 모드에서만 <strong>보기 범위 전환</strong>이 추가됩니다.</div></div>
-          <div class="g-callout warn">⚠️ <div>관리자 권한이 없는 계정에는 전환 스위치가 보이지 않습니다. 권한은 워크스페이스 대표가 <strong>팀원 관리</strong>에서 부여합니다.</div></div>
+          <p class="g-intro">소유자·관리자 권한이 있으면 같은 앱 안에서 강사 모드와 관리자 모드를 오갈 수 있습니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>가로 태블릿</strong>은 왼쪽 사이드바 맨 아래의 전환 스위치를 누릅니다. <strong>세로 화면</strong>은 홈·프로필 우측 상단의 모드 칩(예: <strong>[⇄ 강사]</strong>)을 누르거나, 하단 <strong>[프로필]</strong> 탭을 연속으로 두 번 누릅니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>관리자 모드에서는 첫 화면이 <strong>대시보드</strong>로 바뀝니다. 가로 태블릿은 <strong>회원 · 팀원 · 상품</strong> 탭이 더해지고, 세로 화면은 좌측 상단 <strong>[≡]</strong> 메뉴에 <strong>팀원 관리 · 상품 관리 · 매출 내역 · 회원 공지</strong>가 들어 있습니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>같은 방법으로 다시 전환하면 강사 모드로 돌아옵니다. 데이터는 그대로 유지됩니다.</p></div>
+          <div class="g-callout">💡 <div>일정 탭에는 관리자 모드에서만 <strong>팀 전체 / 나의 일정</strong> 전환이 추가됩니다.</div></div>
+          <div class="g-callout warn">⚠️ <div>강사 권한 계정에는 모드 전환 수단이 보이지 않습니다. 권한은 소유자·관리자가 팀원 관리에서 부여합니다.</div></div>
 
           <figure class="g-shot">
             <img src="assets/guide/admin/modes.png" alt="태블릿 가로 화면 — 강사 모드 홈 화면과 좌측 사이드레일. 사이드레일 하단에 강사/관리자 모드 전환 스위치가 있다" loading="lazy">
@@ -512,27 +537,39 @@
         <div class="g-cat">운영 대시보드</div>
         <h2>숫자로 보는 우리 센터</h2>
 
+                <article class="g-item" id="todo">
+          <h3>오늘 해야할 업무</h3>
+          <p class="g-intro">나와 팀원이 해야 할 업무를 적어 두고 체크합니다. 관리자는 팀원에게 업무를 배정할 수 있습니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p>대시보드의 <strong>오늘 해야할 업무</strong> 카드에서 <strong>내 할 일</strong>과 <strong>팀 현황</strong>(팀원에게 배정한 업무의 완료 현황)을 확인합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p><strong>[전체보기]</strong>를 누르면 <strong>해야할 업무</strong> 목록이 열립니다. 우측 하단 <strong>[+]</strong>로 업무를 추가합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>해야할 일 · 체크리스트 항목 · 메모를 적고, <strong>담당 팀원</strong> · 시작일 · 반복(매일 · 매주 · 매월) · 마감시각을 정합니다. 담당 팀원을 고르지 않으면 내 업무가 됩니다.</p></div>
+          <div class="g-step"><span class="g-step-num">4</span><p>업무를 누르면 상세가 열립니다. 체크리스트는 상세에서 항목별로 체크하고, 배정한 업무는 <strong>팀원별 현황 / 항목별 현황</strong>으로 진행을 봅니다.</p></div>
+          <div class="g-callout">💡 <div>지난 날짜에 끝내지 못한 업무는 <strong>지난 할 일</strong>로 오늘 목록에 함께 표시됩니다. 강사 모드 홈에도 같은 <strong>오늘 해야할 업무</strong> 카드가 있습니다.</div></div>
+        </article>
+
         <article class="g-item" id="alerts">
           <h3>업무 알림</h3>
-          <p class="g-intro">오늘 처리해야 할 일을 대시보드 상단에서 안내합니다. 놓치면 매출에 영향을 주는 항목입니다.</p>
-          <div class="g-step"><span class="g-step-num">1</span><p>관리자 모드 홈(대시보드)을 열면 <strong>[업무 알림]</strong> 카드가 가장 먼저 보입니다.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>카드 상단의 분류를 눌러 <strong>전체 · 이탈 · 만료 · 신규</strong>로 좁혀볼 수 있습니다.</p></div>
-          <div class="g-step"><span class="g-step-num">3</span><p>각 알림의 <strong>[정산 입력]</strong>을 누르면 해당 회원의 정산 화면으로, <strong>[채팅]</strong>을 누르면 회원과의 대화방으로 바로 이동합니다.</p></div>
-          <div class="g-callout">💡 <div><strong>이탈</strong>은 최근 출석이 끊긴 회원, <strong>만료</strong>는 수강권 종료가 임박한 회원, <strong>신규</strong>는 새로 발급된 상품입니다. 만료 알림에 먼저 반응하면 재등록률 개선에 도움이 됩니다.</div></div>
+          <p class="g-intro">지금 확인이 필요한 회원 소식을 대시보드에 모아 보여줍니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p>대시보드의 <strong>업무 알림</strong> 카드에서 분류를 눌러 <strong>전체 · 이탈 · 만료 · 등록 · 연동해지</strong>로 좁혀 봅니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>알림을 누르면 처리할 화면으로 이동합니다 — <strong>상품등록</strong>은 회원 상세의 상품 탭과 결제 내역, <strong>연동해지</strong>는 회원 상세, <strong>만료임박 · 이탈위험</strong>은 채팅 탭입니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>처리한 알림은 우측 <strong>[×]</strong>로 닫습니다. 잘못 닫았다면 바로 뜨는 안내의 <strong>[실행 취소]</strong>를 누릅니다.</p></div>
+          <div class="g-callout">💡 <div><strong>이탈위험</strong>은 최근 방문이 끊긴 회원, <strong>만료임박</strong>은 수강권 종료가 가까운 회원, <strong>상품등록</strong>은 새로 발급된 상품, <strong>연동해지</strong>는 회원이 회원 앱에서 센터 연동을 해지한 경우입니다.</div></div>
 
           <figure class="g-shot card">
-            <img src="assets/guide/admin/alerts.png" alt="운영 대시보드 업무 알림 카드 — 분류 탭과 정산 입력·채팅 버튼" loading="lazy">
-            <figcaption>업무 알림 카드 — 분류를 눌러 좁혀보고, 항목별 [정산 입력]·[채팅]으로 바로 이동</figcaption>
+            <img src="assets/guide/admin/alerts.png" alt="운영 대시보드 업무 알림 카드 — 분류 탭과 알림 목록" loading="lazy">
+            <figcaption>업무 알림 카드 — 분류를 눌러 좁혀보고, 알림을 눌러 처리할 화면으로 이동</figcaption>
           </figure>
         </article>
 
-        <article class="g-item" id="revenue">
+                <article class="g-item" id="revenue">
           <h3>매출 현황</h3>
-          <p class="g-intro">이번 달 상품이 얼마나 팔렸는지, 어떤 상품이 팔렸는지를 확인합니다.</p>
-          <div class="g-step"><span class="g-step-num">1</span><p>대시보드에서 <strong>[회원권 판매 현황 (이번달)]</strong> 카드를 확인해주세요.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>총 판매 금액과 함께 <strong>시설이용권 N건 · 수업권 N건</strong>으로 유형별 판매 건수가 나뉘어 표시됩니다.</p></div>
-          <div class="g-step"><span class="g-step-num">3</span><p><strong>상담 · 신규등록 · 재등록 · 만료</strong> 지표를 함께 보면 이번 달 흐름이 신규 유입 덕분인지 재등록 덕분인지 구분할 수 있습니다.</p></div>
-          <div class="g-callout">💡 <div>재등록 수치가 신규등록보다 꾸준히 낮다면, 만료 예정 회원 관리가 먼저입니다.</div></div>
+          <p class="g-intro">센터에서 판매된 상품의 매출을 기간별 · 분류별로 확인합니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p>대시보드의 <strong>매출 현황</strong> 카드에서 <strong>일별 / 월별</strong>을 고르고 날짜를 넘겨 봅니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>선택한 기간의 총 매출과 직전 기간 대비 증감, 분류별 매출(개인수업 · 그룹수업 · 시설이용권 등), 매출 추이 그래프가 표시됩니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p><strong>[전체보기]</strong>를 누르면 매출 현황 화면이 열립니다. 위쪽 지표 카드에서 <strong>매출 금액 · 신규 회원 · 재등록 회원 · 만료 회원 · 현재 잠재 부채</strong>를 확인하고, 신규·재등록·만료 카드의 <strong>ⓘ</strong>를 누르면 해당 회원 명단이 나옵니다.</p></div>
+          <div class="g-step"><span class="g-step-num">4</span><p>그 아래 결제 목록을 분류 칩으로 걸러 보고, 결제를 누르면 결제 상세와 강사 정산 조건을 확인·수정합니다.</p></div>
+          <div class="g-callout">💡 <div><strong>현재 잠재 부채</strong>는 이미 결제받았지만 아직 제공하지 않은 수업의 금액입니다. 금액이 계속 커진다면 예약률을 함께 점검해주세요.</div></div>
+          <div class="g-callout">💡 <div>세로 화면에서는 좌측 상단 <strong>[≡] → [매출 내역]</strong>으로도 매출 현황 화면에 들어갈 수 있습니다.</div></div>
 
           <figure class="g-shot card">
             <img src="assets/guide/admin/revenue.png" alt="매출 현황 카드 — 기간별 총 판매 금액, 분류별 판매 건수, 추이 차트" loading="lazy">
@@ -540,31 +577,11 @@
           </figure>
         </article>
 
-        <article class="g-item" id="risk">
-          <h3>운영 위험도</h3>
-          <p class="g-intro">당장 문제가 되지는 않지만 방치하면 매출에 영향을 주는 신호를 모아 확인합니다.</p>
-          <h4 class="g-sub">1. 이탈 위험 회원</h4>
-          <div class="g-step"><span class="g-step-num">1</span><p>대시보드의 <strong>이탈 위험</strong> 영역에서 최근 출석이 끊긴 회원 목록을 확인합니다.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>회원을 누르면 마지막 수업일과 남은 횟수를 함께 볼 수 있습니다.</p></div>
-          <div class="g-step"><span class="g-step-num">3</span><p>담당 강사에게 연락을 요청하거나, 직접 채팅으로 안부를 남겨주세요.</p></div>
-          <h4 class="g-sub">2. 잠재부채</h4>
-          <div class="g-step"><span class="g-step-num">1</span><p><strong>잠재부채</strong>는 이미 결제받았지만 아직 제공하지 않은 수업의 금액입니다.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>회원이 남긴 미사용 횟수 × 회당 단가로 자동 계산됩니다.</p></div>
-          <div class="g-step"><span class="g-step-num">3</span><p>금액이 계속 커진다면 판매는 이루어지지만 수업 소진이 되지 않고 있다는 의미입니다. 예약률을 함께 점검해주세요.</p></div>
-          <div class="g-callout warn">⚠️ <div>잠재부채는 환불 요청이 몰릴 때 그대로 현금 부담이 됩니다. 매달 확인하는 습관을 권장합니다.</div></div>
-
-          <figure class="g-shot card">
-            <img src="assets/guide/admin/risk.png" alt="운영 위험도 카드 — 안정성 등급과 잠재부채 금액" loading="lazy">
-            <figcaption>운영 위험도 — 안정성 등급과 잠재부채 규모</figcaption>
-          </figure>
-        </article>
-
-        <article class="g-item" id="notice-stats">
+                <article class="g-item" id="notice-stats">
           <h3>공지사항</h3>
-          <p class="g-intro">대시보드에서 최근 보낸 공지를 바로 확인합니다.</p>
-          <div class="g-step"><span class="g-step-num">1</span><p>대시보드 우측의 <strong>[공지사항]</strong> 카드에서 최근 보낸 공지 목록을 볼 수 있습니다.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>공지 작성·수정·삭제는 <a href="#notice">공통 · 회원 공지 발송</a>과 동일합니다.</p></div>
-          <div class="g-callout warn">⚠️ <div>발송·열람·액션 건수 같은 <strong>공지 통계 카드는 아직 준비 중</strong>입니다. 지금은 최근 공지 목록만 확인할 수 있습니다.</div></div>
+          <p class="g-intro">대시보드에서 최근 공지를 바로 확인합니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p>대시보드의 <strong>공지사항</strong> 카드에서 최근 공지 목록을 봅니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>공지 작성·수정·삭제는 공통 문서의 <strong>회원 공지 발송</strong>과 같습니다.</p></div>
         </article>
       </section>
 
@@ -572,15 +589,14 @@
         <div class="g-cat">회원관리</div>
         <h2>센터 전체 회원을 한 화면에서</h2>
 
-        <article class="g-item" id="all-members">
+                <article class="g-item" id="all-members">
           <h3>전체 회원 조회</h3>
           <p class="g-intro">담당 회원만 보이는 강사 모드와 달리, 센터에 등록된 모든 회원을 한 화면에서 봅니다.</p>
-          <div class="g-step"><span class="g-step-num">1</span><p>하단 탭의 <strong>[회원관리]</strong>를 눌러주세요.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>상단의 <strong>회원권 상태</strong>(회원권 전체 · 활성 · 일시정지 · 만료)와 <strong>담당 강사</strong>(전체 · 미배정 · 강사별) 드롭다운을 조합해서 걸러볼 수 있습니다.</p></div>
-          <div class="g-step"><span class="g-step-num">3</span><p><strong>이름 · 연락처</strong>로 검색하고, <strong>기본순(상태 우선) · 이름순 · 등록일 최신순 · 등록일 오래된 순</strong>으로 정렬합니다.</p></div>
-          <div class="g-step"><span class="g-step-num">4</span><p>목록에는 <strong>이름 · 담당강사 · 연락처 · 시설이용권 · 개인수업</strong> 정보가 함께 표시됩니다.</p></div>
-          <div class="g-step"><span class="g-step-num">5</span><p>우측 상단 <strong>[회원 추가]</strong>로 신규 회원을 직접 등록할 수도 있습니다.</p></div>
-          <div class="g-callout warn">⚠️ <div>전체 회원 목록은 관리자 권한이 있어야 열립니다. 권한이 없으면 “전체 회원은 관리자만 확인할 수 있습니다.” 안내가 표시됩니다.</div></div>
+          <div class="g-step"><span class="g-step-num">1</span><p>관리자 모드의 <strong>[회원]</strong> 탭을 엽니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>상단의 <strong>회원권 상태</strong>(회원권 전체 · 활성 · 일시정지 · 만료)와 <strong>담당 강사</strong>(전체 · 미배정 · 강사별) 드롭다운을 조합해서 걸러 봅니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p><strong>이름 · 연락처</strong>로 검색하고, 기본순(상태 우선) · 이름순 · 등록일 최신순 · 등록일 오래된 순으로 정렬합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">4</span><p>목록에는 이름 · 담당 강사 · 연락처 · 시설이용권 · 개인수업 · 그룹수업 · 회원 상태가 표시됩니다. 회원을 누르면 회원 상세가 열립니다.</p></div>
+          <div class="g-step"><span class="g-step-num">5</span><p>우측 상단 <strong>[회원 추가]</strong>로 신규 회원을 등록합니다. 관리자 모드에서는 담당 강사를 함께 지정할 수 있습니다.</p></div>
 
           <figure class="g-shot">
             <img src="assets/guide/admin/all-members.png" alt="전체 회원 목록 화면 — 상태 필터, 검색창, 회원 추가 버튼" loading="lazy">
@@ -588,13 +604,13 @@
           </figure>
         </article>
 
-        <article class="g-item" id="assign-coach">
+                <article class="g-item" id="assign-coach">
           <h3>담당 강사 배정</h3>
           <p class="g-intro">담당자가 없는 회원을 강사에게 연결합니다. 배정되어야 그 강사의 회원 탭에 나타납니다.</p>
-          <div class="g-step"><span class="g-step-num">1</span><p>회원관리에서 <strong>[미배정]</strong> 필터를 눌러 담당자가 없는 회원을 확인합니다.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>회원을 눌러 <strong>[담당 강사 배정]</strong>을 열어주세요.</p></div>
-          <div class="g-step"><span class="g-step-num">3</span><p>배정할 강사를 선택하면 “○○님에게 배정했어요” 안내와 함께 즉시 반영됩니다.</p></div>
-          <div class="g-callout">💡 <div>담당 강사를 바꾸면 새 담당자가 이전 수업일지와 기록을 그대로 이어받습니다. 인수인계 시 활용해주세요.</div></div>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>[회원]</strong> 탭에서 담당 강사 드롭다운을 <strong>미배정</strong>으로 두면 담당자가 없는 회원만 보입니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>회원을 눌러 상세를 열고, 우측 하단 <strong>[회원 관리]</strong> 버튼 → <strong>[담당 강사 배정하기]</strong>를 누릅니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>배정할 강사를 고르면 바로 반영됩니다.</p></div>
+          <div class="g-callout">💡 <div>담당 강사를 바꾸면 새 담당자가 이전 수업 일지와 기록을 그대로 이어받습니다.</div></div>
         </article>
 
         <article class="g-item" id="member-analytics">
@@ -603,13 +619,13 @@
           <div class="g-callout warn">⚠️ <div>성별·연령대 분포, 회원권 유형 분포 그래프는 <strong>아직 준비 중</strong>입니다. 지금은 <a href="#all-members">전체 회원 조회</a>에서 회원 목록과 상태 필터로 구성을 직접 확인해주세요.</div></div>
         </article>
 
-        <article class="g-item" id="products">
+                <article class="g-item" id="products">
           <h3>상품(수강권) 관리</h3>
-          <p class="g-intro">센터에서 판매하는 상품 템플릿을 관리자 모드에서 통합 관리합니다.</p>
-          <div class="g-step"><span class="g-step-num">1</span><p>하단 탭의 <strong>[상품]</strong>을 눌러주세요.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>센터에 등록된 상품 템플릿의 <strong>이름 · 횟수 · 기간 · 가격</strong>을 확인하고 수정합니다.</p></div>
-          <div class="g-step"><span class="g-step-num">3</span><p>새 상품을 추가하면 모든 강사가 회원에게 발급할 때 바로 선택할 수 있습니다.</p></div>
-          <div class="g-callout">💡 <div>실제 발급은 강사 모드에서도 가능합니다. <a href="guide#product-issue">강사 모드 — 상품(수강권) 발급</a>을 참고해주세요.</div></div>
+          <p class="g-intro">센터에서 판매하는 상품을 만들고 관리합니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p>가로 태블릿은 <strong>[상품]</strong> 탭, 세로 화면은 <strong>[≡] → [상품 관리]</strong>로 들어갑니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p><strong>[신규 상품 생성]</strong>에서 분류(개인수업 · 그룹수업 · 시설이용권 · 회원복 · 락커 · 기타 · 결합상품)를 고르고 필요한 값을 입력합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>상품 카드의 <strong>판매 중 / 판매 중지</strong> 토글로 잠시 내려두고, <strong>[수정]</strong> · <strong>[삭제]</strong>도 카드에서 합니다.</p></div>
+          <div class="g-callout">💡 <div>만든 상품은 강사가 회원에게 발급할 때 바로 선택할 수 있습니다. 발급 방법은 강사 모드 가이드의 <strong>회원에게 상품 발급하기</strong>를 참고해주세요.</div></div>
 
           <figure class="g-shot">
             <img src="assets/guide/admin/products.png" alt="상품 관리 화면 — 분류 필터와 카드형 상품 목록" loading="lazy">
@@ -622,14 +638,15 @@
         <div class="g-cat">팀원관리</div>
         <h2>팀원부터 급여까지</h2>
 
-        <article class="g-item" id="staff">
+                <article class="g-item" id="staff">
           <h3>팀원 초대·권한 관리</h3>
           <p class="g-intro">워크스페이스에 참여 중인 팀원을 관리하고 권한을 부여합니다.</p>
-          <div class="g-step"><span class="g-step-num">1</span><p>하단 탭의 <strong>[팀원]</strong>을 눌러 <strong>팀원 관리</strong> 화면을 엽니다.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>상단에서 <strong>재직 · 퇴직 · 대기</strong> 인원 수를 확인하고, <strong>이름 / 연락처 / 이메일</strong>로 검색합니다.</p></div>
-          <div class="g-step"><span class="g-step-num">3</span><p>우측 상단 <strong>[팀원 초대]</strong>를 눌러 초대할 분의 <strong>고유코드</strong>를 입력합니다.</p></div>
-          <div class="g-step"><span class="g-step-num">4</span><p>초대받은 분이 <strong>수락하면</strong> 팀원으로 합류하고, 원장님께 <strong>합류 완료 알림</strong>이 갑니다. 수락 전까지는 <strong>대기</strong> 상태로 표시됩니다.</p></div>
-          <div class="g-step"><span class="g-step-num">5</span><p>각 팀원의 권한은 <strong>대표 · 관리자 · 강사</strong> 중에서 지정합니다. 관리자 이상만 운영 데이터를 볼 수 있습니다.</p></div>
+          <div class="g-step"><span class="g-step-num">1</span><p>가로 태블릿은 <strong>[팀원]</strong> 탭, 세로 화면은 <strong>[≡] → [팀원 관리]</strong>로 들어갑니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>상단에서 <strong>재직 · 퇴직 · 대기</strong> 인원을 확인하고, 이름 / 연락처 / 이메일로 검색합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p><strong>[팀원 초대]</strong>를 누르고 초대할 분의 <strong>8자리 고유코드</strong>를 입력합니다. 코드 주인의 정보를 확인한 뒤 초대합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">4</span><p>초대받은 분이 워크스페이스 선택 화면의 <strong>받은 초대</strong>에서 수락하면 팀원으로 합류합니다. 수락 전까지는 <strong>대기</strong>로 표시됩니다.</p></div>
+          <div class="g-step"><span class="g-step-num">5</span><p>권한은 <strong>관리자 · 강사</strong> 중에서 지정합니다. 소유자 권한을 넘기려면 소유자의 팀원 상세에서 <strong>[소유자 이전하기]</strong>를 누릅니다.</p></div>
+          <div class="g-callout">💡 <div>팀원의 고유코드는 그 분의 앱 <strong>[프로필] → [내 고유코드 보기]</strong>에서 확인할 수 있습니다.</div></div>
 
           <figure class="g-shot">
             <img src="assets/guide/admin/staff.png" alt="팀원 관리 화면 — 재직/퇴직/대기 인원과 팀원 카드 목록" loading="lazy">
@@ -637,14 +654,15 @@
           </figure>
         </article>
 
-        <article class="g-item" id="staff-detail">
-          <h3>팀원 정보·고용 정보 관리</h3>
-          <p class="g-intro">급여 정산의 기준이 되는 고용 조건을 팀원별로 기록합니다.</p>
+                <article class="g-item" id="staff-detail">
+          <h3>팀원 상세 — 계약 정보·담당 회원·업무 시간</h3>
+          <p class="g-intro">급여 정산의 기준이 되는 계약 조건과 담당 회원을 팀원별로 확인합니다.</p>
           <div class="g-step"><span class="g-step-num">1</span><p>팀원 목록에서 팀원을 누르면 <strong>팀원 상세</strong>가 열립니다.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>상단에서 <strong>재직 · 대기 · 퇴직</strong> 상태를 확인합니다.</p></div>
-          <div class="g-step"><span class="g-step-num">3</span><p><strong>[고용 정보]</strong>에서 <strong>입사일 · 계약 형태 · 기본급 · 권한</strong>을 입력합니다. 퇴직 처리 시 <strong>퇴직일</strong>도 함께 기록해주세요.</p></div>
-          <div class="g-step"><span class="g-step-num">4</span><p>저장하면 “변경사항이 저장되었습니다.” 안내가 표시됩니다.</p></div>
-          <div class="g-callout">💡 <div>기본급이 <strong>미설정</strong>이면 급여 정산에서 기본급이 0으로 계산됩니다. 정산 전에 먼저 채워주세요.</div></div>
+          <div class="g-step"><span class="g-step-num">2</span><p><strong>[계약 정보]</strong>에서 입사일 · 계약 형태 · 기본급 · 권한을 확인하고 편집합니다. 퇴직한 팀원은 퇴직일과 재직 이력이 함께 표시됩니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p><strong>[회원 관리]</strong>에서 그 팀원이 담당하는 회원을 회원권 상태별로 봅니다.</p></div>
+          <div class="g-step"><span class="g-step-num">4</span><p><strong>[업무 시간]</strong>에서 요일별 업무 시간을 확인합니다. 업무 시간은 팀원 본인만 수정할 수 있습니다.</p></div>
+          <div class="g-step"><span class="g-step-num">5</span><p>팀원을 내보내려면 <strong>[워크스페이스에서 내보내기]</strong>를, 퇴직한 팀원을 다시 부르려면 <strong>[재초대]</strong>를 누릅니다.</p></div>
+          <div class="g-callout">💡 <div>기본급이 <strong>미설정</strong>이면 급여 정산에서 기본급이 0원으로 계산됩니다. 정산 전에 먼저 채워주세요.</div></div>
 
           <figure class="g-shot">
             <img src="assets/guide/admin/staff-detail.png" alt="팀원 상세 화면 — 고용 정보 탭의 입사일·계약 형태·기본급·권한" loading="lazy">
@@ -652,20 +670,22 @@
           </figure>
         </article>
 
-        <article class="g-item" id="payroll">
+                <article class="g-item" id="payroll">
           <h3>급여 정산</h3>
-          <p class="g-intro">기본급과 수업 수당을 자동으로 합산합니다. 정산 과정을 화면 안에서 처리합니다.</p>
-          <div class="g-step"><span class="g-step-num">1</span><p>팀원 관리 화면에서 <strong>[급여 정산]</strong>을 눌러주세요.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>정산할 <strong>월</strong>과 <strong>팀원</strong>을 선택합니다. 고용 정보에 입력한 기본급이 자동으로 불러와집니다.</p></div>
+          <p class="g-intro">팀원별 기본급과 수업 수당을 월 단위로 집계합니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p>팀원 관리 화면 우측 상단 <strong>[급여 정산]</strong>을 누르고 정산할 월을 고릅니다. 월에 들어가면 완료된 수업이 자동으로 다시 집계됩니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>강사별로 기본급 · 수업 · 수당·공제 · 실지급액이 표시됩니다. 설정이 빠진 항목은 <strong>검토 필요</strong>로 알려드립니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>강사를 누르면 <strong>급여 정산 상세</strong>가 열립니다.</p></div>
           <h4 class="g-sub">1. 개인수업 정산</h4>
-          <div class="g-step"><span class="g-step-num">1</span><p><strong>[개인수업 정산]</strong>에서 <strong>단가제</strong>(회당 단가 × 완료 횟수) 또는 <strong>비율제</strong>(매출 × 비율) 중 방식을 선택합니다.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>해당 월에 완료된 수업이 자동 집계되어 수당이 계산됩니다.</p></div>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>개인수업 정산</strong>에서 상품별 정산 방식을 <strong>단가제</strong>(회당 금액) 또는 <strong>비율제</strong>(매출의 %)로 정합니다. 이번 달만 다르게 계산하려면 수정 아이콘에서 이번달 수정으로 바꿉니다.</p></div>
           <h4 class="g-sub">2. 그룹수업 정산</h4>
-          <div class="g-step"><span class="g-step-num">1</span><p><strong>[그룹수업 정산]</strong>은 건별로 금액을 확인합니다.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>개별 수정이 필요하면 <strong>[수정]</strong>을, 한 번에 같은 금액을 넣으려면 <strong>[전체 입력]</strong>을 사용하세요.</p></div>
-          <h4 class="g-sub">3. 원천징수</h4>
-          <div class="g-step"><span class="g-step-num">1</span><p><strong>[사업소득세 원천징수]</strong>에서 <strong>3.3% 적용</strong> 또는 <strong>적용 안 함</strong>을 선택합니다.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>선택에 따라 <strong>공제 예상액</strong>과 실지급액이 자동으로 반영됩니다.</p></div>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>그룹수업 정산</strong>은 완료된 수업마다 금액을 넣습니다. 건별로 수정하거나, 여러 건을 골라 <strong>[일괄 입력]</strong>합니다.</p></div>
+          <h4 class="g-sub">3. 수당·공제와 원천징수</h4>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>수당·공제</strong>에서 그 밖의 지급·공제 항목을 추가합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p><strong>사업소득세 원천징수</strong>에서 <strong>3.3% 적용 / 적용 안 함</strong>을 고르면 공제액과 실지급액이 반영됩니다.</p></div>
+          <h4 class="g-sub">4. 마감</h4>
+          <div class="g-step"><span class="g-step-num">1</span><p>정산을 확인했으면 <strong>[마감하기]</strong>를 누릅니다. 마감된 달은 수정할 수 없고, 고치려면 <strong>[마감 취소]</strong> 후 수정합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p><strong>[보고서 출력]</strong>으로 팀 전체 월간 정산 보고서를 인쇄하거나 PDF로 저장합니다.</p></div>
 
           <figure class="g-shot">
             <img src="assets/guide/admin/payroll.png" alt="급여 정산 화면 상단 — 정산 월 이동, 정산 상태, 총 예정 실지급액" loading="lazy">
@@ -673,13 +693,13 @@
           </figure>
         </article>
 
-        <article class="g-item" id="payslip">
-          <h3>급여명세서 발송</h3>
-          <p class="g-intro">정산 결과를 그대로 명세서로 만들어 직원에게 전달합니다.</p>
-          <div class="g-step"><span class="g-step-num">1</span><p>정산을 마친 뒤 <strong>[명세서 발송]</strong>을 눌러주세요.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>기본급 · 개인수업 수당 · 그룹수업 수당 · 공제액이 정리된 명세서를 미리 확인합니다.</p></div>
-          <div class="g-step"><span class="g-step-num">3</span><p>발송하면 해당 팀원에게 전달되며, 발송 이력이 남습니다.</p></div>
-          <div class="g-callout warn">⚠️ <div>발송 후 금액을 수정하면 다시 발송해야 팀원 화면에 반영됩니다.</div></div>
+                <article class="g-item" id="payslip">
+          <h3>급여명세서</h3>
+          <p class="g-intro">정산 결과를 팀원별 급여명세서로 만듭니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p>급여 정산 상세에서 <strong>[명세서]</strong>를 누르면 <strong>급여 명세서 미리보기</strong>가 열립니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>기본급 · 개인수업 · 그룹수업 · 수당·공제 · 원천징수 공제액 · 실지급액과 확인 서명란이 정리되어 있습니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p><strong>[인쇄/PDF 저장]</strong>으로 인쇄하거나 PDF로 저장해 팀원에게 전달합니다.</p></div>
+          <div class="g-callout warn">⚠️ <div>앱에서 팀원에게 명세서를 자동으로 보내는 기능은 없습니다. 저장한 PDF를 직접 전달해주세요.</div></div>
 
           <figure class="g-shot">
             <img src="assets/guide/admin/payslip.png" alt="급여명세서 미리보기 — 기본급, 개인수업 정산 내역, 그룹수업 정산 내역, 기타 정산 내역" loading="lazy">
@@ -692,13 +712,13 @@
         <div class="g-cat">스케줄 관리</div>
         <h2>팀 전체 일정과 센터 설정</h2>
 
-        <article class="g-item" id="schedule-scope">
+                <article class="g-item" id="schedule-scope">
           <h3>팀 전체 일정 보기</h3>
-          <p class="g-intro">관리자 모드의 일정 탭에는 강사 모드에 없는 <strong>보기 범위 전환</strong>이 추가됩니다.</p>
-          <div class="g-step"><span class="g-step-num">1</span><p>하단 탭의 <strong>[일정]</strong>을 열면 제목 옆에 <strong>[팀 전체]</strong> / <strong>[나의 일정]</strong> 전환 버튼이 보입니다.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p><strong>[팀 전체]</strong>를 선택하면 워크스페이스의 모든 강사 일정이 <strong>강사별 컬럼</strong>으로 하루 단위 정렬됩니다.</p></div>
-          <div class="g-step"><span class="g-step-num">3</span><p><strong>[나의 일정]</strong>을 선택하면 강사 모드와 동일한 내 주간·월간 캘린더로 돌아옵니다.</p></div>
-          <div class="g-callout">💡 <div>팀 전체 뷰는 시간대별 강사 배치를 한눈에 보여줍니다. 특정 시간에 강사가 몰리거나 비는 구간을 찾을 때 유용합니다.</div></div>
+          <p class="g-intro">관리자 모드의 일정 탭에는 강사 모드에 없는 보기 범위 전환이 추가됩니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>[일정]</strong> 탭 제목 옆에서 <strong>[팀 전체] / [나의 일정]</strong>을 고릅니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p><strong>팀 전체</strong>는 <strong>일 / 월</strong>로 볼 수 있습니다. <strong>일</strong>은 강사별 컬럼으로 하루 일정을, <strong>월</strong>은 팀 전체 일정을 달력으로 보여줍니다. 달력에서 날짜를 누르면 그날의 일 보기로 이동합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>일 보기에서 강사 컬럼의 빈 시간을 누르면 그 강사의 일정으로 바로 등록할 수 있습니다.</p></div>
+          <div class="g-step"><span class="g-step-num">4</span><p><strong>나의 일정</strong>은 강사 모드와 같은 내 주간·월간 캘린더입니다.</p></div>
 
           <figure class="g-shot">
             <img src="assets/guide/admin/schedule-scope.png" alt="일정 탭 팀 전체 뷰 — 월간 캘린더에 강사별 일정이 합산 표시" loading="lazy">
@@ -706,27 +726,20 @@
           </figure>
         </article>
 
-        <article class="g-item" id="center-hours">
-          <h3>센터 정보·운영 설정</h3>
-          <p class="g-intro">센터 기본 정보와 운영 조건을 관리합니다. 관리자만 접근할 수 있습니다.</p>
-          <div class="g-step"><span class="g-step-num">1</span><p>운영 화면의 <strong>[설정]</strong> 탭을 열어주세요.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p><strong>센터명 · 주소</strong> 등 기본 정보를 등록합니다. 회원 앱에 표시되는 정보입니다.</p></div>
-          <div class="g-step"><span class="g-step-num">3</span><p><strong>센터코드</strong>를 복사하거나 QR로 공유해 회원·강사가 워크스페이스를 찾을 수 있게 합니다.</p></div>
-          <div class="g-step"><span class="g-step-num">4</span><p><strong>회원권 관리</strong>에서 센터에서 취급하는 상품 종류를 설정합니다.</p></div>
-          <div class="g-callout warn">⚠️ <div>센터 운영 현황과 설정은 관리자 권한이 필요합니다. 권한이 없으면 “센터 운영 현황은 관리자만 확인할 수 있습니다.” 안내가 표시됩니다.</div></div>
-
-          <figure class="g-shot">
-            <img src="assets/guide/admin/center-hours.png" alt="운영 설정 탭 — 워크스페이스 정보, 센터코드 QR, 회원권 관리" loading="lazy">
-            <figcaption>운영 → 설정 — 센터 기본 정보와 센터코드</figcaption>
-          </figure>
+                <article class="g-item" id="center-hours">
+          <h3>워크스페이스 설정</h3>
+          <p class="g-intro">센터 기본 정보와 운영 설정을 관리합니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p>가로 태블릿은 왼쪽 사이드바 맨 위 워크스페이스 로고를, 세로 화면은 <strong>[≡]</strong> 메뉴 맨 위 워크스페이스를 누르고 <strong>[워크스페이스 설정]</strong>을 엽니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p><strong>워크스페이스 정보</strong>에서 로고 이미지 · 워크스페이스 이름 · 대표 주소지 · 대표 연락처 · 기본 운영 모드를 수정합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p><strong>나의 업무시간</strong>에서 내 요일별 업무 시간을 정합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">4</span><p>소유자·관리자에게는 <strong>팀원 초대 및 관리</strong> · <strong>출입관리 · 데스크 모드</strong> 메뉴가 더 보입니다.</p></div>
+          <div class="g-callout warn">⚠️ <div>워크스페이스 정보 수정은 소유자·관리자만 할 수 있습니다.</div></div>
         </article>
       </section>
 
       <section class="g-section" id="sec-data">
         <div class="g-cat">데이터 가져오기</div>
-        <h2>흩어진 회원 데이터를 센터로 모으기</h2>
-
-        <div class="g-callout">🧭 <div>두 기능 모두 <strong>워크스페이스 설정</strong>에서 들어갑니다. <strong>센티프 1.0을 쓰셨다면 [센티프 1.0 가져오기]</strong>, <strong>다른 센터에서 담당하던 회원을 데려오신다면 [회원 데이터 불러오기]</strong>입니다.</div></div>
+        <h2>센티프 1.0 데이터를 새 워크스페이스로</h2>
 
         <article class="g-item" id="v1-import">
           <h3>센티프 1.0 데이터 가져오기</h3>
@@ -743,20 +756,7 @@
           <div class="g-callout warn">⚠️ <div>가져오기는 <strong>기간 안에만 되돌릴 수 있습니다.</strong> 결과 화면의 <strong>[되돌리기 (N일 남음)]</strong>에 남은 기간이 표시됩니다.</div></div>
         </article>
 
-        <article class="g-item" id="member-transfer">
-          <h3>다른 센터에서 담당 회원 데려오기</h3>
-          <p class="g-intro">이직하셨거나 지점을 옮기셨을 때, <strong>다른 워크스페이스에서 담당하시던 회원</strong>을 지금 센터로 옮깁니다. <strong>5단계 마법사</strong>입니다.</p>
-          <div class="g-step"><span class="g-step-num">1</span><p><strong>워크스페이스 설정</strong> → <strong>[회원 데이터 불러오기]</strong>로 들어갑니다.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p><strong>센터</strong> — 회원을 데려올 워크스페이스를 고릅니다. 담당 회원이 없는 센터는 선택할 수 없습니다.</p></div>
-          <div class="g-step"><span class="g-step-num">3</span><p><strong>회원</strong> — 이미 이 센터에 있는 회원은 <strong>이미 등록됨</strong> 배지로 표시되어 선택되지 않습니다. 과거에 나가셨다 돌아온 회원은 <strong>복귀</strong> 배지가 붙고 선택하실 수 있습니다.</p></div>
-          <div class="g-step"><span class="g-step-num">4</span><p><strong>데이터</strong> — 가져올 <strong>기록</strong>을 항목별로 켜고, <strong>수업 일정</strong>은 <strong>가져오지 않음 / 나만 보기 / 팀 전체 공개</strong> 중에 고릅니다.</p></div>
-          <div class="g-step"><span class="g-step-num">5</span><p><strong>수강권</strong> — 남은 수강권을 <strong>이 센터의 상품에 연결</strong>합니다. 조건이 똑같은 상품만 연결할 수 있고, 맞는 상품이 없으면 <strong>[이 조건으로 상품 만들기]</strong>로 즉시 만들거나 <strong>그 회원만 빼고</strong> 진행하실 수 있습니다.</p></div>
-          <div class="g-step"><span class="g-step-num">6</span><p><strong>확인</strong> — 요약을 확인하고 <strong>동의에 체크</strong>하면 실행 버튼이 열립니다.</p></div>
-
-          <div class="g-callout">💡 <div>결과는 <strong>회원 한 분 단위로</strong> 표시됩니다. 일부만 실패할 수 있으니 결과 화면에서 누가 안 넘어왔는지 확인해주세요.</div></div>
-          <div class="g-callout warn">⚠️ <div><strong>회원 이관은 되돌릴 수 없습니다.</strong> 마지막 확인 단계에서 대상과 항목을 한 번 더 살펴봐주세요.</div></div>
-        </article>
-      </section>
+              </section>
 
       <section class="g-section" id="sec-desk">
         <div class="g-cat">데스크 모드</div>

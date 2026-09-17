@@ -285,31 +285,35 @@
     <aside class="guide-toc" id="guideToc">
       <div class="toc-group">
         <div class="toc-group-label">시작하기</div>
-        <a class="toc-link" href="#m-signup">회원가입</a>
-        <a class="toc-link" href="#m-connect">강사/관리자와 연동되기</a>
+        <a class="toc-link" href="#m-signup">회원가입과 로그인</a>
+        <a class="toc-link" href="#m-connect">센터와 연동하기</a>
         <a class="toc-link" href="#m-home">홈 화면 한눈에 보기</a>
       </div>
       <div class="toc-group">
         <div class="toc-group-label">수업</div>
-        <a class="toc-link" href="#m-schedule">수업 일정 확인과 예약 요청</a>
-        <a class="toc-link" href="#m-log">내 수업 기록 보기</a>
+        <a class="toc-link" href="#m-schedule">수업 일정 확인</a>
+        <a class="toc-link" href="#m-reserve">수업 예약하기</a>
+        <a class="toc-link" href="#m-change">수업 변경·취소 요청</a>
+        <a class="toc-link" href="#m-log">수업일지 보기</a>
+        <a class="toc-link" href="#m-checkin">센터 입장하기</a>
       </div>
       <div class="toc-group">
         <div class="toc-group-label">나의 기록</div>
-        <a class="toc-link" href="#m-activity">개인운동 올리기</a>
-        <a class="toc-link" href="#m-diet">식단 올리기</a>
-        <a class="toc-link" href="#m-body">체성분·체형사진 올리기</a>
-        <a class="toc-link" href="#m-stats">성장 통계 보기</a>
+        <a class="toc-link" href="#m-activity">개인운동 기록하기</a>
+        <a class="toc-link" href="#m-diet">식단 기록하기</a>
+        <a class="toc-link" href="#m-body">체성분·체형 사진 기록하기</a>
+        <a class="toc-link" href="#m-share">센터 공유와 코치 피드백</a>
+        <a class="toc-link" href="#m-stats">통계 보기</a>
       </div>
       <div class="toc-group">
         <div class="toc-group-label">소통</div>
-        <a class="toc-link" href="#m-chat">강사와 채팅</a>
-        <a class="toc-link" href="#m-notice">공지·알림 확인</a>
+        <a class="toc-link" href="#m-chat">코치와 채팅</a>
+        <a class="toc-link" href="#m-notice">센터 공지와 알림</a>
       </div>
       <div class="toc-group">
         <div class="toc-group-label">내 정보</div>
-        <a class="toc-link" href="#m-products">내 상품(수강권) 확인</a>
-        <a class="toc-link" href="#m-profile">프로필·설정</a>
+        <a class="toc-link" href="#m-products">내 상품 확인</a>
+        <a class="toc-link" href="#m-profile">프로필과 설정</a>
       </div>
     </aside>
 
@@ -321,11 +325,11 @@
         <h2>센티프와 첫 만남</h2>
 
         <article class="g-item" id="m-signup">
-          <h3>회원가입</h3>
-          <p class="g-intro">다니는 센터에서 안내받은 링크로 앱을 설치하고 계정을 만듭니다.</p>
-          <div class="g-step"><span class="g-step-num">1</span><p>센터에서 받은 링크 또는 앱스토어에서 <strong>센티프 회원 앱</strong>을 설치합니다.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p><strong>[회원가입]</strong>에서 이메일과 기본 정보를 입력해 계정을 만듭니다.</p></div>
-          <div class="g-step"><span class="g-step-num">3</span><p>온보딩 단계에서 운동 목표 등 기본 정보를 설정하면 준비 끝입니다.</p></div>
+          <h3>회원가입과 로그인</h3>
+          <p class="g-intro">센티프 회원 앱을 설치하고 계정을 만듭니다. 간편 로그인으로 바로 시작할 수도 있습니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p>로그인 화면에서 <strong>카카오 · 네이버</strong>(아이폰은 <strong>Apple</strong>까지) 버튼으로 시작할 수 있습니다. 처음 이용하는 계정이면 이름 · 휴대폰 인증 · 생년월일 · 성별만 추가로 입력합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>이메일로 가입하려면 <strong>[회원가입]</strong>을 눌러 이메일 중복 확인, 비밀번호(8자 이상), 이름, 휴대폰 인증, 생년월일, 성별을 입력하고 <strong>[가입하기]</strong>를 누릅니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>가입을 마치면 내 연동 코드가 표시됩니다. 다음 절의 방법으로 센터와 연동해주세요.</p></div>
           <figure class="g-shot phone">
             <img src="assets/guide/member/01-signup.png" alt="센티프 회원 앱 회원가입 화면 — 이메일, 비밀번호, 이름, 휴대폰 번호, 생년월일, 성별 입력 폼" loading="lazy">
             <figcaption>회원가입 — 이메일·비밀번호·이름·휴대폰 인증·생년월일·성별을 입력합니다</figcaption>
@@ -333,54 +337,91 @@
         </article>
 
         <article class="g-item" id="m-connect">
-          <h3>강사/관리자와 연동되기</h3>
-          <p class="g-intro">가입할 때 발급되는 <strong>내 연동 코드</strong>를 센터의 관리자나 담당 강사에게 보여주면 자동으로 연결됩니다. 연동되면 수업 일정 · 기록 · 루틴이 내 앱으로 들어옵니다.</p>
-          <div class="g-step"><span class="g-step-num">1</span><p>온보딩 화면에서 발급된 <strong>내 연동 코드</strong>를 확인합니다.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>이 코드를 센터의 <strong>관리자 또는 담당 강사</strong>에게 보여주세요. 상대가 코드를 입력하면 <strong>연동 완료</strong>로 바뀝니다.</p></div>
-          <div class="g-step"><span class="g-step-num">3</span><p>연동되면 내 프로필이 센터와 이어지고, 수업 일정 · 기록 · 루틴이 앱에 나타납니다.</p></div>
-          <div class="g-callout">💡 <div>연동 코드는 <strong>[마이] → [내 연동 코드]</strong>에서 언제든 다시 확인할 수 있습니다.</div></div>
+          <h3>센터와 연동하기</h3>
+          <p class="g-intro">연동은 코치가 내 연동 코드를 입력해서 연결합니다. 연동되면 수업 일정 · 수업일지 · 내 상품 · 센터 공지가 앱에 나타납니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>[프로필]</strong> 탭의 프로필 카드에서 <strong>[내 코드]</strong>를 누르면 QR과 8자리 연동 코드가 나옵니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>코치에게 QR을 보여주거나 코드를 알려주세요. 코치가 입력하면 연동이 완료됩니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>여러 센터에 다닌다면 센터마다 같은 코드로 연동할 수 있습니다.</p></div>
+          <div class="g-callout">💡 <div>연동 코드는 <strong>[프로필] → 설정 → [내 연동 코드·QR]</strong>에서도 확인할 수 있습니다. 센터와 연동하지 않아도 개인운동·식단·체성분·체형 기록은 그대로 쓸 수 있습니다.</div></div>
           <figure class="g-shot phone">
             <img src="assets/guide/member/02-connect.png" alt="센티프 회원 앱 내 연동 코드 화면 — QR 코드와 8자리 연동 코드, 복사 버튼" loading="lazy">
-            <figcaption>내 연동 코드 — QR 또는 코드로 관리자·강사와 연동할 수 있습니다</figcaption>
+            <figcaption>내 연동 코드 — QR 또는 코드로 코치와 연동합니다</figcaption>
           </figure>
         </article>
 
         <article class="g-item" id="m-home">
           <h3>홈 화면 한눈에 보기</h3>
-          <div class="g-step"><span class="g-step-num">1</span><p><strong>오늘의 수업 일정</strong> — 다가오는 수업 시간을 확인합니다.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p><strong>웰니스 기록</strong> — 컨디션 · 수면 · 수분 · 걸음을 체크하면 링 게이지가 채워집니다.</p></div>
-          <div class="g-step"><span class="g-step-num">3</span><p><strong>오늘의 루틴</strong> — 강사가 처방한 개인운동이 있다면 여기서 바로 시작합니다.</p></div>
+          <p class="g-intro">위쪽에는 센터가 보내는 소식이, 아래쪽에는 내가 남긴 기록이 모입니다. 하단 탭은 <strong>홈 · 일정 · 채팅 · 프로필</strong> 4개입니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>다음 수업</strong> — 7일 안에 예정된 수업이 있으면 가장 가까운 수업이 카드로 표시됩니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p><strong>수업일지 도착</strong> — 코치가 작성한 수업일지가 새로 오면 카드가 뜹니다. 누르면 일지가 열립니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p><strong>센터 영역</strong> — 연동한 센터의 <strong>센터 입장하기</strong> 카드(센터가 출입 체크인을 쓰는 경우)와 <strong>센터 공지사항</strong>이 표시됩니다. 센터가 여러 곳이면 옆으로 넘겨 봅니다.</p></div>
+          <div class="g-step"><span class="g-step-num">4</span><p><strong>캘린더와 기록</strong> — 날짜를 고르면 그날의 수업과 개인 기록이 시간순으로 나옵니다.</p></div>
+          <div class="g-step"><span class="g-step-num">5</span><p>우측 상단 아이콘으로 <strong>통계</strong>와 <strong>알림</strong>을 엽니다. 우측 하단 <strong>[+]</strong> 버튼은 기록 추가입니다.</p></div>
           <figure class="g-shot phone">
             <img src="assets/guide/member/03-home.png" alt="센티프 회원 앱 홈 화면 — 수업일지 도착 카드, 센터 공지, 월간 캘린더, 오늘의 퀵 기록 4종" loading="lazy">
-            <figcaption>홈 화면 — 수업일지 도착·센터 공지·캘린더·오늘의 기록을 한눈에 봅니다</figcaption>
+            <figcaption>홈 화면 — 수업일지 도착·센터 공지·캘린더·기록을 한눈에 봅니다</figcaption>
           </figure>
         </article>
       </section>
 
       <section class="g-section" id="m-sec-class">
         <div class="g-cat">수업</div>
-        <h2>수업 일정과 기록</h2>
+        <h2>수업 일정과 수업일지</h2>
 
         <article class="g-item" id="m-schedule">
-          <h3>수업 일정 확인과 예약 요청</h3>
-          <div class="g-step"><span class="g-step-num">1</span><p><strong>[일정]</strong>에서 예약된 수업을 확인합니다. 수업 하루 전에 리마인드 알림이 옵니다.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>원하는 시간이 있다면 <strong>[예약 요청]</strong>으로 강사에게 수업을 신청할 수 있습니다.</p></div>
-          <div class="g-step"><span class="g-step-num">3</span><p>일정 변경이 필요하면 강사와 채팅으로 조율하세요.</p></div>
+          <h3>수업 일정 확인</h3>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>[일정]</strong> 탭 위쪽 <strong>이번 달 수업 현황</strong>에서 완료 · 예정 · 결석 횟수를 확인합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p><strong>월간 일정</strong> 캘린더에서 날짜를 누르면 그날의 수업과 기록이 나옵니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p><strong>[전체보기]</strong>를 누르면 수업 일정 전체를 상태별로 모아 볼 수 있습니다.</p></div>
+          <div class="g-callout">💡 <div>여러 센터와 연동했다면 위쪽 센터 칩으로 센터별로 나눠 볼 수 있습니다.</div></div>
           <figure class="g-shot phone">
             <img src="assets/guide/member/04-schedule.png" alt="센티프 회원 앱 일정 탭 — 이번 달 수업 현황 요약, 승인 대기 중인 예약 요청, 월간 일정 캘린더" loading="lazy">
-            <figcaption>일정 탭 — 이번 달 수업 현황과 월간 캘린더, [수업 예약하기]</figcaption>
+            <figcaption>일정 탭 — 이번 달 수업 현황과 월간 캘린더</figcaption>
           </figure>
         </article>
 
+        <article class="g-item" id="m-reserve">
+          <h3>수업 예약하기</h3>
+          <p class="g-intro">개인수업은 코치에게 <strong>예약을 요청</strong>하고, 그룹수업은 열린 수업에 <strong>신청</strong>합니다.</p>
+          <h4 class="g-sub">1. 개인수업 예약 요청</h4>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>[일정]</strong> 탭의 <strong>[수업 예약하기]</strong>를 누르고 <strong>개인수업</strong>을 고릅니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>예약에 쓸 수강권을 고릅니다. 수강권마다 <strong>예약 가능 N회</strong>가 표시됩니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>날짜와 시간을 고르고 <strong>[예약 요청하기]</strong>를 누릅니다.</p></div>
+          <div class="g-step"><span class="g-step-num">4</span><p>코치가 승인하면 일정이 확정되고 알림이 옵니다. 승인 전 요청은 <strong>개인수업 예약 요청</strong> 목록에서 보고 취소할 수 있습니다.</p></div>
+          <div class="g-callout warn">⚠️ <div>개인수업 수강권이 있어야 요청할 수 있습니다. 이미 승인 대기 중인 요청이 있으면 새 요청을 보낼 수 없습니다.</div></div>
+          <h4 class="g-sub">2. 그룹수업 신청</h4>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>[수업 예약하기]</strong>에서 <strong>그룹수업</strong>을 고릅니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>날짜를 고르면 신청할 수 있는 수업과 <strong>신청 인원/정원</strong>이 표시됩니다. <strong>[신청하기]</strong>를 누르면 신청됩니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>신청한 수업은 같은 자리의 <strong>[신청 취소]</strong>로 취소합니다. 정원이 차면 <strong>마감</strong>으로 표시됩니다.</p></div>
+        </article>
+
+        <article class="g-item" id="m-change">
+          <h3>수업 변경·취소 요청</h3>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>[일정]</strong> → <strong>[전체보기]</strong>에서 예정된 수업을 누르면 <strong>수업 취소 및 변경</strong> 창이 열립니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>개인수업은 <strong>[날짜 및 시간 변경 요청]</strong> 또는 <strong>[수업 취소 요청]</strong>을, 그룹수업은 취소를 고릅니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>요청은 코치에게 채팅 카드로 전달되고, 코치가 승인하거나 거절하면 알림과 채팅으로 결과를 알려드립니다.</p></div>
+          <div class="g-callout warn">⚠️ <div>수업 시작 시간이 지난 수업은 취소할 수 없습니다.</div></div>
+        </article>
+
         <article class="g-item" id="m-log">
-          <h3>내 수업 기록 보기</h3>
-          <p class="g-intro">수업이 끝나면 강사가 남긴 오늘의 기록이 도착합니다.</p>
-          <div class="g-step"><span class="g-step-num">1</span><p><strong>[수업 기록]</strong>에서 지난 수업들을 시간순으로 볼 수 있습니다.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>기록을 열면 오늘 한 운동 · 세트 · 무게, 강사의 코멘트와 사진을 확인할 수 있습니다.</p></div>
+          <h3>수업일지 보기</h3>
+          <p class="g-intro">수업이 끝나면 코치가 작성한 수업일지가 도착합니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p>홈의 <strong>수업일지 도착</strong> 카드나 알림을 누르면 바로 열립니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>지난 수업일지는 홈이나 일정 탭 캘린더에서 그 날짜의 수업을 눌러 다시 볼 수 있습니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>일지에서는 운동별 세트 기록, 코치 메모, 수업 사진·영상을 확인합니다.</p></div>
           <figure class="g-shot phone">
-            <img src="assets/guide/member/05-log.png" alt="센티프 회원 앱 수업 기록 상세 화면 — 개인 수업 정보, 코치 코멘트, 운동별 세트·무게·횟수 기록" loading="lazy">
-            <figcaption>수업 기록 상세 — 강사의 코멘트와 오늘 한 운동의 세트별 기록</figcaption>
+            <img src="assets/guide/member/05-log.png" alt="센티프 회원 앱 수업일지 상세 화면 — 수업 정보, 코치 메모, 운동별 세트 기록" loading="lazy">
+            <figcaption>수업일지 — 코치 메모와 운동별 세트 기록</figcaption>
           </figure>
+        </article>
+
+        <article class="g-item" id="m-checkin">
+          <h3>센터 입장하기</h3>
+          <p class="g-intro">센터에 출입 키오스크가 있다면 앱의 QR로 입장합니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p>홈의 센터 영역에서 <strong>[센터 입장하기]</strong>를 누르면 <strong>출입 QR코드</strong>가 나옵니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>데스크 키오스크 화면에 QR을 비추면 입장이 처리됩니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>휴대폰이 없을 때는 키오스크에 <strong>휴대폰 번호 뒷 4자리</strong>를 입력해 입장할 수도 있습니다.</p></div>
+          <div class="g-callout">💡 <div>입장 기록은 <strong>[프로필]</strong> → 연동 센터 → 센터 상세의 <strong>출입 기록</strong>에서 확인합니다. 센터가 출입 체크인을 쓰지 않으면 입장 카드는 보이지 않습니다.</div></div>
         </article>
       </section>
 
@@ -389,73 +430,86 @@
         <h2>기록할수록 쌓이는 성취</h2>
 
         <article class="g-item" id="m-activity">
-          <h3>개인운동 올리기</h3>
-          <div class="g-step"><span class="g-step-num">1</span><p>홈에서 <strong>[+]</strong> 버튼을 눌러 <strong>개인운동</strong>을 선택합니다.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>오늘 한 운동을 기록하고 사진을 함께 올려보세요.</p></div>
-          <div class="g-step"><span class="g-step-num">3</span><p>강사가 확인하고 코멘트나 이모지로 피드백을 남겨줍니다.</p></div>
+          <h3>개인운동 기록하기</h3>
+          <div class="g-step"><span class="g-step-num">1</span><p>홈 우측 하단 <strong>[+]</strong>를 눌러 <strong>개인 운동</strong>을 고릅니다. 홈 캘린더에서 고른 날짜로 기록됩니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>운동 사진을 올립니다. 사진만 올려도 저장할 수 있습니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>세트까지 남기려면 <strong>[운동 내용 기록하기]</strong>에서 운동을 고르고 세트를 입력합니다. <strong>[이전 기록]</strong>으로 지난번 값을 불러올 수 있습니다.</p></div>
+          <div class="g-step"><span class="g-step-num">4</span><p><strong>[기록 완료하기]</strong>를 누르면 저장됩니다.</p></div>
+          <div class="g-callout">💡 <div>작성 중에 화면을 나가도 내용이 임시 저장됩니다. 다시 들어오면 이어서 쓸지 새로 시작할지 고를 수 있습니다.</div></div>
           <figure class="g-shot phone">
-            <img src="assets/guide/member/06-activity.png" alt="센티프 회원 앱 개인운동 기록 화면 — 운동 목록과 세트·무게·횟수, [운동 추가하기] 버튼" loading="lazy">
-            <figcaption>개인운동 기록 — 오늘 한 운동을 종목별로 구성하고 세트를 기록합니다</figcaption>
+            <img src="assets/guide/member/06-activity.png" alt="센티프 회원 앱 개인운동 기록 화면 — 운동 목록과 세트·무게·횟수" loading="lazy">
+            <figcaption>개인운동 기록 — 운동별로 세트를 기록합니다</figcaption>
           </figure>
         </article>
 
         <article class="g-item" id="m-diet">
-          <h3>식단 올리기</h3>
-          <div class="g-step"><span class="g-step-num">1</span><p><strong>[+]</strong> 버튼에서 <strong>식단</strong>을 선택하고 끼니 사진을 올립니다.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>강사가 식단을 보고 피드백을 남겨요. 꾸준히 올릴수록 정확한 코칭을 받을 수 있습니다.</p></div>
+          <h3>식단 기록하기</h3>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>[+]</strong>에서 <strong>식단</strong>을 고르고 <strong>식사 시간</strong>을 선택합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>사진(최대 4장)을 올리고, 먹은 음식을 추가하고, 메모를 남깁니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>칼로리와 영양성분은 추가한 음식으로 자동 계산됩니다.</p></div>
           <figure class="g-shot phone">
             <img src="assets/guide/member/07-diet.png" alt="센티프 회원 앱 식단 기록 화면 — 끼니 사진 첨부, 식사 시간 선택, 음식 추가, 메모 입력" loading="lazy">
-            <figcaption>식단 기록 — 끼니 사진을 올리고 식사 시간·음식·메모를 남깁니다</figcaption>
+            <figcaption>식단 기록 — 사진·식사 시간·음식·메모를 남깁니다</figcaption>
           </figure>
         </article>
 
         <article class="g-item" id="m-body">
-          <h3>체성분·체형사진 올리기</h3>
-          <p class="g-intro">인바디 수치와 체형사진을 직접 올리면, 강사가 기록한 데이터와 함께 내 변화가 한 곳에 쌓입니다.</p>
-          <div class="g-step"><span class="g-step-num">1</span><p><strong>[+]</strong> 버튼에서 <strong>체성분</strong>을 선택하고 체중 · 골격근량 · 체지방률 등 측정값을 입력합니다.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p><strong>체형사진</strong>은 정면 · 측면 · 후면 3장을 올려주세요.</p></div>
-          <div class="g-step"><span class="g-step-num">3</span><p>기록이 쌓이면 이전 사진과 나란히 비교해 변화를 확인할 수 있습니다.</p></div>
+          <h3>체성분·체형 사진 기록하기</h3>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>[+]</strong>에서 <strong>체성분</strong>을 고르고 측정 날짜 · 키 · 체중 · 골격근량 · 체지방량 · 체지방률을 입력합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p><strong>체형 사진</strong>을 고르고 정면 · 측면 · 후면 버튼을 눌러 사진을 올립니다. 촬영 일자와 메모도 남길 수 있습니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>체성분 변화는 <strong>통계</strong>에서 그래프로 확인합니다.</p></div>
           <div class="g-shot-row">
             <figure class="g-shot phone">
               <img src="assets/guide/member/08-body-composition.png" alt="센티프 회원 앱 체성분 측정 기록 화면 — 측정 날짜, 키, 체중, 골격근량, 체지방량, 체지방률 입력" loading="lazy">
-              <figcaption>체성분 측정 — 체중·골격근량·체지방량·체지방률을 입력합니다</figcaption>
+              <figcaption>체성분 측정 — 측정값을 입력합니다</figcaption>
             </figure>
             <figure class="g-shot phone">
               <img src="assets/guide/member/09-body-photo.png" alt="센티프 회원 앱 체형 사진 기록 화면 — 정면·측면·후면 3장 첨부, 촬영 일자, 메모" loading="lazy">
-              <figcaption>체형 사진 — 정면·측면·후면 3장을 올려주세요</figcaption>
+              <figcaption>체형 사진 — 정면·측면·후면을 올립니다</figcaption>
             </figure>
           </div>
         </article>
 
+        <article class="g-item" id="m-share">
+          <h3>센터 공유와 코치 피드백</h3>
+          <p class="g-intro">기록은 기본적으로 나만 봅니다. 센터에 공유하면 코치가 보고 피드백을 남깁니다.</p>
+          <div class="g-step"><span class="g-step-num">1</span><p>연동한 센터가 있으면 기록을 저장할 때 <strong>어떤 센터에 공유하시겠어요?</strong> 창이 뜹니다. 공유할 센터를 고르거나 <strong>[공유 없이 업로드]</strong>를 누릅니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>공유한 기록을 열면 <strong>소통</strong> 탭에서 코치 댓글을 보고 답글을 남길 수 있습니다. 코치가 남긴 반응도 함께 표시됩니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>기록 상세의 옵션 메뉴에서 <strong>수정</strong>하거나 <strong>삭제</strong>합니다. 삭제하면 센터 공유도 함께 사라집니다.</p></div>
+          <div class="g-callout">💡 <div>내가 남긴 기록은 <strong>[프로필]</strong> 탭 아래 활동 기록에서 식단 · 운동 · 체성분 · 체형별로 모아 볼 수 있습니다.</div></div>
+        </article>
+
         <article class="g-item" id="m-stats">
-          <h3>성장 통계 보기</h3>
-          <div class="g-step"><span class="g-step-num">1</span><p><strong>[통계]</strong>에서 내 운동량 · 출석 · 체성분 변화를 그래프로 확인합니다.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>강사가 보내주는 주간 · 월간 리포트도 이곳에서 확인할 수 있습니다.</p></div>
+          <h3>통계 보기</h3>
+          <div class="g-step"><span class="g-step-num">1</span><p>홈 우측 상단 <strong>통계</strong> 아이콘을 누릅니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p><strong>이번 주 요약</strong>, 최근 체성분 측정과 변화 추이, <strong>운동 분포</strong>, <strong>식단 분석</strong>(칼로리 추이 · 끼니 기록 패턴 · 영양 균형)을 확인합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>기간은 <strong>이번주 · 이번달 · 3개월</strong> 중에서 고릅니다.</p></div>
           <figure class="g-shot phone">
             <img src="assets/guide/member/10-stats.png" alt="센티프 회원 앱 통계 화면 — 이번 주 요약, 최근 체성분 측정 막대그래프, 체성분 변화 추이 라인차트" loading="lazy">
-            <figcaption>통계 — 이번 주 요약과 체성분 변화 추이를 그래프로 확인합니다</figcaption>
+            <figcaption>통계 — 이번 주 요약과 체성분 변화 추이</figcaption>
           </figure>
         </article>
       </section>
 
       <section class="g-section" id="m-sec-comm">
         <div class="g-cat">소통</div>
-        <h2>강사와 더 가깝게</h2>
+        <h2>코치와 더 가깝게</h2>
 
         <article class="g-item" id="m-chat">
-          <h3>강사와 채팅</h3>
-          <div class="g-step"><span class="g-step-num">1</span><p><strong>[채팅]</strong>에서 담당 강사와 1:1 대화방을 엽니다.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>운동 질문, 일정 변경 요청을 부담 없이 메시지로 보내세요.</p></div>
+          <h3>코치와 채팅</h3>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>[채팅]</strong> 탭에서 담당 코치와의 대화방을 엽니다. 대화가 없으면 <strong>[코치와 대화 시작]</strong>을 누릅니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>운동 질문이나 일정 문의를 메시지로 보내세요. 예약·변경 요청의 처리 결과도 채팅 카드로 표시됩니다.</p></div>
+          <div class="g-callout">💡 <div>센터에서 담당 코치를 배정해야 채팅할 수 있습니다. 연동을 해지한 센터의 대화방은 기록만 볼 수 있습니다.</div></div>
           <figure class="g-shot phone">
             <img src="assets/guide/member/11-chat.png" alt="센티프 회원 앱 채팅 탭 — 대화가 없을 때 [코치와 대화 시작] 버튼" loading="lazy">
-            <figcaption>채팅 — [채팅]에서 담당 강사와 1:1 대화방을 엽니다</figcaption>
+            <figcaption>채팅 — 담당 코치와 1:1 대화방을 엽니다</figcaption>
           </figure>
         </article>
 
         <article class="g-item" id="m-notice">
-          <h3>공지·알림 확인</h3>
-          <div class="g-step"><span class="g-step-num">1</span><p>센터 공지(휴무, 이벤트 등)는 <strong>[공지]</strong>에서 확인합니다. 새 공지는 푸시 알림으로 도착합니다.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p><strong>[알림]</strong>에서는 수업 리마인드, 루틴 도착 등 나에게 온 알림을 모아 봅니다.</p></div>
+          <h3>센터 공지와 알림</h3>
+          <div class="g-step"><span class="g-step-num">1</span><p>홈의 <strong>센터 공지사항</strong>에서 최근 공지를 보고, <strong>[전체보기]</strong>로 센터 공지 전체를 확인합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>홈 우측 상단 <strong>알림</strong> 아이콘에서 수업일지 도착, 예약 승인·거절, 수업 등록·변경, 코치 댓글 같은 알림을 모아 봅니다. <strong>[모두 읽음]</strong>으로 한 번에 정리할 수 있습니다.</p></div>
           <figure class="g-shot phone">
             <img src="assets/guide/member/12-notice.png" alt="센티프 회원 앱 센터 공지 화면 — 카테고리 필터 칩과 공지 목록, 중요 공지 상단 고정" loading="lazy">
             <figcaption>센터 공지 — 휴무·시설정비·이벤트 등 센터 소식을 확인합니다</figcaption>
@@ -468,31 +522,39 @@
         <h2>내 상품과 계정</h2>
 
         <article class="g-item" id="m-products">
-          <h3>내 상품(수강권) 확인</h3>
-          <div class="g-step"><span class="g-step-num">1</span><p><strong>[마이] → [내 상품]</strong>에서 보유한 상품(수강권)을 확인합니다.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>잔여 횟수와 만료일을 확인할 수 있습니다. 갱신 시점이 다가오면 강사와 상담해보세요.</p></div>
+          <h3>내 상품 확인</h3>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>[프로필]</strong> 탭 우측 상단 티켓 아이콘을 누르면 <strong>내 상품</strong>이 열립니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>결제 건마다 카드로 묶여 있고, 상품별로 잔여 횟수나 남은 기간이 표시됩니다. 여러 센터를 다닌다면 위쪽 센터 칩으로 나눠 봅니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p>상품을 누르면 이용기간 · 결제 정보와, 개인수업·그룹수업은 <strong>진행한 수업</strong> 목록까지 볼 수 있습니다.</p></div>
           <figure class="g-shot phone">
             <img src="assets/guide/member/13-products.png" alt="센티프 회원 앱 내 상품 화면 — 결제건별 상품 카드, 잔여 횟수와 만료 D-day, 결제일과 결제수단" loading="lazy">
-            <figcaption>내 상품 — 보유한 수강권의 잔여 횟수와 만료일을 확인합니다</figcaption>
+            <figcaption>내 상품 — 결제 건별 상품과 잔여 횟수·기간</figcaption>
           </figure>
         </article>
 
         <article class="g-item" id="m-profile">
-          <h3>프로필·설정</h3>
-          <div class="g-step"><span class="g-step-num">1</span><p><strong>[마이]</strong>에서 내 프로필 정보를 관리합니다.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p><strong>[설정]</strong>에서 알림 설정과 계정 관리를 할 수 있습니다.</p></div>
+          <h3>프로필과 설정</h3>
+          <div class="g-step"><span class="g-step-num">1</span><p><strong>[프로필]</strong> 탭의 프로필 카드에서 사진을 바꿀 수 있습니다. 카드의 연동 센터 표시를 누르고 센터를 고르면 그 센터의 이용권 · 출입 기록이 나옵니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>우측 상단 톱니바퀴를 누르면 설정이 열립니다. <strong>내 연동 코드·QR</strong> · <strong>연동 센터 관리</strong> · <strong>알림 설정</strong> · <strong>화면 테마</strong> · <strong>계정 관리</strong> · <strong>로그아웃</strong>이 있습니다.</p></div>
+          <div class="g-step"><span class="g-step-num">3</span><p><strong>알림 설정</strong>에서 수업·예약 / 수업일지·센터 이용 / 코치 피드백 / 새 메시지 / 센터 공지 / 식단 기록 알림을 따로 켜고 끕니다.</p></div>
+          <div class="g-step"><span class="g-step-num">4</span><p><strong>계정 관리</strong>에서 간편 로그인 연결과 비밀번호를 관리합니다.</p></div>
           <figure class="g-shot phone">
-            <img src="assets/guide/member/14-profile.png" alt="센티프 회원 앱 설정 화면 — 내 연동 코드·QR, 연동 센터 관리, 간편 로그인 관리, 다크모드, 로그아웃, 회원 탈퇴" loading="lazy">
-            <figcaption>설정 — 연동 코드·연동 센터 관리·다크모드·로그아웃을 한 곳에서 관리합니다</figcaption>
+            <img src="assets/guide/member/14-profile.png" alt="센티프 회원 앱 설정 화면 — 내 연동 코드·QR, 연동 센터 관리, 계정 관리, 화면 테마, 로그아웃" loading="lazy">
+            <figcaption>설정 — 연동 코드·연동 센터·알림·계정을 관리합니다</figcaption>
           </figure>
 
+          <h4 class="g-sub">센터 연동 해지</h4>
+          <div class="g-step"><span class="g-step-num">1</span><p>센터 상세 화면 맨 아래 <strong>[센터 연동 해지하기]</strong>를 누르고 확인합니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>해지하면 그 센터의 공지 · 예약 · 기록 공유 · 새 채팅이 끊깁니다. 이미 받은 수업일지 · 이용권 내역 · 채팅 기록은 계속 볼 수 있습니다.</p></div>
+          <div class="g-callout">💡 <div>다시 연동하려면 코치에게 내 연동 코드를 다시 보여주세요.</div></div>
+
           <h4 class="g-sub">회원 탈퇴</h4>
-          <div class="g-callout warn">⚠️ <div>탈퇴하면 아래 데이터가 삭제됩니다. <strong>삭제된 데이터는 복구되지 않습니다.</strong><br><strong>삭제되는 데이터</strong> — 운동·식단·체성분·체형 기록 전체, 연동 센터의 담당 강사와의 채팅, 프로필 정보 및 연동 코드<br><strong>유지되는 데이터</strong> — 센터가 보관하는 수업 정산·출결 기록(법정 보관), 이미 발송된 메시지의 상대방 사본</div></div>
-          <div class="g-step"><span class="g-step-num">1</span><p><strong>[설정] → [회원 탈퇴]</strong>를 눌러주세요.</p></div>
-          <div class="g-step"><span class="g-step-num">2</span><p>삭제되는 데이터와 유지되는 데이터를 확인하고 탈퇴에 동의하면 처리가 완료됩니다.</p></div>
+          <div class="g-callout warn">⚠️ <div>탈퇴하면 운동·식단·체성분·체형 기록 열람, 연동 센터의 담당 코치와의 채팅, 프로필 정보와 연동 코드를 더 이상 이용할 수 없습니다. 센터가 보관하는 수업 정산·출결 기록과 이미 발송된 메시지의 상대방 사본은 유지됩니다.</div></div>
+          <div class="g-step"><span class="g-step-num">1</span><p>설정 → <strong>[계정 관리]</strong> → <strong>[회원 탈퇴]</strong>를 누릅니다.</p></div>
+          <div class="g-step"><span class="g-step-num">2</span><p>안내를 확인하고 <strong>[탈퇴하기]</strong>를 누르면 처리됩니다.</p></div>
           <figure class="g-shot phone">
-            <img src="assets/guide/member/15-withdrawal.png" alt="센티프 회원 앱 회원 탈퇴 확인 화면 — 삭제되는 데이터와 유지되는 데이터 목록" loading="lazy">
-            <figcaption>회원 탈퇴 — 삭제되는 데이터와 유지되는 데이터를 확인한 뒤 진행합니다</figcaption>
+            <img src="assets/guide/member/15-withdrawal.png" alt="센티프 회원 앱 회원 탈퇴 화면 — 이용할 수 없게 되는 것과 유지되는 데이터 목록" loading="lazy">
+            <figcaption>회원 탈퇴 — 이용할 수 없게 되는 것과 유지되는 데이터를 확인합니다</figcaption>
           </figure>
         </article>
       </section>

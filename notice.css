@@ -722,6 +722,6 @@
 .nt-alert a { color: #B91C1C; font-weight: 800; text-decoration: underline; text-underline-offset: 2px; }
 
 /* 인트로 아래 '마이그레이션 방법' 바로가기 */
-.nt-jump { margin: 4px 0 8px; }
+.nt-jump { margin: 18px 0 4px; }
 .nt-jump .nt-linkbtn { padding: 8px 14px; font-size: 13.5px; }
 .nt-jump .nt-linkbtn:hover svg { transform: translateY(2px); }

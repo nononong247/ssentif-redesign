@@ -699,3 +699,16 @@
   .ai-side.new::before { content: '신버전'; color: var(--accent-dark); }
   .ai-arrow { transform: rotate(90deg); justify-self: start; margin-left: 18px; }
 }
+
+/* 비활성 다운로드 버튼 — 스토어 심사 중 */
+.mg-dlbtn.is-disabled { cursor: not-allowed; opacity: 0.5; box-shadow: none; }
+.mg-dlbtn.is-disabled:hover { border-color: var(--border); box-shadow: none; transform: none; }
+
+/* 공지 최상단 중요 안내 (빨간 글씨) */
+.nt-alert {
+  margin: 0 0 28px; padding: 14px 18px; border-radius: 12px;
+  background: #FEF2F2; border: 1px solid #FECACA;
+}
+.nt-body .nt-alert p { margin: 0; font-size: 15px; line-height: 1.75; color: #DC2626; }
+.nt-body .nt-alert p b { color: #B91C1C; font-weight: 800; }
+.nt-alert a { color: #B91C1C; font-weight: 800; text-decoration: underline; text-underline-offset: 2px; }

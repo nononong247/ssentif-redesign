@@ -12,7 +12,7 @@
 <title>운영지원실 — SSENTIF</title>
 <meta name="description" content="피트니스 센터 운영에 도움이 되는 데이터 분석, 트레이닝 인사이트, 운영 전략.">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://www.ssentif.kr/article.html">
+<link rel="canonical" href="https://www.ssentif.kr/article">
 <meta property="og:type" content="article">
 <meta property="og:title" content="운영지원실 — SSENTIF">
 <meta property="og:description" content="피트니스 센터 운영에 도움이 되는 데이터 분석, 트레이닝 인사이트, 운영 전략.">
@@ -204,11 +204,11 @@
 
 <nav class="nav" id="mainNav">
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo">SSEN<span>TIF</span></a>
+    <a href="/" class="nav-logo">SSEN<span>TIF</span></a>
     <div class="nav-links">
-      <a href="product.html">제품</a>
-      <a href="index.html#cases">고객 사례</a>
-      <a href="lab.html" class="active">운영지원실</a>
+      <a href="product">제품</a>
+      <a href="/#cases">고객 사례</a>
+      <a href="lab" class="active">운영지원실</a>
     </div>
     <div class="nav-actions">
     </div>
@@ -220,7 +220,7 @@
   <!-- 공지 띠 — 센티프 2.0 출시 안내 -->
   <div class="notice-bar" id="noticeBar2">
     <div class="notice-inner">
-      <a class="notice-link" href="notice-2.0.html">
+      <a class="notice-link" href="notice-2.0">
         <span class="notice-tag">공지</span>
         <span class="notice-text"><b>센티프 2.0 출시 안내</b> — 1.0 데이터 가져오는 방법</span>
         <span class="notice-go">
@@ -256,9 +256,9 @@
   </script>
 </nav>
 <div class="nav-mobile-menu" id="navMobileMenu">
-  <a href="product.html">제품</a>
-  <a href="index.html#cases">고객 사례</a>
-  <a href="lab.html">운영지원실</a>
+  <a href="product">제품</a>
+  <a href="/#cases">고객 사례</a>
+  <a href="lab">운영지원실</a>
 </div>
 
 <main id="articleRoot">
@@ -271,11 +271,11 @@
 <footer class="footer">
   <div class="footer-inner">
     <div class="footer-brand"><div class="logo">SSEN<span>TIF</span></div><p>피트니스 센터를 위한<br>AI 운영 워크스페이스</p></div>
-    <div class="footer-col"><h5>제품</h5><ul><li><a href="product.html">주요 기능</a></li></ul></div>
-    <div class="footer-col"><h5>회사</h5><ul><li><a href="index.html#cases">고객 사례</a></li><li><a href="lab.html">운영지원실</a></li></ul></div>
-    <div class="footer-col"><h5>지원</h5><ul><li><a href="guide.html">사용 가이드</a></li><li><a href="terms.html" target="_blank" rel="noopener">이용약관</a></li><li><a href="privacy.html" target="_blank" rel="noopener">개인정보처리방침</a></li><li><a href="marketing-consent.html" target="_blank" rel="noopener">마케팅 수신 동의</a></li></ul></div>
+    <div class="footer-col"><h5>제품</h5><ul><li><a href="product">주요 기능</a></li></ul></div>
+    <div class="footer-col"><h5>회사</h5><ul><li><a href="/#cases">고객 사례</a></li><li><a href="lab">운영지원실</a></li></ul></div>
+    <div class="footer-col"><h5>지원</h5><ul><li><a href="guide">사용 가이드</a></li><li><a href="terms" target="_blank" rel="noopener">이용약관</a></li><li><a href="privacy" target="_blank" rel="noopener">개인정보처리방침</a></li><li><a href="marketing-consent" target="_blank" rel="noopener">마케팅 수신 동의</a></li></ul></div>
   </div>
-  <div class="footer-bottom"><p>© 2026 SSENTIF. All rights reserved.</p><p>사업자등록번호: 849-87-03418 · <a href="privacy.html" target="_blank" rel="noopener">개인정보처리방침</a> · <a href="terms.html" target="_blank" rel="noopener">이용약관</a></p></div>
+  <div class="footer-bottom"><p>© 2026 SSENTIF. All rights reserved.</p><p>사업자등록번호: 849-87-03418 · <a href="privacy" target="_blank" rel="noopener">개인정보처리방침</a> · <a href="terms" target="_blank" rel="noopener">이용약관</a></p></div>
 </footer>
 
 <script>
@@ -331,7 +331,7 @@ function applyMeta(a) {
   const title = `${a.title} — SSENTIF 운영지원실`;
   const desc  = a.summary || '피트니스 센터 운영에 도움이 되는 인사이트.';
   const img   = a.thumb_url || 'https://www.ssentif.kr/og-image.png';
-  const url   = `https://www.ssentif.kr/article.html?id=${a.id}`;
+  const url   = `https://www.ssentif.kr/article?id=${a.id}`;
   document.title = title;
   const set = (sel, attr, val) => { const el = document.querySelector(sel); if (el) el.setAttribute(attr, val); };
   set('meta[name="description"]', 'content', desc);
@@ -356,7 +356,7 @@ function renderArticle(a, others) {
   const dateStr = formatDate(a.published_at);
 
   const moreCards = others.map(o => `
-    <a href="article.html?id=${o.id}" class="art-more-card">
+    <a href="article?id=${o.id}" class="art-more-card">
       <div class="thumb"><img src="${esc(o.thumb_url || fallbackImg(o.category))}" alt="${esc(o.title)}" loading="lazy" onerror="this.src='${esc(fallbackImg(o.category))}'"></div>
       <div class="body">
         <div class="cat">${esc(o.category || '')}</div>
@@ -367,7 +367,7 @@ function renderArticle(a, others) {
   document.getElementById('articleRoot').innerHTML = `
     <header class="art-hero">
       <div class="container">
-        <a href="lab.html" class="art-back">← 운영지원실</a>
+        <a href="lab" class="art-back">← 운영지원실</a>
         ${a.category ? `<div class="art-tag">${esc(a.category)}</div>` : ''}
         <h1 class="art-title">${esc(a.title)}</h1>
         <div class="art-meta">
@@ -404,7 +404,7 @@ function renderArticle(a, others) {
 
     <div class="art-foot">
       <div class="art-foot-line">
-        <a href="lab.html" class="art-back" style="margin:0">← 운영지원실의 다른 글 보기</a>
+        <a href="lab" class="art-back" style="margin:0">← 운영지원실의 다른 글 보기</a>
       </div>
     </div>
 
@@ -420,7 +420,7 @@ function renderArticle(a, others) {
 async function loadArticle() {
   const id = new URLSearchParams(location.search).get('id');
   if (!id || !/^\d+$/.test(id)) {
-    showState('<h2>주소가 올바르지 않습니다</h2><p>아티클 주소를 다시 확인해주세요.</p><a href="lab.html" class="btn btn-primary">운영지원실로 가기</a>');
+    showState('<h2>주소가 올바르지 않습니다</h2><p>아티클 주소를 다시 확인해주세요.</p><a href="lab" class="btn btn-primary">운영지원실로 가기</a>');
     return;
   }
 
@@ -432,11 +432,11 @@ async function loadArticle() {
     .maybeSingle();
 
   if (error) {
-    showState('<h2>아티클을 불러오지 못했습니다</h2><p>잠시 후 다시 시도해주세요.</p><a href="lab.html" class="btn btn-primary">운영지원실로 가기</a>');
+    showState('<h2>아티클을 불러오지 못했습니다</h2><p>잠시 후 다시 시도해주세요.</p><a href="lab" class="btn btn-primary">운영지원실로 가기</a>');
     return;
   }
   if (!data) {
-    showState('<h2>아티클을 찾을 수 없습니다</h2><p>삭제되었거나 아직 발행되지 않은 글입니다.</p><a href="lab.html" class="btn btn-primary">운영지원실로 가기</a>');
+    showState('<h2>아티클을 찾을 수 없습니다</h2><p>삭제되었거나 아직 발행되지 않은 글입니다.</p><a href="lab" class="btn btn-primary">운영지원실로 가기</a>');
     return;
   }
 

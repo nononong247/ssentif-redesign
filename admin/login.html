@@ -168,7 +168,7 @@ body {
   </div>
 
   <div class="login-footer">
-    홈페이지로 돌아가기 → <a href="../index.html">ssentif.com</a>
+    홈페이지로 돌아가기 → <a href="../">ssentif.com</a>
   </div>
 </div>
 
@@ -178,7 +178,7 @@ body {
 // 이미 로그인된 경우 대시보드로
 (async () => {
   const { data: { session } } = await db.auth.getSession();
-  if (session) window.location.replace('dashboard.html');
+  if (session) window.location.replace('dashboard');
 })();
 
 async function handleLogin(e) {
@@ -212,7 +212,7 @@ async function handleLogin(e) {
     return;
   }
 
-  window.location.href = 'dashboard.html';
+  window.location.href = 'dashboard';
 }
 </script>
 </body>

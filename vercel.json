@@ -1,4 +1,5 @@
 {
+  "cleanUrls": true,
   "headers": [
     {
       "source": "/assets/(.*)",
@@ -26,23 +27,22 @@
           "value": "public, max-age=0, must-revalidate"
         }
       ]
+    },
+    {
+      "source": "/((?!assets/)[^.]*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
     }
   ],
   "redirects": [
     {
-      "source": "/guide-migration.html",
-      "destination": "/notice-2.0.html",
+      "source": "/guide-migration",
+      "destination": "/notice-2.0",
       "permanent": true
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/app",
-      "destination": "/app.html"
-    },
-    {
-      "source": "/app-member",
-      "destination": "/app-member.html"
     }
   ]
 }

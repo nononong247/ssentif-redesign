@@ -11,6 +11,7 @@ HTML을 멋대로 캐싱한다. 그러면 파일을 고쳐도 탭을 전환할 �
     python3 dev-server.py 9000     # 포트 지정
 """
 
+import os
 import sys
 from functools import partial
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
@@ -24,6 +25,13 @@ class NoCacheHandler(SimpleHTTPRequestHandler):
         self.send_header('Pragma', 'no-cache')
         self.send_header('Expires', '0')
         super().end_headers()
+
+    def translate_path(self, path):
+        # 라이브(Vercel cleanUrls)와 같게 — /consulting 요청에 consulting.html 을 준다.
+        fs = super().translate_path(path)
+        if not os.path.exists(fs) and os.path.exists(fs + '.html'):
+            return fs + '.html'
+        return fs
 
     def log_message(self, fmt, *args):
         # 요청 로그는 조용히 (에러만 보고 싶을 때 주석 해제)

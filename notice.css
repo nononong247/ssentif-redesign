@@ -721,7 +721,39 @@
 .nt-body .nt-alert p b { color: #B91C1C; font-weight: 800; }
 .nt-alert a { color: #B91C1C; font-weight: 800; text-decoration: underline; text-underline-offset: 2px; }
 
-/* 인트로 아래 '마이그레이션 방법' 바로가기 */
-.nt-jump { margin: 18px 0 4px; }
-.nt-jump .nt-linkbtn { padding: 8px 14px; font-size: 13.5px; }
-.nt-jump .nt-linkbtn:hover svg { transform: translateY(2px); }
+/* 플로팅 '데이터 옮기는 방법' 버튼 (notice-2.0) */
+.nt-fab {
+  position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom));
+  z-index: 90; transform: translateX(-50%);
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 9px 22px 9px 9px; border-radius: 100px;
+  background: #0D0F12; color: var(--white);
+  border: 1px solid rgba(31,219,168,0.35);
+  box-shadow: 0 12px 32px rgba(13,15,18,0.28), 0 0 0 6px rgba(31,219,168,0.10);
+  white-space: nowrap;
+  transition: transform 0.25s, opacity 0.25s, box-shadow 0.2s;
+}
+.nt-fab:hover { transform: translateX(-50%) translateY(-2px); box-shadow: 0 16px 36px rgba(13,15,18,0.32), 0 0 0 7px rgba(31,219,168,0.16); }
+.nt-fab-icon {
+  position: relative; flex-shrink: 0;
+  width: 42px; height: 42px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--accent); color: #07291F;
+}
+.nt-fab-icon::after {
+  content: ''; position: absolute; inset: -4px; border-radius: 50%;
+  border: 2px solid var(--accent); opacity: 0;
+  animation: ntFabPulse 2.2s ease-out infinite;
+}
+.nt-fab-icon svg { animation: ntFabNudge 2.2s ease-in-out infinite; }
+.nt-fab-text { display: flex; flex-direction: column; line-height: 1.25; text-align: left; }
+.nt-fab-text i { font-style: normal; font-size: 12px; font-weight: 600; color: var(--accent); }
+.nt-fab-text b { font-size: 15.5px; font-weight: 800; letter-spacing: -0.02em; }
+.nt-fab.is-hidden { opacity: 0; pointer-events: none; transform: translateX(-50%) translateY(16px); }
+@keyframes ntFabPulse { 0% { opacity: 0.55; transform: scale(1); } 100% { opacity: 0; transform: scale(1.35); } }
+@keyframes ntFabNudge { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(3px); } }
+@media (prefers-reduced-motion: reduce) {
+  .nt-fab-icon::after, .nt-fab-icon svg { animation: none; }
+}
+/* 버튼이 마지막 콘텐츠를 가리지 않도록 */
+body:has(.nt-fab) footer { padding-bottom: 96px; }

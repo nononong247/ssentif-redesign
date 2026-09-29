@@ -85,7 +85,8 @@ section{margin-top:88px}
 .logo-box{border-radius:18px; padding:56px 40px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px}
 .logo-box.on-dark{background:rgba(245,245,242,0.03); border:1px solid var(--line)}
 .logo-box.on-light{background:var(--bone-white)}
-.wordmark{font-size:38px; font-weight:800; letter-spacing:-0.03em}
+.wordmark{line-height:0}
+.wordmark img{display:block; height:36px; width:auto}
 .wordmark .tif{color:var(--teal)}
 .on-dark .wordmark{color:var(--bone-white)}
 .on-light .wordmark{color:var(--space-black)}
@@ -121,7 +122,8 @@ section{margin-top:88px}
 
 .foot{margin-top:104px; padding-top:34px; border-top:1px solid var(--line);
   display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:12px}
-.foot .fm{font-size:15px; font-weight:700; color:var(--bone-white)}
+.foot .fm{font-size:15px; font-weight:700; color:var(--bone-white); display:flex; align-items:center; gap:8px}
+.foot .fm img{display:block; height:13px; width:auto}
 .foot .fm .tif{color:var(--teal)}
 .foot .fs{font-size:13px; color:var(--ink-38)}
 
@@ -214,12 +216,12 @@ section{margin-top:88px}
     <div class="sec-label">Logo · Wordmark</div>
     <div class="logo-grid">
       <div class="logo-box on-dark">
-        <div class="wordmark">SSEN<span class="tif">TIF</span></div>
+        <div class="wordmark"><img src="/assets/brand/ssentif-logo-white.png" alt="SSENTIF" width="306" height="36"></div>
         <div class="kr">센티프</div>
         <div class="logo-cap">다크 배경 — 잉크 화이트 + 민트</div>
       </div>
       <div class="logo-box on-light">
-        <div class="wordmark">SSEN<span class="tif">TIF</span></div>
+        <div class="wordmark"><img src="/assets/brand/ssentif-logo-black.png" alt="SSENTIF" width="306" height="36"></div>
         <div class="kr">센티프</div>
         <div class="logo-cap">라이트 배경 — 스페이스 블랙 + 민트</div>
       </div>
@@ -265,7 +267,7 @@ section{margin-top:88px}
   </section>
 
   <div class="foot">
-    <div class="fm">SSEN<span class="tif">TIF</span> · 센티프</div>
+    <div class="fm"><img src="/assets/brand/ssentif-logo-white.png" alt="SSENTIF" width="110" height="13"> · 센티프</div>
     <div class="fs">브랜드 원칙: 무채색이 지배하고, 민트는 절제한다.</div>
   </div>
 

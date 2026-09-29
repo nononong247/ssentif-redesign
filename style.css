@@ -184,13 +184,11 @@ p  { color: var(--gray-600); line-height: 1.75; }
 }
 
 .nav-logo {
-  font-size: 20px;
-  font-weight: 900;
-  letter-spacing: -0.04em;
-  color: var(--black);
+  display: flex;
+  align-items: center;
   flex-shrink: 0;
 }
-.nav-logo span { color: var(--accent); }
+.nav-logo img { display: block; height: 15px; width: auto; }
 
 .nav-links {
   display: flex;
@@ -250,8 +248,8 @@ p  { color: var(--gray-600); line-height: 1.75; }
   margin: 0 auto;
   padding: 0 24px;
 }
-.footer-brand .logo { font-size: 18px; font-weight: 900; letter-spacing: -0.04em; color: var(--black); margin-bottom: 12px; }
-.footer-brand .logo span { color: var(--accent); }
+.footer-brand .logo { margin-bottom: 14px; }
+.footer-brand .logo img { display: block; height: 18px; width: auto; }
 .footer-brand p { font-size: 13px; color: var(--gray-400); line-height: 1.7; }
 .footer-col h5 { font-size: 13px; font-weight: 700; color: var(--gray-400); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 16px; }
 .footer-col ul li { margin-bottom: 10px; }
@@ -850,4 +848,13 @@ body .pf-hero    { padding-top: calc(150px + var(--notice-h)); }
 
   /* Section heads */
   .section-head { margin-bottom: 36px; }
+}
+
+/* 이미지 로고 — 좁은 화면에서 로고·상담 버튼·메뉴 버튼이 한 줄에 들어가도록 */
+@media (max-width: 480px) {
+  .nav-inner { gap: 8px; padding: 0 14px; }
+  .nav-logo img { height: 13px; }
+}
+@media (max-width: 360px) {
+  .nav-logo img { height: 12px; }
 }

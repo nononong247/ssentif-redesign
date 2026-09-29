@@ -51,8 +51,12 @@ body {
   color: #1FDBA8; letter-spacing: -0.03em;
 }
 .login-logo h1 {
-  font-size: 20px; font-weight: 800;
-  color: #0D0F12; letter-spacing: -0.02em;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+}
+.login-logo h1 img { display: block; height: 22px; width: auto; }
+.login-logo h1 span {
+  font-size: 11px; font-weight: 800; letter-spacing: 0.14em;
+  color: #15B88E; text-transform: uppercase;
 }
 .login-logo p {
   font-size: 13.5px; color: #9AA5B4; margin-top: 4px;
@@ -138,7 +142,7 @@ body {
 <div class="login-wrap">
   <div class="login-logo">
     <div class="login-logo-mark"><span>S</span></div>
-    <h1>SSENTIF Admin</h1>
+    <h1><img src="/assets/brand/ssentif-logo-black.png" alt="SSENTIF" width="187" height="22"><span>Admin</span></h1>
     <p>운영 백오피스에 오신 것을 환영합니다</p>
   </div>
 

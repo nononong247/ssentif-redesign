@@ -223,8 +223,16 @@ p  { color: var(--gray-600); line-height: 1.75; }
 }
 .nav-ghost:hover { background: var(--gray-100); color: var(--black); }
 /* 관리자 웹 로그인 — 고객이 "어디서 로그인하냐"를 찾는 자리(우측 상단). 주 CTA 보다 한 단계 약하게. */
-.nav-login { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border: 1px solid var(--gray-200); }
-.nav-login svg { flex-shrink: 0; }
+.nav-login {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 8px 16px;                     /* 높이를 옆 CTA(9px 20px)와 맞춘다 — 테두리 1px 몫을 뺐다 */
+  border: 1px solid var(--gray-300); border-radius: 10px;
+  background: var(--white);
+  font-size: 14px; font-weight: 600; color: var(--black); letter-spacing: -0.01em;
+}
+.nav-login svg { flex-shrink: 0; width: 16px; height: 16px; color: var(--gray-600); }
+.nav-login:hover { border-color: var(--gray-400); background: var(--gray-50); color: var(--black); }
+.nav-login:hover svg { color: var(--black); }
 .nav-mobile-menu .nav-mobile-login { display: flex; align-items: center; gap: 8px; }
 .nav-mobile-menu .nav-mobile-login span { margin-left: auto; font-size: 11px; font-weight: 600; color: var(--gray-500); border: 1px solid var(--gray-200); border-radius: 6px; padding: 1px 6px; }
 .nav-cta-btn {

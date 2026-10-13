@@ -9,7 +9,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:ssentif_coach/core/theme/gn_text_styles.dart';
 import 'package:ssentif_coach/domain/enums/gender.dart';
-import 'package:ssentif_coach/features/members/widgets/member_link_input_sheet.dart';
+import 'package:ssentif_coach/features/members/widgets/member_link_input_dialog.dart';
 
 import 'screenshot_harness.dart';
 
@@ -45,15 +45,15 @@ void main() {
         child: Scaffold(
         // 시트만 화면 하단에 붙여 그린다 — barrier 를 따로 트림하지 않아도 된다.
         body: Align(
-          alignment: Alignment.bottomCenter,
+          alignment: Alignment.center,
           child: Material(
             color: Colors.transparent,
-            child: MemberLinkInputSheet(
+            child: MemberLinkInputDialog(
               workspaceId: 'ws-1',
               memberId: 'm-1',
-              memberName: '박서연',
-              memberPhone: '010-2847-1193',
-              memberGender: Gender.female,
+              memberName: '김지훈',
+              memberPhone: '010-1234-5678',
+              memberGender: Gender.male,
               memberAge: 32,
               ),
             ),

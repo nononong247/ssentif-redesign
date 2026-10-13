@@ -25,7 +25,6 @@ import 'package:ssentif_coach/domain/enums/staff_role.dart';
 import 'package:ssentif_coach/domain/models/ai_chat_message.dart';
 import 'package:ssentif_coach/domain/models/manager_action_alert.dart';
 import 'package:ssentif_coach/domain/models/manager_revenue.dart';
-import 'package:ssentif_coach/domain/models/manager_risk.dart';
 import 'package:ssentif_coach/domain/models/member.dart';
 import 'package:ssentif_coach/domain/models/membership_template.dart';
 import 'package:ssentif_coach/domain/models/payroll/payroll_detail.dart';
@@ -43,7 +42,6 @@ import 'package:ssentif_coach/features/ai_agent/ai_agent_chat_screen.dart';
 import 'package:ssentif_coach/features/manager_dashboard/manager_dashboard_screen.dart';
 import 'package:ssentif_coach/features/manager_dashboard/widgets/manager_action_alerts_card.dart';
 import 'package:ssentif_coach/features/manager_dashboard/widgets/manager_revenue_card.dart';
-import 'package:ssentif_coach/features/manager_dashboard/widgets/manager_risk_card.dart';
 import 'package:ssentif_coach/features/operations/all_members_screen.dart';
 import 'package:ssentif_coach/features/operations/staff_management_screen.dart';
 import 'package:ssentif_coach/features/operations/tabs/operations_settings_tab.dart';
@@ -63,6 +61,7 @@ import 'package:ssentif_coach/providers/schedule/schedule_providers.dart';
 import 'package:ssentif_coach/providers/workspace/staff_admin_providers.dart';
 import 'package:ssentif_coach/data/dto/workspace/workspace_dtos.dart';
 import 'package:ssentif_coach/providers/members/member_providers.dart';
+import 'package:ssentif_coach/data/repositories/backend_member_repository.dart';
 import 'package:ssentif_coach/providers/workspace/workspace_providers.dart';
 
 import 'screenshot_harness.dart';
@@ -109,6 +108,16 @@ const _workspaceInfo = Workspace(
   createdAt: '2026-01-04T09:00:00',
 );
 
+class _FakeAdminMemberList extends AdminMemberList {
+  @override
+  Future<AdminMemberPage> build() async => AdminMemberPage(
+        members: _members,
+        coachMap: _coachMap,
+        total: _members.length,
+        hasMore: false,
+      );
+}
+
 class _FixedMode extends CoachModeNotifier {
   @override
   CoachMode build() => CoachMode.admin;
@@ -116,14 +125,18 @@ class _FixedMode extends CoachModeNotifier {
 
 // ── 대시보드 ───────────────────────────────────────────────────────────────
 
-DateTime _at(int day, int hour) => DateTime(2026, 8, day, hour);
+// day 5 = 오늘 — 알림의 '몇 일 전' 표기가 캡처 시점과 무관하게 같게 나온다.
+final _now = DateTime.now();
+DateTime _at(int day, int hour) =>
+    DateTime(_now.year, _now.month, _now.day - (5 - day), hour);
 
 final _alerts = ManagerActionAlerts(
   counts: const ManagerAlertCounts(
     total: 6,
     churn: 2,
-    expiring: 3,
+    expiring: 2,
     newIssuance: 1,
+    unlinked: 1,
   ),
   items: [
     ManagerActionAlert(
@@ -172,12 +185,15 @@ final _alerts = ManagerActionAlerts(
       description: '2주째 방문이 없습니다',
       occurredAt: _at(2, 15),
     ),
+    ManagerActionAlert(
+      type: ManagerAlertType.memberUnlinked,
+      coachName: '이수민',
+      memberId: 'm6',
+      memberName: '한도윤',
+      description: '회원 앱에서 센터 연동을 해지했습니다',
+      occurredAt: _at(1, 10),
+    ),
   ],
-);
-
-const _risk = ManagerRisk(
-  potentialLiability: 18450000,
-  stability: StabilityLevel.normal,
 );
 
 // ── 전체 회원 ──────────────────────────────────────────────────────────────
@@ -584,7 +600,6 @@ void main() {
       overrides: [
         ...base,
         managerActionAlertsProvider.overrideWith((ref) async => _alerts),
-        managerRiskProvider.overrideWith((ref) async => _risk),
       ],
     );
   });
@@ -597,9 +612,7 @@ void main() {
       device: ScreenshotDevice.tabletLandscape,
       overrides: [
         ...base,
-        allWorkspaceMembersProvider.overrideWith(
-          (ref) async => (members: _members, coachMap: _coachMap),
-        ),
+        adminMemberListProvider.overrideWith(_FakeAdminMemberList.new),
         workspaceStaffNameMapProvider.overrideWith((ref) async => _staffNames),
       ],
     );
@@ -664,21 +677,6 @@ void main() {
     );
   });
 
-  testWidgets('가이드(관리자) — 운영 위험도 카드', (tester) async {
-    await captureScreenshot(
-      tester,
-      child: const ManagerRiskCard(),
-      name: 'guide_admin_risk',
-      // 실제 콘텐츠 높이(~165)보다 220 이 커서 카드 하단에 빈 여백이
-      // 남았다 — 콘텐츠에 맞춰 축소(2026-08-06).
-      size: const Size(430, 175),
-      overrides: [
-        ...base,
-        managerRiskProvider.overrideWith((ref) async => _risk),
-      ],
-    );
-  });
-
   testWidgets('가이드(관리자) — 상품 목록', (tester) async {
     await captureScreenshot(
       tester,
@@ -708,12 +706,12 @@ void main() {
                   period: '2026-08',
                   status: PayrollStatus.open,
                   summary: _payrollSummary,
-                  workspaceName: '센티프 피트니스 강남점',
                   canGoNext: true,
                   busy: false,
                   onPrev: () {},
                   onNext: () {},
-                  onRefresh: () {},
+                  onPickMonth: () {},
+                  onRecompute: () {},
                   onReport: () {},
                   onCloseMonth: () {},
                   onReopen: () {},

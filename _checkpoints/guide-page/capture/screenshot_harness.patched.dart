@@ -19,6 +19,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:ssentif_coach/core/theme/app_theme.dart';
+import 'package:ssentif_coach/core/theme/gn_text_styles.dart';
 
 /// 디바이스 프리셋 — 논리 사이즈(dp) + devicePixelRatio.
 /// DPR 은 레이아웃 브레이크포인트/2x 에셋 선택/출력 해상도에 모두 반영된다.
@@ -30,14 +31,39 @@ class ScreenshotDevice {
   final double dpr;
 
   /// iPad Pro 11" 가로 (앱 기준 레이아웃, 1180×820pt) — 기본값
-  static const tabletLandscape =
-      ScreenshotDevice('tablet_landscape', Size(1180, 820), 2.0);
-  static const tabletPortrait =
-      ScreenshotDevice('tablet_portrait', Size(820, 1180), 2.0);
+  static const tabletLandscape = ScreenshotDevice(
+    'tablet_landscape',
+    Size(1180, 820),
+    2.0,
+  );
+
+  /// 낮은 가로 태블릿 (1024×768pt) — **좌측 컬럼이 가장 빡빡한** 기준 기기.
+  /// 다음 수업 카드와 도구 카드 2종이 이 높이 안에서 스크롤 없이 서야 한다.
+  static const smallTabletLandscape = ScreenshotDevice(
+    'small_tablet_landscape',
+    Size(1024, 768),
+    2.0,
+  );
+
+  /// 더 낮은 가로 태블릿 (1024×640pt) — 세로가 짧은 기기·분할 화면 기준.
+  /// 1024×640 에서 업무 알림 카드가 3px 넘쳤다(2026-09-07). 이 프리셋이 그 가드다.
+  static const shortTabletLandscape = ScreenshotDevice(
+    'short_tablet_landscape',
+    Size(1024, 640),
+    2.0,
+  );
+  static const tabletPortrait = ScreenshotDevice(
+    'tablet_portrait',
+    Size(820, 1180),
+    2.0,
+  );
 
   /// iPhone 급 세로 (390×844pt @3x)
-  static const phonePortrait =
-      ScreenshotDevice('phone_portrait', Size(390, 844), 3.0);
+  static const phonePortrait = ScreenshotDevice(
+    'phone_portrait',
+    Size(390, 844),
+    3.0,
+  );
 }
 
 final _captureKey = GlobalKey();
@@ -66,6 +92,7 @@ Future<File> captureScreenshot(
   Size? size,
   Duration settle = const Duration(milliseconds: 1200),
   Future<void> Function(WidgetTester tester)? interact,
+  List<File> precacheFiles = const [],
   String? outputDir,
 }) async {
   // 실제 그림자 렌더링 — flutter_test 기본값은 그림자 off(단색 근사)라
@@ -84,6 +111,20 @@ Future<File> captureScreenshot(
   });
 
   final colors = darkMode ? AppTheme.dark() : AppTheme.light();
+  // 캡처 전용: `FilledButton.styleFrom(textStyle:)` 로 넘어간 button 스타일은
+  // fontFamily 가 null 이라 flutter_test 에서 한글이 □ 로 찍힌다(앱 실기기는 정상).
+  // 테마 확장의 button 에만 패밀리를 박아 tofu 를 막는다.
+  final baseStyles = colors.extension<GnTextStyles>();
+  final theme = baseStyles == null
+      ? colors
+      : colors.copyWith(
+          extensions: [
+            ...colors.extensions.values.where((e) => e is! GnTextStyles),
+            baseStyles.copyWith(
+              button: baseStyles.button.copyWith(fontFamily: 'Pretendard'),
+            ),
+          ],
+        );
 
   Widget home = child;
   if (size != null) {
@@ -92,8 +133,7 @@ Future<File> captureScreenshot(
       body: Center(
         child: RepaintBoundary(
           key: _widgetCaptureKey,
-          child:
-              SizedBox(width: size.width, height: size.height, child: child),
+          child: SizedBox(width: size.width, height: size.height, child: child),
         ),
       ),
     );
@@ -105,7 +145,7 @@ Future<File> captureScreenshot(
       overrides: overrides,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: colors,
+        theme: theme,
         locale: const Locale('ko', 'KR'),
         supportedLocales: const [Locale('ko', 'KR'), Locale('en', 'US')],
         localizationsDelegates: const [
@@ -120,48 +160,53 @@ Future<File> captureScreenshot(
 
   late final File file;
   // 모든 네트워크 요청을 placeholder PNG 로 응답 (Image.network 등).
-  await HttpOverrides.runZoned(
-    () async {
-      await tester.pumpWidget(app);
-      // 진입 애니메이션(300ms fade/slide, 800ms scale, 1100ms 차트)을 소화.
+  await HttpOverrides.runZoned(() async {
+    await tester.pumpWidget(app);
+    // 로컬 File 이미지(실사진 주입) 디코드 — Image.file 도 codec 디코드가
+    // 실제 async 라 fake-async 프레임만으로는 완성되지 않는다.
+    for (final file in precacheFiles) {
+      await tester.runAsync(() => precacheImage(
+            FileImage(file),
+            tester.element(find.byType(MaterialApp)),
+          ));
+    }
+    // 진입 애니메이션(300ms fade/slide, 800ms scale, 1100ms 차트)을 소화.
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 120));
+    await tester.pump(const Duration(milliseconds: 480));
+    await tester.pump(settle);
+
+    if (interact != null) {
+      await interact(tester);
       await tester.pump();
-      await tester.pump(const Duration(milliseconds: 120));
-      await tester.pump(const Duration(milliseconds: 480));
-      await tester.pump(settle);
+      await tester.pump(const Duration(milliseconds: 600));
+    }
 
-      if (interact != null) {
-        await interact(tester);
-        await tester.pump();
-        await tester.pump(const Duration(milliseconds: 600));
-      }
-
-      // 에셋 PNG(클레이 아이콘 등)는 비동기 디코드라 pump 만으로는 빈 채로
-      // 찍힌다 — 트리의 모든 Image provider 를 runAsync 로 precache 한 뒤
-      // 한 프레임 더 그린다.
-      await tester.runAsync(() async {
-        for (final element in find.byType(Image).evaluate()) {
-          final image = element.widget as Image;
-          try {
-            await precacheImage(image.image, element);
-          } catch (_) {
-            // 실패(fake network 등)는 폴백 UI 로 — 캡처를 막지 않는다.
-          }
+    // 에셋 PNG(클레이 아이콘 등)는 비동기 디코드라 pump 만으로는 빈 채로
+    // 찍힌다 — 트리의 모든 Image provider 를 runAsync 로 precache 한 뒤
+    // 한 프레임 더 그린다.
+    await tester.runAsync(() async {
+      for (final element in find.byType(Image).evaluate()) {
+        final image = element.widget as Image;
+        try {
+          await precacheImage(image.image, element);
+        } catch (_) {
+          // 실패(fake network 등)는 폴백 UI 로 — 캡처를 막지 않는다.
         }
-      });
-      await tester.pump();
+      }
+    });
+    await tester.pump();
 
-      file = await _writePng(
-        tester,
-        name,
-        captureKey: size != null ? _widgetCaptureKey : _captureKey,
-        outputDir: outputDir,
-      );
+    file = await _writePng(
+      tester,
+      name,
+      captureKey: size != null ? _widgetCaptureKey : _captureKey,
+      outputDir: outputDir,
+    );
 
-      // 화면 unmount → dispose 로 주기 타이머(캐러셀 자동슬라이드 등) 정리.
-      await tester.pumpWidget(const SizedBox());
-    },
-    createHttpClient: (_) => _FakeImageHttpClient(),
-  );
+    // 화면 unmount → dispose 로 주기 타이머(캐러셀 자동슬라이드 등) 정리.
+    await tester.pumpWidget(const SizedBox());
+  }, createHttpClient: (_) => _FakeImageHttpClient());
   // 테스트 종료 시 프레임워크 invariant 검사(teardown 이전)에 걸리지 않도록
   // 함수 안에서 직접 복원한다.
   debugDisableShadows = true;
@@ -174,10 +219,12 @@ Future<File> _writePng(
   required GlobalKey captureKey,
   String? outputDir,
 }) async {
-  final boundary = captureKey.currentContext!.findRenderObject()!
-      as RenderRepaintBoundary;
+  final boundary =
+      captureKey.currentContext!.findRenderObject()! as RenderRepaintBoundary;
   final dpr = tester.view.devicePixelRatio;
 
+  _fillMissingFontFamily(tester.renderObject(find.byKey(_captureKey)));
+  await tester.pump();
   late final Uint8List bytes;
   await tester.runAsync(() async {
     final image = await boundary.toImage(pixelRatio: dpr);
@@ -185,7 +232,8 @@ Future<File> _writePng(
     bytes = data!.buffer.asUint8List();
   });
 
-  final dir = outputDir ??
+  final dir =
+      outputDir ??
       Platform.environment['SCREENSHOT_DIR'] ??
       '${Platform.environment['HOME']}/Downloads';
   final file = File('$dir/$name.png');
@@ -213,14 +261,12 @@ Future<Uint8List> _makePlaceholderPng() async {
 // flutter_test 기본 HttpClient 는 모든 요청에 400 을 반환해 이미지가 깨진다.
 // (cached_network_image 는 sqflite 네이티브 의존으로 테스트에서 실패할 수 있으니
 //  fixture 의 imageUrl 은 null 로 두고 앱의 폴백 UI(이니셜 아바타)를 태우는 것을 권장.)
-//
+// ---------------------------------------------------------------------------
+
 // **실사진 주입**: 환경변수 `SCREENSHOT_PHOTO_DIR` 이 있으면, URL 마지막 경로
 // 조각과 이름이 같은 파일을 그 폴더에서 찾아 그대로 응답한다.
 // 예) `https://photos.test/diet.png` → `$SCREENSHOT_PHOTO_DIR/diet.png`.
-// 없으면 기존과 동일하게 웜그레이 placeholder 로 떨어진다 — 환경변수를 주지
-// 않으면 동작이 완전히 같으므로 기존 캡처 테스트에 영향이 없다.
-// ---------------------------------------------------------------------------
-
+// 환경변수를 주지 않으면 기존과 완전히 같다.
 final Map<String, Uint8List?> _photoCache = {};
 
 Uint8List? _photoBytesFor(Uri url) {
@@ -299,7 +345,6 @@ class _FakeResponse extends Stream<List<int>> implements HttpClientResponse {
       : _bytes = photo ?? _placeholderPngBytes ?? Uint8List(0);
 
   final Uint8List _bytes;
-
   late final Stream<List<int>> _body = Stream<List<int>>.value(_bytes);
 
   @override
@@ -388,4 +433,31 @@ class _FakeHeaders implements HttpHeaders {
   @override
   dynamic noSuchMethod(Invocation invocation) =>
       throw UnimplementedError('${invocation.memberName}');
+}
+
+/// 캡처 전용 보정 — family 를 지정하지 않은 텍스트(`FilledButton.styleFrom(
+/// textStyle: const TextStyle(...))` 로 넘어간 버튼 라벨 등)는 flutter_test 엔진의
+/// 테스트 폰트로 떨어져 한글이 □ 로 찍힌다. 폰트 별칭으로는 잡히지 않아(엔진 기본
+/// family 고정) 캡처 직전에 **family 가 비어 있는 문단만** Pretendard 를 물려준다.
+/// 실기기에서는 시스템 폰트로 정상 렌더되는 텍스트라 화면 구성은 바뀌지 않는다.
+void _fillMissingFontFamily(RenderObject root) {
+  void visit(RenderObject node) {
+    if (node is RenderParagraph) {
+      final span = node.text;
+      var hasWidgetSpan = false;
+      span.visitChildren((s) {
+        if (s is WidgetSpan) hasWidgetSpan = true;
+        return !hasWidgetSpan;
+      });
+      if (!hasWidgetSpan && span.style?.fontFamily == null) {
+        node.text = TextSpan(
+          style: const TextStyle(fontFamily: 'Pretendard'),
+          children: [span],
+        );
+      }
+    }
+    node.visitChildren(visit);
+  }
+
+  visit(root);
 }

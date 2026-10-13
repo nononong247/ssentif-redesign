@@ -43,7 +43,7 @@ import 'package:ssentif_coach/features/exercise_library/exercise_library_screen.
 import 'package:ssentif_coach/features/members/tabs/activity_feed_tab.dart';
 import 'package:ssentif_coach/features/members/widgets/body_photo_capture_dialog.dart';
 import 'package:ssentif_coach/features/members/widgets/member_add_dialog.dart';
-import 'package:ssentif_coach/features/members/widgets/member_link_input_sheet.dart';
+import 'package:ssentif_coach/features/members/widgets/member_detail_actions_dialog.dart';
 import 'package:ssentif_coach/features/members/widgets/membership_issue_dialog.dart';
 import 'package:ssentif_coach/features/products/products_screen.dart';
 import 'package:ssentif_coach/features/settings/account_settings_screen.dart';
@@ -80,6 +80,7 @@ const _user = UserProfile(
   birthDate: '1992-04-18',
   gender: Gender.male,
   linkCode: 'a4kd91xz',
+  passwordSet: true,
   createdAt: '2026-01-04T09:00:00',
 );
 
@@ -185,8 +186,10 @@ class _FakeChatRooms extends ChatRooms {
 }
 
 /// 회원 활동 — 실사진이 들어가는 유일한 화면이라 타입을 골고루 섞는다.
+// day 5 = 오늘. 활동 탭은 항상 오늘을 기본 선택하므로 날짜를 오늘에 상대적으로 둔다.
+final _today = DateTime.now();
 DateTime _d(int day, int hour, [int minute = 0]) =>
-    DateTime(2026, 8, day, hour, minute);
+    DateTime(_today.year, _today.month, _today.day - (5 - day), hour, minute);
 
 // 오늘(8/5)에 여러 타입을 몰아둔다 — 탭은 오늘을 기본 선택하므로, 오늘이 비면
 // 우측 일별 피드가 한 줄짜리로 찍혀 무엇을 보여주는 화면인지 전달되지 않는다.
@@ -472,6 +475,35 @@ void main() {
     );
   });
 
+  // 회원 상세 우측 하단 [회원 관리] 버튼이 여는 액션 다이얼로그 — 연동·일정·발급·
+  // 일시정지·삭제의 공통 진입점(2026-08-26).
+  testWidgets('가이드 — 회원 관리 다이얼로그', (tester) async {
+    await captureScreenshot(
+      tester,
+      child: _DialogLauncher(
+        (ctx) => showMemberDetailActionsDialog(
+          context: ctx,
+          memberName: '김지훈',
+          isLinked: false,
+          hasPtMembership: true,
+          hasAssignedCoach: true,
+          canAssignCoach: true,
+          onLink: () {},
+          onSchedule: () {},
+          onAssignCoach: () {},
+          onIssueProduct: () {},
+          onEdit: () {},
+          onPause: () {},
+          onDelete: () {},
+        ),
+      ),
+      name: 'guide_member_actions',
+      device: ScreenshotDevice.tabletLandscape,
+      overrides: baseOverrides,
+      interact: _tapOpen,
+    );
+  });
+
   testWidgets('가이드 — 상품 관리 화면', (tester) async {
     await captureScreenshot(
       tester,
@@ -517,25 +549,6 @@ void main() {
     );
   });
 
-  testWidgets('가이드 — 회원 연동 시트', (tester) async {
-    await captureScreenshot(
-      tester,
-      child: const Scaffold(
-        body: MemberLinkInputSheet(
-          workspaceId: 'ws-1',
-          memberId: 'client-1',
-          memberName: '김지훈',
-          memberPhone: '010-1234-5678',
-          memberGender: Gender.male,
-          memberAge: 32,
-        ),
-      ),
-      name: 'guide_member_link',
-      device: ScreenshotDevice.tabletLandscape,
-      overrides: baseOverrides,
-    );
-  });
-
   testWidgets('가이드 — 운동 라이브러리', (tester) async {
     await captureScreenshot(
       tester,
@@ -559,8 +572,6 @@ void main() {
         ...baseOverrides,
         sessionLogNotifierProvider('session-1')
             .overrideWith(_FakeSessionLog.new),
-        // 실기기에서는 모델이 이미 받아져 있어 이 배너가 뜨지 않는다.
-        handwritingModelReadyProvider.overrideWith((ref) async => true),
       ],
     );
   });
@@ -580,9 +591,8 @@ void main() {
       interact: (tester) async {
         final monthly = find.text('월별');
         if (monthly.evaluate().isNotEmpty) {
-          await tester.tap(monthly.first);
-          await tester.pump();
-          await tester.pump(const Duration(milliseconds: 500));
+          await tester.tap(monthly.first, warnIfMissed: false);
+          await tester.pumpAndSettle(const Duration(milliseconds: 100));
         }
       },
     );

@@ -21,6 +21,7 @@ import 'package:ssentif_coach/core/theme/gn_colors_extension.dart';
 
 import 'package:ssentif_coach/core/router/routes.dart';
 import 'package:ssentif_coach/data/local/local_storage.dart';
+import 'package:ssentif_coach/domain/business_logic/next_session_selector.dart';
 import 'package:ssentif_coach/domain/enums/activity_type.dart';
 import 'package:ssentif_coach/domain/enums/coach_mode.dart';
 import 'package:ssentif_coach/domain/enums/engagement_level.dart';
@@ -63,6 +64,10 @@ import 'package:ssentif_coach/providers/workspace/invitation_providers.dart';
 import 'package:ssentif_coach/providers/workspace/workspace_providers.dart';
 import 'package:ssentif_coach/shared/layouts/adaptive_scaffold.dart';
 
+import 'package:ssentif_coach/core/env/app_env.dart';
+import 'package:ssentif_coach/core/auth/token_storage.dart';
+import 'package:ssentif_coach/core/core_providers.dart';
+
 import 'screenshot_harness.dart';
 
 // ---------------------------------------------------------------------------
@@ -89,6 +94,7 @@ const _user = UserProfile(
   birthDate: '1992-04-18',
   gender: Gender.male,
   linkCode: 'a4kd91xz',
+  passwordSet: true,
   createdAt: '2026-01-04T09:00:00',
 );
 
@@ -328,7 +334,13 @@ const _levels = {'c1': EngagementLevel.level3, 'c2': EngagementLevel.level2};
 class _FakeOnboarding extends CoachOnboardingNotifier {
   @override
   OnboardingState build() =>
-      const OnboardingState(activated: false, dismissed: false, completed: <String>{});
+      const OnboardingState(
+        activated: false,
+        dismissed: false,
+        completed: <String>{},
+        recapShown: true,
+        soloOperation: false,
+      );
 }
 
 const _emojiFamily = 'Apple Color Emoji';
@@ -427,6 +439,8 @@ void main() {
       ),
       name: 'guide_admin_chat_tablet',
       overrides: [
+        appEnvProvider.overrideWithValue(AppEnv.fromEnvironment()),
+        tokenStorageProvider.overrideWithValue(TokenStorage()),
         ..._baseOverrides,
         chatRoomsProvider.overrideWith(_FakeChatRooms.new),
       ],
@@ -439,6 +453,8 @@ void main() {
       child: const MemoScreen(),
       name: 'guide_admin_memo_tablet',
       overrides: [
+        appEnvProvider.overrideWithValue(AppEnv.fromEnvironment()),
+        tokenStorageProvider.overrideWithValue(TokenStorage()),
         ..._baseOverrides,
         memoListProvider.overrideWith((ref) async => _memos),
         memoDetailProvider('memo-1').overrideWith((ref) async => _memos[0]),
@@ -467,6 +483,8 @@ void main() {
       ),
       name: 'guide_admin_modes_tablet',
       overrides: [
+        appEnvProvider.overrideWithValue(AppEnv.fromEnvironment()),
+        tokenStorageProvider.overrideWithValue(TokenStorage()),
         ..._baseOverrides,
         coachOnboardingNotifierProvider.overrideWith(_FakeOnboarding.new),
         invitationDialogShownProvider.overrideWith((ref) => true),
@@ -474,7 +492,9 @@ void main() {
             .overrideWith((ref) async => const <PendingInvitation>[]),
         assignedMembersProvider.overrideWith((ref) async => _members),
         todaySessionsProvider.overrideWith((ref) async => [session]),
-        nextActionableSessionProvider.overrideWithValue(session),
+        nextActionableSessionProvider.overrideWithValue(
+          NextSessionSelection(session, NextSessionIntent.upcoming),
+        ),
         monthlyCoachMetricsProvider.overrideWith((ref) async => _metrics),
         coachInsightsProvider.overrideWith((ref) async => _insights),
         coachActionNeededProvider.overrideWith((ref) async => _actions),

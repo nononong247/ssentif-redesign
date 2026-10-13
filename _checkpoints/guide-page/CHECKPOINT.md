@@ -716,3 +716,51 @@ python3 "$CP/build_migration_assets.py"
 2026-08-22 설계 문서(`docs/superpowers/specs/2026-08-22-v1-migration-design.md` §5.2)는
 "미래 일정 이관 안 함" 이라고 적혀 있지만 **실제 앱은 "모든 수업 일정을 가져와요" 로 출시**됐다.
 설계 문서보다 앱 문구를 따랐다. 다시 볼 때 이 불일치를 먼저 확인할 것.
+
+---
+
+## 12. 2026-09-17 — 09-14 드롭 기준 전면 재캡처 (세 가이드 공용 v3 파이프라인)
+
+**빌드는 이제 `capture/build_guide_v3.py` 하나로** 세 가이드(강사/관리자/회원)를 만든다. 구 스크립트 3종(`build_guide_assets2.py`/`build_admin_assets.py`/`build_member_assets.py`)은 참고용으로만 남김.
+
+```bash
+export PATH="$HOME/development/flutter/bin:$PATH"
+CP=~/ssentif-redesign/_checkpoints/guide-page
+APP="$HOME/Desktop/센티프 SSENTIF/Product/GRIP_NOTE-main"
+# 앱 폴더 교체 시: capture/ 의 guide_*.dart 를 각 앱 test_screenshots/ 로, harness 패치본 2종을 screenshot_harness.dart 로,
+# app_test_fixes/ 3종도 원래 자리로 복사(앱 쪽 시그니처 변경 대응분).
+cd "$APP/ssentif-coach"   && SCREENSHOT_DIR=/tmp/shots_c3 SCREENSHOT_PHOTO_DIR="$CP/photos" flutter test <아래 목록>
+cd "$APP/ssentif-members" && SCREENSHOT_DIR=/tmp/shots_m3 SCREENSHOT_PHOTO_DIR="$CP/photos" flutter test <아래 목록>
+cp /tmp/grip_note_screenshots/exercise_recording_overview.png /tmp/shots_m3/
+python3 $CP/capture/build_guide_v3.py /tmp/shots_c3 --member /tmp/shots_m3 --out ~/ssentif-redesign/assets/guide
+```
+- 코치앱 테스트: guide_docs · guide_admin · guide_admin_common_tablet · guide_modes_nav · guide_admin_todo · member_notices_screen · memo_editor_attachment · payment_receipt · login_screen · signup_screen · workspace_create_screen · coach_home_screen · membership_tab · schedule_create_dialog · schedule_date_selection · session_detail_dialog · custom_exercise_video_field · previous_records · member_activity_feedback · session_tab_donut · session_journal_cards · body_composition_charts · consultation_entry · consultation_goals · member_pause (각 `_capture_test.dart`)
+- 회원앱 테스트: guide_member · signup · my_link_code · schedule_tab · chat_empty · exercise_recording · stats_body_composition · checkin_qr_sheet
+- `가이드 — 수업 기록 화면`/`활동 탭(월별)`/`운영 대시보드` 는 teardown 에서 [E] 가 나도 PNG 는 저장된다. 활동 탭(월별)은 여러 파일과 같이 돌리면 가끔 안 찍혀 `--plain-name "월별"` 단독 재실행.
+
+### 하네스 패치(두 앱 공통) — 반드시 다시 얹을 것
+1. 실사진 주입(`_photoBytesFor`) + `precacheFiles` (+ 회원앱 `interact` 훅)
+2. **`_fillMissingFontFamily`** — 캡처 직전 family 가 비어 있는 문단에 Pretendard 를 물려준다. `FilledButton.styleFrom(textStyle: const TextStyle(...))` 버튼 라벨의 □ 는 폰트 별칭(Helvetica/.SF NS 등 포함)으로 **절대 안 잡힌다**(엔진 기본 테스트 폰트 고정) — 이 패치가 유일한 해법이고 앱 코드는 안 건드린다.
+
+### v3 빌드 규칙(여백 제거)
+- 다이얼로그: barrier 트림 → `whiten_barrier`(가장자리에서 이어진 어두운 링을 흰색 flood fill) → pad 10
+- 폰 전체 화면: 아래쪽 빈 영역만 걷어냄(`sides: "b"`). 본문이 짧고 하단 CTA 가 떨어진 화면은 **캡처 기기 높이를 낮춘다**(`_shortPhone(560~640)`) — 크롭으로 CTA 를 자르지 말 것.
+- 카드 위젯: `size:` 를 콘텐츠 높이에 맞춘다(오늘 해야할 업무 430×200). SectionCard 로 한 번 더 감싸면 이중 카드가 된다.
+- 뒤 화면 헤더 때문에 모서리 색이 달라 자동 트림이 안 되는 다이얼로그(결제 영수증)는 카드 좌표 크롭.
+
+### 이번에 바뀐 화면 매핑(앱 변경 반영)
+- 13-member-delete → 회원 관리 다이얼로그(`guide_member_actions`), 17-membership-edit → 발급 상세(영수증) 다이얼로그, 09-memo → 태블릿 메모 분할 뷰
+- 관리자: risk 삭제, todo 추가, alerts 에 연동해지 fixture, 전체회원은 `adminMemberListProvider` fake
+- 회원: 05-log 는 미디어 없는 fixture(원격 사진은 sqflite 로 멈춤), 16-reserve·17-change·18-checkin·19-share 신규
+- 남은 사소한 불일치: 18-checkin 센터명 '데이즈 피트니스', 17-membership-edit '스트롱짐 강남점' (앱 기본 테스트 fixture 이름)
+
+---
+
+## 13. 2026-10-02 — 10-01 드롭 기준 전면 개선
+
+- 기준 앱: `Product/GRIP_NOTE-main`(10-01 드롭, Downloads 사본과 lib 동일). 캡처 출력 `/tmp/shots_c4`(코치) · `/tmp/shots_m4`(회원) → `build_guide_v3.py`.
+- 추가 캡처 테스트: `guide_removal`(보관/삭제 다이얼로그·보관 처리된 회원), `guide_rx_*`(처방 3종, 앱의 `prescription_*_capture_test` 를 이름만 김지훈/박성훈으로 바꾼 사본), 회원앱 `guide_rx_detail`. `guide_member_link` 는 시트 → `MemberLinkInputDialog` 로 교체.
+- 회원앱 홈은 `dayActivityFeedProvider`·`homeActivityMarkersProvider`·`daySchedulesProvider` override 가 없으면 「기록을 불러오지 못했어요」로 찍힌다.
+- zsh 에서 테스트 파일 목록을 변수에 담을 땐 **배열**(`T=(); T+=(...)`, `"${T[@]}"`) — 문자열 변수는 한 인자로 넘어가 전부 실패한다.
+- 본문 변경: 강사(회원 보관·삭제하기 재작성, 개인운동 처방하기 신설, 회원 관리 메뉴 그림), 관리자(회원 구성 분석 삭제, 보관 처리된 회원 신설, 권한표의 요금제·결제수단 삭제), 회원(처방 운동 수행하기 신설, 설정에 고객센터 문의).
+- 정책(사용자 2026-10-02): 앱에 없는 기능은 가이드에서 뺀다 · 결제/요금 내용은 넣지 않는다 · 회원 데이터 불러오기(이관)는 앱에서 비노출이라 다루지 않는다 · 락커 관리는 코치앱 UI 없음.

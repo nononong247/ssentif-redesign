@@ -2,7 +2,7 @@
 /// 출입관리·데스크 모드 설정 탭의 **사용 중** 상태(데스크 계정 있음 · 기기 1대 로그인).
 ///
 /// 앱 기본 테스트 `workspace_settings_checkin_capture_test.dart` 는 미사용 상태만 찍는다.
-/// 원본 보관: ~/ssentif-redesign/_checkpoints/guide-page/capture/
+/// 원본 보관: ~/Code/ssentif-redesign/_checkpoints/guide-page/capture/
 library;
 
 import 'package:flutter/material.dart';

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """센티프 1.0 이전 안내 페이지용 이미지 빌드.
 
-/tmp/shots 의 캡처를 잘라 ~/ssentif-redesign/assets/guide/migration/ 으로 넣는다.
+/tmp/shots 의 캡처를 잘라 ~/Code/ssentif-redesign/assets/guide/migration/ 으로 넣는다.
 """
 import sys
 from pathlib import Path

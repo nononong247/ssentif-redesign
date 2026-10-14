@@ -1,7 +1,7 @@
 /// 홈페이지 `guide-migration.html` §회원 연동 — 코치앱 연동 시트를 **세로 폰**으로 캡처.
 ///
 /// 기존 `assets/guide/12-member-link.png` 은 태블릿 캡처라 가이드 카드 안에서 작게 보인다.
-/// 원본 보관: ~/ssentif-redesign/_checkpoints/guide-page/capture/
+/// 원본 보관: ~/Code/ssentif-redesign/_checkpoints/guide-page/capture/
 library;
 
 import 'package:flutter/material.dart';

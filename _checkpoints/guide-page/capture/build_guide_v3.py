@@ -6,7 +6,7 @@
   3) 가장자리의 단색 배경을 자동으로 걷어낸다(autotrim, pad 로 숨 쉴 여백만 남김)
 
 실행:
-  python3 build_guide_v3.py <coach_shots...> --member <member_shots> --out ~/ssentif-redesign/assets/guide
+  python3 build_guide_v3.py <coach_shots...> --member <member_shots> --out ~/Code/ssentif-redesign/assets/guide
   캡처 폴더는 여러 개를 줄 수 있고 앞의 폴더가 우선한다.
 """
 

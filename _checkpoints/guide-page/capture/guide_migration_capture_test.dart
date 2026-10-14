@@ -3,7 +3,7 @@
 /// 마법사 4단계 중 **본인 확인**과 **회원 선택** 두 화면을 실제 위젯으로 뽑는다.
 /// 나머지(설정 진입·메뉴·완료)는 앱에 이미 캡처 테스트가 있어 그것을 쓴다.
 ///
-/// 원본 보관: ~/ssentif-redesign/_checkpoints/guide-page/capture/
+/// 원본 보관: ~/Code/ssentif-redesign/_checkpoints/guide-page/capture/
 library;
 
 import 'package:flutter/material.dart';

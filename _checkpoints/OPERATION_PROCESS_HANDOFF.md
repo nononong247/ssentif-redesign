@@ -16,7 +16,7 @@
 
 ## 1. 워딩 팩트체크 결과 (5건, 미반영)
 
-`product.html` 카피를 실제 앱 코드(`/Users/jinhunjung/Desktop/작업파일/SSENTIF DESIGN/`, Flutter 코치앱)와 대조해서 발견한 불일치. **아직 어떤 조치도 하지 않은 상태** — 사용자에게 제안만 하고 승인 대기 중이었음.
+`product.html` 카피를 실제 앱 코드(`/Users/jinhunjung/Work/SSENTIF/10_제품/SSENTIF DESIGN/`, Flutter 코치앱)와 대조해서 발견한 불일치. **아직 어떤 조치도 하지 않은 상태** — 사용자에게 제안만 하고 승인 대기 중이었음.
 
 1. **"상품" 탭 기능이 카피에 없음** — 실제 관리자 하단 네비 7탭(대시보드·회원·팀원·**상품**·일정·채팅·메모) 중 "상품" 관련 기능이 18개 기능 그리드에 하나도 없음.
 2. **"강사 작성률 실시간 모니터링"** (관리자 3D 카드 1번) — 실제 코드엔 "작성률 %" 필드 없음. 실제로는 "완료 N건 · 담당 M명" 구조. 없는 기능("작성률%", "미작성 자동알림")을 약속 중.
@@ -90,7 +90,7 @@ git에 커밋 및 push 완료.
 
 ## 7. 참고 문서 (교차 검증용)
 
-- **앱 실제 기능 확인**: `/Users/jinhunjung/Desktop/작업파일/SSENTIF DESIGN/CLAUDE.md` + `.claude/rules/*.md` (Flutter 코치앱 — 네비게이션 탭 구성, 실제 기능 스펙의 SSOT)
-- **홈페이지 프로젝트 브리핑**: `/Users/jinhunjung/ssentif-redesign/CLAUDE.md`
-- **디자인 시스템**: `/Users/jinhunjung/ssentif-redesign/design/design-system.html`
-- **작업 체크포인트**: `/Users/jinhunjung/ssentif-redesign/_checkpoints/CHECKPOINT.md`
+- **앱 실제 기능 확인**: `/Users/jinhunjung/Work/SSENTIF/10_제품/SSENTIF DESIGN/CLAUDE.md` + `.claude/rules/*.md` (Flutter 코치앱 — 네비게이션 탭 구성, 실제 기능 스펙의 SSOT)
+- **홈페이지 프로젝트 브리핑**: `/Users/jinhunjung/Code/ssentif-redesign/CLAUDE.md`
+- **디자인 시스템**: `/Users/jinhunjung/Code/ssentif-redesign/design/design-system.html`
+- **작업 체크포인트**: `/Users/jinhunjung/Code/ssentif-redesign/_checkpoints/CHECKPOINT.md`

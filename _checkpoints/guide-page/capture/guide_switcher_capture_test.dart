@@ -2,7 +2,7 @@
 /// 눌렀을 때 뜨는 워크스페이스 스위처 팝업. 여러 워크스페이스 + 내 계정 섹션이 있는
 /// 실제 화면을 캡처한다.
 ///
-/// 원본 보관: ~/ssentif-redesign/_checkpoints/guide-page/capture/
+/// 원본 보관: ~/Code/ssentif-redesign/_checkpoints/guide-page/capture/
 library;
 
 import 'package:flutter/material.dart';

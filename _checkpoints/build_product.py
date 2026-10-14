@@ -12,7 +12,7 @@ v2 → v3 변경점:
 """
 import re
 
-BASE = '/Users/jinhunjung/ssentif-redesign'
+BASE = '/Users/jinhunjung/Code/ssentif-redesign'
 src = open(BASE + '/product.html', encoding='utf-8').read()
 NAV    = re.search(r'<nav class="nav".*?</div>\n</nav>', src, re.S).group(0)
 MOBILE = re.search(r'<div class="nav-mobile-menu".*?\n</div>', src, re.S).group(0)

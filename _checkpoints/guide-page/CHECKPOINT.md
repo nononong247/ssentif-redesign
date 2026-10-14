@@ -41,7 +41,7 @@
 
 ## 2. 작업 구조
 
-### 홈페이지 (`~/ssentif-redesign`, git repo)
+### 홈페이지 (`~/Code/ssentif-redesign`, git repo)
 
 - `guide.html` — 강사 모드 가이드. 구조: 나비 → 히어로(모드 탭 3개) → `guide-layout`(좌 목차 / 우 본문).
   - 본문은 `<section class="g-section">` 6개: **공통 · 시작하기 · 상품(수강권) 관리 · 일정 관리 · 운동 라이브러리 · 회원 관리**.
@@ -54,7 +54,7 @@
 - 스타일은 각 파일 내부 `<style>` 에 있다(`style.css` 아님) — `.g-shot*` 규칙은 세 파일이 각자
   갖고 있어 규칙을 하나 고치면 세 곳 다 확인해야 한다.
 
-### 앱 (`~/Desktop/센티프 SSENTIF/Product/GRIP_NOTE-main/ssentif-coach`)
+### 앱 (`~/Work/SSENTIF/10_제품/GRIP_NOTE-main/ssentif-coach`)
 
 - 화면 캡처는 **Flutter 위젯 테스트 하네스**(`test_screenshots/`)로 뽑는다. 실기기·시뮬레이터 불필요.
 - `screenshot_harness.dart` 의 `captureScreenshot(...)` 이 실제 테마·폰트·그림자로 렌더 후 PNG 저장.
@@ -99,8 +99,8 @@
 사용자가 `GRIP_NOTE-main` 을 최신 앱으로 갈아끼우면 `test_screenshots/` 가 통째로 덮어써진다. **매번 이 세 파일을 다시 복사해야 한다.**
 
 ```bash
-CP=~/ssentif-redesign/_checkpoints/guide-page/capture
-APP="$HOME/Desktop/센티프 SSENTIF/Product/GRIP_NOTE-main/ssentif-coach/test_screenshots"
+CP=~/Code/ssentif-redesign/_checkpoints/guide-page/capture
+APP="$HOME/Work/SSENTIF/10_제품/GRIP_NOTE-main/ssentif-coach/test_screenshots"
 cp "$CP/guide_docs_capture_test.dart" "$APP/"
 cp "$CP/screenshot_harness.patched.dart" "$APP/screenshot_harness.dart"
 cp "$CP/flutter_test_config.patched.dart" "$APP/flutter_test_config.dart"
@@ -113,12 +113,12 @@ cp "$CP/flutter_test_config.patched.dart" "$APP/flutter_test_config.dart"
 ### 재캡처 절차
 
 ```bash
-export PATH="$HOME/development/flutter/bin:$PATH"     # flutter 는 PATH 에 없다
-cd "$HOME/Desktop/센티프 SSENTIF/Product/GRIP_NOTE-main/ssentif-coach"
-CP=~/ssentif-redesign/_checkpoints/guide-page
+export PATH="$HOME/Code/flutter/bin:$PATH"     # flutter 는 PATH 에 없다
+cd "$HOME/Work/SSENTIF/10_제품/GRIP_NOTE-main/ssentif-coach"
+CP=~/Code/ssentif-redesign/_checkpoints/guide-page
 SCREENSHOT_DIR=/tmp/shots SCREENSHOT_PHOTO_DIR="$CP/photos" \
   flutter test test_screenshots/            # 전체(약 5분) 또는 guide_docs_capture_test.dart 만
-python3 "$CP/capture/build_guide_assets2.py" /tmp/shots ~/ssentif-redesign/assets/guide
+python3 "$CP/capture/build_guide_assets2.py" /tmp/shots ~/Code/ssentif-redesign/assets/guide
 ```
 
 ### 캡처 하네스의 알려진 제약
@@ -131,7 +131,7 @@ python3 "$CP/capture/build_guide_assets2.py" /tmp/shots ~/ssentif-redesign/asset
 ### 홈페이지 확인
 
 ```bash
-cd ~/ssentif-redesign && python3 -m http.server 8990
+cd ~/Code/ssentif-redesign && python3 -m http.server 8990
 open -a "Google Chrome" http://127.0.0.1:8990/guide.html
 ```
 
@@ -144,8 +144,8 @@ open -a "Google Chrome" http://127.0.0.1:8990/guide.html
 
 - 라이브: https://www.ssentif.kr/guide.html (Vercel, `main` push 시 자동 반영)
 - GitHub: https://github.com/nononong247/ssentif-redesign
-- 앱 기능 검증 기준: `~/Desktop/센티프 SSENTIF/Product/GRIP_NOTE-main/` (`ssentif-coach` 코치앱)
-- 프로젝트 규칙: `~/ssentif-redesign/CLAUDE.md` (배치 커밋 · 카피 승인 규칙)
+- 앱 기능 검증 기준: `~/Work/SSENTIF/10_제품/GRIP_NOTE-main/` (`ssentif-coach` 코치앱)
+- 프로젝트 규칙: `~/Code/ssentif-redesign/CLAUDE.md` (배치 커밋 · 카피 승인 규칙)
 - 원본 사진: `~/Desktop/` 의 `식단 사진.jpg`, `벤치프레스 하는 사진.png`, `스쿼트 하는 사진.png`, `회원 정면.png`, `측면 사진.png`, `후면 사진.png`
 
 
@@ -246,9 +246,9 @@ open -a "Google Chrome" http://127.0.0.1:8990/guide.html
 ### 재캡처 절차 (회원 모드)
 
 ```bash
-export PATH="$HOME/development/flutter/bin:$PATH"
-CP=~/ssentif-redesign/_checkpoints/guide-page
-APP="$HOME/Desktop/센티프 SSENTIF/Product/GRIP_NOTE-main/ssentif-members"
+export PATH="$HOME/Code/flutter/bin:$PATH"
+CP=~/Code/ssentif-redesign/_checkpoints/guide-page
+APP="$HOME/Work/SSENTIF/10_제품/GRIP_NOTE-main/ssentif-members"
 
 # 앱 폴더가 교체됐다면 먼저 복구
 cp "$CP/capture/guide_member_capture_test.dart" "$APP/test_screenshots/"
@@ -272,7 +272,7 @@ SCREENSHOT_DIR=/tmp/member_shots SCREENSHOT_PHOTO_DIR="$CP/photos" \
 # exercise_recording_capture_test.dart 는 outputDir 를 자체 하드코딩한다
 cp /tmp/grip_note_screenshots/exercise_recording_overview.png /tmp/member_shots/
 
-python3 "$CP/capture/build_member_assets.py" /tmp/member_shots ~/ssentif-redesign/assets/guide/member
+python3 "$CP/capture/build_member_assets.py" /tmp/member_shots ~/Code/ssentif-redesign/assets/guide/member
 ```
 
 ### 회원 모드 하네스의 알려진 제약 (강사 모드와 공유)
@@ -379,9 +379,9 @@ diff 0 확인 — 이미 패치돼 있었다).
 ### 재캡처 절차 (관리자 모드)
 
 ```bash
-export PATH="$HOME/development/flutter/bin:$PATH"
-cd "$HOME/Desktop/센티프 SSENTIF/Product/GRIP_NOTE-main/ssentif-coach"
-CP=~/ssentif-redesign/_checkpoints/guide-page
+export PATH="$HOME/Code/flutter/bin:$PATH"
+cd "$HOME/Work/SSENTIF/10_제품/GRIP_NOTE-main/ssentif-coach"
+CP=~/Code/ssentif-redesign/_checkpoints/guide-page
 
 # 앱 폴더가 교체됐다면 먼저 복구(하네스·config 는 강사 모드와 공용 — §5 참조)
 cp "$CP/capture/guide_admin_capture_test.dart" test_screenshots/
@@ -391,7 +391,7 @@ cp "$CP/capture/flutter_test_config.patched.dart" test_screenshots/flutter_test_
 SCREENSHOT_DIR=/tmp/admin_shots SCREENSHOT_PHOTO_DIR="$CP/photos" \
   flutter test test_screenshots/guide_admin_capture_test.dart
 
-python3 "$CP/capture/build_admin_assets.py" /tmp/admin_shots ~/ssentif-redesign/assets/guide/admin
+python3 "$CP/capture/build_admin_assets.py" /tmp/admin_shots ~/Code/ssentif-redesign/assets/guide/admin
 ```
 
 ⚠️ **`가이드(관리자) — 운영 대시보드` 테스트는 실행 중 RenderFlex 오버플로/`No Material
@@ -515,9 +515,9 @@ widget found` 예외를 던지지만 스크린샷 자체는 정상 저장된다*
 ### 재캡처 절차 (이번 작업 전체를 재현하려면)
 
 ```bash
-export PATH="$HOME/development/flutter/bin:$PATH"
-cd "$HOME/Desktop/센티프 SSENTIF/Product/GRIP_NOTE-main/ssentif-coach"
-CP=~/ssentif-redesign/_checkpoints/guide-page
+export PATH="$HOME/Code/flutter/bin:$PATH"
+cd "$HOME/Work/SSENTIF/10_제품/GRIP_NOTE-main/ssentif-coach"
+CP=~/Code/ssentif-redesign/_checkpoints/guide-page
 
 # 앱 폴더가 교체됐다면 먼저 복구(하네스·config는 강사 모드와 공용 — §5 참조)
 cp "$CP/capture/guide_admin_capture_test.dart" test_screenshots/
@@ -533,7 +533,7 @@ SCREENSHOT_DIR=/tmp/admin_shots2 SCREENSHOT_PHOTO_DIR="$CP/photos" \
     test_screenshots/workspace_create_screen_capture_test.dart \
     test_screenshots/member_notices_screen_capture_test.dart
 
-python3 "$CP/capture/build_admin_assets.py" /tmp/admin_shots2 ~/ssentif-redesign/assets/guide/admin
+python3 "$CP/capture/build_admin_assets.py" /tmp/admin_shots2 ~/Code/ssentif-redesign/assets/guide/admin
 ```
 
 ⚠️ `guide_admin_capture_test.dart`의 "가이드(관리자) — 운영 대시보드" 테스트는 여전히 실행 중
@@ -583,7 +583,7 @@ python3 "$CP/capture/build_admin_assets.py" /tmp/admin_shots2 ~/ssentif-redesign
 ### 검증 방법
 
 ```bash
-cd ~/ssentif-redesign && python3 -m http.server 8990
+cd ~/Code/ssentif-redesign && python3 -m http.server 8990
 ```
 
 - `curl` 로 `assets/guide/admin/*.png` 전체 200 확인.
@@ -655,7 +655,7 @@ day view에서 항상 요일 문자(일/월/화/수/목/금/토)** 이지 날짜
 
 세 테스트를 개별 `flutter test --plain-name`으로 재실행 → 각 raw PNG를 직접 열어 확인 →
 `/tmp/admin_shots2/`(기존 21종 원본 보관 폴더)의 해당 3개 파일만 교체 →
-`python3 build_admin_assets.py /tmp/admin_shots2 ~/ssentif-redesign/assets/guide/admin`
+`python3 build_admin_assets.py /tmp/admin_shots2 ~/Code/ssentif-redesign/assets/guide/admin`
 재실행(`MISSING: none` 확인) → `guide-admin.html`을 실제 Chrome에 띄워 육안 확인.
 
 수정된 테스트 파일 2종(`guide_admin_capture_test.dart`,
@@ -687,12 +687,12 @@ day view에서 항상 요일 문자(일/월/화/수/목/금/토)** 이지 날짜
 ### 재캡처
 
 ```bash
-CP=~/ssentif-redesign/_checkpoints/guide-page/capture
-APP="$HOME/Desktop/센티프 SSENTIF/Product/GRIP_NOTE-main/ssentif-coach"
+CP=~/Code/ssentif-redesign/_checkpoints/guide-page/capture
+APP="$HOME/Work/SSENTIF/10_제품/GRIP_NOTE-main/ssentif-coach"
 cp "$CP/guide_migration_capture_test.dart" "$APP/test_screenshots/"
 # 폰트 별칭 패치(§5) 를 flutter_test_config.dart 에 다시 얹는다
 
-export PATH="$HOME/development/flutter/bin:$PATH"
+export PATH="$HOME/Code/flutter/bin:$PATH"
 cd "$APP"
 SCREENSHOT_DIR=/tmp/shots flutter test \
   test_screenshots/guide_migration_capture_test.dart \
@@ -724,15 +724,15 @@ python3 "$CP/build_migration_assets.py"
 **빌드는 이제 `capture/build_guide_v3.py` 하나로** 세 가이드(강사/관리자/회원)를 만든다. 구 스크립트 3종(`build_guide_assets2.py`/`build_admin_assets.py`/`build_member_assets.py`)은 참고용으로만 남김.
 
 ```bash
-export PATH="$HOME/development/flutter/bin:$PATH"
-CP=~/ssentif-redesign/_checkpoints/guide-page
-APP="$HOME/Desktop/센티프 SSENTIF/Product/GRIP_NOTE-main"
+export PATH="$HOME/Code/flutter/bin:$PATH"
+CP=~/Code/ssentif-redesign/_checkpoints/guide-page
+APP="$HOME/Work/SSENTIF/10_제품/GRIP_NOTE-main"
 # 앱 폴더 교체 시: capture/ 의 guide_*.dart 를 각 앱 test_screenshots/ 로, harness 패치본 2종을 screenshot_harness.dart 로,
 # app_test_fixes/ 3종도 원래 자리로 복사(앱 쪽 시그니처 변경 대응분).
 cd "$APP/ssentif-coach"   && SCREENSHOT_DIR=/tmp/shots_c3 SCREENSHOT_PHOTO_DIR="$CP/photos" flutter test <아래 목록>
 cd "$APP/ssentif-members" && SCREENSHOT_DIR=/tmp/shots_m3 SCREENSHOT_PHOTO_DIR="$CP/photos" flutter test <아래 목록>
 cp /tmp/grip_note_screenshots/exercise_recording_overview.png /tmp/shots_m3/
-python3 $CP/capture/build_guide_v3.py /tmp/shots_c3 --member /tmp/shots_m3 --out ~/ssentif-redesign/assets/guide
+python3 $CP/capture/build_guide_v3.py /tmp/shots_c3 --member /tmp/shots_m3 --out ~/Code/ssentif-redesign/assets/guide
 ```
 - 코치앱 테스트: guide_docs · guide_admin · guide_admin_common_tablet · guide_modes_nav · guide_admin_todo · member_notices_screen · memo_editor_attachment · payment_receipt · login_screen · signup_screen · workspace_create_screen · coach_home_screen · membership_tab · schedule_create_dialog · schedule_date_selection · session_detail_dialog · custom_exercise_video_field · previous_records · member_activity_feedback · session_tab_donut · session_journal_cards · body_composition_charts · consultation_entry · consultation_goals · member_pause (각 `_capture_test.dart`)
 - 회원앱 테스트: guide_member · signup · my_link_code · schedule_tab · chat_empty · exercise_recording · stats_body_composition · checkin_qr_sheet

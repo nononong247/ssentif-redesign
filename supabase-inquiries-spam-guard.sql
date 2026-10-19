@@ -25,11 +25,13 @@ alter table inquiries
   add constraint inquiries_center_name_format
   check (length(btrim(center_name)) between 1 and 50) not valid;
 
--- 센터 규모: 폼의 선택지 4개만 허용
+-- 센터 규모: 1명~20명(1명 단위) + '20명 이상'(2026-10-19 v3) + 구 선택지 4개(기존 문의 상태 변경 시 걸리지 않도록)
 alter table inquiries
   add constraint inquiries_center_size_check
   check (
     center_size is null
+    or center_size ~ '^([1-9]|1[0-9]|20)명$'
+    or center_size = '20명 이상'
     or center_size in ('1인 (개인 또는 혼자 운영)', '2~5인', '6~10인', '11인 이상 · 다지점')
   ) not valid;
 

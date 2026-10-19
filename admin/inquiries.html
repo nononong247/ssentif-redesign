@@ -481,10 +481,27 @@ tbody td { padding: 10px 14px; font-size: 12.5px; color: #374151; vertical-align
             <div class="modal-label">센터 규모</div>
             <select class="modal-src-select" id="a-size">
               <option value="">선택 안 함</option>
-              <option>1인 (개인 또는 혼자 운영)</option>
-              <option>2~5인</option>
-              <option>6~10인</option>
-              <option>11인 이상 · 다지점</option>
+              <option>1명</option>
+              <option>2명</option>
+              <option>3명</option>
+              <option>4명</option>
+              <option>5명</option>
+              <option>6명</option>
+              <option>7명</option>
+              <option>8명</option>
+              <option>9명</option>
+              <option>10명</option>
+              <option>11명</option>
+              <option>12명</option>
+              <option>13명</option>
+              <option>14명</option>
+              <option>15명</option>
+              <option>16명</option>
+              <option>17명</option>
+              <option>18명</option>
+              <option>19명</option>
+              <option>20명</option>
+              <option>20명 이상</option>
             </select>
           </div>
         </div>
@@ -638,7 +655,8 @@ async function toggleConverted(id, converted) {
   }
 }
 
-const SIZES = ['1인 (개인 또는 혼자 운영)', '2~5인', '6~10인', '11인 이상 · 다지점'];
+// 2026-10-19부터 1명 단위(1~20명). 구 값(1인/2~5인/6~10인/11인 이상)은 기존 문의 편집 시 그대로 보이도록 목록에 끼움
+const SIZES = [...Array.from({ length: 20 }, (_, i) => `${i + 1}명`), '20명 이상'];
 
 let isEditing = false;
 
@@ -677,7 +695,7 @@ function renderDetail(r) {
     </div>
     <div class="modal-row">
       ${f('센터명', 'm-center', r.center)}
-      ${sel('센터 규모', 'm-size', SIZES, r.size)}
+      ${sel('센터 규모', 'm-size', r.size && !SIZES.includes(r.size) ? [r.size, ...SIZES] : SIZES, r.size)}
     </div>
     <div class="modal-row">
       ${isEditing

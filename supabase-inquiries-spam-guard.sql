@@ -5,31 +5,25 @@
 -- `not valid` 를 붙여 이미 들어온 행은 건드리지 않고 새로 들어오는 행부터 검사합니다.
 -- =============================================
 
--- 연락처: 숫자·하이픈·공백만 허용, 숫자는 0으로 시작하는 9~11자리(휴대폰·지역번호)
---         또는 1로 시작하는 8자리(1588 같은 대표번호)
+-- 연락처: 숫자·하이픈·공백만 허용(폼이 010-1234-5678 꼴로 정리해서 보냄),
+--         숫자는 0으로 시작하는 9~12자리(휴대폰·지역번호·안심번호) 또는 1로 시작하는 8자리(대표번호)
+--         → 지금까지 들어온 스팸은 전부 이 규칙 하나로 걸림
 alter table inquiries
   add constraint inquiries_phone_format
   check (
     phone ~ '^[0-9 -]+$'
-    and regexp_replace(phone, '[^0-9]', '', 'g') ~ '^(0[0-9]{8,10}|1[0-9]{7})$'
+    and regexp_replace(phone, '[^0-9]', '', 'g') ~ '^(0[0-9]{8,11}|1[0-9]{7})$'
   ) not valid;
 
--- 성함: 1~30자, 한글(가~힣)이 한 글자 이상 있거나 "John Smith" 처럼 띄어쓰기가 있어야 함
---       → "SwQIDEmJcSOePqzxalKn" 같은 무작위 영문, "ㄱ" 같은 자음 한 글자는 거름
+-- 성함: 1~30자 (영문 이름도 허용 — 한글 강제는 2026-10-19 v2에서 제거)
 alter table inquiries
   add constraint inquiries_name_format
-  check (
-    length(btrim(name)) between 1 and 30
-    and (name ~ '[가-힣]' or btrim(name) ~ ' ')
-  ) not valid;
+  check (length(btrim(name)) between 1 and 30) not valid;
 
--- 센터명: 1~50자, 한글이 한 글자 이상 있거나 띄어쓰기가 있어야 함
+-- 센터명: 1~50자 (FITZONE 같은 영문 상호 허용)
 alter table inquiries
   add constraint inquiries_center_name_format
-  check (
-    length(btrim(center_name)) between 1 and 50
-    and (center_name ~ '[가-힣]' or btrim(center_name) ~ ' ')
-  ) not valid;
+  check (length(btrim(center_name)) between 1 and 50) not valid;
 
 -- 센터 규모: 폼의 선택지 4개만 허용
 alter table inquiries

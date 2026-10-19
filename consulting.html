@@ -766,11 +766,25 @@ const submitBtn   = document.getElementById('consultSubmitBtn');
 const formOpenedAt = Date.now();
 const MIN_FILL_MS  = 3000;
 
-// 연락처: 숫자·하이픈·공백만, 숫자는 0으로 시작하는 9~11자리 또는 1로 시작하는 8자리(대표번호)
+// 연락처: 숫자·공백·하이픈·점·괄호·+ 만 허용(메모 섞인 입력은 거름).
+// 숫자만 뽑아 0으로 시작하는 9~12자리(휴대폰·지역번호·안심번호) 또는 1로 시작하는 8자리(대표번호)면 통과.
 // DB 규칙(supabase-inquiries-spam-guard.sql)과 같은 기준
+function phoneDigits(v) {
+  let d = v.replace(/[^0-9]/g, '');
+  if (v.includes('+') && d.startsWith('82')) d = '0' + d.slice(2);   // +82 10-… → 010-…
+  return d;
+}
 function isValidPhone(v) {
-  if (!/^[0-9 -]+$/.test(v)) return false;
-  return /^(0[0-9]{8,10}|1[0-9]{7})$/.test(v.replace(/[^0-9]/g, ''));
+  if (!/^[0-9 +().-]+$/.test(v)) return false;
+  return /^(0[0-9]{8,11}|1[0-9]{7})$/.test(phoneDigits(v));
+}
+// 입력 숫자는 그대로 두고 구분 기호만 010-1234-5678 꼴로 정리해서 저장
+function formatPhone(v) {
+  const d = phoneDigits(v);
+  if (d.length === 8)  return d.slice(0, 4) + '-' + d.slice(4);                        // 1588-1234
+  if (d.startsWith('02')) return '02-' + d.slice(2, -4) + '-' + d.slice(-4);           // 02-123-4567 / 02-1234-5678
+  if (d.length === 12) return d.slice(0, 4) + '-' + d.slice(4, 8) + '-' + d.slice(8);  // 0507-1234-5678
+  return d.slice(0, 3) + '-' + d.slice(3, -4) + '-' + d.slice(-4);                     // 010-1234-5678 / 031-123-4567
 }
 
 function clearErrors() {
@@ -832,7 +846,7 @@ consultForm.addEventListener('submit', async (e) => {
   const payload = {
     name:        document.getElementById('f-name').value.trim(),
     role:        document.getElementById('f-role').value.trim(),
-    phone:       document.getElementById('f-phone').value.trim(),
+    phone:       formatPhone(document.getElementById('f-phone').value.trim()),
     email:       document.getElementById('f-email').value.trim(),
     center_name: document.getElementById('f-center').value.trim(),
     center_size: document.getElementById('f-size').value,

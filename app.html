@@ -51,10 +51,6 @@
 .dl-btn b { font-size: 14px; font-weight: 800; letter-spacing: -0.02em; }
 .dl-note { margin-top: 18px; font-size: 12.5px; line-height: 1.7; color: var(--gray-400); word-break: keep-all; }
 .dl-note a { color: var(--accent-dark); font-weight: 700; text-decoration: underline; text-underline-offset: 2px; }
-.dl-btn.is-disabled { cursor: not-allowed; opacity: 0.5; box-shadow: none; }
-.dl-btn.is-disabled:hover { border-color: var(--border); box-shadow: none; transform: none; }
-.dl-warn { margin-top: 16px; padding: 11px 14px; border-radius: 12px; background: #FEF2F2; font-size: 13px; line-height: 1.65; color: #B91C1C; word-break: keep-all; }
-.dl-warn b { color: #991B1B; font-weight: 800; }
 </style>
 </head>
 <body>
@@ -76,8 +72,6 @@
       </a>
     </div>
 
-    <p class="dl-warn"><b>Google Play 강사·관리자 앱은 최신 버전 업데이트를 준비 중입니다.</b><br>가입은 지금 바로 진행하실 수 있습니다. 센티프 1.0을 이용 중이셨다면, 데이터 이전은 업데이트 완료 후 다시 안내드릴 때까지 잠시 기다려 주세요.</p>
-
     <p class="dl-note">PC에서는 앱 대신 <a href="https://manager.ssentif.kr/login">관리자 웹</a>으로 이용하실 수 있습니다.<br>회원용 앱은 <a href="app-member">여기</a>에서 받으실 수 있습니다.</p>
   </div>
 </div>
@@ -89,9 +83,10 @@
   // iPadOS 는 Macintosh 로 보고하므로 터치 지원 여부로 가려낸다
   var isIOS = /iPad|iPhone|iPod/.test(ua) ||
               (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
-  // 안드로이드는 자동 이동하지 않는다 — Google Play 최신 버전 업데이트 전이라
-  // 버튼 아래 안내를 읽고 직접 누르게 한다. 업데이트 완료 후 iOS 와 같게 되돌릴 것.
-  if (isIOS) location.replace(document.getElementById('dlIos').href);
+  var isAndroid = /Android/.test(ua);
+  var el = isIOS ? document.getElementById('dlIos')
+                 : (isAndroid ? document.getElementById('dlAos') : null);
+  if (el) location.replace(el.href);
 })();
 </script>
 

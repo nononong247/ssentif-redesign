@@ -44,5 +44,10 @@
       "destination": "/notice-2.0",
       "permanent": true
     }
-  ]
+  ],
+  "functions": {
+    "api/review.js": {
+      "maxDuration": 30
+    }
+  }
 }

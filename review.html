@@ -145,7 +145,10 @@ h2 { margin: 0; font-size: 16px; font-weight: 600; }
 
 .store { display: flex; flex-direction: column; gap: 8px; padding-top: 4px; }
 .store-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.store-btns .btn-store { flex-direction: column; gap: 0; min-height: 60px; line-height: 1.3; }
+.store-btns .btn-store { gap: 10px; min-height: 60px; line-height: 1.3; padding: 0 12px; }
+.store-btns .btn-store svg { flex: none; }
+.store-btns .btn-store > span { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; }
+.store-btns .btn-store b { font-weight: 600; }
 .store-btns .btn-store small { font-size: 12px; font-weight: 500; opacity: .75; }
 .store-btns .is-other { background: var(--surface); color: var(--ink); border: 1.5px solid var(--line); }
 
@@ -222,8 +225,8 @@ h2 { margin: 0; font-size: 16px; font-weight: 600; }
     <div class="step-head"><span class="step-no" id="store-no">4</span><h2 id="h-store">스토어에서 붙여넣기</h2></div>
     <p class="hint" id="store-hint">별점 5개를 누르고, 복사한 제목과 리뷰를 붙여넣어 주세요.</p>
     <div class="store-btns">
-      <a class="btn btn-store" id="store-ios" href="#" target="_blank" rel="noopener"><span>App Store</span><small>아이폰</small></a>
-      <a class="btn btn-store" id="store-android" href="#" target="_blank" rel="noopener"><span>Google Play</span><small>안드로이드</small></a>
+      <a class="btn btn-store" id="store-ios" href="#" target="_blank" rel="noopener"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.05 12.54c-.03-2.6 2.13-3.85 2.23-3.91-1.22-1.78-3.11-2.03-3.78-2.05-1.61-.16-3.14.94-3.96.94-.82 0-2.07-.92-3.41-.9-1.75.03-3.37 1.02-4.27 2.59-1.82 3.16-.46 7.84 1.31 10.4.86 1.26 1.89 2.66 3.24 2.61 1.3-.05 1.79-.84 3.36-.84 1.57 0 2.01.84 3.38.81 1.4-.02 2.28-1.27 3.13-2.53.99-1.45 1.4-2.86 1.42-2.93-.03-.01-2.72-1.04-2.75-4.13zM14.7 4.9c.72-.87 1.2-2.08 1.07-3.29-1.03.04-2.28.69-3.02 1.56-.66.77-1.24 2-1.09 3.18 1.15.09 2.32-.58 3.04-1.45z"/></svg><span><b>App Store</b><small>아이폰</small></span></a>
+      <a class="btn btn-store" id="store-android" href="#" target="_blank" rel="noopener"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="#00D7FE" d="M3.7 1.9c-.3.3-.5.8-.5 1.4v17.4c0 .6.2 1.1.5 1.4l.1.1 9.7-9.7v-.2L3.8 1.8z"/><path fill="#FFCE00" d="M16.8 15.7l-3.3-3.2v-.2l3.3-3.3 3.9 2.2c1.1.6 1.1 1.7 0 2.3z"/><path fill="#FF3A44" d="M16.8 15.7L13.5 12.4 3.7 22.1c.4.4 1 .5 1.7.1z"/><path fill="#48FF48" d="M16.8 9L5.4 2.5c-.7-.4-1.3-.4-1.7 0l9.8 9.9z"/></svg><span><b>Google Play</b><small>안드로이드</small></span></a>
     </div>
   </section>
 </div>
@@ -237,26 +240,26 @@ const APPS = {
     ios: "https://apps.apple.com/kr/app/id6793118501?action=write-review",
     android: "https://play.google.com/store/apps/details?id=com.nvng.ssentif_coach",
     keywords: [
+      { id: "journal", label: "수업일지가 회원에게 바로",
+        lines: ["수업 끝나고 수업일지를 남기면 회원님 앱으로 바로 전달돼서 따로 카톡 보낼 일이 없어졌어요.", "수업 내용이 말로 끝나지 않고 기록으로 회원님께 남아요."] },
+      { id: "liked", label: "회원님이 좋아함",
+        lines: ["회원님들이 앱으로 수업 기록을 받아보고 좋아하세요.", "회원님들이 관리받는 느낌이 든다고 말씀해 주셔서 뿌듯해요."] },
+      { id: "records", label: "기록이 쌓여 근거가 됨",
+        lines: ["회원별로 기록이 차곡차곡 쌓이니까 상담할 때 근거로 꺼내 보기 좋아요.", "기록이 남아 있으니 오랜만에 오신 회원님도 이어서 수업하기 편해요."] },
+      { id: "visible", label: "관리 상태가 한눈에 보임",
+        lines: ["담당 회원마다 어떻게 관리되고 있는지 한눈에 보여서 놓치는 분이 없어요.", "강사마다 회원 관리가 어떻게 되고 있는지 보이니까 센터 운영이 감이 아니라 눈으로 확인돼요."] },
       { id: "schedule", label: "수업 일정 관리",
-        lines: ["하루 수업 일정이 캘린더로 한눈에 보여서 다음 수업 준비하기가 편해요.", "수업 잡고 옮기는 게 몇 번 누르면 끝나서 일정 관리가 수월해졌어요.", "주간 일정을 한 화면에서 보니까 빈 시간 찾기가 쉬워요."] },
+        lines: ["하루 수업 일정이 캘린더로 한눈에 보여서 다음 수업 준비하기가 편해요.", "수업 잡고 옮기는 게 몇 번 누르면 끝나서 일정 관리가 수월해졌어요."] },
       { id: "pass", label: "수강권 관리",
-        lines: ["회원별로 수강권 남은 횟수랑 기간이 바로 보여서 따로 엑셀 정리할 일이 줄었어요.", "수업 일정이랑 수강권이 같이 정리돼서 횟수가 헷갈릴 일이 없어요.", "몇 회 남았는지 묻는 회원한테 바로 보여줄 수 있어서 좋아요."] },
+        lines: ["회원별로 수강권 남은 횟수랑 기간이 바로 보여서 따로 엑셀 정리할 일이 줄었어요.", "몇 회 남았는지 묻는 회원님께 바로 보여줄 수 있어서 서로 깔끔해요."] },
       { id: "members", label: "회원 관리",
         lines: ["회원 정보랑 수업 이력이 한 곳에 모여 있어서 찾기 편해요.", "담당 회원이 많아도 이름만 검색하면 지금까지 기록이 다 나와요."] },
-      { id: "journal", label: "수업일지",
-        lines: ["수업 끝나고 수업일지를 남기면 회원한테 바로 전달돼서 따로 카톡 보낼 일이 없어졌어요.", "수업일지가 쌓이니까 회원이 어떻게 변해왔는지 다시 보기 좋아요."] },
       { id: "video3d", label: "3D 운동영상",
         lines: ["운동마다 3D 영상이 있어서 말로 설명하기 어려운 동작도 바로 보여줄 수 있어요.", "3D 운동영상이 깔끔해서 회원분들이 동작을 이해하기 쉬워해요."] },
       { id: "easy", label: "쓰기 쉬움",
         lines: ["처음 써보는데도 메뉴가 복잡하지 않아서 금방 익숙해졌어요.", "화면이 깔끔하고 필요한 버튼이 바로 보여서 쓰기 편해요."] },
-      { id: "liked", label: "회원님이 좋아함",
-        lines: ["회원님들이 앱으로 수업 기록을 받아보고 좋아하세요.", "회원님들이 관리받는 느낌이 든다고 말씀해 주셔서 뿌듯해요."] },
-      { id: "timesave", label: "업무 시간 줄어듦",
-        lines: ["일정, 수강권, 수업일지를 한 앱에서 처리하니까 따로 정리하는 시간이 줄었어요.", "엑셀이랑 메모장을 오가던 시간이 줄어서 수업 준비에 더 집중할 수 있어요."] },
-      { id: "records", label: "기록이 쌓여 든든함",
-        lines: ["회원별로 기록이 차곡차곡 쌓이니까 상담할 때 꺼내 보기 좋아요.", "기록이 남아 있으니 오랜만에 오신 회원님도 이어서 수업하기 편해요."] },
-      { id: "organized", label: "센터 운영이 체계적",
-        lines: ["센터 업무가 한 앱으로 정리되니까 운영이 체계적으로 느껴져요.", "누가 봐도 같은 방식으로 기록이 남으니까 센터가 정돈된 느낌이에요."] }
+      { id: "organized", label: "센터가 체계적으로 보임",
+        lines: ["누가 담당해도 같은 방식으로 기록이 남으니까 회원님께 센터가 체계적으로 보여요.", "센터 업무가 한 앱으로 정리되니까 운영이 체계적으로 느껴져요."] }
     ],
     openers: ["PT센터에서 트레이너로 일하면서 센티프 2.0을 쓰고 있어요.", "센터에서 센티프 코치 앱으로 회원 관리를 하고 있어요.", "센티프 2.0으로 바꾸고 나서 일하는 방식이 꽤 달라졌어요.", "센터 운영하면서 매일 열어보는 앱이에요."],
     contexts: ["예전엔 일정, 기록, 연락을 다 따로 했는데 지금은 한 앱에서 해요.", "필요한 기능이 한 앱에 모여 있어서 이 앱 저 앱 오갈 일이 줄었어요."],
@@ -269,20 +272,24 @@ const APPS = {
     ios: "https://apps.apple.com/kr/app/id6793100631?action=write-review",
     android: "https://play.google.com/store/apps/details?id=com.nvng.ssentif_members",
     keywords: [
-      { id: "easy", label: "쓰기 쉬움",
-        lines: ["화면이 깔끔해서 처음 써도 어렵지 않아요.", "필요한 게 바로 보여서 쓰기 편해요."] },
-      { id: "data", label: "내 데이터 확인",
-        lines: ["내 운동 기록이랑 몸 변화를 데이터로 볼 수 있어서 좋아요.", "그동안 쌓인 기록이 한눈에 보여서 얼마나 달라졌는지 알 수 있어요."] },
+      { id: "journal", label: "수업일지를 받아봄",
+        lines: ["수업 끝나면 선생님이 남겨준 수업일지가 와서 오늘 뭘 했는지 다시 볼 수 있어요.", "수업 내용이 기록으로 남으니까 집에서도 복습하게 돼요."] },
       { id: "myvideo", label: "내 운동 영상",
         lines: ["수업 때 찍은 내 운동 영상을 앱에서 다시 볼 수 있어서 자세 확인하기 좋아요.", "내 영상을 보면서 집에서도 자세를 따라 해볼 수 있어요."] },
-      { id: "journal", label: "수업일지",
-        lines: ["수업 끝나면 선생님이 남겨준 수업일지가 와서 오늘 뭘 했는지 다시 볼 수 있어요.", "수업일지를 보면서 집에서도 복습하게 돼요."] },
-      { id: "pass", label: "남은 횟수 확인",
+      { id: "data", label: "내 변화가 데이터로 보임",
+        lines: ["내 운동 기록이랑 몸 변화를 데이터로 볼 수 있어서 좋아요.", "그동안 쌓인 기록이 한눈에 보여서 얼마나 달라졌는지 알 수 있어요."] },
+      { id: "mine", label: "내 기록이 내 것으로 남음",
+        lines: ["수업 기록이 내 앱에 남아 있어서 언제든 다시 꺼내 볼 수 있어요.", "PT 받은 기록이 선생님 메모가 아니라 내 것으로 남는 게 좋아요."] },
+      { id: "managed", label: "관리받는 느낌",
+        lines: ["선생님이 기록으로 챙겨주시니까 제대로 관리받는 느낌이 들어요.", "수업 때마다 기록이 남고 선생님이 그걸 보고 얘기해 주셔서 신경 써주시는 게 느껴져요."] },
+      { id: "pass", label: "남은 횟수가 투명함",
         lines: ["남은 수강권 횟수랑 기간을 언제든 볼 수 있어서 좋아요.", "몇 회 남았는지 선생님한테 물어볼 필요가 없어졌어요."] },
       { id: "schedule", label: "수업 일정 확인",
         lines: ["수업 일정이 앱에 다 나와서 언제 수업인지 헷갈리지 않아요.", "다음 수업이 언제인지 바로 볼 수 있어서 편해요."] },
       { id: "motivation", label: "운동 동기부여",
         lines: ["기록이 쌓이는 게 보이니까 운동을 꾸준히 하게 돼요.", "변화가 눈에 보여서 운동할 맛이 나요."] },
+      { id: "easy", label: "쓰기 쉬움",
+        lines: ["화면이 깔끔해서 처음 써도 어렵지 않아요.", "필요한 게 바로 보여서 쓰기 편해요."] },
       { id: "talk", label: "선생님과 소통",
         lines: ["선생님이랑 앱에서 바로 이야기할 수 있어서 궁금한 걸 편하게 물어봐요.", "개인 카톡 말고 앱으로 연락하니까 부담이 덜해요."] }
     ],

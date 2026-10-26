@@ -49,11 +49,40 @@ const LENGTHS = {
   long: "본문 5~7문장, 400자 안팎, 두세 문단(문단 사이 빈 줄)",
 };
 
-// 같은 키워드를 고른 사람끼리 글이 비슷해지지 않게 말투를 매번 섞는다
-const TONES = ["담백하고 짧은 문장 위주", "조금 들뜬 말투", "차분하게 경험을 설명하는 말투", "친구한테 추천하듯 편한 말투"];
+// 말투 3타입 — 한국 앱스토어 피트니스 앱(플랜핏·바디코디·짐워크·번핏) 4~5점 리뷰 153건을 보고 나눈 패턴.
+// 생성할 때마다 하나를 무작위로 고른다. 예시 문장은 직접 쓴 것(실제 리뷰 문장 복사 아님).
+const TONES = [
+  {
+    name: "짧은 감탄형",
+    guide: [
+      "가볍게 툭 던지듯 쓴다. 문장이 짧고, '~좋음', '~편함', '추천중' 같은 음슴체·명사형 끝맺음과 '~요'를 섞는다.",
+      "느낌표나 물결(~)을 한두 번 쓰고, 'ㅎㅎ'나 'ㅋㅋ'는 넣어도 되고 안 넣어도 된다.",
+      "제목은 '굿굿', '편해요!', '센터 필수앱인듯' 처럼 아주 짧은 감탄으로 쓴다.",
+      "예시 느낌: '수업일지 바로 와서 좋음! 쓰기도 쉬워요~'",
+    ],
+  },
+  {
+    name: "경험담 비교형",
+    guide: [
+      "자기 상황을 먼저 말하고, 예전 방식이나 다른 방법과 비교해서 지금 좋은 점을 말한다. '~했는데 ~니까 좋아요' 흐름.",
+      "~요체로 쓰고, 느낌표는 많아야 한 번이다. 'ㅋㅋ'는 많아야 한 번.",
+      "제목은 '카톡 대신 앱으로 하니 편해요' 처럼 경험을 한 줄로 요약한다.",
+      "예시 느낌: '예전엔 수업 끝나고 카톡으로 따로 보냈는데, 이제는 앱에 남기면 회원님한테 바로 가서 편해요.'",
+    ],
+  },
+  {
+    name: "정중한 사용 후기형",
+    guide: [
+      "'잘 사용하고 있습니다'처럼 정중한 ~습니다체로 쓴다. 인사('안녕하세요')로 시작해도 된다.",
+      "좋은 점을 차분히 정리하고, 끝은 '앞으로도 잘 쓰겠습니다', '업데이트도 기대하겠습니다' 같은 인사로 맺는다. 새 기능을 요청하지는 않는다.",
+      "느낌표와 'ㅎㅎ'·'ㅋㅋ'는 쓰지 않는다. 길게 쓸 때는 문단을 나눈다.",
+      "제목은 '잘 사용하고 있습니다', '센터 운영에 도움이 됩니다' 처럼 단정하게 쓴다.",
+    ],
+  },
+];
 
 const SYSTEM = [
-  "너는 앱스토어 리뷰 초안을 한국어로 쓴다. 실제 사용자가 직접 쓴 것처럼 자연스러운 ~요체로 쓴다.",
+  "너는 앱스토어 리뷰 초안을 한국어로 쓴다. 실제 사용자가 휴대폰으로 직접 쓴 것처럼 자연스럽게 쓰고, 말투는 사용자가 정해 준 타입을 그대로 따른다.",
   "규칙:",
   "- 사용자가 준 기능 설명 범위 안의 내용만 쓴다. 설명에 없는 기능이나 효과는 지어내지 않는다.",
   "- '완벽', '최고', '무조건', '100%', '모든' 같은 단정·과장 표현을 쓰지 않는다.",
@@ -101,10 +130,12 @@ export default async function handler(req, res) {
   const kws = [...new Set(keywords)].filter((id) => typeof id === "string" && A.keywords[id]).slice(0, 11);
   if (!kws.length) return res.status(400).json({ error: "bad_request" });
 
+  const tone = pick(TONES);
   const prompt = [
     `앱: ${A.name} (${A.desc})`,
     `작성자: ${pick(A.personas)}`,
-    `말투: ${pick(TONES)}`,
+    `말투 타입: ${tone.name}`,
+    ...tone.guide.map((g) => `- ${g}`),
     "좋았던 점:",
     ...kws.map((id) => `- ${A.keywords[id][0]}: ${A.keywords[id][1]}`),
     `길이: ${LENGTHS[length]}`,
@@ -130,7 +161,7 @@ export default async function handler(req, res) {
     if (typeof out.title !== "string" || typeof out.body !== "string" || !out.body.trim()) {
       return res.status(502).json({ error: "no_result" });
     }
-    return res.status(200).json({ title: out.title.trim(), body: out.body.trim() });
+    return res.status(200).json({ title: out.title.trim(), body: out.body.trim(), tone: tone.name });
   } catch (error) {
     if (error instanceof Anthropic.RateLimitError) {
       return res.status(429).json({ error: "too_many_requests" });

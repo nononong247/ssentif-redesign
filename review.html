@@ -82,6 +82,7 @@ h2 { margin: 0; font-size: 16px; font-weight: 600; }
   padding: 14px 14px 13px; border-radius: var(--radius);
   background: var(--surface); border: 1.5px solid var(--line); cursor: pointer;
 }
+.app-opt .app-icon { width: 48px; height: 48px; border-radius: 11px; border: 1px solid var(--line); margin-bottom: 8px; }
 .app-opt .who { font-size: 12.5px; color: var(--muted); }
 .app-opt .nm { font-size: 16px; font-weight: 600; }
 .app-opt input:checked + label { border-color: var(--ink); box-shadow: inset 0 0 0 0.5px var(--ink); }
@@ -164,11 +165,11 @@ h2 { margin: 0; font-size: 16px; font-weight: 600; }
     <div class="apps">
       <div class="app-opt">
         <input type="radio" name="app" id="app-coach" value="coach" checked>
-        <label for="app-coach"><span class="who">강사·관리자용</span><span class="nm">센티프 코치</span></label>
+        <label for="app-coach"><img class="app-icon" src="/assets/app-icons/coach-new.png" alt="" width="48" height="48"><span class="who">강사·관리자용</span><span class="nm">센티프 코치</span></label>
       </div>
       <div class="app-opt">
         <input type="radio" name="app" id="app-member" value="member">
-        <label for="app-member"><span class="who">회원용</span><span class="nm">센티프 회원</span></label>
+        <label for="app-member"><img class="app-icon" src="/assets/app-icons/member-new.png" alt="" width="48" height="48"><span class="who">회원용</span><span class="nm">센티프 회원</span></label>
       </div>
     </div>
   </section>
@@ -238,59 +239,53 @@ const APPS = {
       { id: "members", label: "회원 관리",
         lines: ["회원 정보랑 수업 이력이 한 곳에 모여 있어서 찾기 편해요.", "담당 회원이 많아도 이름만 검색하면 지금까지 기록이 다 나와요."] },
       { id: "journal", label: "수업일지",
-        lines: ["수업 끝나고 수업일지를 남기면 회원한테 바로 전달돼서 따로 카톡 보낼 일이 없어졌어요.", "수업일지가 쌓이니까 회원이 어떻게 변해왔는지 다시 보기 좋아요.", "회원들이 수업일지를 받아보고 좋아해서 수업 만족도도 올라간 느낌이에요."] },
-      { id: "consult", label: "상담 리포트",
-        lines: ["상담할 때 체성분 목표랑 주차별 계획을 리포트로 바로 만들 수 있어서 상담이 깔끔해졌어요.", "상담 리포트를 링크로 보내줄 수 있어서 회원 반응이 좋아요.", "목표와 계획이 리포트로 정리되니까 상담하는 저도 설명하기가 편해요."] },
-      { id: "payroll", label: "급여 정산",
-        lines: ["한 달 수업한 내역이 정산 화면에 정리돼 있어서 정산 확인이 편해요.", "정산할 때 어떤 수업이 들어갔는지 펼쳐 볼 수 있어서 서로 확인하기 좋아요."] },
-      { id: "group", label: "그룹수업",
-        lines: ["그룹수업 명단이랑 신청 마감을 앱에서 관리하니까 단톡방으로 인원 모을 일이 줄었어요.", "그룹수업 정원이랑 신청 인원이 바로 보여서 편해요."] },
-      { id: "chat", label: "회원 채팅",
-        lines: ["회원이랑 앱 안에서 채팅하니까 개인 카톡이랑 업무가 분리돼서 좋아요.", "회원과 나눈 대화가 앱에 같이 남아 있어서 나중에 찾기 쉬워요."] },
-      { id: "routine", label: "루틴 보관함",
-        lines: ["자주 쓰는 운동 루틴을 저장해 두고 바로 불러오니까 수업 준비 시간이 줄었어요.", "센터 루틴이랑 내 루틴을 나눠서 저장할 수 있어서 깔끔해요."] },
-      { id: "checkin", label: "출입 체크인",
-        lines: ["회원이 QR로 출입 체크인하니까 데스크에서 일일이 확인할 일이 줄었어요.", "출입 기록이 앱에 남아서 누가 언제 왔는지 바로 보여요."] },
+        lines: ["수업 끝나고 수업일지를 남기면 회원한테 바로 전달돼서 따로 카톡 보낼 일이 없어졌어요.", "수업일지가 쌓이니까 회원이 어떻게 변해왔는지 다시 보기 좋아요."] },
+      { id: "video3d", label: "3D 운동영상",
+        lines: ["운동마다 3D 영상이 있어서 말로 설명하기 어려운 동작도 바로 보여줄 수 있어요.", "3D 운동영상이 깔끔해서 회원분들이 동작을 이해하기 쉬워해요."] },
       { id: "easy", label: "쓰기 쉬움",
-        lines: ["처음 써보는데도 메뉴가 복잡하지 않아서 금방 익숙해졌어요.", "화면이 깔끔하고 필요한 버튼이 바로 보여서 쓰기 편해요."] }
+        lines: ["처음 써보는데도 메뉴가 복잡하지 않아서 금방 익숙해졌어요.", "화면이 깔끔하고 필요한 버튼이 바로 보여서 쓰기 편해요."] },
+      { id: "liked", label: "회원님이 좋아함",
+        lines: ["회원님들이 앱으로 수업 기록을 받아보고 좋아하세요.", "회원님들이 관리받는 느낌이 든다고 말씀해 주셔서 뿌듯해요."] },
+      { id: "timesave", label: "업무 시간 줄어듦",
+        lines: ["일정, 수강권, 수업일지를 한 앱에서 처리하니까 따로 정리하는 시간이 줄었어요.", "엑셀이랑 메모장을 오가던 시간이 줄어서 수업 준비에 더 집중할 수 있어요."] },
+      { id: "records", label: "기록이 쌓여 든든함",
+        lines: ["회원별로 기록이 차곡차곡 쌓이니까 상담할 때 꺼내 보기 좋아요.", "기록이 남아 있으니 오랜만에 오신 회원님도 이어서 수업하기 편해요."] },
+      { id: "organized", label: "센터 운영이 체계적",
+        lines: ["센터 업무가 한 앱으로 정리되니까 운영이 체계적으로 느껴져요.", "누가 봐도 같은 방식으로 기록이 남으니까 센터가 정돈된 느낌이에요."] }
     ],
     openers: ["PT센터에서 트레이너로 일하면서 센티프 2.0을 쓰고 있어요.", "센터에서 센티프 코치 앱으로 회원 관리를 하고 있어요.", "센티프 2.0으로 바꾸고 나서 일하는 방식이 꽤 달라졌어요.", "센터 운영하면서 매일 열어보는 앱이에요."],
     contexts: ["예전엔 일정, 기록, 연락을 다 따로 했는데 지금은 한 앱에서 해요.", "필요한 기능이 한 앱에 모여 있어서 이 앱 저 앱 오갈 일이 줄었어요."],
     closers: ["앞으로 업데이트도 기대돼요.", "트레이너분들께 추천하고 싶어요.", "센터 운영하시는 분들이면 한번 써보셔도 좋을 것 같아요.", "잘 쓰고 있습니다."],
     shortClosers: ["잘 쓰고 있어요.", "추천해요."],
-    titles: w => ["센터 업무가 한결 편해졌어요", "트레이너한테 필요한 기능이 한곳에", "매일 쓰는 업무 앱", `${w} 기능 만족해요`, `${w} 때문에 잘 쓰고 있어요`]
+    titles: ["센터 업무가 한결 편해졌어요", "트레이너한테 필요한 기능이 한곳에", "매일 쓰는 업무 앱", "수업 관리가 쉬워졌어요", "트레이너라면 써보세요"]
   },
   member: {
     name: "센티프 회원",
     ios: "https://apps.apple.com/kr/app/id6793100631?action=write-review",
     android: "https://play.google.com/store/apps/details?id=com.nvng.ssentif_members",
     keywords: [
-      { id: "booking", label: "수업 일정·신청",
-        lines: ["수업 일정이 앱에 다 나와서 언제 수업인지 헷갈리지 않아요.", "그룹수업을 앱에서 바로 신청할 수 있어서 편해요."] },
-      { id: "pass", label: "수강권 확인",
-        lines: ["남은 수강권 횟수랑 기간을 언제든 볼 수 있어서 좋아요.", "몇 회 남았는지 선생님한테 물어볼 필요가 없어졌어요."] },
-      { id: "journal", label: "수업일지",
-        lines: ["수업 끝나면 선생님이 남겨준 수업일지가 와서 오늘 뭘 했는지 다시 볼 수 있어요.", "수업일지를 보면서 집에서도 복습하게 돼요.", "수업일지가 쌓이니까 내가 얼마나 해왔는지 보여서 뿌듯해요."] },
-      { id: "myrecord", label: "나의 기록",
-        lines: ["개인운동이랑 식단을 앱에 기록할 수 있어서 수업 없는 날에도 꾸준히 하게 돼요.", "식단이랑 운동 기록을 한 곳에 남기니까 관리가 편해요."] },
-      { id: "change", label: "나의 변화",
-        lines: ["몸이 변해가는 게 기록으로 보이니까 동기부여가 돼요.", "나의 변화 화면에서 그동안 달라진 걸 보는 재미가 있어요."] },
-      { id: "report", label: "상담 리포트",
-        lines: ["상담 때 받은 리포트를 앱에서 다시 볼 수 있어서 목표를 잊지 않게 돼요.", "목표랑 주차별 계획이 정리돼 있어서 어떻게 운동해야 할지 알기 쉬워요."] },
-      { id: "chat", label: "트레이너 채팅",
-        lines: ["선생님이랑 앱에서 바로 대화할 수 있어서 궁금한 걸 편하게 물어봐요.", "개인 카톡 말고 앱으로 연락하니까 부담이 덜해요."] },
-      { id: "checkin", label: "QR 체크인",
-        lines: ["센터 들어갈 때 QR로 체크인하니까 간편해요."] },
-      { id: "alarm", label: "수업 알림",
-        lines: ["수업 알림이 와서 일정 놓칠 일이 없어요.", "알림 덕분에 수업 시간을 깜빡하지 않게 돼요."] },
       { id: "easy", label: "쓰기 쉬움",
-        lines: ["화면이 깔끔해서 처음 써도 어렵지 않아요.", "필요한 게 바로 보여서 쓰기 편해요."] }
+        lines: ["화면이 깔끔해서 처음 써도 어렵지 않아요.", "필요한 게 바로 보여서 쓰기 편해요."] },
+      { id: "data", label: "내 데이터 확인",
+        lines: ["내 운동 기록이랑 몸 변화를 데이터로 볼 수 있어서 좋아요.", "그동안 쌓인 기록이 한눈에 보여서 얼마나 달라졌는지 알 수 있어요."] },
+      { id: "myvideo", label: "내 운동 영상",
+        lines: ["수업 때 찍은 내 운동 영상을 앱에서 다시 볼 수 있어서 자세 확인하기 좋아요.", "내 영상을 보면서 집에서도 자세를 따라 해볼 수 있어요."] },
+      { id: "journal", label: "수업일지",
+        lines: ["수업 끝나면 선생님이 남겨준 수업일지가 와서 오늘 뭘 했는지 다시 볼 수 있어요.", "수업일지를 보면서 집에서도 복습하게 돼요."] },
+      { id: "pass", label: "남은 횟수 확인",
+        lines: ["남은 수강권 횟수랑 기간을 언제든 볼 수 있어서 좋아요.", "몇 회 남았는지 선생님한테 물어볼 필요가 없어졌어요."] },
+      { id: "schedule", label: "수업 일정 확인",
+        lines: ["수업 일정이 앱에 다 나와서 언제 수업인지 헷갈리지 않아요.", "다음 수업이 언제인지 바로 볼 수 있어서 편해요."] },
+      { id: "motivation", label: "운동 동기부여",
+        lines: ["기록이 쌓이는 게 보이니까 운동을 꾸준히 하게 돼요.", "변화가 눈에 보여서 운동할 맛이 나요."] },
+      { id: "talk", label: "선생님과 소통",
+        lines: ["선생님이랑 앱에서 바로 이야기할 수 있어서 궁금한 걸 편하게 물어봐요.", "개인 카톡 말고 앱으로 연락하니까 부담이 덜해요."] }
     ],
     openers: ["다니는 PT센터에서 쓰는 앱이라 깔았는데 생각보다 좋아요.", "PT 받으면서 센티프 회원 앱을 쓰고 있어요.", "운동 다니는 센터에서 쓰는 앱이에요."],
     contexts: ["운동 기록이랑 수업 내용이 한 곳에 모여 있어서 좋아요.", "수업 받는 것 말고도 혼자 운동할 때까지 챙길 수 있어요."],
     closers: ["운동 꾸준히 하는 데 도움이 많이 돼요.", "앞으로도 잘 쓸게요.", "PT 다니는 분들께 추천해요."],
     shortClosers: ["잘 쓰고 있어요.", "추천해요."],
-    titles: w => ["운동 다니면서 잘 쓰는 앱", "PT 받는다면 추천해요", "운동 기록이 쌓이는 재미", `${w} 기능 좋아요`, `${w} 덕분에 편해요`]
+    titles: ["운동 다니면서 잘 쓰는 앱", "PT 받는다면 추천해요", "운동 기록이 쌓이는 재미", "내 운동을 한눈에", "운동이 꾸준해졌어요"]
   }
 };
 
@@ -358,7 +353,7 @@ function composeLocal(kws, len) {
   } else {
     body = [pick(A.openers) + " " + pick(A.contexts), lines.join(" "), pick(A.closers)].join("\n\n");
   }
-  return { title: pick(A.titles(chosen[0].label)), body };
+  return { title: pick(A.titles), body };
 }
 
 // /api/review 가 Claude로 쓴다. 실패하면 null → 조합형으로 대신 쓴다.

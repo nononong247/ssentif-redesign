@@ -75,6 +75,7 @@ const TONES = [
       "꾸밈말 없이 쓰고, 끝에 ':)'나 '~'를 붙여도 된다.",
     ],
     short: true,
+    weight: 2,
   },
   {
     name: "현장 경험담",
@@ -84,6 +85,7 @@ const TONES = [
       "'저는 ~하는데 ~해서 좋았어요', '~입장에서 ~할 수 있을 것 같더라고요' 처럼 자기 일 얘기를 넣는다.",
       "한 글 안에서 ~요체와 ~습니다체를 섞는다. 문장이 길게 이어져도 된다.",
     ],
+    weight: 3,
   },
   {
     name: "알게 된 계기 후기",
@@ -92,14 +94,16 @@ const TONES = [
       "좋았던 걸 '~도 너무 좋았어요!', '~하기 너무 편해요' 처럼 감정 섞어 말한다.",
       "끝은 '강력 추천합니다!'나 '추천해요!!' 같은 짧은 추천으로 끝내도 된다.",
     ],
+    weight: 3,
   },
   {
     name: "다 좋은데형",
     guide: [
-      "좋은 점을 짧게 말하고, 사소한 바람 하나를 '~있으면 좋겠어요', '~하면 더 좋을 것 같아요' 처럼 덧붙인다.",
-      "바람은 지금 있는 기능을 없다고 하지 않는다. 화면 글씨 크기, 색, 알림 소리, 속도처럼 가벼운 것으로 한다.",
+      "좋은 점을 짧게 말하고, 아래 '덧붙일 바람'을 '~했으면 좋겠어요', '~하면 더 좋을 것 같아요' 처럼 한 번만 덧붙인다.",
       "'ㅠㅠ'나 '~!!'를 한 번 써도 된다.",
     ],
+    wish: true,
+    weight: 1,
   },
 ];
 
@@ -119,9 +123,21 @@ const CLOSINGS = [
   "맺음말 없이 마지막으로 말한 장점에서 그냥 끝낸다.",
   "맺음말 없이 마지막으로 말한 장점에서 그냥 끝낸다.",
   "마지막에 '추천해요', '굿' 처럼 두세 단어만 붙이고 끝낸다.",
-  "마지막에 아주 사소한 아쉬움 하나를 한마디로 붙이고 끝낸다(기능 요청은 하지 않는다).",
   "마지막을 '~라고 생각합니다', '~것 같습니다' 처럼 자기 평가로 끝낸다.",
 ];
+// '다 좋은데형'에서만 쓰는 바람. 같은 불만이 여러 리뷰에 반복되지 않게 서버가 하나를 골라 준다.
+// 글씨 크기는 한 번 나오면 눈에 띄어서 비중을 낮췄다. 지금 있는 기능을 없다고 하는 바람은 넣지 않는다.
+const WISHES = [
+  "앱 켤 때 로딩이 조금만 더 빨랐으면",
+  "처음에 메뉴 위치 익히는 데 조금 걸렸다(지금은 괜찮다)",
+  "알림 소리를 고를 수 있었으면",
+  "앱 아이콘이나 색 테마가 더 다양했으면",
+  "업데이트가 더 자주 됐으면",
+  "아이패드에서도 화면이 크게 쓰기 좋았으면",
+  "가끔 화면 넘어갈 때 한 번 멈칫한다",
+  "글씨 크기를 조금 키울 수 있었으면",
+];
+
 // 사람 글의 흔한 흐트러짐. 요청마다 0~2개를 뽑는다.
 const QUIRKS = [
   "띄어쓰기를 한두 군데 붙여 쓴다.",
@@ -206,6 +222,11 @@ function limited(ip) {
 }
 
 const pick = (a) => a[Math.floor(Math.random() * a.length)];
+const pickWeighted = (a) => {
+  let r = Math.random() * a.reduce((s, x) => s + (x.weight || 1), 0);
+  for (const x of a) { r -= x.weight || 1; if (r < 0) return x; }
+  return a[a.length - 1];
+};
 const shuffle = (a) => {
   a = a.slice();
   for (let i = a.length - 1; i > 0; i--) {
@@ -231,7 +252,7 @@ export default async function handler(req, res) {
   if (!kws.length) return res.status(400).json({ error: "bad_request" });
 
   // '한 줄 평'은 사용자가 '짧게'를 골랐을 때만 나온다
-  const tone = pick(TONES.filter((t) => length === "short" || !t.short));
+  const tone = pickWeighted(TONES.filter((t) => length === "short" || !t.short));
   const ordered = shuffle(kws).slice(0, MENTION_CAP[length]); // 고른 것 중 일부만 언급
   const quirks = shuffle(QUIRKS).slice(0, Math.floor(Math.random() * 3));
   const usedStarts = cleanUsed(used);
@@ -246,6 +267,7 @@ export default async function handler(req, res) {
     "글 구성:",
     `- ${pick(OPENINGS)}`,
     `- ${pick(CLOSINGS)}`,
+    tone.wish ? `- 덧붙일 바람: ${pick(WISHES)} (다른 불만이나 바람은 쓰지 않는다)` : "- 불만, 아쉬움, 바라는 점은 쓰지 않는다.",
     `- ${pick(RHYTHMS)}`,
     ...quirks.map((q) => `- ${q}`),
     `- 떠올릴 장면: ${pick(SCENES[app])} (꼭 쓰지 않아도 되지만, 쓰면 이 장면으로)`,

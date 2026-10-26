@@ -144,7 +144,10 @@ h2 { margin: 0; font-size: 16px; font-weight: 600; }
 .copied { font-size: 13px; color: var(--accent-ink); text-align: center; min-height: 20px; margin: 0; }
 
 .store { display: flex; flex-direction: column; gap: 8px; padding-top: 4px; }
-.store-alt { display: flex; justify-content: center; }
+.store-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.store-btns .btn-store { flex-direction: column; gap: 0; min-height: 60px; line-height: 1.3; }
+.store-btns .btn-store small { font-size: 12px; font-weight: 500; opacity: .75; }
+.store-btns .is-other { background: var(--surface); color: var(--ink); border: 1.5px solid var(--line); }
 
 .loading { position: relative; }
 .dots::after { content: ""; animation: dots 1.2s steps(4) infinite; }
@@ -218,8 +221,10 @@ h2 { margin: 0; font-size: 16px; font-weight: 600; }
   <section class="store" aria-labelledby="h-store">
     <div class="step-head"><span class="step-no" id="store-no">4</span><h2 id="h-store">스토어에서 붙여넣기</h2></div>
     <p class="hint" id="store-hint">별점 5개를 누르고, 복사한 제목과 리뷰를 붙여넣어 주세요.</p>
-    <a class="btn btn-store" id="store-main" href="#" target="_blank" rel="noopener">App Store에서 리뷰 쓰기</a>
-    <div class="store-alt"><a class="btn btn-ghost" id="store-alt" href="#" target="_blank" rel="noopener">Google Play로 열기</a></div>
+    <div class="store-btns">
+      <a class="btn btn-store" id="store-ios" href="#" target="_blank" rel="noopener"><span>App Store</span><small>아이폰</small></a>
+      <a class="btn btn-store" id="store-android" href="#" target="_blank" rel="noopener"><span>Google Play</span><small>안드로이드</small></a>
+    </div>
   </section>
 </div>
 
@@ -316,14 +321,12 @@ function renderStore() {
   const ua = navigator.userAgent;
   const isIOS = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
   const isAndroid = /Android/.test(ua);
-  const main = $("#store-main"), alt = $("#store-alt");
-  if (isAndroid) {
-    main.href = A.android; main.textContent = "Google Play에서 리뷰 쓰기";
-    alt.href = A.ios; alt.textContent = "App Store로 열기";
-  } else {
-    main.href = A.ios; main.textContent = "App Store에서 리뷰 쓰기";
-    alt.href = A.android; alt.textContent = "Google Play로 열기";
-  }
+  const ios = $("#store-ios"), android = $("#store-android");
+  ios.href = A.ios; android.href = A.android;
+  // 지금 쓰는 기기의 스토어를 왼쪽에 민트로, 다른 쪽은 흰 버튼으로
+  ios.style.order = isAndroid ? 2 : 1; android.style.order = isAndroid ? 1 : 2;
+  ios.classList.toggle("is-other", isAndroid);
+  android.classList.toggle("is-other", !isAndroid);
   $("#r-app").textContent = A.name;
 }
 
@@ -353,8 +356,12 @@ function composeLocal(kws, len) {
   } else {
     body = [pick(A.openers) + " " + pick(A.contexts), lines.join(" "), pick(A.closers)].join("\n\n");
   }
-  return { title: pick(A.titles), body };
+  const unused = A.titles.filter(t => !usedTitles.includes(t));
+  return { title: pick(unused.length ? unused : A.titles), body };
 }
+
+// 이 화면에서 이미 나온 제목. 다시 생성할 때 같은 제목이 또 나오지 않게 서버에 같이 보낸다.
+const usedTitles = [];
 
 // /api/review 가 Claude로 쓴다. 실패하면 null → 조합형으로 대신 쓴다.
 async function composeAI(kws, len) {
@@ -364,7 +371,7 @@ async function composeAI(kws, len) {
     const res = await fetch("/api/review", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ app, keywords: kws.map(k => k.id), length: len }),
+      body: JSON.stringify({ app, keywords: kws.map(k => k.id), length: len, used: usedTitles.slice(-8) }),
       signal: ctrl.signal
     });
     if (!res.ok) return null;
@@ -397,6 +404,7 @@ async function generate() {
   const btn = $("#gen"), len = lengthValue();
   btn.disabled = true; btn.innerHTML = `리뷰 쓰는 중<span class="dots"></span>`;
   const r = (await composeAI(kws, len)) || composeLocal(kws, len);
+  usedTitles.push(r.title);
   showResult(r);
   btn.disabled = false; btn.textContent = "다시 생성하기";
   $("#result-sec").scrollIntoView({ behavior: "smooth", block: "start" });

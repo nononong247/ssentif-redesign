@@ -67,6 +67,12 @@ img{display:block;max-width:100%}
 .cta.hot svg{width:20px;height:20px}
 #detail-cta{background:linear-gradient(to bottom,rgba(244,244,245,0),var(--main) 34%);padding-top:22px}
 #detail-cta .lead{color:var(--ink);font-size:14px;line-height:1.5;margin-bottom:2px}
+/* 탭을 눌러 처음 나타날 때 아래에서 부드럽게 떠오른다(문장 → 버튼 순서) */
+#detail-cta:not([hidden]){animation:ctaIn .6s cubic-bezier(.2,.8,.2,1) both}
+#detail-cta:not([hidden]) .lead{animation:ctaUp .55s .1s cubic-bezier(.2,.8,.2,1) both}
+#detail-cta:not([hidden]) .cta{animation:ctaUp .6s .22s cubic-bezier(.2,.8,.2,1) both}
+@keyframes ctaIn{from{opacity:0}to{opacity:1}}
+@keyframes ctaUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 #detail-cta .lead b{color:#E8540F;font-weight:800}
 .cta.ghost{background:var(--card);color:var(--ink);border:1px solid var(--line)}
 .cta small{font-weight:500;font-size:12px;opacity:.75}
@@ -436,21 +442,36 @@ img{display:block;max-width:100%}
 #tr-profile .cap-in{display:block}
 .run#tr-profile .cap{animation:fadein .72s 5.16s ease-out forwards}
 #tr-profile .cap small{display:block;margin-top:6px;font-size:13px;font-weight:400;color:#9a9a9d}
-/* 1명 → 강사별 성과 전환 */
-.perf{width:min(340px,88vw);display:grid;gap:14px}
-.perf .row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.perf .c{display:grid;gap:8px;justify-items:center}
-.perf .av{width:32px;height:32px;border-radius:50%;background:#3a3a3d;display:grid;place-items:center;font-size:12px;font-weight:700;opacity:0;animation:kin .4s forwards}
-.perf .d{display:grid;grid-template-columns:repeat(3,14px);gap:5px}
-.perf .d i{width:14px;height:14px;border-radius:50%;background:#4a4a4e;opacity:0;transform:scale(.3);animation:pop .35s forwards}
-.perf .d i.me{background:var(--mint)}.perf .d i.red{background:var(--err)}
-@keyframes pop{to{opacity:1;transform:none}}
-.perf .bar{width:100%;height:120px;display:flex;align-items:flex-end}
-.perf .bar i{display:block;width:100%;border-radius:6px 6px 0 0;background:var(--mint);height:0;animation:grow 1s 2.2s cubic-bezier(.2,.8,.2,1) forwards}
-.perf .bar i.low{background:var(--warn)}
-@keyframes grow{to{height:var(--h)}}
-.perf .v{font-size:13px;font-weight:700;font-variant-numeric:tabular-nums;opacity:0;animation:fadein .4s 3s forwards}
-.perf .lab{font-size:12px;color:#c9c9cc;opacity:0;animation:fadein .4s 2.6s forwards;text-align:center}
+/* 2막 → 3막: 강사별 성과 대시보드 — 회원 점이 강사 막대로 모이고, 지표 3개(신규등록·재등록률·세션소진률)를 차례로 보여 준다 */
+.pf{width:min(350px,90vw);display:grid;gap:16px;text-align:center}
+.pf-hd{justify-self:center;display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 12px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);font-size:12px;font-weight:700;color:#e5e5e7;opacity:0;animation:pfUp .5s .15s cubic-bezier(.2,.8,.2,1) forwards}
+.pf-hd i{width:6px;height:6px;border-radius:50%;background:#FF7A1A;box-shadow:0 0 0 3px rgba(255,122,26,.25)}
+.pf-seg{position:relative;display:grid;grid-template-columns:repeat(3,1fr);background:rgba(255,255,255,.06);border-radius:12px;padding:3px;opacity:0;animation:pfUp .5s .35s cubic-bezier(.2,.8,.2,1) forwards}
+.pf-seg span{position:relative;z-index:1;font-size:12.5px;font-weight:600;color:#8d8d92;padding:8px 0;transition:color .35s}
+.pf-seg span.on{color:#111}
+.pf-seg b{position:absolute;top:3px;bottom:3px;left:3px;width:calc((100% - 6px) / 3);border-radius:9px;background:#fff;box-shadow:0 4px 14px -6px rgba(0,0,0,.5);transition:transform .55s cubic-bezier(.3,.9,.3,1)}
+.pf-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;align-items:end}
+.pf-c{display:grid;gap:8px;justify-items:center}
+.pf-av{position:relative;width:46px;height:46px;border-radius:50%;opacity:0;transform:translateY(10px) scale(.9);animation:pfIn .55s cubic-bezier(.2,.8,.2,1) forwards}
+.pf-av img{width:46px;height:46px;border-radius:50%;object-fit:cover;display:block;box-shadow:0 0 0 2px #2a2a2d}
+.pf-c.lead .pf-av img{box-shadow:0 0 0 2px var(--mint)}
+.pf-c.low .pf-av img{box-shadow:0 0 0 2px #FF7A1A}
+.pf-nm{font-size:12px;font-weight:600;color:#c9c9cc;opacity:0;animation:pfFade .4s forwards}
+.pf-bar{position:relative;width:100%;height:150px;border-radius:10px;background:rgba(255,255,255,.04);overflow:hidden}
+.pf-dots{position:absolute;inset:8px 6px auto;display:grid;grid-template-columns:repeat(3,1fr);gap:5px;justify-items:center;transition:opacity .5s,transform .6s cubic-bezier(.5,0,.3,1)}
+.pf-dots i{width:10px;height:10px;border-radius:50%;background:#55555a;opacity:0;transform:scale(.3);animation:pfPop .3s forwards}
+.pf-bar.go .pf-dots{opacity:0;transform:translateY(110px) scale(.6)}
+.pf-fill{position:absolute;left:0;right:0;bottom:0;height:0;border-radius:10px 10px 0 0;background:linear-gradient(180deg,#5BF0C6,#1FCF9A);transition:height .8s cubic-bezier(.25,.9,.3,1),background .4s}
+.pf-c.low .pf-fill{background:linear-gradient(180deg,#FFA45C,#FF6A1F)}
+.pf-v{font-size:15px;font-weight:800;color:#fff;font-variant-numeric:tabular-nums;min-height:20px}
+.pf-c.low .pf-v{color:#FF9A4D}
+.pf-lab{font-size:11.5px;color:#8d8d92;min-height:16px;transition:opacity .3s}
+@keyframes pfUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes pfIn{to{opacity:1;transform:none}}
+@keyframes pfFade{to{opacity:1}}
+@keyframes pfPop{to{opacity:1;transform:none}}
+#tr-perf .pf-cap{opacity:0;animation:fadein .6s 5.6s ease-out forwards;font-size:17px}
+#tr-perf .pf-cap small{font-size:12.5px}
 
 /* 2막 a: 회원 앱 홈 — MEMBERS_APP_DESIGN_SPEC §4.1 + rules/12-home.md */
 .mh{min-height:100dvh;background:var(--main);position:relative;padding-top:calc(var(--sat) + 6px);padding-bottom:calc(var(--sab) + 110px)}
@@ -1171,7 +1192,7 @@ html.nos,html.nos body{overflow:hidden;height:100%}
       <div class="cd-head pad"><img src="assets/avatars/member-hanjiwoo.jpg" alt=""><div><b>한지우<span class="cd-st">활성</span><span class="cd-lk">연동</span></b><span>여성 · 010-7734-2051</span></div><button class="cd-info-btn" id="cd-info-btn" type="button">회원 정보 ›</button></div>
       <div class="cd-tabwrap"><div class="cd-tabs" role="tablist" id="cd-tabs"><button role="tab" aria-selected="false" data-t="activity">활동</button><button role="tab" aria-selected="false" data-t="feed">피드</button><button role="tab" aria-selected="false" data-t="diet">식단</button><button role="tab" aria-selected="true" data-t="session">수업</button><button role="tab" aria-selected="false" data-t="body">신체변화</button><button role="tab" aria-selected="false" data-t="pass">상품</button><button role="tab" aria-selected="false" data-t="consult">상담</button></div><i class="cd-more l" aria-hidden="true">‹</i><i class="cd-more" aria-hidden="true">›</i></div>
       <div class="cd-body">
-        <div class="hint cd-hint" id="hint-tab"><span class="dot"></span><span class="cmt"><b class="cml">회원 프로필</b><span>수업일지는 이 프로필의 한 칸이에요. 다른 탭도 눌러 보세요.</span></span></div>
+        <div class="hint cd-hint" id="hint-tab"><span class="dot"></span><span class="cmt"><b class="cml">다른 탭도 눌러보세요</b><span>수업 외에도 더 체계적인 관리를 위한 기능이 준비되어 있어요.</span></span></div>
 
         <div data-cdp="activity" hidden>
           <div class="mc-hd"><button type="button" id="mc-prev" aria-label="이전 달">‹</button><b id="mc-t">2026년 11월</b><button type="button" id="mc-next" aria-label="다음 달">›</button></div>
@@ -1431,8 +1452,8 @@ html.nos,html.nos body{overflow:hidden;height:100%}
   <!-- 전환 3: 강사별 성과 -->
   <div class="trans" id="tr-perf" hidden>
     <button class="skip" type="button">건너뛰기</button>
-    <div class="perf" id="perf"></div>
-    <p>회원 48명의 기록이<br>강사 4명의 <span style="color:var(--mint)">회원관리 성과</span>로 모여요<small>대표는 묻지 않아도 보여요</small></p>
+    <div class="pf" id="perf"></div>
+    <p class="pf-cap">강사별 <span style="color:var(--mint)">신규등록 · 재등록률 · 세션소진률</span>을<br>한눈에 확인할 수 있어요<small>회원 48명의 기록이 강사 4명의 성과로 모여요</small></p>
   </div>
 
   <div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="사진 크게 보기">
@@ -2091,20 +2112,36 @@ else if (window.innerWidth >= 700) {
   // ---------- 2막 → 3막 전환 ----------
   $('#go-admin').addEventListener('click', async () => {
     track('to_admin');
-    await transition('tr-perf', 5200, (el) => {
+    await transition('tr-perf', 8600, () => {
       const p = $('#perf'); p.replaceChildren();
-      const row = document.createElement('div'); row.className = 'row';
-      [['박', 24, 100], ['김', 22, 96], ['이', 19, 88], ['정', 15, 71]].forEach(([ini, n, pct], ci) => {
-        const c = document.createElement('div'); c.className = 'c';
-        const av = document.createElement('span'); av.className = 'av'; av.textContent = ini; av.style.animationDelay = (0.2 + ci * 0.1) + 's';
-        const d = document.createElement('div'); d.className = 'd';
-        for (let i = 0; i < 12; i++) { const dot = document.createElement('i'); if (ci === 0 && i === 0) dot.className = 'me'; if (ci === 3 && [2, 7, 10].includes(i)) dot.className = 'red'; dot.style.animationDelay = (0.6 + (ci * 12 + i) * 0.025) + 's'; d.append(dot); }
-        const bar = document.createElement('div'); bar.className = 'bar'; const bi = document.createElement('i'); bi.style.setProperty('--h', pct + '%'); if (ci === 3) bi.className = 'low'; bar.append(bi);
-        const v = document.createElement('span'); v.className = 'v'; v.textContent = pct + '%'; if (ci === 3) v.style.color = '#F6C36D';
-        c.append(av, d, bar, v); row.append(c);
+      const C = [['박성훈', 'coach-park'], ['김도윤', 'coach-kim'], ['이준호', 'coach-lee'], ['정우진', 'coach-jung']];
+      // 지표별 값: [표시값, 막대 높이 %] — 정 강사는 세 지표 모두 낮아 주황으로 짚는다
+      const M = [
+        { k: '신규등록', lab: '10월 신규 회원', v: [[6, '명'], [5, '명'], [4, '명'], [2, '명']], h: [88, 74, 60, 30] },
+        { k: '재등록률', lab: '수강권 만료 후 재등록', v: [[92, '%'], [88, '%'], [81, '%'], [63, '%']], h: [92, 88, 81, 63] },
+        { k: '세션소진률', lab: '수강권 회차 사용', v: [[96, '%'], [91, '%'], [85, '%'], [68, '%']], h: [96, 91, 85, 68] },
+      ];
+      p.innerHTML = '<span class="pf-hd"><i></i>관리자 모드 · 강사별 성과 · 10월</span><div class="pf-seg"><b></b>' + M.map((m) => '<span>' + m.k + '</span>').join('') + '</div><div class="pf-row"></div><div class="pf-lab"></div>';
+      const row = p.querySelector('.pf-row');
+      C.forEach(([nm, img], ci) => {
+        const c = document.createElement('div'); c.className = 'pf-c' + (ci === 0 ? ' lead' : '') + (ci === 3 ? ' low' : '');
+        let dots = ''; for (let i = 0; i < 12; i++) dots += '<i style="animation-delay:' + (0.9 + (ci * 12 + i) * 0.018).toFixed(3) + 's"></i>';
+        c.innerHTML = '<span class="pf-v"></span><div class="pf-bar"><div class="pf-dots">' + dots + '</div><div class="pf-fill"></div></div><span class="pf-av" style="animation-delay:' + (0.5 + ci * 0.08) + 's"><img src="assets/avatars/' + img + '.jpg" alt=""></span><span class="pf-nm" style="animation-delay:' + (0.65 + ci * 0.08) + 's">' + nm + '</span>';
+        row.append(c);
       });
-      const lab = document.createElement('div'); lab.className = 'lab'; lab.textContent = '강사별 수업일지 작성률 · 10월';
-      p.append(row, lab);
+      const cols = [...row.children]; const seg = p.querySelector('.pf-seg'); const lab = p.querySelector('.pf-lab');
+      const count = (el, to, unit) => { const t0 = performance.now(); const tick = () => { const k = Math.min(1, (performance.now() - t0) / 700); el.textContent = Math.round(to * (1 - Math.pow(1 - k, 3))) + unit; if (k < 1) setTimeout(tick, 30); }; tick(); };
+      const showM = (mi) => {
+        const m = M[mi];
+        seg.querySelectorAll('span').forEach((x, i) => x.classList.toggle('on', i === mi));
+        seg.querySelector('b').style.transform = 'translateX(' + (mi * 100) + '%)';
+        lab.style.opacity = 0; setTimeout(() => { lab.textContent = m.lab; lab.style.opacity = 1; }, 200);
+        cols.forEach((c, ci) => { c.querySelector('.pf-fill').style.height = m.h[ci] + '%'; count(c.querySelector('.pf-v'), m.v[ci][0], m.v[ci][1]); });
+      };
+      setTimeout(() => cols.forEach((c) => c.querySelector('.pf-bar').classList.add('go')), 1900);
+      setTimeout(() => showM(0), 2300);
+      setTimeout(() => showM(1), 3800);
+      setTimeout(() => showM(2), 5300);
     });
     show('admin');
   });

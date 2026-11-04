@@ -569,69 +569,21 @@
         <p class="sub">영업일 1~2일 내로 담당자가 연락드립니다.</p>
 
         <form id="consultForm" novalidate>
-          <div class="form-row">
-            <div class="form-group">
-              <label class="form-label" for="f-name">성함 *</label>
-              <input class="form-input" id="f-name" name="name" type="text" placeholder="홍길동" autocomplete="name" maxlength="30">
-              <p class="form-error-msg" id="err-name">성함을 입력해주세요.</p>
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="f-role">직함</label>
-              <input class="form-input" id="f-role" name="role" type="text" placeholder="ex) 대표, 관리자, 강사" maxlength="30">
-            </div>
+          <div class="form-group">
+            <label class="form-label" for="f-name">이름 *</label>
+            <input class="form-input" id="f-name" name="name" type="text" placeholder="홍길동" autocomplete="name" maxlength="30">
+            <p class="form-error-msg" id="err-name">이름을 입력해주세요.</p>
           </div>
 
           <div class="form-group">
-            <label class="form-label" for="f-phone">연락처 *</label>
+            <label class="form-label" for="f-phone">전화번호 *</label>
             <input class="form-input" id="f-phone" name="phone" type="tel" placeholder="010-0000-0000" autocomplete="tel" maxlength="20">
-            <p class="form-error-msg" id="err-phone">연락처를 입력해주세요.</p>
+            <p class="form-error-msg" id="err-phone">전화번호를 입력해주세요.</p>
           </div>
 
           <div class="form-group">
-            <label class="form-label" for="f-email">이메일</label>
-            <input class="form-input" id="f-email" name="email" type="email" placeholder="example@email.com" autocomplete="email" maxlength="100">
-            <p class="form-error-msg" id="err-email">올바른 이메일 형식으로 입력해주세요.</p>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label" for="f-center">센터명 *</label>
-            <input class="form-input" id="f-center" name="center_name" type="text" placeholder="센터 이름을 입력해주세요" maxlength="50">
-            <p class="form-error-msg" id="err-center">센터명을 입력해주세요.</p>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label" for="f-size">센터 규모 *</label>
-            <select class="form-select" id="f-size" name="center_size">
-              <option value="">선택해주세요</option>
-              <option value="1명">1명</option>
-              <option value="2명">2명</option>
-              <option value="3명">3명</option>
-              <option value="4명">4명</option>
-              <option value="5명">5명</option>
-              <option value="6명">6명</option>
-              <option value="7명">7명</option>
-              <option value="8명">8명</option>
-              <option value="9명">9명</option>
-              <option value="10명">10명</option>
-              <option value="11명">11명</option>
-              <option value="12명">12명</option>
-              <option value="13명">13명</option>
-              <option value="14명">14명</option>
-              <option value="15명">15명</option>
-              <option value="16명">16명</option>
-              <option value="17명">17명</option>
-              <option value="18명">18명</option>
-              <option value="19명">19명</option>
-              <option value="20명">20명</option>
-              <option value="20명 이상">20명 이상</option>
-            </select>
-            <p class="form-error-msg" id="err-size">센터 규모를 선택해주세요.</p>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label" for="f-message">문의 내용 *</label>
-            <textarea class="form-textarea" id="f-message" name="message" maxlength="2000" placeholder="궁금한 점이나 현재 운영 방식 및 고민 등에 대해 자유롭게 적어주세요."></textarea>
-            <p class="form-error-msg" id="err-message">문의 내용을 입력해주세요.</p>
+            <label class="form-label" for="f-message">문의 내용 <span style="font-weight:400;color:#8a8a8d">(선택)</span></label>
+            <textarea class="form-textarea" id="f-message" name="message" maxlength="2000" placeholder="궁금한 점이나 현재 운영 방식, 고민을 자유롭게 적어주세요."></textarea>
           </div>
 
           <div class="hp-field" aria-hidden="true">
@@ -654,16 +606,16 @@
           <!-- 신청 요약 -->
           <div class="success-summary">
             <div class="summary-row">
-              <span class="label">센터명</span>
-              <span class="value" id="s-center">—</span>
+              <span class="label">이름</span>
+              <span class="value" id="s-name">—</span>
             </div>
             <div class="summary-row">
-              <span class="label">연락처</span>
+              <span class="label">전화번호</span>
               <span class="value" id="s-phone">—</span>
             </div>
             <div class="summary-row">
-              <span class="label">센터 규모</span>
-              <span class="value" id="s-size">—</span>
+              <span class="label">문의 내용</span>
+              <span class="value" id="s-message">—</span>
             </div>
           </div>
 
@@ -820,24 +772,14 @@ function validate() {
 
   const name  = document.getElementById('f-name');
   const phone = document.getElementById('f-phone');
-  const center = document.getElementById('f-center');
-  const size  = document.getElementById('f-size');
-  const email = document.getElementById('f-email');
-  const message = document.getElementById('f-message');
 
   if (!name.value.trim()) { showError('f-name', 'err-name'); valid = false; }
   if (!phone.value.trim()) {
-    document.getElementById('err-phone').textContent = '연락처를 입력해주세요.';
+    document.getElementById('err-phone').textContent = '전화번호를 입력해주세요.';
     showError('f-phone', 'err-phone'); valid = false;
   } else if (!isValidPhone(phone.value.trim())) {
-    document.getElementById('err-phone').textContent = '연락처 형식을 확인해주세요. (예: 010-1234-5678)';
+    document.getElementById('err-phone').textContent = '전화번호 형식을 확인해주세요. (예: 010-1234-5678)';
     showError('f-phone', 'err-phone'); valid = false;
-  }
-  if (!center.value.trim()) { showError('f-center', 'err-center'); valid = false; }
-  if (!size.value) { showError('f-size', 'err-size'); valid = false; }
-  if (!message.value.trim()) { showError('f-message', 'err-message'); valid = false; }
-  if (email.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
-    showError('f-email', 'err-email'); valid = false;
   }
 
   return valid;
@@ -860,14 +802,16 @@ consultForm.addEventListener('submit', async (e) => {
   submitBtn.disabled = true;
   submitBtn.textContent = '신청 중...';
 
+  // 2026-10-29 폼을 이름·전화번호·문의 내용 3칸으로 줄임. DB의 center_name 은 NOT NULL + 1~50자 규칙이라
+  // 빈 값을 넣을 수 없어 '미입력'으로 채운다. 센터명은 담당자가 통화 때 확인한다.
   const payload = {
     name:        document.getElementById('f-name').value.trim(),
-    role:        document.getElementById('f-role').value.trim(),
+    role:        null,
     phone:       formatPhone(document.getElementById('f-phone').value.trim()),
-    email:       document.getElementById('f-email').value.trim(),
-    center_name: document.getElementById('f-center').value.trim(),
-    center_size: document.getElementById('f-size').value,
-    message:     document.getElementById('f-message').value.trim(),
+    email:       null,
+    center_name: '미입력',
+    center_size: null,
+    message:     document.getElementById('f-message').value.trim() || null,
   };
 
   // 함정 칸이 채워졌거나 너무 빨리 제출되면 봇 — 저장하지 않고 완료 화면만 보여줌(재시도 방지)
@@ -883,9 +827,9 @@ consultForm.addEventListener('submit', async (e) => {
     // 요약 카드 채우기
     const name = payload.name;
     document.getElementById('successHeading').textContent = `${name}님, 신청이 완료됐습니다!`;
-    document.getElementById('s-center').textContent = payload.center_name;
+    document.getElementById('s-name').textContent = payload.name;
     document.getElementById('s-phone').textContent = payload.phone;
-    document.getElementById('s-size').textContent = payload.center_size;
+    document.getElementById('s-message').textContent = payload.message || '없음';
 
     consultForm.style.display = 'none';
     document.querySelector('#consultFormCard h3').style.display = 'none';

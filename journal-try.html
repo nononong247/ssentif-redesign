@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <title>다운로드 없이 센티프 수업일지 써보기</title>
@@ -38,6 +38,10 @@
 html.framed{--sat:54px;--sab:34px}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{-webkit-text-size-adjust:100%}
+/* 휴대폰에서 좌우로 흔들리지 않게: 가로 넘침·가로 바운스 막고 화면 너비에 고정, 위아래 스크롤만 */
+html{overflow-x:hidden;overscroll-behavior-x:none}
+body{max-width:100%;overflow-x:clip}
+body{touch-action:pan-y pinch-zoom}
 body{margin:0;background:var(--main);color:var(--ink);font-family:"Pretendard",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif;font-size:15px;line-height:1.55;word-break:keep-all;overflow-wrap:anywhere;-webkit-font-smoothing:antialiased}
 button,input,textarea{font:inherit;color:inherit}
 button{cursor:pointer}
@@ -154,6 +158,9 @@ img{display:block;max-width:100%}
 .hint::before{content:"";position:absolute;top:-6px;left:50%;width:12px;height:12px;background:var(--ink);transform:translateX(-50%) rotate(45deg);border-radius:2px}
 .hint.up::before{top:auto;bottom:-6px}
 .hint.r::before{left:auto;right:18px;transform:rotate(45deg)}
+/* AI 메모 정리 코치마크는 버튼 바로 밑에서 버튼을 가리킨다 */
+.hint.cm-ai{margin:2px 0 10px}
+.hint.cm-ai::before{right:52px}
 .hint b{color:var(--mint)}
 .hint .cmt{display:grid;gap:2px}
 .hint .cml{font-size:12px;font-weight:700;color:var(--mint);letter-spacing:-.01em}
@@ -1098,12 +1105,12 @@ html.nos,html.nos body{overflow:hidden;height:100%}
       </div>
       <div>
         <div class="sec-h"><h4>운동 메모</h4><button class="ai-btn" id="ai-memo" type="button" hidden><span class="ic"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 6h16M4 12h10M4 18h13"/></svg></span><span class="spin"></span><span class="tx">AI 메모 정리</span></button></div>
+        <div class="hint r cm-ai" id="cm-ai" hidden><span class="dot"></span><span class="cmt"><b class="cml">AI 메모 정리</b>누르면 AI가 회원이 읽을 문장으로 다듬어요.</span></div>
         <div class="memo-wrap">
           <textarea class="memo" id="memo" aria-label="운동 메모" readonly></textarea>
-          <div class="memo-ph" id="memo-ph"><i><svg class="ico"><use href="#i-pencil"/></svg></i>눌러서 특이사항 남기기</div>
+          <div class="memo-ph" id="memo-ph"><i><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pencil"/></svg></i>눌러서 특이사항 남기기</div>
         </div>
         <div class="hint" id="cm-memo" hidden><span class="dot"></span><span class="cmt"><b class="cml">운동 메모</b>운동별 메모를 남길 수 있어요. 단어만 간단히 남겨 보세요.</span></div>
-        <div class="hint" id="cm-ai" hidden><span class="dot"></span><span class="cmt"><b class="cml">AI 메모 정리</b>누르면 AI가 회원이 읽을 문장으로 다듬어요.</span></div>
       </div>
     </div>
     <div class="bar-hint"><div class="hint up" id="cm-next" hidden><span class="dot"></span><span id="cm-next-t"></span></div></div>
@@ -1118,11 +1125,11 @@ html.nos,html.nos body{overflow:hidden;height:100%}
     <div class="mh focus pad" id="mh">
       <div class="mh-top">
         <div class="brand"><img src="assets/logo/ssentif-logo-square-640.png" alt="">센티프 피트니스</div>
-        <div class="ic"><span><svg class="ico"><use href="#i-chart"/></svg></span><span class="dotted"><svg class="ico"><use href="#i-bell"/></svg></span></div>
+        <div class="ic"><span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chart"/></svg></span><span class="dotted"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-bell"/></svg></span></div>
       </div>
       <div class="hcard glow-mint next"><b id="next-t">3일 후에 개인수업이 예정되어 있어요!</b><span>박성훈 코치 · 오후 7:00 - 오후 8:00</span></div>
       <button class="hcard glow-mint arrive" id="arrive" type="button">
-        <span class="ic"><svg class="ico"><use href="#i-memo"/></svg></span>
+        <span class="ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-memo"/></svg></span>
         <span><b>수업일지가 도착했습니다</b><span>박성훈 코치 · 방금 전</span></span>
         <span class="chev">›</span>
       </button>
@@ -1326,9 +1333,9 @@ html.nos,html.nos body{overflow:hidden;height:100%}
           <img class="s3" src="assets/app/ssentif-pd-members.webp" alt="전체 회원 화면">
         </div>
         <div class="feats">
-          <div class="feat"><i><svg class="ico"><use href="#i-users"/></svg></i><div><b>강사별 수업·일지 작성률</b><span>누가 꾸준히 기록하고 누가 놓치는지</span></div></div>
-          <div class="feat"><i><svg class="ico"><use href="#i-alert"/></svg></i><div><b>이탈 위험 감지</b><span>2주째 수업 없는 회원, 잔여 3회 이하 회원</span></div></div>
-          <div class="feat"><i><svg class="ico"><use href="#i-receipt"/></svg></i><div><b>매출 현황과 급여 정산</b><span>완료한 수업이 그대로 정산 줄이 돼요</span></div></div>
+          <div class="feat"><i><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-users"/></svg></i><div><b>강사별 수업·일지 작성률</b><span>누가 꾸준히 기록하고 누가 놓치는지</span></div></div>
+          <div class="feat"><i><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-alert"/></svg></i><div><b>이탈 위험 감지</b><span>2주째 수업 없는 회원, 잔여 3회 이하 회원</span></div></div>
+          <div class="feat"><i><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-receipt"/></svg></i><div><b>매출 현황과 급여 정산</b><span>완료한 수업이 그대로 정산 줄이 돼요</span></div></div>
         </div>
         <div class="pc-note"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M2 20h20"/></svg>대표 화면은 PC·태블릿에서 넓게 써요. 실제 화면은 시연으로 보여 드릴게요.</div>
       </div>

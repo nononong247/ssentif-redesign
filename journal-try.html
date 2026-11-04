@@ -49,18 +49,13 @@ img{display:block;max-width:100%}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 
 /* 관점 표시 */
-/* 진행바(회색)는 아래 모서리가 위로 말려 올라가고, 그 뒤로 아래 흰 영역이 비친다 */
-.prog{position:sticky;top:0;z-index:20;background:var(--card);padding-top:calc(var(--sat) + 10px);padding-bottom:12px}
-.prog::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--main);border-radius:0 0 20px 20px}
-.prog ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
-.prog li{font-size:12px;font-weight:600;color:var(--mute);display:grid;gap:6px}
-.prog li::before{content:"";height:3px;border-radius:2px;background:var(--line)}
-.prog li.on{color:var(--ink)}
-.prog li.on::before,.prog li.done::before{background:var(--mint)}
-.prog li.done{color:var(--ink-2)}
-.prog.dark{background:var(--dark)}.prog.dark::before{background:var(--dark);border-radius:0}
-.prog.dark li{color:#6b6b6e}.prog.dark li.on{color:#fff}.prog.dark li.done{color:#9a9a9d}.prog.dark li::before{background:#333}
-.prog.dark li.on::before,.prog.dark li.done::before{background:var(--mint)}
+/* 맨 위 얇은 띠: 진행바 대신 이 링크 전용 할인 쿠폰 안내. 아래 모서리는 위로 말려 아래 화면이 비친다 */
+.prog{position:sticky;top:0;z-index:20;background:var(--card);padding-top:calc(var(--sat) + 7px);padding-bottom:8px;color:#fff}
+.prog::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,#FF7A1A,#FF5A1F);border-radius:0 0 16px 16px}
+.prog.dark{background:var(--dark)}
+.promo{margin:0;display:flex;align-items:center;justify-content:center;gap:6px;font-size:13px;font-weight:600;line-height:1.3;letter-spacing:-.01em}
+.promo svg{width:16px;height:16px;flex:none}
+.promo b{font-weight:800}
 
 .ico{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
 /* 버튼 */
@@ -1029,12 +1024,8 @@ html.nos,html.nos body{overflow:hidden;height:100%}
   </defs>
 </svg>
 
-  <nav class="prog pad" id="prog" aria-label="체험 관점" hidden>
-    <ol>
-      <li data-p="1">1 강사가 쓴다</li>
-      <li data-p="2">2 회원이 받는다</li>
-      <li data-p="3">3 대표가 본다</li>
-    </ol>
+  <nav class="prog pad" id="prog" aria-label="할인 안내" hidden>
+    <p class="promo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9a3 3 0 0 0 0 6v3a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-3a3 3 0 0 0 0-6V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1z"/><path d="M14 5v2M14 11v2M14 17v2"/></svg>오직 이 링크에서만 <b>50% 할인 쿠폰</b></p>
   </nav>
 
   <!-- 0. 인트로: 빠른 모션 메시지 → 1막 자동 진입 -->
@@ -1057,7 +1048,7 @@ html.nos,html.nos body{overflow:hidden;height:100%}
     <div class="wr-scrim" id="wr-scrim" hidden></div>
     <header class="rec-head pad">
       <button class="icon-btn" id="back-intro" aria-label="처음으로"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
-      <h2>한지우 회원님 6회차 개인수업 일지</h2>
+      <h2>6회차 수업일지</h2>
       <div class="save"><span class="saved-at" id="saved-at" hidden>방금 저장됨</span><button class="pill" id="save-btn" type="button">저장하기</button></div>
     </header>
     <div class="rail pad" role="group" aria-label="운동 목록">

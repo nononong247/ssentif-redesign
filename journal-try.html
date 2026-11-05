@@ -476,21 +476,30 @@ img{display:block;max-width:100%}
 @keyframes pfFade{to{opacity:1}}
 @keyframes pfPop{to{opacity:1;transform:none}}
 /* 관리자 관점: 차트를 관리자 웹 창 안에 넣어, 강사 앱이 아니라 대표가 PC로 보는 화면임을 보여 준다 */
-.pf-win{width:100%;opacity:0;transform:translateY(22px) scale(.94);animation:pfIn .8s .1s cubic-bezier(.2,.8,.2,1) forwards;box-shadow:0 40px 80px -28px rgba(0,0,0,.95),0 0 0 1px rgba(255,255,255,.1),0 0 70px -10px rgba(31,219,168,.28)}
+.pf-q{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;text-align:center;pointer-events:none;opacity:0}
+.run .pf-q{animation:pfQ 2s .1s ease forwards}
+@keyframes pfQ{0%{opacity:0;transform:translateY(12px)}18%{opacity:1;transform:none}82%{opacity:1;transform:none}100%{opacity:0;transform:translateY(-10px)}}
+.pf-q i{font-style:normal;font-size:60px;line-height:1;transform-origin:50% 80%}
+.run .pf-q i{animation:pfTilt 1.6s .35s ease-in-out both}
+@keyframes pfTilt{0%,100%{transform:rotate(0)}30%{transform:rotate(-9deg)}65%{transform:rotate(6deg)}}
+.pf-q b{font-size:23px;font-weight:800;line-height:1.4;letter-spacing:-.02em;color:#fff}
+.pf-win{width:100%;opacity:0;transform:translateY(22px) scale(.94);animation:pfIn .8s 2s cubic-bezier(.2,.8,.2,1) forwards;box-shadow:0 40px 80px -28px rgba(0,0,0,.95),0 0 0 1px rgba(255,255,255,.1),0 0 70px -10px rgba(31,219,168,.28)}
 .pf-win .ww-in{min-height:0}
 .pf-win .ww-mn{gap:10px;min-width:0}
 .pf-top{display:flex;align-items:center;justify-content:space-between;gap:6px}
 .pf-top>b{font-size:14px;font-weight:800;color:var(--ink);letter-spacing:-.01em}
 .pf-top span{display:inline-flex;align-items:center;gap:5px;height:24px;padding:0 9px 0 3px;border-radius:999px;background:#F2F2F4;font-size:10.5px;font-weight:700;color:var(--ink)}
 .pf-top img{width:18px;height:18px;border-radius:50%;object-fit:cover}
-.pf-win .pf-seg{background:#F0F0F2;border-radius:10px;text-align:center;animation-delay:.5s}
+.pf-win .pf-seg{background:#F0F0F2;border-radius:10px;text-align:center;animation-delay:2.4s}
 .pf-win .pf-seg span{color:#8a8a90;font-size:11px;padding:6px 0}
 .pf-win .pf-seg span.on{color:var(--ink);font-weight:700}
 .pf-win .pf-seg b{border-radius:8px}
 .pf-win .pf-row{gap:7px}
 .pf-win .pf-bar{height:128px;border-radius:8px;background:#F5F5F7}
 .pf-win .pf-dots i{width:8px;height:8px;background:#C9C9CF}
-.pf-win .pf-fill{border-radius:8px 8px 0 0}
+.pf-win .pf-fill{left:34%;right:6px;border-radius:7px 7px 0 0}
+/* 지난달 막대: 비교한다는 느낌만 주는 얇은 회색 */
+.pf-prev{position:absolute;left:6px;width:calc(34% - 11px);bottom:0;height:0;border-radius:5px 5px 0 0;background:#DDDDE2;transition:height .8s cubic-bezier(.25,.9,.3,1)}
 .pf-win .pf-v{color:var(--ink);font-size:13px;min-height:18px}
 .pf-win .pf-c.low .pf-v{color:#E8540F}
 .pf-win .pf-c{gap:6px}
@@ -498,7 +507,13 @@ img{display:block;max-width:100%}
 .pf-win .pf-av img{box-shadow:0 0 0 2px #E8E8EB}
 .pf-win .pf-nm{color:var(--ink-2);font-size:10.5px}
 .pf-win .pf-lab{color:#8a8a90;font-size:10px;text-align:center}
-#tr-perf .pf-cap{opacity:0;animation:fadein .6s 5.6s ease-out forwards;font-size:17px;text-wrap:initial}
+/* 지표를 다 본 뒤 나타나는 쿠폰 버튼: 자동으로 넘어가지 않는다 */
+.pf-go{position:absolute;left:50%;transform:translateX(-50%);bottom:calc(var(--sab) + 18px);width:min(440px,calc(100% - 40px));z-index:3;display:grid;gap:9px;visibility:hidden;opacity:0}
+.pf-go.on{visibility:visible;animation:pfGo .6s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes pfGo{from{opacity:0;transform:translateX(-50%) translateY(16px)}to{opacity:1;transform:translateX(-50%)}}
+#tr-perf .pf-go p{margin:0;opacity:1;animation:none;font-size:13px;font-weight:500;line-height:1.4;color:#c9c9cc;text-align:center}
+@media (max-height:720px){#tr-perf .pf-cap small{display:none}}
+#tr-perf .pf-cap{opacity:0;animation:fadein .6s 7.5s ease-out forwards;font-size:17px;text-wrap:initial}
 #tr-perf .pf-cap small{font-size:12.5px}
 
 /* 2막 a: 회원 앱 홈 — MEMBERS_APP_DESIGN_SPEC §4.1 + rules/12-home.md */
@@ -722,17 +737,13 @@ img{display:block;max-width:100%}
 
 /* 3막: 대표 관점(다크) */
 .adm{background:var(--dark);color:#fff;min-height:100dvh;padding-bottom:40px}
-.adm-head{padding-top:18px;padding-bottom:8px;display:grid;gap:12px}
-.adm-head .who-bar{background:#262628;border-color:var(--dark-line);color:#c9c9cc}
-.adm-head h2{margin:0;font-size:26px;font-weight:800;line-height:1.3;letter-spacing:-.025em;text-wrap:balance}
+.adm-head{padding-top:26px;padding-bottom:6px;display:grid;gap:12px;justify-items:center;text-align:center}
+.adm-mode{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700;color:var(--mint);letter-spacing:-.01em}
+.adm-mode svg{width:17px;height:17px;flex:none}
+.adm-head h2{margin:0;font-size:28px;font-weight:800;line-height:1.3;letter-spacing:-.025em;text-wrap:balance}
 .adm-head h2 em{font-style:normal;color:var(--mint)}
 .adm-head p{margin:0;color:#9a9a9d;font-size:14px}
 .adm-glow{position:absolute;left:50%;top:40%;width:360px;height:360px;border-radius:50%;background:radial-gradient(closest-side,rgba(31,219,168,.22),transparent);transform:translate(-50%,-50%);pointer-events:none}
-/* 대표 화면: 강사별 지표 웹 화면 6장 — 좌우로 넘기고, 3.6초마다 자동으로 넘어간다 */
-.aw{margin-top:18px;position:relative;opacity:0;animation:fadein .6s .15s forwards}
-.aw-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;border-radius:14px;overscroll-behavior-x:contain}
-.aw-track::-webkit-scrollbar{display:none}
-.aw-s{flex:0 0 100%;scroll-snap-align:center;padding:2px}
 .ww{background:#fff;color:var(--ink);border-radius:12px;overflow:hidden;box-shadow:0 30px 60px -24px rgba(0,0,0,.85),0 0 0 1px rgba(255,255,255,.08);text-align:left}
 .ww-bar{display:flex;align-items:center;gap:5px;height:24px;padding:0 10px;background:#EEEEF1;border-bottom:1px solid #E2E2E6}
 .ww-bar i{width:7px;height:7px;border-radius:50%;background:#D3D3D8}.ww-bar i:nth-child(1){background:#FF6159}.ww-bar i:nth-child(2){background:#FFBD2E}.ww-bar i:nth-child(3){background:#28C941}
@@ -742,72 +753,27 @@ img{display:block;max-width:100%}
 .ww-sd b{width:14px;height:14px;border-radius:4px;background:#1FDBA8;font-size:0}
 .ww-sd i{width:12px;height:12px;border-radius:3px;background:#DEDEE2}.ww-sd i.on{background:#282828}
 .ww-mn{padding:10px 12px 12px;display:grid;align-content:start;gap:9px}
-.ww-hd{display:flex;align-items:center;justify-content:space-between;gap:6px}
-.ww-hd b{font-size:12.5px;font-weight:800;letter-spacing:-.01em}
-.ww-hd span{font-size:9px;font-weight:600;color:var(--ink-2);background:#F2F2F4;border-radius:999px;padding:2px 8px;white-space:nowrap}
-.ww-sum{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
-.ww-sum div{background:#F7F7F8;border-radius:8px;padding:6px 7px}
-.ww-sum small{display:block;font-size:8.5px;color:var(--ink-2)}
-.ww-sum b{font-size:13px;font-weight:800;font-variant-numeric:tabular-nums}
-.ww-sum b.w{color:#E8540F}
-.ww-rows{display:grid;gap:6px}
-.ww-r{display:grid;grid-template-columns:22px 44px 1fr 40px;align-items:center;gap:6px;font-size:10px}
-.ww-r img{width:22px;height:22px;border-radius:50%;object-fit:cover}
-.ww-r .n{font-weight:700}
-.ww-r .g{height:7px;border-radius:4px;background:#F0F0F2;overflow:hidden}
-.ww-r .g em{display:block;height:100%;width:0;border-radius:4px;background:linear-gradient(90deg,#5BF0C6,#1FCF9A);transition:width 1s cubic-bezier(.25,.9,.3,1)}
-.ww-r.low .g em{background:linear-gradient(90deg,#FFA45C,#FF6A1F)}
-.ww-r .v{text-align:right;font-weight:800;font-variant-numeric:tabular-nums}
-.ww-r.low .v{color:#E8540F}
-.ww-r .v small{font-size:8px;font-weight:600;color:var(--ink-2)}
-.ww-tb{display:grid;font-size:9.5px}
-.ww-tb div{display:grid;grid-template-columns:1.25fr .9fr .9fr .9fr;align-items:center;gap:4px;padding:6px 0;border-top:1px solid #F0F0F2}
-.ww-tb div:first-child{border-top:0;color:var(--ink-2);font-size:8.5px;padding-top:0}
-.ww-tb span:first-child{display:flex;align-items:center;gap:5px;font-weight:700}
-.ww-tb img{width:18px;height:18px;border-radius:50%;object-fit:cover}
-.ww-tb b{font-weight:800;font-variant-numeric:tabular-nums}
-.ww-li{display:grid;gap:5px}
-.ww-li div{display:grid;grid-template-columns:20px 1fr auto;align-items:center;gap:7px;background:#F7F7F8;border-radius:8px;padding:5px 7px;font-size:9.5px}
-.ww-li div > i{width:20px;height:20px;border-radius:50%;background:#E3E3E7;display:grid;place-items:center;font-style:normal;font-size:8.5px;font-weight:700;color:#5a5a60}
-.ww-li b{display:block;font-weight:700}
-.ww-li small{display:block;font-size:8.5px;color:var(--ink-2)}
-.ww-li em{font-style:normal;display:flex;align-items:center;gap:4px;font-size:8.5px;font-weight:700;color:var(--ink-2)}
-.ww-li em img{width:16px;height:16px;border-radius:50%;object-fit:cover}
-.ww-li .d{font-size:8.5px;font-weight:800;color:#E8540F;background:#FFF1E6;border-radius:999px;padding:1px 6px}
-.ww-col{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;align-items:end;height:150px;padding-top:6px}
-.ww-col div{display:grid;justify-items:center;gap:4px;height:100%;grid-template-rows:auto 1fr auto}
-.ww-col b{font-size:11px;font-weight:800}
-.ww-col .bx{position:relative;width:70%;height:100%;display:flex;align-items:flex-end;justify-content:center;gap:3px}
-.ww-col .bx i,.ww-col .bx u{display:block;width:45%;border-radius:4px 4px 0 0;height:0;transition:height 1s cubic-bezier(.25,.9,.3,1)}
-.ww-col .bx u{background:#E4E4E8}.ww-col .bx i{background:linear-gradient(180deg,#5BF0C6,#1FCF9A)}
-.ww-col div.low .bx i{background:linear-gradient(180deg,#FFA45C,#FF6A1F)}.ww-col div.low b{color:#E8540F}
-.ww-col img{width:20px;height:20px;border-radius:50%;object-fit:cover}
-.ww-lg{display:flex;gap:10px;font-size:8.5px;color:var(--ink-2)}.ww-lg i{display:inline-block;width:7px;height:7px;border-radius:2px;margin-right:3px;vertical-align:-1px}
-.ww-st{color:#F2A93B;letter-spacing:-1px;font-size:9px}
-.ww-q{font-size:9px;color:var(--ink-2);background:#F7F7F8;border-radius:8px;padding:6px 8px;line-height:1.45}
-.ww-q b{color:var(--ink)}
-.aw-s.on .ww-r .g em{width:var(--w)}
-.aw-s.on .ww-col .bx i{height:var(--h)}.aw-s.on .ww-col .bx u{height:var(--p)}
-.aw-ft{display:flex;align-items:center;justify-content:space-between;margin-top:12px;gap:10px}
-.aw-t{font-size:13px;font-weight:700;color:#e5e5e7}
-.aw-t em{font-style:normal;color:var(--mint)}
-.aw-dots{display:flex;gap:5px}
-.aw-dots button{width:6px;height:6px;padding:0;border:0;border-radius:3px;background:#4a4a4e;cursor:pointer;transition:width .3s,background .3s}
-.aw-dots button.on{width:18px;background:var(--mint)}
-.aw-k{margin:22px 0 10px;font-size:15px;font-weight:700;color:#e5e5e7}
-.aw-k em{font-style:normal;color:var(--mint)}
-.feats{display:grid;gap:8px;margin-top:10px}
-.aw-feats{grid-template-columns:1fr 1fr;margin-top:0}
-.feat{display:grid;grid-template-columns:36px 1fr;gap:12px;align-items:center;background:var(--dark-card);border:1px solid var(--dark-line);border-radius:14px;padding:12px 14px;opacity:0;transform:translateY(8px);animation:kin .5s forwards}
-.aw-feats .feat{grid-template-columns:1fr;gap:6px;align-items:start;padding:12px;text-align:left;font:inherit;color:#fff;cursor:pointer;transition:border-color .3s,background .3s}
-.aw-feats .feat.on{border-color:var(--mint);background:#23302c}
-.aw-feats .feat .tg{justify-self:start;font-size:10px;font-weight:800;color:#0B3E33;background:var(--mint);border-radius:999px;padding:2px 7px}
-.feat b{display:block;font-size:14px}
-.aw-feats .feat b{font-size:13.5px}
-.feat span{font-size:12px;color:#9a9a9d}
-.aw-feats .feat span:not(.tg){font-size:11.5px;line-height:1.4}
-.pc-note{display:flex;align-items:center;gap:10px;background:#262628;border:1px solid var(--dark-line);border-radius:12px;padding:10px 12px;font-size:12px;color:#c9c9cc;margin-top:14px}
-.pc-note svg{flex:none}
+/* 실제 앱 화면 5장: 아이팟 앨범 넘기기처럼 가운데는 정면, 양옆은 비스듬히 겹치고 아래에 반사가 비친다 */
+.cf{position:relative;margin:20px -20px 0;opacity:0;animation:fadein .6s .15s forwards;user-select:none;-webkit-user-select:none}
+.cf-stage{position:relative;height:286px;perspective:760px;overflow:hidden;touch-action:pan-y;cursor:grab}
+.cf-i{position:absolute;left:50%;top:18px;width:276px;height:192px;margin-left:-138px;transform-style:preserve-3d;will-change:transform}
+.cf.anim .cf-i{transition:transform .5s cubic-bezier(.2,.8,.25,1),opacity .4s}
+.cf-im{display:block;width:100%;height:100%;object-fit:cover;object-position:top;border-radius:8px;background:#fff;box-shadow:0 18px 34px -12px rgba(0,0,0,.9),0 0 0 1px rgba(255,255,255,.1);-webkit-user-drag:none}
+.cf-i:not(.on) .cf-im{pointer-events:none}
+.cf-rf{position:absolute;left:0;right:0;top:100%;margin-top:3px;height:100%;border-radius:8px;object-fit:cover;object-position:top;width:100%;transform:scaleY(-1);opacity:.2;-webkit-mask-image:linear-gradient(to top,#000 0%,transparent 34%);mask-image:linear-gradient(to top,#000 0%,transparent 34%);pointer-events:none}
+.cf-ft{display:grid;justify-items:center;gap:9px;margin-top:2px;text-align:center}
+.cf-t{font-size:14px;font-weight:700;color:#e5e5e7}
+.cf-t em{font-style:normal;color:var(--mint)}
+.cf-dots{display:flex;gap:5px}
+.cf-dots button{width:6px;height:6px;padding:0;border:0;border-radius:3px;background:#4a4a4e;cursor:pointer;transition:width .3s,background .3s}
+.cf-dots button.on{width:18px;background:var(--mint)}
+/* 관리자 모드의 가치 3줄: 카드 없이 가운데 정렬 */
+.vals{list-style:none;margin:30px 0 0;padding:0;display:grid;text-align:center}
+.vals li{display:grid;gap:4px;padding:18px 0;border-top:1px solid rgba(255,255,255,.09);opacity:0;transform:translateY(8px);animation:kin .5s forwards}
+.vals li:nth-child(1){animation-delay:.35s}.vals li:nth-child(2){animation-delay:.5s}.vals li:nth-child(3){animation-delay:.65s}
+.vals li:last-child{border-bottom:1px solid rgba(255,255,255,.09)}
+.vals b{font-size:17px;font-weight:800;letter-spacing:-.015em}
+.vals span{font-size:13.5px;color:#9a9a9d}
 .closing{padding-top:30px;display:grid;gap:14px;text-align:center}
 .closing h3{margin:0;font-size:22px;font-weight:800;line-height:1.35;letter-spacing:-.02em;text-wrap:balance}
 .closing h3 em{font-style:normal;color:var(--mint)}
@@ -1406,19 +1372,20 @@ html.nos,html.nos body{overflow:hidden;height:100%}
   <section id="s-admin" data-step="admin" hidden>
     <div class="adm">
       <div class="adm-head pad">
-        <span class="who-bar"><i></i>대표님의 화면</span>
-        <h2>강사별로,<br><em>회원관리 성과</em>가 보여요</h2>
-        <p>강사가 쓴 수업일지와 회원 기록이 모여, 강사마다 회원을 얼마나 잘 관리하고 있는지 숫자로 보여 줘요.</p>
+        <span class="adm-mode"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>관리자 모드</span>
+        <h2>보이지 않던 현장의<br><em>PT 성과</em>를 관리해 보세요</h2>
       </div>
       <div class="pad" style="position:relative">
         <div class="adm-glow"></div>
-        <div class="aw" id="aw" aria-roledescription="슬라이드">
-          <div class="aw-track" id="aw-track"></div>
-          <div class="aw-ft"><span class="aw-t" id="aw-t"></span><div class="aw-dots" id="aw-dots"></div></div>
+        <div class="cf" id="cf" aria-roledescription="슬라이드">
+          <div class="cf-stage" id="cf-stage"></div>
+          <div class="cf-ft"><span class="cf-t" id="cf-t"></span><div class="cf-dots" id="cf-dots"></div></div>
         </div>
-        <p class="aw-k">모든 지표가 <em>강사별로</em> 나뉘어요</p>
-        <div class="feats aw-feats" id="aw-feats"></div>
-        <div class="pc-note"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M2 20h20"/></svg>대표 화면은 PC·태블릿에서 넓게 써요. 실제 화면은 시연으로 보여 드릴게요.</div>
+        <ul class="vals">
+          <li><b>감이 아니라 숫자로</b><span>강사마다 같은 기준으로 비교해요</span></li>
+          <li><b>문제가 커지기 전에</b><span>놓치는 회원을 먼저 챙길 수 있어요</span></li>
+          <li><b>회원이 다시 찾도록</b><span>잘 챙긴 기록이 재등록으로 이어져요</span></li>
+        </ul>
       </div>
       <div class="closing pad">
         <h3>자세히 알아보고 싶으시면<br><em>문의</em>를 남겨 주세요</h3>
@@ -1540,8 +1507,10 @@ html.nos,html.nos body{overflow:hidden;height:100%}
   <!-- 전환 3: 강사별 성과 -->
   <div class="trans" id="tr-perf" hidden>
     <button class="skip" type="button">건너뛰기</button>
+    <div class="pf-q" aria-hidden="true"><i>🤔</i><b>내 센터 선생님들은<br>잘하고 계시나?</b></div>
     <div class="pf" id="perf"></div>
     <p class="pf-cap"><span style="color:var(--mint)">관리자 모드</span>에서는 강사별 신규등록,<br>재등록률, 세션 소진을 확인할 수 있어요<small>누구를 챙겨야 할지 바로 보여요</small></p>
+    <div class="pf-go" id="pf-go"><p>지금 도입하지 않아도 괜찮아요</p><button class="cta hot" id="pf-go-btn" type="button">50% 쿠폰만 먼저 받아 두기<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
   </div>
 
   <div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="사진 크게 보기">
@@ -1647,7 +1616,7 @@ else if (window.innerWidth >= 700) {
     requestAnimationFrame(() => el.classList.add('run'));
     el.querySelector('.skip').onclick = finish;
     if (onStart) onStart(el, finish);
-    setTimeout(finish, reduced ? 300 : ms);
+    if (ms) setTimeout(finish, reduced ? 300 : ms); // ms 없으면 버튼을 눌러야 넘어간다
   });
 
   const filled = (s) => s.w !== '' && s.r !== '';
@@ -2200,21 +2169,25 @@ else if (window.innerWidth >= 700) {
   // ---------- 2막 → 3막 전환 ----------
   $('#go-admin').addEventListener('click', async () => {
     track('to_admin');
-    await transition('tr-perf', 8900, () => {
+    // 먼저 대표의 궁금증 한 줄(1.9초) → 관리자 PC 화면과 지표 → 쿠폰 버튼을 눌러야 다음 화면으로
+    await transition('tr-perf', null, (el, finish) => {
+      const goBox = $('#pf-go'); goBox.classList.remove('on');
+      $('#pf-go-btn').onclick = () => { track('coupon_cta'); finish(); };
+      setTimeout(() => goBox.classList.add('on'), reduced ? 0 : 8300);
       const p = $('#perf'); p.replaceChildren();
       const C = [['박성훈', 'coach-park'], ['김도윤', 'coach-kim'], ['이준호', 'coach-lee'], ['정우진', 'coach-jung']];
-      // ▼ 강사별 숫자는 여기만 고치면 된다(순서: 박성훈, 김도윤, 이준호, 정우진). 막대 높이는 지표별 최댓값 기준으로 자동 계산
+      // ▼ 강사별 숫자는 여기만 고치면 된다(순서: 박성훈, 김도윤, 이준호, 정우진). v=이번 달, prev=지난달(회색 막대). 막대 높이는 지표별 최댓값 기준으로 자동 계산
       const M = [
-        { k: '신규등록', lab: '10월 신규 회원', unit: '명', v: [3, 6, 1, 2] },
-        { k: '재등록률', lab: '10월 재등록률', unit: '%', v: [58, 22, 87, 71] },
-        { k: '세션 소진', lab: '10월 소진한 세션', unit: '회', v: [95, 112, 154, 87] },
+        { k: '신규등록', lab: '10월 신규 회원', unit: '명', v: [3, 6, 1, 2], prev: [5, 4, 2, 1] },
+        { k: '재등록률', lab: '10월 재등록률', unit: '%', v: [58, 22, 87, 71], prev: [41, 38, 79, 83] },
+        { k: '세션 소진', lab: '10월 소진한 세션', unit: '회', v: [95, 112, 154, 87], prev: [118, 84, 139, 101] },
       ];
       p.innerHTML = '<div class="ww pf-win"><div class="ww-bar"><i></i><i></i><i></i><span>admin.ssentif.kr</span></div><div class="ww-in"><div class="ww-sd"><b>S</b><i></i><i class="on"></i><i></i><i></i><i></i></div><div class="ww-mn"><div class="pf-top"><b>강사 성과</b><span><img src="assets/avatars/owner.jpg" alt="">대표 · 관리자</span></div><div class="pf-seg"><b></b>' + M.map((m) => '<span>' + m.k + '</span>').join('') + '</div><div class="pf-row"></div><div class="pf-lab"></div></div></div></div>';
       const row = p.querySelector('.pf-row');
       C.forEach(([nm, img], ci) => {
         const c = document.createElement('div'); c.className = 'pf-c';
-        let dots = ''; for (let i = 0; i < 12; i++) dots += '<i style="animation-delay:' + (0.9 + (ci * 12 + i) * 0.018).toFixed(3) + 's"></i>';
-        c.innerHTML = '<span class="pf-v"></span><div class="pf-bar"><div class="pf-dots">' + dots + '</div><div class="pf-fill"></div></div><span class="pf-av" style="animation-delay:' + (0.5 + ci * 0.08) + 's"><img src="assets/avatars/' + img + '.jpg" alt=""></span><span class="pf-nm" style="animation-delay:' + (0.65 + ci * 0.08) + 's">' + nm + '</span>';
+        let dots = ''; for (let i = 0; i < 12; i++) dots += '<i style="animation-delay:' + (2.8 + (ci * 12 + i) * 0.018).toFixed(3) + 's"></i>';
+        c.innerHTML = '<span class="pf-v"></span><div class="pf-bar"><div class="pf-dots">' + dots + '</div><div class="pf-prev"></div><div class="pf-fill"></div></div><span class="pf-av" style="animation-delay:' + (2.4 + ci * 0.08) + 's"><img src="assets/avatars/' + img + '.jpg" alt=""></span><span class="pf-nm" style="animation-delay:' + (2.55 + ci * 0.08) + 's">' + nm + '</span>';
         row.append(c);
       });
       const cols = [...row.children]; const seg = p.querySelector('.pf-seg'); const lab = p.querySelector('.pf-lab');
@@ -2224,60 +2197,72 @@ else if (window.innerWidth >= 700) {
         seg.querySelectorAll('span').forEach((x, i) => x.classList.toggle('on', i === mi));
         seg.querySelector('b').style.transform = 'translateX(' + (mi * 100) + '%)';
         lab.style.opacity = 0; setTimeout(() => { lab.textContent = m.lab; lab.style.opacity = 1; }, 200);
-        const mx = Math.max(...m.v), mn = Math.min(...m.v); cols.forEach((c, ci) => { c.classList.toggle('lead', m.v[ci] === mx); c.classList.toggle('low', m.v[ci] === mn); c.querySelector('.pf-fill').style.height = Math.round(m.v[ci] / mx * 88) + '%'; count(c.querySelector('.pf-v'), m.v[ci], m.unit); });
+        const mx = Math.max(...m.v, ...m.prev), mn = Math.min(...m.v); cols.forEach((c, ci) => { c.querySelector('.pf-prev').style.height = Math.round(m.prev[ci] / mx * 88) + '%'; c.classList.toggle('lead', m.v[ci] === mx); c.classList.toggle('low', m.v[ci] === mn); c.querySelector('.pf-fill').style.height = Math.round(m.v[ci] / mx * 88) + '%'; count(c.querySelector('.pf-v'), m.v[ci], m.unit); });
       };
-      setTimeout(() => cols.forEach((c) => c.querySelector('.pf-bar').classList.add('go')), 1900);
-      setTimeout(() => showM(0), 2300);
-      setTimeout(() => showM(1), 3800);
-      setTimeout(() => showM(2), 5300);
+      setTimeout(() => cols.forEach((c) => c.querySelector('.pf-bar').classList.add('go')), 3800);
+      setTimeout(() => showM(0), 4200);
+      setTimeout(() => showM(1), 5700);
+      setTimeout(() => showM(2), 7200);
     });
     show('admin');
   });
-  // ---------- 3막: 대표 화면 — 강사별 지표 웹 화면 6장 ----------
+  // ---------- 3막: 대표 화면 — 실제 앱 화면(PC 레이아웃) 커버 플로우 ----------
   (() => {
-    const CO = [['박성훈', 'coach-park'], ['김도윤', 'coach-kim'], ['이준호', 'coach-lee'], ['정우진', 'coach-jung']];
-    const av = (i) => '<img src="assets/avatars/' + CO[i][1] + '.jpg" alt="">';
-    const head = (t, chip) => '<div class="ww-hd"><b>' + t + '</b><span>' + chip + '</span></div>';
-    const rows = (vals, unit, sub) => '<div class="ww-rows">' + vals.map((v, i) => '<div class="ww-r' + (v[0] === Math.min(...vals.map((x) => x[0])) ? ' low' : '') + '">' + av(i) + '<span class="n">' + CO[i][0] + '</span><span class="g"><em style="--w:' + v[1] + '%"></em></span><span class="v">' + v[0] + unit + (sub ? '<br><small>' + sub[i] + '</small>' : '') + '</span></div>').join('') + '</div>';
     const S = [
-      { k: '수업일지 작성률', s: '누가 꾸준히 기록하고 누가 놓치는지', h: head('강사별 수업일지 작성률', '10월 · 전체 강사 4명')
-        + '<div class="ww-sum"><div><small>센터 평균</small><b>90%</b></div><div><small>작성한 일지</small><b>401건</b></div><div><small>미작성</small><b class="w">47건</b></div></div>'
-        + rows([[100, 100], [96, 96], [88, 88], [71, 71]], '%', ['95/95건', '108/112건', '136/154건', '62/87건']) },
-      { k: '담당 회원 수', s: '강사마다 맡은 회원과 이번 달 수업', h: head('강사별 담당 회원', '오늘 기준')
-        + '<div class="ww-sum"><div><small>활성 회원</small><b>48명</b></div><div><small>이번 달 수업</small><b>448회</b></div><div><small>담당 없음</small><b class="w">2명</b></div></div>'
-        + '<div class="ww-tb"><div><span>강사</span><span>담당 회원</span><span>10월 수업</span><span>회원당 수업</span></div>'
-        + [[16, 95], [13, 112], [11, 154], [8, 87]].map((r, i) => '<div><span>' + av(i) + CO[i][0] + '</span><b>' + r[0] + '명</b><b>' + r[1] + '회</b><b>' + (r[1] / r[0]).toFixed(1) + '회</b></div>').join('') + '</div>' },
-      { k: '재등록 임박 회원', s: '곧 끝나는 수강권을 강사별로', h: head('재등록 임박 회원', '잔여 3회 이하 · 30일 이내')
-        + '<div class="ww-li">' + [['배수진', '1:1 PT 10회 · 잔여 3회', 'D-21', 0], ['오세림', '1:1 PT 20회 · 잔여 2회', 'D-9', 1], ['강태윤', '1:1 PT 10회 · 잔여 1회', 'D-5', 3], ['윤가은', '그룹 필라테스 · 잔여 3회', 'D-14', 2], ['조민석', '1:1 PT 30회 · 잔여 2회', 'D-11', 3]].map((m) => '<div><i>' + m[0][0] + '</i><span><b>' + m[0] + ' 회원</b><small>' + m[1] + '</small></span><em><span class="d">' + m[2] + '</span>' + av(m[3]) + CO[m[3]][0] + '</em></div>').join('') + '</div>' },
-      { k: '신규 등록', s: '이번 달 강사별 신규 회원', h: head('강사별 신규 등록', '10월 vs 9월')
-        + '<div class="ww-col">' + [[3, 4], [6, 5], [1, 3], [2, 4]].map((v, i) => '<div' + (v[0] === 1 ? ' class="low"' : '') + '><b>' + v[0] + '명</b><span class="bx"><u style="--p:' + v[1] * 14 + '%"></u><i style="--h:' + v[0] * 14 + '%"></i></span>' + av(i) + '</div>').join('') + '</div>'
-        + '<div class="ww-lg"><span><i style="background:#E4E4E8"></i>9월</span><span><i style="background:#1FCF9A"></i>10월</span></div>' },
-      { k: '재등록률', s: '회원이 다시 등록하는 강사', h: head('강사별 재등록률', '최근 3개월 만료 회원')
-        + '<div class="ww-sum"><div><small>센터 평균</small><b>60%</b></div><div><small>만료 회원</small><b>37명</b></div><div><small>재등록 안 함</small><b class="w">15명</b></div></div>'
-        + rows([[58, 58], [22, 22], [87, 87], [71, 71]], '%', ['▲ 4%p', '▼ 9%p', '▲ 2%p', '− 0%p']) },
-      { k: '회원 만족도', s: '회원이 매긴 강사별 만족도', h: head('강사별 회원 만족도', '수업일지 평가 · 10월')
-        + rows([[4.9, 98], [4.8, 96], [4.6, 92], [4.1, 82]], '', ['응답 61', '응답 52', '응답 44', '응답 19'])
-        + '<div class="ww-q"><b>“</b>설명을 매번 일지로 남겨 주셔서 집에서도 복습해요<b>”</b> · 한지우 회원 → 박성훈 강사</div>' },
+      ['staff-list', '<em>강사별</em> 담당 회원과 수업', '팀원 관리 화면'],
+      ['staff-stats', '<em>강사별</em> 신규 등록·재등록·출석률', '팀원 통계 화면'],
+      ['staff-month', '<em>강사별</em> 월간 세션 소진', '팀원 캘린더 화면'],
+      ['expiring', '재등록 임박 회원', '업무 알림 화면'],
+      ['team-day', '<em>강사별</em> 오늘 수업 일정', '팀 일정 화면'],
+      ['team-chat', '팀원 전용 업무 단톡방', '채팅 화면'],
+      ['consult-report', '상담 리포트 PDF', '상담 리포트 화면'],
+      ['dashboard', '센터 전체 현황까지 한 화면에', '관리자 대시보드'],
     ];
-    const tr = $('#aw-track'), dots = $('#aw-dots'), feats = $('#aw-feats'), title = $('#aw-t');
-    tr.innerHTML = S.map((x) => '<div class="aw-s"><div class="ww"><div class="ww-bar"><i></i><i></i><i></i><span>admin.ssentif.kr</span></div><div class="ww-in"><div class="ww-sd"><b>S</b><i class="on"></i><i></i><i></i><i></i><i></i></div><div class="ww-mn">' + x.h + '</div></div></div></div>').join('');
+    const cf = $('#cf'), stage = $('#cf-stage'), dots = $('#cf-dots'), title = $('#cf-t');
+    stage.innerHTML = S.map((x) => '<div class="cf-i"><img class="cf-im" src="assets/app/admin/' + x[0] + '.webp" alt="' + x[2] + '" draggable="false"><img class="cf-rf" src="assets/app/admin/' + x[0] + '.webp" alt="" aria-hidden="true" draggable="false"></div>').join('');
     dots.innerHTML = S.map((x, i) => '<button type="button" aria-label="' + (i + 1) + '번째 화면"></button>').join('');
-    feats.innerHTML = S.map((x, i) => '<button type="button" class="feat" style="animation-delay:' + (0.3 + i * 0.08) + 's"><span class="tg">강사별</span><b>' + x.k + '</b><span>' + x.s + '</span></button>').join('');
-    const slides = [...tr.children]; let cur = -1; let auto; let paused = 0;
+    const items = [...stage.children];
+    let pos = 0, cur = -1, auto, paused = 0;
+    // pos(소수 가능) 기준으로 각 장의 위치를 그린다: 가운데는 정면, 한 칸 넘어가면 양옆으로 눕고 이후엔 촘촘히 겹친다
+    const paint = () => {
+      items.forEach((el, i) => {
+        const d = i - pos, a = Math.abs(d), sg = Math.sign(d), t = Math.min(a, 1);
+        const x = sg * (t * 158 + Math.max(a - 1, 0) * 34);
+        const ry = -sg * t * 58, z = -t * 90 - Math.max(a - 1, 0) * 30;
+        el.style.transform = 'translateX(' + x + 'px) translateZ(' + z + 'px) rotateY(' + ry + 'deg)';
+        el.style.zIndex = String(100 - Math.round(a * 10));
+        el.style.opacity = a > 3.2 ? '0' : '1';
+      });
+    };
     const mark = (i) => {
       if (i === cur) return; cur = i;
-      slides.forEach((x, j) => x.classList.toggle('on', j === i));
+      items.forEach((x, j) => x.classList.toggle('on', j === i));
       [...dots.children].forEach((x, j) => x.classList.toggle('on', j === i));
-      [...feats.children].forEach((x, j) => x.classList.toggle('on', j === i));
-      title.innerHTML = '<em>강사별</em> ' + S[i].k;
+      title.innerHTML = S[i][1];
     };
-    const go = (i, smooth) => { tr.scrollTo({ left: i * tr.clientWidth, behavior: smooth === false || reduced ? 'auto' : 'smooth' }); mark(i); };
-    let st; tr.addEventListener('scroll', () => { clearTimeout(st); st = setTimeout(() => mark(Math.round(tr.scrollLeft / tr.clientWidth)), 80); }, { passive: true });
+    const go = (i, anim) => { cf.classList.toggle('anim', anim !== false && !reduced); pos = i; paint(); mark(i); };
     const hold = () => { paused = Date.now(); };
-    ['pointerdown', 'touchstart', 'wheel'].forEach((t) => tr.addEventListener(t, hold, { passive: true }));
+    // 손가락으로 끄는 만큼 앨범이 따라오고, 놓으면 가까운 장에 멈춘다(빠르게 튕기면 다음 장). 위아래 스크롤은 그대로 페이지로 넘긴다
+    let drag = null, moved = false;
+    stage.addEventListener('pointerdown', (e) => { hold(); moved = false; drag = { x: e.clientX, y: e.clientY, p: pos, t: Date.now(), on: false, id: e.pointerId }; });
+    stage.addEventListener('pointermove', (e) => {
+      if (!drag) return;
+      const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+      if (!drag.on) { if (Math.abs(dx) < 6) return; if (Math.abs(dy) > Math.abs(dx)) { drag = null; return; } drag.on = true; moved = true; cf.classList.remove('anim'); try { stage.setPointerCapture(drag.id); } catch (err) {} }
+      pos = Math.max(-0.35, Math.min(S.length - 0.65, drag.p - dx / 150)); paint(); hold();
+    });
+    const end = (e) => {
+      if (!drag) return; const d = drag; drag = null; if (!d.on) return;
+      const dx = e.clientX - d.x, v = dx / Math.max(1, Date.now() - d.t);
+      let n = Math.round(pos); if (Math.abs(v) > 0.45) n = Math.round(d.p) - Math.sign(dx);
+      go(Math.max(0, Math.min(S.length - 1, n))); track('admin_shot', { i: cur }); hold();
+    };
+    stage.addEventListener('pointerup', end); stage.addEventListener('pointercancel', end);
+    // 끌고 난 뒤의 클릭은 무시, 옆 장을 누르면 그 장이 가운데로 온다(크게 보기는 일부러 막아 둠: 궁금하게 만드는 게 목적)
+    stage.addEventListener('click', (e) => { if (moved) { e.stopPropagation(); e.preventDefault(); moved = false; return; } const it = e.target.closest('.cf-i'); if (it && !it.classList.contains('on')) { hold(); go(items.indexOf(it)); } }, true);
     [...dots.children].forEach((d, i) => d.addEventListener('click', () => { hold(); go(i); }));
-    [...feats.children].forEach((f, i) => f.addEventListener('click', () => { hold(); go(i); track('admin_metric', { i }); $('#aw').scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center' }); }));
-    const start = () => { clearInterval(auto); go(0, false); auto = setInterval(() => { if ($('#s-admin').hidden || Date.now() - paused < 6000) return; go((cur + 1) % S.length); }, 3600); };
+    const start = () => { clearInterval(auto); go(1, false); // 양옆이 다 보이게 두 번째 장부터
+      auto = setInterval(() => { if ($('#s-admin').hidden || !$('#lb').hidden || Date.now() - paused < 6000) return; go((cur + 1) % S.length); }, 3600); };
     new MutationObserver(() => { if (!$('#s-admin').hidden) { cur = -1; requestAnimationFrame(start); } }).observe($('#s-admin'), { attributes: true, attributeFilter: ['hidden'] });
     if (!$('#s-admin').hidden) start();
   })();

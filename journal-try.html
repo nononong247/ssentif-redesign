@@ -2297,8 +2297,9 @@ else if (window.innerWidth >= 700) {
     if (!phone || !isValidPhone(phone)) { $('#q-phone-err').textContent = phone ? '전화번호 형식을 확인해 주세요. (예: 010-1234-5678)' : '전화번호를 입력해 주세요.'; mark('q-phone', true); ok = false; }
     if (!ok) return;
     const btn = $('#q-submit'); btn.disabled = true; btn.textContent = '보내는 중…';
-    // 홈페이지 도입 문의와 같은 테이블. 전화번호만 받으므로 name·center_name 은 '미입력'으로 보낸다.
-    const payload = { name: '미입력', role: null, phone: formatPhone(phone), email: null, center_name: '미입력', center_size: null, message: '[수업일지 체험 페이지에서 문의]' };
+    // 홈페이지 도입 문의와 같은 테이블. source 는 비워 둬야 슬랙 알림이 간다(트리거 조건: source='홈페이지').
+    // 관리자 목록과 슬랙에서 바로 보이도록 프로모션 표시를 center_name·message 에 넣는다.
+    const payload = { name: '미입력', role: null, phone: formatPhone(phone), email: null, center_name: '(50% 3개월 프로모션 링크)', center_size: null, message: '(50% 3개월 프로모션 링크) 수업일지 체험 페이지에서 문의' };
     const isBot = $('#q-hp').value !== '' || Date.now() - openedAt < 3000;
     try {
       if (!isBot) { const { error } = await db.from('inquiries').insert([payload]); if (error) throw error; }

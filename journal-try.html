@@ -451,8 +451,6 @@ img{display:block;max-width:100%}
 #tr-profile .cap small{display:block;margin-top:6px;font-size:13px;font-weight:400;color:#9a9a9d}
 /* 2막 → 3막: 강사별 성과 대시보드 — 회원 점이 강사 막대로 모이고, 지표 3개(신규등록·재등록률·세션소진률)를 차례로 보여 준다 */
 .pf{width:min(350px,90vw);display:grid;gap:16px;text-align:center}
-.pf-hd{justify-self:center;display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 12px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);font-size:12px;font-weight:700;color:#e5e5e7;opacity:0;animation:pfUp .5s .15s cubic-bezier(.2,.8,.2,1) forwards}
-.pf-hd i{width:6px;height:6px;border-radius:50%;background:#FF7A1A;box-shadow:0 0 0 3px rgba(255,122,26,.25)}
 .pf-seg{position:relative;display:grid;grid-template-columns:repeat(3,1fr);background:rgba(255,255,255,.06);border-radius:12px;padding:3px;opacity:0;animation:pfUp .5s .35s cubic-bezier(.2,.8,.2,1) forwards}
 .pf-seg span{position:relative;z-index:1;font-size:12.5px;font-weight:600;color:#8d8d92;padding:8px 0;transition:color .35s}
 .pf-seg span.on{color:#111}
@@ -477,7 +475,30 @@ img{display:block;max-width:100%}
 @keyframes pfIn{to{opacity:1;transform:none}}
 @keyframes pfFade{to{opacity:1}}
 @keyframes pfPop{to{opacity:1;transform:none}}
-#tr-perf .pf-cap{opacity:0;animation:fadein .6s 5.6s ease-out forwards;font-size:17px}
+/* 관리자 관점: 차트를 관리자 웹 창 안에 넣어, 강사 앱이 아니라 대표가 PC로 보는 화면임을 보여 준다 */
+.pf-win{width:100%;opacity:0;transform:translateY(22px) scale(.94);animation:pfIn .8s .1s cubic-bezier(.2,.8,.2,1) forwards;box-shadow:0 40px 80px -28px rgba(0,0,0,.95),0 0 0 1px rgba(255,255,255,.1),0 0 70px -10px rgba(31,219,168,.28)}
+.pf-win .ww-in{min-height:0}
+.pf-win .ww-mn{gap:10px;min-width:0}
+.pf-top{display:flex;align-items:center;justify-content:space-between;gap:6px}
+.pf-top>b{font-size:14px;font-weight:800;color:var(--ink);letter-spacing:-.01em}
+.pf-top span{display:inline-flex;align-items:center;gap:5px;height:24px;padding:0 9px 0 3px;border-radius:999px;background:#F2F2F4;font-size:10.5px;font-weight:700;color:var(--ink)}
+.pf-top img{width:18px;height:18px;border-radius:50%;object-fit:cover}
+.pf-win .pf-seg{background:#F0F0F2;border-radius:10px;text-align:center;animation-delay:.5s}
+.pf-win .pf-seg span{color:#8a8a90;font-size:11px;padding:6px 0}
+.pf-win .pf-seg span.on{color:var(--ink);font-weight:700}
+.pf-win .pf-seg b{border-radius:8px}
+.pf-win .pf-row{gap:7px}
+.pf-win .pf-bar{height:128px;border-radius:8px;background:#F5F5F7}
+.pf-win .pf-dots i{width:8px;height:8px;background:#C9C9CF}
+.pf-win .pf-fill{border-radius:8px 8px 0 0}
+.pf-win .pf-v{color:var(--ink);font-size:13px;min-height:18px}
+.pf-win .pf-c.low .pf-v{color:#E8540F}
+.pf-win .pf-c{gap:6px}
+.pf-win .pf-av,.pf-win .pf-av img{width:34px;height:34px}
+.pf-win .pf-av img{box-shadow:0 0 0 2px #E8E8EB}
+.pf-win .pf-nm{color:var(--ink-2);font-size:10.5px}
+.pf-win .pf-lab{color:#8a8a90;font-size:10px;text-align:center}
+#tr-perf .pf-cap{opacity:0;animation:fadein .6s 5.6s ease-out forwards;font-size:17px;text-wrap:initial}
 #tr-perf .pf-cap small{font-size:12.5px}
 
 /* 2막 a: 회원 앱 홈 — MEMBERS_APP_DESIGN_SPEC §4.1 + rules/12-home.md */
@@ -1520,7 +1541,7 @@ html.nos,html.nos body{overflow:hidden;height:100%}
   <div class="trans" id="tr-perf" hidden>
     <button class="skip" type="button">건너뛰기</button>
     <div class="pf" id="perf"></div>
-    <p class="pf-cap">강사별 <span style="color:var(--mint)">신규등록 · 재등록률 · 세션소진률</span>을<br>한눈에 확인할 수 있어요<small>회원 48명의 기록이 강사 4명의 성과로 모여요</small></p>
+    <p class="pf-cap"><span style="color:var(--mint)">관리자 모드</span>에서는 강사별 신규등록,<br>재등록률, 세션 소진을 확인할 수 있어요<small>누구를 챙겨야 할지 바로 보여요</small></p>
   </div>
 
   <div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="사진 크게 보기">
@@ -2179,19 +2200,19 @@ else if (window.innerWidth >= 700) {
   // ---------- 2막 → 3막 전환 ----------
   $('#go-admin').addEventListener('click', async () => {
     track('to_admin');
-    await transition('tr-perf', 8600, () => {
+    await transition('tr-perf', 8900, () => {
       const p = $('#perf'); p.replaceChildren();
       const C = [['박성훈', 'coach-park'], ['김도윤', 'coach-kim'], ['이준호', 'coach-lee'], ['정우진', 'coach-jung']];
-      // 지표별 값: [표시값, 막대 높이 %] — 정 강사는 세 지표 모두 낮아 주황으로 짚는다
+      // ▼ 강사별 숫자는 여기만 고치면 된다(순서: 박성훈, 김도윤, 이준호, 정우진). 막대 높이는 지표별 최댓값 기준으로 자동 계산
       const M = [
-        { k: '신규등록', lab: '10월 신규 회원', v: [[6, '명'], [5, '명'], [4, '명'], [2, '명']], h: [88, 74, 60, 30] },
-        { k: '재등록률', lab: '수강권 만료 후 재등록', v: [[92, '%'], [88, '%'], [81, '%'], [63, '%']], h: [92, 88, 81, 63] },
-        { k: '세션소진률', lab: '수강권 회차 사용', v: [[96, '%'], [91, '%'], [85, '%'], [68, '%']], h: [96, 91, 85, 68] },
+        { k: '신규등록', lab: '10월 신규 회원', unit: '명', v: [3, 6, 1, 2] },
+        { k: '재등록률', lab: '10월 재등록률', unit: '%', v: [58, 22, 87, 71] },
+        { k: '세션 소진', lab: '10월 소진한 세션', unit: '회', v: [95, 112, 154, 87] },
       ];
-      p.innerHTML = '<span class="pf-hd"><i></i>관리자 모드 · 강사별 성과 · 10월</span><div class="pf-seg"><b></b>' + M.map((m) => '<span>' + m.k + '</span>').join('') + '</div><div class="pf-row"></div><div class="pf-lab"></div>';
+      p.innerHTML = '<div class="ww pf-win"><div class="ww-bar"><i></i><i></i><i></i><span>admin.ssentif.kr</span></div><div class="ww-in"><div class="ww-sd"><b>S</b><i></i><i class="on"></i><i></i><i></i><i></i></div><div class="ww-mn"><div class="pf-top"><b>강사 성과</b><span><img src="assets/avatars/owner.jpg" alt="">대표 · 관리자</span></div><div class="pf-seg"><b></b>' + M.map((m) => '<span>' + m.k + '</span>').join('') + '</div><div class="pf-row"></div><div class="pf-lab"></div></div></div></div>';
       const row = p.querySelector('.pf-row');
       C.forEach(([nm, img], ci) => {
-        const c = document.createElement('div'); c.className = 'pf-c' + (ci === 0 ? ' lead' : '') + (ci === 3 ? ' low' : '');
+        const c = document.createElement('div'); c.className = 'pf-c';
         let dots = ''; for (let i = 0; i < 12; i++) dots += '<i style="animation-delay:' + (0.9 + (ci * 12 + i) * 0.018).toFixed(3) + 's"></i>';
         c.innerHTML = '<span class="pf-v"></span><div class="pf-bar"><div class="pf-dots">' + dots + '</div><div class="pf-fill"></div></div><span class="pf-av" style="animation-delay:' + (0.5 + ci * 0.08) + 's"><img src="assets/avatars/' + img + '.jpg" alt=""></span><span class="pf-nm" style="animation-delay:' + (0.65 + ci * 0.08) + 's">' + nm + '</span>';
         row.append(c);
@@ -2203,7 +2224,7 @@ else if (window.innerWidth >= 700) {
         seg.querySelectorAll('span').forEach((x, i) => x.classList.toggle('on', i === mi));
         seg.querySelector('b').style.transform = 'translateX(' + (mi * 100) + '%)';
         lab.style.opacity = 0; setTimeout(() => { lab.textContent = m.lab; lab.style.opacity = 1; }, 200);
-        cols.forEach((c, ci) => { c.querySelector('.pf-fill').style.height = m.h[ci] + '%'; count(c.querySelector('.pf-v'), m.v[ci][0], m.v[ci][1]); });
+        const mx = Math.max(...m.v), mn = Math.min(...m.v); cols.forEach((c, ci) => { c.classList.toggle('lead', m.v[ci] === mx); c.classList.toggle('low', m.v[ci] === mn); c.querySelector('.pf-fill').style.height = Math.round(m.v[ci] / mx * 88) + '%'; count(c.querySelector('.pf-v'), m.v[ci], m.unit); });
       };
       setTimeout(() => cols.forEach((c) => c.querySelector('.pf-bar').classList.add('go')), 1900);
       setTimeout(() => showM(0), 2300);
@@ -2217,23 +2238,23 @@ else if (window.innerWidth >= 700) {
     const CO = [['박성훈', 'coach-park'], ['김도윤', 'coach-kim'], ['이준호', 'coach-lee'], ['정우진', 'coach-jung']];
     const av = (i) => '<img src="assets/avatars/' + CO[i][1] + '.jpg" alt="">';
     const head = (t, chip) => '<div class="ww-hd"><b>' + t + '</b><span>' + chip + '</span></div>';
-    const rows = (vals, unit, sub) => '<div class="ww-rows">' + vals.map((v, i) => '<div class="ww-r' + (i === 3 ? ' low' : '') + '">' + av(i) + '<span class="n">' + CO[i][0] + '</span><span class="g"><em style="--w:' + v[1] + '%"></em></span><span class="v">' + v[0] + unit + (sub ? '<br><small>' + sub[i] + '</small>' : '') + '</span></div>').join('') + '</div>';
+    const rows = (vals, unit, sub) => '<div class="ww-rows">' + vals.map((v, i) => '<div class="ww-r' + (v[0] === Math.min(...vals.map((x) => x[0])) ? ' low' : '') + '">' + av(i) + '<span class="n">' + CO[i][0] + '</span><span class="g"><em style="--w:' + v[1] + '%"></em></span><span class="v">' + v[0] + unit + (sub ? '<br><small>' + sub[i] + '</small>' : '') + '</span></div>').join('') + '</div>';
     const S = [
       { k: '수업일지 작성률', s: '누가 꾸준히 기록하고 누가 놓치는지', h: head('강사별 수업일지 작성률', '10월 · 전체 강사 4명')
-        + '<div class="ww-sum"><div><small>센터 평균</small><b>89%</b></div><div><small>작성한 일지</small><b>212건</b></div><div><small>미작성</small><b class="w">23건</b></div></div>'
-        + rows([[100, 100], [96, 96], [88, 88], [71, 71]], '%', ['74/74건', '61/64건', '53/60건', '24/34건']) },
+        + '<div class="ww-sum"><div><small>센터 평균</small><b>90%</b></div><div><small>작성한 일지</small><b>401건</b></div><div><small>미작성</small><b class="w">47건</b></div></div>'
+        + rows([[100, 100], [96, 96], [88, 88], [71, 71]], '%', ['95/95건', '108/112건', '136/154건', '62/87건']) },
       { k: '담당 회원 수', s: '강사마다 맡은 회원과 이번 달 수업', h: head('강사별 담당 회원', '오늘 기준')
-        + '<div class="ww-sum"><div><small>활성 회원</small><b>48명</b></div><div><small>이번 달 수업</small><b>232회</b></div><div><small>담당 없음</small><b class="w">2명</b></div></div>'
+        + '<div class="ww-sum"><div><small>활성 회원</small><b>48명</b></div><div><small>이번 달 수업</small><b>448회</b></div><div><small>담당 없음</small><b class="w">2명</b></div></div>'
         + '<div class="ww-tb"><div><span>강사</span><span>담당 회원</span><span>10월 수업</span><span>회원당 수업</span></div>'
-        + [[16, 74], [13, 64], [11, 60], [8, 34]].map((r, i) => '<div><span>' + av(i) + CO[i][0] + '</span><b>' + r[0] + '명</b><b>' + r[1] + '회</b><b>' + (r[1] / r[0]).toFixed(1) + '회</b></div>').join('') + '</div>' },
+        + [[16, 95], [13, 112], [11, 154], [8, 87]].map((r, i) => '<div><span>' + av(i) + CO[i][0] + '</span><b>' + r[0] + '명</b><b>' + r[1] + '회</b><b>' + (r[1] / r[0]).toFixed(1) + '회</b></div>').join('') + '</div>' },
       { k: '재등록 임박 회원', s: '곧 끝나는 수강권을 강사별로', h: head('재등록 임박 회원', '잔여 3회 이하 · 30일 이내')
         + '<div class="ww-li">' + [['배수진', '1:1 PT 10회 · 잔여 3회', 'D-21', 0], ['오세림', '1:1 PT 20회 · 잔여 2회', 'D-9', 1], ['강태윤', '1:1 PT 10회 · 잔여 1회', 'D-5', 3], ['윤가은', '그룹 필라테스 · 잔여 3회', 'D-14', 2], ['조민석', '1:1 PT 30회 · 잔여 2회', 'D-11', 3]].map((m) => '<div><i>' + m[0][0] + '</i><span><b>' + m[0] + ' 회원</b><small>' + m[1] + '</small></span><em><span class="d">' + m[2] + '</span>' + av(m[3]) + CO[m[3]][0] + '</em></div>').join('') + '</div>' },
       { k: '신규 등록', s: '이번 달 강사별 신규 회원', h: head('강사별 신규 등록', '10월 vs 9월')
-        + '<div class="ww-col">' + [[6, 4], [5, 5], [4, 3], [2, 4]].map((v, i) => '<div' + (i === 3 ? ' class="low"' : '') + '><b>' + v[0] + '명</b><span class="bx"><u style="--p:' + v[1] * 14 + '%"></u><i style="--h:' + v[0] * 14 + '%"></i></span>' + av(i) + '</div>').join('') + '</div>'
+        + '<div class="ww-col">' + [[3, 4], [6, 5], [1, 3], [2, 4]].map((v, i) => '<div' + (v[0] === 1 ? ' class="low"' : '') + '><b>' + v[0] + '명</b><span class="bx"><u style="--p:' + v[1] * 14 + '%"></u><i style="--h:' + v[0] * 14 + '%"></i></span>' + av(i) + '</div>').join('') + '</div>'
         + '<div class="ww-lg"><span><i style="background:#E4E4E8"></i>9월</span><span><i style="background:#1FCF9A"></i>10월</span></div>' },
       { k: '재등록률', s: '회원이 다시 등록하는 강사', h: head('강사별 재등록률', '최근 3개월 만료 회원')
-        + '<div class="ww-sum"><div><small>센터 평균</small><b>81%</b></div><div><small>만료 회원</small><b>37명</b></div><div><small>재등록 안 함</small><b class="w">7명</b></div></div>'
-        + rows([[92, 92], [88, 88], [81, 81], [63, 63]], '%', ['▲ 4%p', '▲ 2%p', '− 0%p', '▼ 9%p']) },
+        + '<div class="ww-sum"><div><small>센터 평균</small><b>60%</b></div><div><small>만료 회원</small><b>37명</b></div><div><small>재등록 안 함</small><b class="w">15명</b></div></div>'
+        + rows([[58, 58], [22, 22], [87, 87], [71, 71]], '%', ['▲ 4%p', '▼ 9%p', '▲ 2%p', '− 0%p']) },
       { k: '회원 만족도', s: '회원이 매긴 강사별 만족도', h: head('강사별 회원 만족도', '수업일지 평가 · 10월')
         + rows([[4.9, 98], [4.8, 96], [4.6, 92], [4.1, 82]], '', ['응답 61', '응답 52', '응답 44', '응답 19'])
         + '<div class="ww-q"><b>“</b>설명을 매번 일지로 남겨 주셔서 집에서도 복습해요<b>”</b> · 한지우 회원 → 박성훈 강사</div>' },

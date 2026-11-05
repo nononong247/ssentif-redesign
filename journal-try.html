@@ -706,21 +706,85 @@ img{display:block;max-width:100%}
 .adm-head h2{margin:0;font-size:26px;font-weight:800;line-height:1.3;letter-spacing:-.025em;text-wrap:balance}
 .adm-head h2 em{font-style:normal;color:var(--mint)}
 .adm-head p{margin:0;color:#9a9a9d;font-size:14px}
-.shots{position:relative;height:330px;margin-top:18px;perspective:1200px}
-.shots img{position:absolute;border-radius:12px;box-shadow:0 30px 60px -20px rgba(0,0,0,.8),0 0 0 1px rgba(255,255,255,.08);opacity:0;animation:shot .9s cubic-bezier(.2,.8,.2,1) forwards}
-.shots .s1{left:50%;top:0;width:min(92%,420px);transform:translateX(-50%) rotateX(8deg);z-index:3;animation-delay:.2s}
-.shots .s2{left:-6%;top:170px;width:62%;transform:rotateY(14deg) rotateX(4deg);z-index:2;animation-delay:.6s}
-.shots .s3{right:-6%;top:200px;width:60%;transform:rotateY(-14deg) rotateX(4deg);z-index:2;animation-delay:.8s}
-@keyframes shot{from{opacity:0;translate:0 30px}to{opacity:1;translate:0 0}}
-.shots.float .s1{animation:shot .9s .2s cubic-bezier(.2,.8,.2,1) forwards,float 5s 1.2s ease-in-out infinite}
-@keyframes float{0%,100%{translate:0 0}50%{translate:0 -8px}}
 .adm-glow{position:absolute;left:50%;top:40%;width:360px;height:360px;border-radius:50%;background:radial-gradient(closest-side,rgba(31,219,168,.22),transparent);transform:translate(-50%,-50%);pointer-events:none}
+/* 대표 화면: 강사별 지표 웹 화면 6장 — 좌우로 넘기고, 3.6초마다 자동으로 넘어간다 */
+.aw{margin-top:18px;position:relative;opacity:0;animation:fadein .6s .15s forwards}
+.aw-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;border-radius:14px;overscroll-behavior-x:contain}
+.aw-track::-webkit-scrollbar{display:none}
+.aw-s{flex:0 0 100%;scroll-snap-align:center;padding:2px}
+.ww{background:#fff;color:var(--ink);border-radius:12px;overflow:hidden;box-shadow:0 30px 60px -24px rgba(0,0,0,.85),0 0 0 1px rgba(255,255,255,.08);text-align:left}
+.ww-bar{display:flex;align-items:center;gap:5px;height:24px;padding:0 10px;background:#EEEEF1;border-bottom:1px solid #E2E2E6}
+.ww-bar i{width:7px;height:7px;border-radius:50%;background:#D3D3D8}.ww-bar i:nth-child(1){background:#FF6159}.ww-bar i:nth-child(2){background:#FFBD2E}.ww-bar i:nth-child(3){background:#28C941}
+.ww-bar span{margin:0 auto;font-size:9px;color:#8a8a90;background:#fff;border-radius:5px;padding:2px 26px}
+.ww-in{display:grid;grid-template-columns:30px 1fr;min-height:262px}
+.ww-sd{background:#F7F7F8;border-right:1px solid #EEEEF0;display:grid;align-content:start;justify-items:center;gap:9px;padding-top:10px}
+.ww-sd b{width:14px;height:14px;border-radius:4px;background:#1FDBA8;font-size:0}
+.ww-sd i{width:12px;height:12px;border-radius:3px;background:#DEDEE2}.ww-sd i.on{background:#282828}
+.ww-mn{padding:10px 12px 12px;display:grid;align-content:start;gap:9px}
+.ww-hd{display:flex;align-items:center;justify-content:space-between;gap:6px}
+.ww-hd b{font-size:12.5px;font-weight:800;letter-spacing:-.01em}
+.ww-hd span{font-size:9px;font-weight:600;color:var(--ink-2);background:#F2F2F4;border-radius:999px;padding:2px 8px;white-space:nowrap}
+.ww-sum{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.ww-sum div{background:#F7F7F8;border-radius:8px;padding:6px 7px}
+.ww-sum small{display:block;font-size:8.5px;color:var(--ink-2)}
+.ww-sum b{font-size:13px;font-weight:800;font-variant-numeric:tabular-nums}
+.ww-sum b.w{color:#E8540F}
+.ww-rows{display:grid;gap:6px}
+.ww-r{display:grid;grid-template-columns:22px 44px 1fr 40px;align-items:center;gap:6px;font-size:10px}
+.ww-r img{width:22px;height:22px;border-radius:50%;object-fit:cover}
+.ww-r .n{font-weight:700}
+.ww-r .g{height:7px;border-radius:4px;background:#F0F0F2;overflow:hidden}
+.ww-r .g em{display:block;height:100%;width:0;border-radius:4px;background:linear-gradient(90deg,#5BF0C6,#1FCF9A);transition:width 1s cubic-bezier(.25,.9,.3,1)}
+.ww-r.low .g em{background:linear-gradient(90deg,#FFA45C,#FF6A1F)}
+.ww-r .v{text-align:right;font-weight:800;font-variant-numeric:tabular-nums}
+.ww-r.low .v{color:#E8540F}
+.ww-r .v small{font-size:8px;font-weight:600;color:var(--ink-2)}
+.ww-tb{display:grid;font-size:9.5px}
+.ww-tb div{display:grid;grid-template-columns:1.25fr .9fr .9fr .9fr;align-items:center;gap:4px;padding:6px 0;border-top:1px solid #F0F0F2}
+.ww-tb div:first-child{border-top:0;color:var(--ink-2);font-size:8.5px;padding-top:0}
+.ww-tb span:first-child{display:flex;align-items:center;gap:5px;font-weight:700}
+.ww-tb img{width:18px;height:18px;border-radius:50%;object-fit:cover}
+.ww-tb b{font-weight:800;font-variant-numeric:tabular-nums}
+.ww-li{display:grid;gap:5px}
+.ww-li div{display:grid;grid-template-columns:20px 1fr auto;align-items:center;gap:7px;background:#F7F7F8;border-radius:8px;padding:5px 7px;font-size:9.5px}
+.ww-li div > i{width:20px;height:20px;border-radius:50%;background:#E3E3E7;display:grid;place-items:center;font-style:normal;font-size:8.5px;font-weight:700;color:#5a5a60}
+.ww-li b{display:block;font-weight:700}
+.ww-li small{display:block;font-size:8.5px;color:var(--ink-2)}
+.ww-li em{font-style:normal;display:flex;align-items:center;gap:4px;font-size:8.5px;font-weight:700;color:var(--ink-2)}
+.ww-li em img{width:16px;height:16px;border-radius:50%;object-fit:cover}
+.ww-li .d{font-size:8.5px;font-weight:800;color:#E8540F;background:#FFF1E6;border-radius:999px;padding:1px 6px}
+.ww-col{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;align-items:end;height:150px;padding-top:6px}
+.ww-col div{display:grid;justify-items:center;gap:4px;height:100%;grid-template-rows:auto 1fr auto}
+.ww-col b{font-size:11px;font-weight:800}
+.ww-col .bx{position:relative;width:70%;height:100%;display:flex;align-items:flex-end;justify-content:center;gap:3px}
+.ww-col .bx i,.ww-col .bx u{display:block;width:45%;border-radius:4px 4px 0 0;height:0;transition:height 1s cubic-bezier(.25,.9,.3,1)}
+.ww-col .bx u{background:#E4E4E8}.ww-col .bx i{background:linear-gradient(180deg,#5BF0C6,#1FCF9A)}
+.ww-col div.low .bx i{background:linear-gradient(180deg,#FFA45C,#FF6A1F)}.ww-col div.low b{color:#E8540F}
+.ww-col img{width:20px;height:20px;border-radius:50%;object-fit:cover}
+.ww-lg{display:flex;gap:10px;font-size:8.5px;color:var(--ink-2)}.ww-lg i{display:inline-block;width:7px;height:7px;border-radius:2px;margin-right:3px;vertical-align:-1px}
+.ww-st{color:#F2A93B;letter-spacing:-1px;font-size:9px}
+.ww-q{font-size:9px;color:var(--ink-2);background:#F7F7F8;border-radius:8px;padding:6px 8px;line-height:1.45}
+.ww-q b{color:var(--ink)}
+.aw-s.on .ww-r .g em{width:var(--w)}
+.aw-s.on .ww-col .bx i{height:var(--h)}.aw-s.on .ww-col .bx u{height:var(--p)}
+.aw-ft{display:flex;align-items:center;justify-content:space-between;margin-top:12px;gap:10px}
+.aw-t{font-size:13px;font-weight:700;color:#e5e5e7}
+.aw-t em{font-style:normal;color:var(--mint)}
+.aw-dots{display:flex;gap:5px}
+.aw-dots button{width:6px;height:6px;padding:0;border:0;border-radius:3px;background:#4a4a4e;cursor:pointer;transition:width .3s,background .3s}
+.aw-dots button.on{width:18px;background:var(--mint)}
+.aw-k{margin:22px 0 10px;font-size:15px;font-weight:700;color:#e5e5e7}
+.aw-k em{font-style:normal;color:var(--mint)}
 .feats{display:grid;gap:8px;margin-top:10px}
-.feat{display:grid;grid-template-columns:36px 1fr;gap:12px;align-items:center;background:var(--dark-card);border:1px solid var(--dark-line);border-radius:14px;padding:12px 14px;opacity:0;transform:translateY(12px);animation:kin .5s forwards}
-.feat:nth-child(1){animation-delay:1s}.feat:nth-child(2){animation-delay:1.15s}.feat:nth-child(3){animation-delay:1.3s}
-.feat i{width:36px;height:36px;border-radius:10px;background:#3a3a3d;display:grid;place-items:center;font-style:normal;color:#fff}.feat .ico{width:18px;height:18px}
+.aw-feats{grid-template-columns:1fr 1fr;margin-top:0}
+.feat{display:grid;grid-template-columns:36px 1fr;gap:12px;align-items:center;background:var(--dark-card);border:1px solid var(--dark-line);border-radius:14px;padding:12px 14px;opacity:0;transform:translateY(8px);animation:kin .5s forwards}
+.aw-feats .feat{grid-template-columns:1fr;gap:6px;align-items:start;padding:12px;text-align:left;font:inherit;color:#fff;cursor:pointer;transition:border-color .3s,background .3s}
+.aw-feats .feat.on{border-color:var(--mint);background:#23302c}
+.aw-feats .feat .tg{justify-self:start;font-size:10px;font-weight:800;color:#0B3E33;background:var(--mint);border-radius:999px;padding:2px 7px}
 .feat b{display:block;font-size:14px}
+.aw-feats .feat b{font-size:13.5px}
 .feat span{font-size:12px;color:#9a9a9d}
+.aw-feats .feat span:not(.tg){font-size:11.5px;line-height:1.4}
 .pc-note{display:flex;align-items:center;gap:10px;background:#262628;border:1px solid var(--dark-line);border-radius:12px;padding:10px 12px;font-size:12px;color:#c9c9cc;margin-top:14px}
 .pc-note svg{flex:none}
 .closing{padding-top:30px;display:grid;gap:14px;text-align:center}
@@ -1323,20 +1387,16 @@ html.nos,html.nos body{overflow:hidden;height:100%}
       <div class="adm-head pad">
         <span class="who-bar"><i></i>대표님의 화면</span>
         <h2>강사별로,<br><em>회원관리 성과</em>가 보여요</h2>
-        <p>강사들이 쓴 일지와 회원 기록이 모여 대표 화면이 돼요. 누가 잘 관리하고 있는지, 어느 회원이 멀어지는지, 이번 달 매출과 정산까지.</p>
+        <p>강사가 쓴 수업일지와 회원 기록이 모여, 강사마다 회원을 얼마나 잘 관리하고 있는지 숫자로 보여 줘요.</p>
       </div>
       <div class="pad" style="position:relative">
         <div class="adm-glow"></div>
-        <div class="shots float" id="shots">
-          <img class="s1" src="assets/app/ssentif-hero-dashboard.webp" alt="센티프 관리자 대시보드">
-          <img class="s2" src="assets/app/ssentif-pd-payroll.webp" alt="급여 정산 화면">
-          <img class="s3" src="assets/app/ssentif-pd-members.webp" alt="전체 회원 화면">
+        <div class="aw" id="aw" aria-roledescription="슬라이드">
+          <div class="aw-track" id="aw-track"></div>
+          <div class="aw-ft"><span class="aw-t" id="aw-t"></span><div class="aw-dots" id="aw-dots"></div></div>
         </div>
-        <div class="feats">
-          <div class="feat"><i><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-users"/></svg></i><div><b>강사별 수업·일지 작성률</b><span>누가 꾸준히 기록하고 누가 놓치는지</span></div></div>
-          <div class="feat"><i><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-alert"/></svg></i><div><b>이탈 위험 감지</b><span>2주째 수업 없는 회원, 잔여 3회 이하 회원</span></div></div>
-          <div class="feat"><i><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-receipt"/></svg></i><div><b>매출 현황과 급여 정산</b><span>완료한 수업이 그대로 정산 줄이 돼요</span></div></div>
-        </div>
+        <p class="aw-k">모든 지표가 <em>강사별로</em> 나뉘어요</p>
+        <div class="feats aw-feats" id="aw-feats"></div>
         <div class="pc-note"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M2 20h20"/></svg>대표 화면은 PC·태블릿에서 넓게 써요. 실제 화면은 시연으로 보여 드릴게요.</div>
       </div>
       <div class="closing pad">
@@ -1353,7 +1413,7 @@ html.nos,html.nos body{overflow:hidden;height:100%}
             <div class="field"><label for="q-msg">문의 내용<small>(선택)</small></label><textarea class="memo f" id="q-msg" maxlength="2000" placeholder="예) 강사 4명, 회원 60명 정도예요. 지금은 엑셀로 관리해요."></textarea></div>
             <div class="hp" aria-hidden="true"><label for="q-hp">홈페이지</label><input id="q-hp" tabindex="-1" autocomplete="off"></div>
             <button class="cta" id="q-submit" type="submit">자세한 시연 문의하기</button>
-            <div class="alt"><a href="https://pf.kakao.com/_ZvPbG/chat" id="talk">카카오톡으로 물어보기</a><a href="https://www.ssentif.kr/product" id="more">기능 더 보기</a></div>
+            <div class="alt"><a href="https://pf.kakao.com/_ZvPbG/chat" id="talk">카카오톡으로 물어보기</a><a href="https://www.ssentif.kr/app" id="more">트레이너이신가요?</a></div>
           </div>
         </form>
         <div class="done-box" id="ask-done" hidden>
@@ -1391,8 +1451,8 @@ html.nos,html.nos body{overflow:hidden;height:100%}
         <div><p class="lbl">수업 요약</p><ul class="sum" id="cp-sum"></ul></div>
         <div>
           <div class="sec-h"><p class="lbl" style="margin:0">종합 메모</p><button class="ai-btn" id="ai-sum" type="button"><span class="ic"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 6h16M4 12h10M4 18h13"/></svg></span><span class="spin"></span><span class="tx">AI 작성 제안</span></button></div>
+          <div class="hint r cm-ai" id="cm-sum"><span class="dot"></span><span class="cmt"><b class="cml">AI 작성 제안</b>오늘 수업일지를 바탕으로 회원에게 보낼 요약 코멘트를 써 줘요.</span></div>
           <textarea class="memo" id="cp-memo" placeholder="오늘은 하체 위주로 진행했습니다. 다음 시간에는…" aria-label="종합 메모"></textarea>
-          <div class="hint" id="cm-sum"><span class="dot"></span><span class="cmt"><b class="cml">AI 작성 제안</b>오늘 수업일지를 바탕으로 회원에게 보낼 요약 코멘트를 써 줘요.</span></div>
         </div>
         <div><p class="lbl">회원 서명 <span style="font-weight:400;color:var(--mute)">선택</span></p><div class="sign" id="sign"><canvas id="sign-c"></canvas><span id="sign-ph">여기에 손가락으로 서명해 보세요</span></div></div>
       </div>
@@ -1745,7 +1805,7 @@ else if (window.innerWidth >= 700) {
   $('#next-btn').addEventListener('click', () => {
     const ex = state.exercises[state.cur];
     if (!setCount(ex)) { toast('세트를 하나 이상 기록해 주세요'); return; }
-    if (state.cur < 2) { $('#toast').hidden = true; state.cur += 1; renderEx(); window.scrollTo({ top: 0, behavior: 'smooth' }); track('next_ex', { ex: state.cur }); return; }
+    if (state.cur < 2) { $('#toast').hidden = true; state.cur = 2; renderEx(); window.scrollTo({ top: 0, behavior: 'smooth' }); track('next_ex', { ex: state.cur }); return; }
     openComplete();
   });
 
@@ -2152,8 +2212,56 @@ else if (window.innerWidth >= 700) {
     });
     show('admin');
   });
+  // ---------- 3막: 대표 화면 — 강사별 지표 웹 화면 6장 ----------
+  (() => {
+    const CO = [['박성훈', 'coach-park'], ['김도윤', 'coach-kim'], ['이준호', 'coach-lee'], ['정우진', 'coach-jung']];
+    const av = (i) => '<img src="assets/avatars/' + CO[i][1] + '.jpg" alt="">';
+    const head = (t, chip) => '<div class="ww-hd"><b>' + t + '</b><span>' + chip + '</span></div>';
+    const rows = (vals, unit, sub) => '<div class="ww-rows">' + vals.map((v, i) => '<div class="ww-r' + (i === 3 ? ' low' : '') + '">' + av(i) + '<span class="n">' + CO[i][0] + '</span><span class="g"><em style="--w:' + v[1] + '%"></em></span><span class="v">' + v[0] + unit + (sub ? '<br><small>' + sub[i] + '</small>' : '') + '</span></div>').join('') + '</div>';
+    const S = [
+      { k: '수업일지 작성률', s: '누가 꾸준히 기록하고 누가 놓치는지', h: head('강사별 수업일지 작성률', '10월 · 전체 강사 4명')
+        + '<div class="ww-sum"><div><small>센터 평균</small><b>89%</b></div><div><small>작성한 일지</small><b>212건</b></div><div><small>미작성</small><b class="w">23건</b></div></div>'
+        + rows([[100, 100], [96, 96], [88, 88], [71, 71]], '%', ['74/74건', '61/64건', '53/60건', '24/34건']) },
+      { k: '담당 회원 수', s: '강사마다 맡은 회원과 이번 달 수업', h: head('강사별 담당 회원', '오늘 기준')
+        + '<div class="ww-sum"><div><small>활성 회원</small><b>48명</b></div><div><small>이번 달 수업</small><b>232회</b></div><div><small>담당 없음</small><b class="w">2명</b></div></div>'
+        + '<div class="ww-tb"><div><span>강사</span><span>담당 회원</span><span>10월 수업</span><span>회원당 수업</span></div>'
+        + [[16, 74], [13, 64], [11, 60], [8, 34]].map((r, i) => '<div><span>' + av(i) + CO[i][0] + '</span><b>' + r[0] + '명</b><b>' + r[1] + '회</b><b>' + (r[1] / r[0]).toFixed(1) + '회</b></div>').join('') + '</div>' },
+      { k: '재등록 임박 회원', s: '곧 끝나는 수강권을 강사별로', h: head('재등록 임박 회원', '잔여 3회 이하 · 30일 이내')
+        + '<div class="ww-li">' + [['배수진', '1:1 PT 10회 · 잔여 3회', 'D-21', 0], ['오세림', '1:1 PT 20회 · 잔여 2회', 'D-9', 1], ['강태윤', '1:1 PT 10회 · 잔여 1회', 'D-5', 3], ['윤가은', '그룹 필라테스 · 잔여 3회', 'D-14', 2], ['조민석', '1:1 PT 30회 · 잔여 2회', 'D-11', 3]].map((m) => '<div><i>' + m[0][0] + '</i><span><b>' + m[0] + ' 회원</b><small>' + m[1] + '</small></span><em><span class="d">' + m[2] + '</span>' + av(m[3]) + CO[m[3]][0] + '</em></div>').join('') + '</div>' },
+      { k: '신규 등록', s: '이번 달 강사별 신규 회원', h: head('강사별 신규 등록', '10월 vs 9월')
+        + '<div class="ww-col">' + [[6, 4], [5, 5], [4, 3], [2, 4]].map((v, i) => '<div' + (i === 3 ? ' class="low"' : '') + '><b>' + v[0] + '명</b><span class="bx"><u style="--p:' + v[1] * 14 + '%"></u><i style="--h:' + v[0] * 14 + '%"></i></span>' + av(i) + '</div>').join('') + '</div>'
+        + '<div class="ww-lg"><span><i style="background:#E4E4E8"></i>9월</span><span><i style="background:#1FCF9A"></i>10월</span></div>' },
+      { k: '재등록률', s: '회원이 다시 등록하는 강사', h: head('강사별 재등록률', '최근 3개월 만료 회원')
+        + '<div class="ww-sum"><div><small>센터 평균</small><b>81%</b></div><div><small>만료 회원</small><b>37명</b></div><div><small>재등록 안 함</small><b class="w">7명</b></div></div>'
+        + rows([[92, 92], [88, 88], [81, 81], [63, 63]], '%', ['▲ 4%p', '▲ 2%p', '− 0%p', '▼ 9%p']) },
+      { k: '회원 만족도', s: '회원이 매긴 강사별 만족도', h: head('강사별 회원 만족도', '수업일지 평가 · 10월')
+        + rows([[4.9, 98], [4.8, 96], [4.6, 92], [4.1, 82]], '', ['응답 61', '응답 52', '응답 44', '응답 19'])
+        + '<div class="ww-q"><b>“</b>설명을 매번 일지로 남겨 주셔서 집에서도 복습해요<b>”</b> · 한지우 회원 → 박성훈 강사</div>' },
+    ];
+    const tr = $('#aw-track'), dots = $('#aw-dots'), feats = $('#aw-feats'), title = $('#aw-t');
+    tr.innerHTML = S.map((x) => '<div class="aw-s"><div class="ww"><div class="ww-bar"><i></i><i></i><i></i><span>admin.ssentif.kr</span></div><div class="ww-in"><div class="ww-sd"><b>S</b><i class="on"></i><i></i><i></i><i></i><i></i></div><div class="ww-mn">' + x.h + '</div></div></div></div>').join('');
+    dots.innerHTML = S.map((x, i) => '<button type="button" aria-label="' + (i + 1) + '번째 화면"></button>').join('');
+    feats.innerHTML = S.map((x, i) => '<button type="button" class="feat" style="animation-delay:' + (0.3 + i * 0.08) + 's"><span class="tg">강사별</span><b>' + x.k + '</b><span>' + x.s + '</span></button>').join('');
+    const slides = [...tr.children]; let cur = -1; let auto; let paused = 0;
+    const mark = (i) => {
+      if (i === cur) return; cur = i;
+      slides.forEach((x, j) => x.classList.toggle('on', j === i));
+      [...dots.children].forEach((x, j) => x.classList.toggle('on', j === i));
+      [...feats.children].forEach((x, j) => x.classList.toggle('on', j === i));
+      title.innerHTML = '<em>강사별</em> ' + S[i].k;
+    };
+    const go = (i, smooth) => { tr.scrollTo({ left: i * tr.clientWidth, behavior: smooth === false || reduced ? 'auto' : 'smooth' }); mark(i); };
+    let st; tr.addEventListener('scroll', () => { clearTimeout(st); st = setTimeout(() => mark(Math.round(tr.scrollLeft / tr.clientWidth)), 80); }, { passive: true });
+    const hold = () => { paused = Date.now(); };
+    ['pointerdown', 'touchstart', 'wheel'].forEach((t) => tr.addEventListener(t, hold, { passive: true }));
+    [...dots.children].forEach((d, i) => d.addEventListener('click', () => { hold(); go(i); }));
+    [...feats.children].forEach((f, i) => f.addEventListener('click', () => { hold(); go(i); track('admin_metric', { i }); $('#aw').scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center' }); }));
+    const start = () => { clearInterval(auto); go(0, false); auto = setInterval(() => { if ($('#s-admin').hidden || Date.now() - paused < 6000) return; go((cur + 1) % S.length); }, 3600); };
+    new MutationObserver(() => { if (!$('#s-admin').hidden) { cur = -1; requestAnimationFrame(start); } }).observe($('#s-admin'), { attributes: true, attributeFilter: ['hidden'] });
+    if (!$('#s-admin').hidden) start();
+  })();
   $('#talk').addEventListener('click', () => track('click_kakao'));
-  $('#more').addEventListener('click', () => track('click_product'));
+  $('#more').addEventListener('click', () => track('click_trainer'));
 
   // ---------- 4막: 도입 문의 ----------
   const phoneDigits = (v) => { let d = v.replace(/[^0-9]/g, ''); if (v.includes('+') && d.startsWith('82')) d = '0' + d.slice(2); return d; };
@@ -2202,7 +2310,7 @@ else if (window.innerWidth >= 700) {
 
   // ---------- 사진 뷰어 ----------
   // 같은 묶음(선택자) 안의 보이는 사진끼리 좌우로 넘긴다. 수업 완료 시트의 대표 사진 고르기는 누르면 선택이라 제외.
-  const ZOOM_GROUPS = ['#media .thumb img', '#prev .ms img', '#m-hero, #s-member .m-media img', '#s-detail .af-grid img.ph', '#shots img'];
+  const ZOOM_GROUPS = ['#media .thumb img', '#prev .ms img', '#m-hero, #s-member .m-media img', '#s-detail .af-grid img.ph'];
   const zoomCap = (img) => {
     const af = img.closest('.af-card');
     if (af) return [af.querySelector('.af-tb').textContent, [...af.querySelectorAll('.af-io span')].map((x) => x.textContent).join(' ')];

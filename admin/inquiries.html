@@ -248,6 +248,10 @@ tbody td { padding: 10px 14px; font-size: 12.5px; color: #374151; vertical-align
 /* 유입경로 배지 / 등록 체크박스 / 전환율 요약 / 추가 버튼 / 폼 입력 */
 .src-badge { display: inline-block; padding: 2px 9px; border-radius: 20px; font-size: 11px;
   font-weight: 600; background: #EEF2F7; color: #4B5563; white-space: nowrap; }
+/* 프로모션 표시: 유입경로와 별개 항목 */
+.promo-badge { display: inline-block; padding: 2px 9px; border-radius: 6px; font-size: 11px;
+  font-weight: 700; background: #FFF0E6; color: #D9541E; white-space: nowrap; }
+.promo-none { color: #C4C7CE; }
 .conv-check { width: 17px; height: 17px; accent-color: #1FDBA8; cursor: pointer; vertical-align: middle; }
 .conv-stat { font-size: 12px; color: #6B7280; font-weight: 600; }
 .conv-stat b { color: #0A9E75; }
@@ -386,6 +390,7 @@ tbody td { padding: 10px 14px; font-size: 12.5px; color: #374151; vertical-align
             <th>센터명</th>
             <th>규모</th>
             <th>유입경로</th>
+            <th>프로모션</th>
             <th class="sort" onclick="sortBy('date')">접수일 ↕</th>
             <th>상태</th>
             <th>등록</th>
@@ -543,6 +548,8 @@ tbody td { padding: 10px 14px; font-size: 12.5px; color: #374151; vertical-align
   await loadInquiries();
 })();
 
+const PROMO_LABEL = '50% 3개월 프로모션 링크';
+const PROMO_MARK = '(' + PROMO_LABEL + ')';
 let inquiries = [];
 let currentFilter = 'all';
 let currentSort = { key: 'date', asc: false };
@@ -599,6 +606,7 @@ function renderTable() {
       <td>${r.center}</td>
       <td class="size-tag">${r.size}</td>
       <td><span class="src-badge">${r.source || '홈페이지'}</span></td>
+      <td>${r.promo ? `<span class="promo-badge">${PROMO_LABEL}</span>` : '<span class="promo-none">—</span>'}</td>
       <td style="color:#9CA3AF;font-size:11.5px;font-variant-numeric:tabular-nums">${r.date}</td>
       <td>
         <select class="status-select" onclick="event.stopPropagation()" onchange="updateStatus(${r.id}, this.value)">
@@ -704,6 +712,7 @@ function renderDetail(r) {
         : `<div class="modal-field"><div class="modal-label">접수일</div>${view(r.date)}</div>`}
       ${sel('유입경로', 'm-source', SOURCES, r.source || '홈페이지')}
     </div>
+    ${r.promo ? `<div class="modal-field"><div class="modal-label">프로모션</div><span class="promo-badge">${PROMO_LABEL}</span></div>` : ''}
     <div class="modal-field">
       <div class="modal-label">문의 내용</div>
       ${isEditing
@@ -822,10 +831,10 @@ async function saveStatus() {
 
 function exportCSV() {
   const data = getFiltered();
-  const headers = ['#','성함','직함','연락처','이메일','센터명','센터규모','유입경로','접수일','상태','등록여부','문의내용','관리자메모'];
+  const headers = ['#','성함','직함','연락처','이메일','센터명','센터규모','유입경로','프로모션','접수일','상태','등록여부','문의내용','관리자메모'];
   const rows = data.map(r => [
     r.id, r.name, r.role, r.phone, r.email,
-    r.center, r.size, (r.source||'홈페이지'), r.date, r.status,
+    r.center, r.size, (r.source||'홈페이지'), (r.promo ? PROMO_LABEL : ''), r.date, r.status,
     (r.converted ? '등록' : '미등록'),
     `"${(r.message||'').replace(/"/g,'""')}"`,
     `"${(r.memo||'').replace(/"/g,'""')}"`
@@ -856,8 +865,12 @@ async function loadInquiries() {
 
   inquiries = (data || []).map(r => ({
     ...r,
-    center:    r.center_name,
-    size:      r.center_size,
+    // 체험 페이지 문의는 슬랙에 보이도록 center_name·message 에 표시가 들어온다. 화면에선 프로모션 칸으로 분리
+    promo:     (r.message || '').includes(PROMO_MARK) || r.center_name === PROMO_MARK,
+    center:    r.center_name === PROMO_MARK ? '미입력' : r.center_name,
+    size:      r.center_size || '',
+    role:      r.role || '',
+    email:     r.email || '',
     date:      r.submitted_at?.slice(0, 10) || '',
     source:    r.source || '홈페이지',
     converted: !!r.converted,

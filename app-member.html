@@ -25,12 +25,7 @@
   background: var(--white); border: 1px solid var(--border);
   box-shadow: 0 12px 40px rgba(13,15,18,0.07);
 }
-.dl-mark {
-  width: 62px; height: 62px; margin: 0 auto 20px; border-radius: 19px;
-  background: var(--black); color: var(--accent);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 27px; font-weight: 900; letter-spacing: -0.03em;
-}
+.dl-mark { display: block; width: 62px; height: 62px; margin: 0 auto 20px; }
 .dl-card h1 { font-size: 1.32rem; letter-spacing: -0.03em; line-height: 1.4; margin-bottom: 8px; }
 .dl-card .sub { font-size: 14px; line-height: 1.7; color: var(--gray-500); word-break: keep-all; }
 .dl-btns { display: grid; gap: 9px; margin-top: 26px; }
@@ -57,7 +52,7 @@
 
 <div class="dl-wrap">
   <div class="dl-card">
-    <div class="dl-mark">S</div>
+    <img class="dl-mark" src="/assets/app-icons/member-new.png" width="62" height="62" alt="센티프 회원 앱 아이콘">
     <h1>센티프 회원앱</h1>
     <p class="sub">접속하신 기기에 맞는 스토어로 이동합니다.<br>자동으로 열리지 않으면 아래에서 선택해 주세요.</p>
 

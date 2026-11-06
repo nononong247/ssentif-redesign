@@ -1113,8 +1113,8 @@ html.nos,html.nos body{overflow:hidden;height:100%}
   </defs>
 </svg>
 
-  <button class="prog pad" id="prog" type="button" aria-label="50% 할인 쿠폰 받으러 문의 폼으로 이동" hidden>
-    <span class="promo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9a3 3 0 0 0 0 6v3a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-3a3 3 0 0 0 0-6V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1z"/><path d="M14 5v2M14 11v2M14 17v2"/></svg>오직 이 링크에서만 <b>50% 할인 쿠폰</b></span>
+  <button class="prog pad" id="prog" type="button" aria-label="25% 할인 쿠폰 받으러 문의 폼으로 이동" hidden>
+    <span class="promo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9a3 3 0 0 0 0 6v3a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-3a3 3 0 0 0 0-6V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1z"/><path d="M14 5v2M14 11v2M14 17v2"/></svg>오직 이 링크에서만 <b>25% 할인 쿠폰</b></span>
   </button>
 
   <!-- 0. 인트로: 빠른 모션 메시지 → 1막 자동 진입 -->
@@ -1409,7 +1409,7 @@ html.nos,html.nos body{overflow:hidden;height:100%}
             <div><h3>도입 문의</h3><p class="lede" style="margin-top:6px">우리 센터에도 적용 가능한지 영업일 24시간 이내로 대표가 직접 전화로 상담 도와드려요.</p></div>
             <div class="field"><label for="q-phone">전화번호</label><input class="input" id="q-phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="20" placeholder="010-0000-0000"><p class="err-msg" id="q-phone-err">전화번호를 입력해 주세요.</p></div>
             <div class="hp" aria-hidden="true"><label for="q-hp">홈페이지</label><input id="q-hp" tabindex="-1" autocomplete="off"></div>
-            <button class="cta hot" id="q-submit" type="submit">3개월 50% 할인 쿠폰 받아두기</button>
+            <button class="cta hot" id="q-submit" type="submit">3개월 25% 할인 쿠폰 받아두기</button>
             <div class="alt"><a href="https://pf.kakao.com/_ZvPbG/chat" id="talk" target="_blank" rel="noopener">카카오채널로 문의하기</a><a href="https://www.ssentif.kr/app" id="more">트레이너이신가요?</a></div>
           </div>
         </form>
@@ -1519,7 +1519,7 @@ html.nos,html.nos body{overflow:hidden;height:100%}
     <div class="pf-q" aria-hidden="true"><i>🤔</i><b>내 센터 선생님들은<br>잘하고 있나?</b></div>
     <div class="pf" id="perf"></div>
     <p class="pf-cap"><span style="color:var(--mint)">관리자 모드</span>에서는 강사별 신규등록,<br>재등록률, 세션 소진을 확인할 수 있어요<small>누구를 챙겨야 할지 바로 보여요</small></p>
-    <div class="pf-go" id="pf-go"><p>지금 도입하지 않아도 괜찮아요</p><button class="cta hot" id="pf-go-btn" type="button">50% 쿠폰만 먼저 받아 두기<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+    <div class="pf-go" id="pf-go"><p>지금 도입하지 않아도 괜찮아요</p><button class="cta hot" id="pf-go-btn" type="button">25% 쿠폰만 먼저 받아 두기<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
   </div>
 
   <div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="사진 크게 보기">
@@ -2304,7 +2304,7 @@ else if (window.innerWidth >= 700) {
     const btn = $('#q-submit'); btn.disabled = true; btn.textContent = '보내는 중…';
     // 홈페이지 도입 문의와 같은 테이블. source 는 비워 둬야 슬랙 알림이 간다(트리거 조건: source='홈페이지').
     // 관리자 목록과 슬랙에서 바로 보이도록 프로모션 표시를 center_name·message 에 넣는다.
-    const payload = { name: '미입력', role: null, phone: formatPhone(phone), email: null, center_name: '(50% 3개월 프로모션 링크)', center_size: null, message: '(50% 3개월 프로모션 링크) 수업일지 체험 페이지에서 문의' };
+    const payload = { name: '미입력', role: null, phone: formatPhone(phone), email: null, center_name: '(25% 3개월 프로모션 링크)', center_size: null, message: '(25% 3개월 프로모션 링크) 수업일지 체험 페이지에서 문의' };
     const isBot = $('#q-hp').value !== '' || Date.now() - openedAt < 3000;
     try {
       if (!isBot) { const { error } = await db.from('inquiries').insert([payload]); if (error) throw error; }
@@ -2315,7 +2315,7 @@ else if (window.innerWidth >= 700) {
     } catch (err) {
       console.error(err);
       toast('보내지 못했어요. 잠시 후 다시 시도하거나 카카오톡으로 문의해 주세요');
-      btn.disabled = false; btn.textContent = '3개월 50% 할인 쿠폰 받아두기';
+      btn.disabled = false; btn.textContent = '3개월 25% 할인 쿠폰 받아두기';
     }
   });
 

@@ -1258,7 +1258,7 @@ html.nos,html.nos body{overflow:hidden;height:100%}
   <section id="s-detail" data-step="detail" hidden>
     <div class="cd" id="cd">
       <div class="cd-bar"><button class="cd-back" id="cd-back" type="button" aria-label="뒤로"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button><b>회원 상세</b><span></span></div>
-      <div class="cd-head pad"><img src="assets/avatars/member-hanjiwoo.jpg" alt=""><div><b>한지우<span class="cd-st">활성</span><span class="cd-lk">연동</span></b><span>여성 · 010-7734-2051</span></div><button class="cd-info-btn" id="cd-info-btn" type="button">회원 정보 ›</button></div>
+      <div class="cd-head pad"><img src="assets/avatars/member-hanjiwoo.jpg" alt=""><div><b>한지우<span class="cd-st">활성</span><span class="cd-lk">연동</span></b><span>여성 · 010-9876-5432</span></div><button class="cd-info-btn" id="cd-info-btn" type="button">회원 정보 ›</button></div>
       <div class="cd-tabwrap"><div class="cd-tabs" role="tablist" id="cd-tabs"><button role="tab" aria-selected="false" data-t="activity">활동</button><button role="tab" aria-selected="false" data-t="feed">피드</button><button role="tab" aria-selected="false" data-t="diet">식단</button><button role="tab" aria-selected="true" data-t="session">수업</button><button role="tab" aria-selected="false" data-t="body">신체변화</button><button role="tab" aria-selected="false" data-t="pass">상품</button><button role="tab" aria-selected="false" data-t="consult">상담</button></div><i class="cd-more l" aria-hidden="true">‹</i><i class="cd-more" aria-hidden="true">›</i></div>
       <div class="cd-body">
         <div class="hint cd-hint" id="hint-tab"><span class="dot"></span><span class="cmt"><b class="cml">다른 탭도 눌러보세요</b><span>수업 외에도 더 체계적인 관리를 위한 기능이 준비되어 있어요.</span></span></div>
@@ -1363,7 +1363,7 @@ html.nos,html.nos body{overflow:hidden;height:100%}
           <div class="cd-sheet-hd"><b>회원 정보</b><button type="button" id="cd-sheet-x" aria-label="닫기">×</button></div>
           <div class="cd-info-card">
             <div class="ih"><b>기본 정보</b><u>수정하기</u></div>
-            <div class="ig"><div><span>이름</span><b>한지우</b></div><div><span>성별</span><b>여성</b></div><div><span>연락처</span><b>010-7734-2051</b></div><div><span>나이</span><b>29세</b></div><div><span>유입 경로</span><b>인스타그램</b></div><div><span>담당 강사</span><b>박성훈</b></div></div>
+            <div class="ig"><div><span>이름</span><b>한지우</b></div><div><span>성별</span><b>여성</b></div><div><span>연락처</span><b>010-9876-5432</b></div><div><span>나이</span><b>29세</b></div><div><span>유입 경로</span><b>인스타그램</b></div><div><span>담당 강사</span><b>박성훈</b></div></div>
             <div class="ip"><span>운동 목적</span><div><em>체지방 감량</em><em>하체 근력</em><em>자세 교정</em></div></div>
           </div>
           <div class="cd-info-card">
@@ -1501,7 +1501,7 @@ html.nos,html.nos body{overflow:hidden;height:100%}
       <div class="ml-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>이름, 연락처로 검색</div>
       <div class="ml-tabs"><span class="on">활성</span><span>대기</span><span>만료</span><span>일시정지</span></div>
       <div class="ml-row"><img class="av" src="assets/avatars/member-baesujin.jpg" alt=""><div class="nm"><b>배수진<small>여·31</small></b><span>010-2481-0937</span></div><span class="bd">연동</span></div>
-      <div class="ml-row me" id="tp-me"><img class="av" src="assets/avatars/member-hanjiwoo.jpg" alt=""><div class="nm"><b>한지우<small>여·29</small></b><span id="tp-sub">010-7734-2051</span></div><span class="bd">연동</span></div>
+      <div class="ml-row me" id="tp-me"><img class="av" src="assets/avatars/member-hanjiwoo.jpg" alt=""><div class="nm"><b>한지우<small>여·29</small></b><span id="tp-sub">010-9876-5432</span></div><span class="bd">연동</span></div>
       <div class="ml-row"><img class="av" src="assets/avatars/member-jominseok.jpg" alt=""><div class="nm"><b>조민석<small>남·34</small></b><span>010-5512-3308</span></div><span class="bd">연동</span></div>
       <div class="ml-row"><img class="av" src="assets/avatars/member-kangtaeyun.jpg" alt=""><div class="nm"><b>강태윤<small>남·38</small></b><span>010-3390-6624</span></div><span class="bd off">미연동</span></div>
       <div class="ml-row"><img class="av" src="assets/avatars/member-oserim.jpg" alt=""><div class="nm"><b>오세림<small>여·26</small></b><span>010-8127-4419</span></div><span class="bd">연동</span></div>
@@ -1984,7 +1984,7 @@ else if (window.innerWidth >= 700) {
     // 프로필 전환은 원래 속도의 1.2배 길이로(11-04 '조금만 천천히'), 아래 문구는 다 뜬 뒤 약 2.8초 머문다
     await transition('tr-profile', 8700, (el) => {
       const tiles = $('#ptiles'); tiles.replaceChildren(); el.classList.remove('dimmed');
-      const me = $('#tp-me'); const av = me.querySelector('.av'); $('#tp-sub').textContent = '010-7734-2051';
+      const me = $('#tp-me'); const av = me.querySelector('.av'); $('#tp-sub').textContent = '010-9876-5432';
       // 칩 묶음은 떠오른 한지우 행 아래 넉넉히 띄워 둔다(행이 떠오른 뒤의 위치 기준)
       const mr = me.getBoundingClientRect();
       tiles.style.top = Math.round(mr.bottom + 40) + 'px';

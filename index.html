@@ -53,7 +53,7 @@
   }
 }
 </script>
-<link rel="stylesheet" href="style.css?v=9">
+<link rel="stylesheet" href="style.css?v=10">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
@@ -534,7 +534,7 @@
     </div>
     <div class="nav-actions">
       <a href="https://manager.ssentif.kr/login" class="nav-ghost nav-login" target="_blank" rel="noopener"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="1.75" y="2.5" width="12.5" height="8.5" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M5.5 13.75h5M8 11v2.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>관리자 웹 로그인</a>
-      <a href="consulting" class="nav-cta-btn">도입 상담 신청<span class="cta-new-badge">NEW 2.0</span></a>
+      <a href="consulting" class="nav-cta-btn">도입 상담 신청</a>
     </div>
     <button class="nav-hamburger" id="navHamburger" aria-label="메뉴 열기">
       <span></span><span></span><span></span>
@@ -570,7 +570,7 @@
   <a href="lab">운영지원실</a>
   <div class="nav-mobile-divider"></div>
   <a href="https://manager.ssentif.kr/login" class="nav-mobile-login" target="_blank" rel="noopener"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="1.75" y="2.5" width="12.5" height="8.5" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M5.5 13.75h5M8 11v2.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>관리자 웹 로그인 <span>PC</span></a>
-  <a href="consulting" class="nav-mobile-cta">도입 상담 신청<span class="cta-new-badge">NEW 2.0</span></a>
+  <a href="consulting" class="nav-mobile-cta">도입 상담 신청</a>
 </div>
 
 
@@ -727,7 +727,7 @@
         <p class="lead">수업일지, 식단, 개인운동 피드백으로<br class="mo-br"> 회원 만족을 쌓습니다.</p>
         <div class="hero-btns">
           <a href="consulting" class="btn-cta">
-            도입 상담 신청<span class="cta-new-badge">NEW 2.0</span>
+            도입 상담 신청
             <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M7 10H13M13 10L10 7M13 10L10 13" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
           <a href="journal-try" class="btn-outline-ghost">가입없이 써보기</a>
@@ -1259,6 +1259,88 @@
 .v7x .k1 em.alt { opacity: 0; }
 .pin-js.why .v7x .k1 em:not(.alt) { opacity: clamp(0, 1 - (var(--f) - .35) * 4, 1); filter: blur(calc(clamp(0, (var(--f) - .35) * 4, 1) * 3px)); }
 .pin-js.why .v7x .k1 em.alt { opacity: clamp(0, (var(--f) - .5) * 4, 1); filter: blur(calc((1 - clamp(0, (var(--f) - .5) * 4, 1)) * 3px)); }
+
+/* ═ 3 그래서 센티프 v2(11-10): 문제 → 해결로 관점 전환. 밝은 배경(문제=어둠, 해결=밝음), 문제 장면 하나에 해결 카드 하나. 카드가 보이면 문제 문구에 줄이 그어지고 해결 그림이 움직임 ═ */
+.so.so2 { background: #F1FBF7; color: var(--ink); padding: 84px 0 96px; }
+.so2-head { text-align: center; }
+.so.so2 h2 { font-size: 1.9rem; line-height: 1.32; font-weight: 800; color: var(--ink); }
+.so.so2 h2 em { font-style: normal; color: var(--mint-d); }
+.so2-list { list-style: none; margin: 40px 0 0; padding: 0; display: grid; gap: 14px; }
+.so2-card { background: #fff; border-radius: 22px; padding: 14px 14px 24px; box-shadow: 0 1px 0 rgba(13,15,18,.04), 0 18px 34px -24px rgba(13,60,45,.28); text-align: left; }
+.so2-vis { position: relative; height: 150px; border-radius: 14px; background: #F4F6F7; display: grid; place-items: center; overflow: hidden; margin-bottom: 20px; }
+.so2-was { position: relative; display: inline-block; margin: 0 8px 8px; font-size: 13.5px; font-weight: 600; color: #9AA3AD; letter-spacing: -.02em; }
+.so2-was::after { content: ""; position: absolute; left: -2px; right: -2px; top: 52%; height: 1.5px; background: #9AA3AD; transform: scaleX(0); transform-origin: 0 50%; transition: transform .5s cubic-bezier(.4,0,.2,1) .5s; }
+.so2-card.visible .so2-was::after { transform: scaleX(1); }
+.so2-card h3 { margin: 0 8px; font-size: 1.28rem; line-height: 1.38; font-weight: 800; color: var(--ink); }
+.so2-desc { margin: 8px 8px 0; font-size: 15px; line-height: 1.6; color: var(--mute); word-break: keep-all; }
+/* 1 말풍선 → 기록 */
+.s1 { grid-template-columns: auto auto auto; justify-content: center; gap: 12px; }
+.s1-bub { width: 84px; filter: drop-shadow(0 8px 10px rgba(13,15,18,.12)); }
+.s1-bub path { fill: #fff; } .s1-bub circle { fill: #C3C9D1; }
+.s1-arr { width: 18px; height: 2px; background: #C3C9D1; border-radius: 2px; position: relative; }
+.s1-arr::after { content: ""; position: absolute; right: 0; top: -3px; width: 7px; height: 7px; border-top: 2px solid #C3C9D1; border-right: 2px solid #C3C9D1; transform: rotate(45deg); border-radius: 1px; }
+.s1 ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 7px; }
+.s1 ul li { display: flex; align-items: center; gap: 8px; padding: 7px 14px 7px 8px; border-radius: 99px; background: #fff; font-size: 13.5px; font-weight: 700; color: var(--ink); box-shadow: 0 6px 12px -8px rgba(13,15,18,.25); opacity: 0; transform: translateX(-10px); transition: opacity .45s ease, transform .45s cubic-bezier(.2,.9,.3,1.2); }
+.s1 ul li i { width: 18px; height: 18px; border-radius: 50%; background: var(--mint); display: grid; place-items: center; flex: none; }
+.s1 ul svg, .s4-ok svg { width: 12px; height: 12px; fill: none; stroke: #fff; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.visible .s1 ul li { opacity: 1; transform: none; } .visible .s1 ul li:nth-child(1) { transition-delay: .5s; } .visible .s1 ul li:nth-child(2) { transition-delay: .72s; } .visible .s1 ul li:nth-child(3) { transition-delay: .94s; }
+/* 2 이탈 신호 알림 카드 */
+.s2-card { position: relative; z-index: 1; width: min(272px, 86%); display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 10px; padding: 12px 14px; border-radius: 16px; background: #fff; box-shadow: 0 14px 26px -14px rgba(13,15,18,.35), 0 0 0 1px rgba(13,15,18,.04); opacity: 0; transform: translateY(-18px) scale(.96); transition: opacity .45s ease .45s, transform .55s cubic-bezier(.2,.9,.3,1.25) .45s; }
+.s2-ico { font-size: 24px; line-height: 1; }
+.s2-card b { display: block; font-size: 14.5px; font-weight: 800; color: var(--ink); } .s2-card em { display: block; margin-top: 2px; font-style: normal; font-size: 12px; color: var(--mute); white-space: nowrap; }
+.s2-card img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; object-position: 50% 22%; }
+.s2-ghost { position: absolute; left: 50%; top: 50%; width: min(248px, 78%); height: 58px; margin: -18px 0 0 0; transform: translateX(-50%); border-radius: 16px; background: rgba(255,255,255,.7); }
+.visible .s2-card { opacity: 1; transform: none; }
+/* 3 강사별 회원 얼굴 */
+.s3 { align-content: center; gap: 9px; }
+.s3-row { display: flex; align-items: center; gap: 6px; }
+.s3-row img { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; margin-right: 6px; box-shadow: 0 0 0 2px #fff, 0 4px 8px -4px rgba(13,15,18,.4); }
+.s3-row svg { width: 26px; height: 26px; }
+.s3 .f { fill: #E4E8EC; transition: fill .5s ease; } .s3 .e { fill: #A9B1BA; transition: fill .5s ease; } .s3 .m { fill: none; stroke: #A9B1BA; stroke-width: 2.2; stroke-linecap: round; transition: stroke .5s ease; }
+.visible .s3 .m-h .f { fill: #CFF5E8; } .visible .s3 .m-h .e { fill: #0E9A75; } .visible .s3 .m-h .m { stroke: #0E9A75; }
+.visible .s3 .m-s .f { fill: #FFDCC6; } .visible .s3 .m-s .e { fill: #C2581F; } .visible .s3 .m-s .m { stroke: #C2581F; }
+.visible .s3 .m-a .f { fill: #FFCFCA; } .visible .s3 .m-a .e { fill: #C8362C; } .visible .s3 .m-a .m { stroke: #C8362C; }
+.visible .s3 .m-n .e { fill: #7C8691; } .visible .s3 .m-n .m { stroke: #7C8691; }
+.visible .s3-row:nth-child(1) svg * { transition-delay: .5s; } .visible .s3-row:nth-child(2) svg * { transition-delay: .7s; } .visible .s3-row:nth-child(3) svg * { transition-delay: .9s; }
+/* 4 이탈 신호 → 재등록 */
+.s4-rail { position: relative; width: min(230px, 76%); height: 2px; margin-top: -18px; background: rgba(13,15,18,.1); border-radius: 2px; }
+.s4-line { position: absolute; left: 0; top: 0; bottom: 0; width: 100%; border-radius: 2px; background: linear-gradient(90deg, var(--amber), var(--mint)); transform: scaleX(0); transform-origin: 0 50%; transition: transform .7s cubic-bezier(.4,0,.2,1) .45s; }
+.s4-sig { position: absolute; left: 0; top: 0; } .s4-sig b { position: absolute; left: -6px; top: -5px; width: 12px; height: 12px; border-radius: 50%; background: var(--amber); box-shadow: 0 0 0 3px #F4F6F7; }
+.s4-sig em, .s4-av em { position: absolute; top: 44px; left: 0; transform: translateX(-50%); white-space: nowrap; font-style: normal; font-size: 12.5px; font-weight: 600; color: #C2581F; }
+.s4-av { position: absolute; right: 0; top: 0; }
+.s4-av img { position: absolute; left: -28px; top: -27px; width: 56px; height: 56px; border-radius: 50%; object-fit: cover; object-position: 50% 22%; box-shadow: 0 0 0 2px #fff, 0 10px 16px -8px rgba(13,15,18,.4); }
+.s4-ring { position: absolute; left: -38px; top: -37px; width: 76px; height: 76px; border-radius: 50%; border: 2px solid var(--mint); box-shadow: 0 0 0 5px rgba(31,219,168,.14), 0 0 22px rgba(31,219,168,.3); opacity: 0; transform: scale(1.9); }
+.s4-ok { position: absolute; left: 10px; top: 8px; width: 22px; height: 22px; border-radius: 50%; background: var(--mint); display: grid; place-items: center; box-shadow: 0 0 0 2px #fff; opacity: 0; transform: scale(.3); }
+.s4-av em { color: var(--mint-d); font-weight: 800; font-size: 13.5px; opacity: 0; transition: opacity .4s ease 1.5s; }
+.visible .s4-line { transform: scaleX(1); }
+.visible .s4-ring { animation: v7Clamp .5s cubic-bezier(.2,.9,.25,1) 1.05s both; }
+.visible .s4-ok { animation: v7Ok .4s cubic-bezier(.2,.9,.3,1.4) 1.35s both; }
+.visible .s4-av em { opacity: 1; }
+@media (min-width: 900px) {
+  .so.so2 { padding: 130px 0 140px; }
+  .so.so2 h2 { font-size: clamp(2.4rem, 3.6vw, 3.1rem); line-height: 1.25; }
+  .so2-list { margin: 64px auto 0; max-width: 980px; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .so2-card { padding: 16px 16px 30px; border-radius: 26px; }
+  .so2-vis { height: 200px; border-radius: 16px; margin-bottom: 24px; }
+  .so2-was { margin: 0 12px 10px; font-size: 14.5px; } .so2-card h3 { margin: 0 12px; font-size: 1.5rem; } .so2-desc { margin: 10px 12px 0; font-size: 16.5px; }
+  .s1-bub { width: 104px; } .s1 ul li { font-size: 15px; padding: 9px 18px 9px 10px; } .s1 { gap: 18px; }
+  .s2-card { width: 320px; padding: 15px 18px; } .s2-card b { font-size: 16px; } .s2-card em { font-size: 13px; } .s2-ghost { width: 290px; height: 66px; }
+  .s3-row svg { width: 32px; height: 32px; } .s3-row img { width: 36px; height: 36px; } .s3 { gap: 12px; } .s3-row { gap: 8px; }
+  .s4-rail { width: 280px; }
+}
+@media (prefers-reduced-motion: reduce) { .so2-was::after, .s1 ul li, .s2-card, .s4-line, .s3 svg * { transition: none; } .visible .s4-ring, .visible .s4-ok { animation: none; opacity: 1; transform: none; } }
+
+.s4-av img { max-width: none; }
+.s4-rail { width: min(196px, 62%); transform: translateX(-22px); }
+@media (min-width: 900px) { .s4-rail { width: 250px; transform: translateX(-26px); } }
+.so2-was::after { transition-delay: 1.3s; }
+
+/* 2-7: 붙잡는 순간 고리 가장자리에 센티프 앱 아이콘이 작게 붙음(센티프가 개입했다는 암시). 되감으면 사라짐 */
+.v7x .v7-app { position: absolute; left: 22%; top: 40px; width: 26px; height: 26px; max-width: none; margin: -43px 0 0 -43px; border-radius: 7px; box-shadow: 0 0 0 2px #fff, 0 6px 12px -4px rgba(13,15,18,.45); opacity: 0; transform: translate(-14px,-14px) scale(.5); z-index: 3; }
+.v7x.caught .v7-app { animation: v7App .45s cubic-bezier(.2,.9,.3,1.3) both; }
+@keyframes v7App { 0% { opacity: 0; transform: translate(-14px,-14px) scale(.5); } 60% { opacity: 1; transform: translate(2px,2px) scale(1.08); } 100% { opacity: 1; transform: none; } }
+@media (min-width: 900px) { .v7x .v7-app { width: 30px; height: 30px; margin: -50px 0 0 -50px; border-radius: 8px; } }
+@media (prefers-reduced-motion: reduce) { .v7x.caught .v7-app { animation: none; opacity: 1; transform: none; } }
 </style>
 
 <div class="hx">
@@ -1313,23 +1395,42 @@
 
     <article class="beat" data-tone="light">
       <div><h2>그냥 보내는 회원은<br><em>없을 텐데요</em></h2></div>
-      <div class="why-vis"><div class="v67 v7x" aria-hidden="true"><div class="rl"><i class="tr"></i></div><span class="mk k1"><b></b><em>이탈 신호</em><em class="alt">재등록</em></span><span class="mk k2"><b></b><em>마지막 날</em></span><span class="mk k3"><b></b><em>알게 된 날</em></span><i class="catch"></i><i class="rip"></i><span class="av"><img src="assets/avatars/member-hanjiwoo.jpg" alt="" width="56" height="56"><i class="ok"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.5L12 5.4"/></svg></i></span></div></div>
+      <div class="why-vis"><div class="v67 v7x" aria-hidden="true"><div class="rl"><i class="tr"></i></div><span class="mk k1"><b></b><em>이탈 신호</em><em class="alt">재등록</em></span><span class="mk k2"><b></b><em>마지막 날</em></span><span class="mk k3"><b></b><em>알게 된 날</em></span><i class="catch"></i><i class="rip"></i><img class="v7-app" src="assets/app-icons/coach-new.png" alt="" width="26" height="26"><span class="av"><img src="assets/avatars/member-hanjiwoo.jpg" alt="" width="56" height="56"><i class="ok"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.5L12 5.4"/></svg></i></span></div></div>
     </article>
   </div>
 </section>
 
-<section class="so" id="so">
-  <div class="hx-wrap so-grid">
-    <div class="so-head fade-up">
+<section class="so so2" id="so">
+  <div class="hx-wrap">
+    <div class="so2-head fade-up">
       <span class="hx-eyebrow">그래서, 센티프</span>
-      <h2>센티프는 PT 회원관리를<br><em>강사별로</em> 보여 줍니다</h2>
-      <p class="so-lead">누가 어떤 회원을 어떻게 관리하고 있는지 한눈에 확인합니다.<br>센티프를 쓰는 센터는 이렇게 달라집니다.</p>
+      <h2>회원이 떠나기 전에<br><em>먼저 보여 줍니다</em></h2>
     </div>
-    <ol class="so-list fade-up">
-      <li><div><i>강사별 모니터링</i><b>강사별 회원관리 현황을 실시간으로 파악합니다</b></div></li>
-      <li><div><i>이탈 대응</i><b>회원의 이탈 신호를 먼저 확인하고, 그 신호에 맞게 대응합니다</b></div></li>
-      <li><div><i>근거 있는 상담</i><b>신규·재등록 상담을 근거를 놓고 합니다</b></div></li>
-      <li><div><i>같은 데이터</i><b>강사와 회원이 같은 데이터를 보며 PT 여정을 이어 갑니다</b></div></li>
+    <ol class="so2-list">
+      <li class="so2-card fade-up">
+        <div class="so2-vis s1" aria-hidden="true"><svg class="s1-bub" viewBox="0 0 220 120"><path d="M52 10H168a42 42 0 0 1 42 40v0a42 42 0 0 1-42 40H64C54 101 38 108 16 108C27 99 31 89 29 78C16 70 10 61 10 50A42 42 0 0 1 52 10Z"/><circle cx="84" cy="50" r="7"/><circle cx="110" cy="50" r="7"/><circle cx="136" cy="50" r="7"/></svg><i class="s1-arr"></i><ul><li><i><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.5L12 5.4"/></svg></i>수업일지</li><li><i><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.5L12 5.4"/></svg></i>식단</li><li><i><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.5L12 5.4"/></svg></i>개인운동</li></ul></div>
+        <p class="so2-was">회원은 말이 없습니다</p>
+        <h3>말 대신 기록이 쌓입니다</h3>
+        <p class="so2-desc">수업일지, 식단, 개인운동이 회원마다 한곳에 쌓입니다.</p>
+      </li>
+      <li class="so2-card fade-up">
+        <div class="so2-vis s2" aria-hidden="true"><div class="s2-ghost"></div><div class="s2-card"><span class="s2-ico">🚨</span><div><b>이탈 신호</b><em>출석 빈도 감소 · 만족도 하락</em></div><img src="assets/avatars/member-hanjiwoo.jpg" alt="" loading="lazy" width="36" height="36"></div></div>
+        <p class="so2-was">이탈 신호는 많습니다</p>
+        <h3>이탈 신호를 놓치지 않습니다</h3>
+        <p class="so2-desc">회원의 이탈 신호를 먼저 확인하고, 그 신호에 맞게 대응합니다.</p>
+      </li>
+      <li class="so2-card fade-up">
+        <div class="so2-vis s3" aria-hidden="true"><div class="s3-row"><img src="assets/avatars/coach-lee.jpg" alt="" loading="lazy" width="30" height="30"><svg viewBox="0 0 40 40" class="m-h"><circle class="f" cx="20" cy="20" r="19"/><circle class="e" cx="14" cy="17.5" r="2.1"/><circle class="e" cx="26" cy="17.5" r="2.1"/><path class="m" d="M14.5 24.5q5.5 4.5 11 0"/></svg><svg viewBox="0 0 40 40" class="m-h"><circle class="f" cx="20" cy="20" r="19"/><circle class="e" cx="14" cy="17.5" r="2.1"/><circle class="e" cx="26" cy="17.5" r="2.1"/><path class="m" d="M14.5 24.5q5.5 4.5 11 0"/></svg><svg viewBox="0 0 40 40" class="m-n"><circle class="f" cx="20" cy="20" r="19"/><circle class="e" cx="14" cy="17.5" r="2.1"/><circle class="e" cx="26" cy="17.5" r="2.1"/><path class="m" d="M14.5 26h11"/></svg><svg viewBox="0 0 40 40" class="m-h"><circle class="f" cx="20" cy="20" r="19"/><circle class="e" cx="14" cy="17.5" r="2.1"/><circle class="e" cx="26" cy="17.5" r="2.1"/><path class="m" d="M14.5 24.5q5.5 4.5 11 0"/></svg><svg viewBox="0 0 40 40" class="m-s"><circle class="f" cx="20" cy="20" r="19"/><circle class="e" cx="14" cy="17.5" r="2.1"/><circle class="e" cx="26" cy="17.5" r="2.1"/><path class="m" d="M14.5 28.5q5.5-4.5 11 0"/></svg><svg viewBox="0 0 40 40" class="m-h"><circle class="f" cx="20" cy="20" r="19"/><circle class="e" cx="14" cy="17.5" r="2.1"/><circle class="e" cx="26" cy="17.5" r="2.1"/><path class="m" d="M14.5 24.5q5.5 4.5 11 0"/></svg></div><div class="s3-row"><img src="assets/avatars/coach-park.jpg" alt="" loading="lazy" width="30" height="30"><svg viewBox="0 0 40 40" class="m-h"><circle class="f" cx="20" cy="20" r="19"/><circle class="e" cx="14" cy="17.5" r="2.1"/><circle class="e" cx="26" cy="17.5" r="2.1"/><path class="m" d="M14.5 24.5q5.5 4.5 11 0"/></svg><svg viewBox="0 0 40 40" class="m-n"><circle class="f" cx="20" cy="20" r="19"/><circle class="e" cx="14" cy="17.5" r="2.1"/><circle class="e" cx="26" cy="17.5" r="2.1"/><path class="m" d="M14.5 26h11"/></svg><svg viewBox="0 0 40 40" class="m-h"><circle class="f" cx="20" cy="20" r="19"/><circle class="e" cx="14" cy="17.5" r="2.1"/><circle class="e" cx="26" cy="17.5" r="2.1"/><path class="m" d="M14.5 24.5q5.5 4.5 11 0"/></svg><svg viewBox="0 0 40 40" class="m-h"><circle class="f" cx="20" cy="20" r="19"/><circle class="e" cx="14" cy="17.5" r="2.1"/><circle class="e" cx="26" cy="17.5" r="2.1"/><path class="m" d="M14.5 24.5q5.5 4.5 11 0"/></svg><svg viewBox="0 0 40 40" class="m-h"><circle class="f" cx="20" cy="20" r="19"/><circle class="e" cx="14" cy="17.5" r="2.1"/><circle class="e" cx="26" cy="17.5" r="2.1"/><path class="m" d="M14.5 24.5q5.5 4.5 11 0"/></svg><svg viewBox="0 0 40 40" class="m-n"><circle class="f" cx="20" cy="20" r="19"/><circle class="e" cx="14" cy="17.5" r="2.1"/><circle class="e" cx="26" cy="17.5" r="2.1"/><path class="m" d="M14.5 26h11"/></svg></div><div class="s3-row"><img src="assets/avatars/coach-kim.jpg" alt="" loading="lazy" width="30" height="30"><svg viewBox="0 0 40 40" class="m-h"><circle class="f" cx="20" cy="20" r="19"/><circle class="e" cx="14" cy="17.5" r="2.1"/><circle class="e" cx="26" cy="17.5" r="2.1"/><path class="m" d="M14.5 24.5q5.5 4.5 11 0"/></svg><svg viewBox="0 0 40 40" class="m-s"><circle class="f" cx="20" cy="20" r="19"/><circle class="e" cx="14" cy="17.5" r="2.1"/><circle class="e" cx="26" cy="17.5" r="2.1"/><path class="m" d="M14.5 28.5q5.5-4.5 11 0"/></svg><svg viewBox="0 0 40 40" class="m-a"><circle class="f" cx="20" cy="20" r="19"/><circle class="e" cx="14" cy="17.5" r="2.1"/><circle class="e" cx="26" cy="17.5" r="2.1"/><path class="m" d="M10.5 12.2l5.5 2.3M29.5 12.2l-5.5 2.3"/><path class="m" d="M14.5 28.5q5.5-4.5 11 0"/></svg><svg viewBox="0 0 40 40" class="m-h"><circle class="f" cx="20" cy="20" r="19"/><circle class="e" cx="14" cy="17.5" r="2.1"/><circle class="e" cx="26" cy="17.5" r="2.1"/><path class="m" d="M14.5 24.5q5.5 4.5 11 0"/></svg><svg viewBox="0 0 40 40" class="m-n"><circle class="f" cx="20" cy="20" r="19"/><circle class="e" cx="14" cy="17.5" r="2.1"/><circle class="e" cx="26" cy="17.5" r="2.1"/><path class="m" d="M14.5 26h11"/></svg><svg viewBox="0 0 40 40" class="m-h"><circle class="f" cx="20" cy="20" r="19"/><circle class="e" cx="14" cy="17.5" r="2.1"/><circle class="e" cx="26" cy="17.5" r="2.1"/><path class="m" d="M14.5 24.5q5.5 4.5 11 0"/></svg></div></div>
+        <p class="so2-was">회원의 속마음을 알 수가 없죠</p>
+        <h3>강사별로 한눈에 보입니다</h3>
+        <p class="so2-desc">누가 어떤 회원을 어떻게 관리하고 있는지 확인합니다.</p>
+      </li>
+      <li class="so2-card fade-up">
+        <div class="so2-vis s4" aria-hidden="true"><div class="s4-rail"><i class="s4-line"></i><span class="s4-sig"><b></b><em>이탈 신호</em></span><span class="s4-av"><i class="s4-ring"></i><img src="assets/avatars/member-hanjiwoo.jpg" alt="" loading="lazy" width="56" height="56"><i class="s4-ok"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.5L12 5.4"/></svg></i><em>재등록</em></span></div></div>
+        <p class="so2-was">떠나기 전에 손을 쓸 수만 있다면</p>
+        <h3>떠나기 전에 재등록으로 잇습니다</h3>
+        <p class="so2-desc">신규·재등록 상담을 근거를 놓고 합니다.</p>
+      </li>
     </ol>
   </div>
 </section>
@@ -1624,7 +1725,7 @@ story.addEventListener('beatp',function(e){ if(BI<0) BI=[].indexOf.call(story.qu
   <div class="flow-cta fade-up">
     <p>수업일지 한 장이 여기까지 이어집니다.</p>
     <div class="hero-btns">
-      <a href="consulting" class="btn-cta">도입 상담 신청<span class="cta-new-badge">NEW 2.0</span><svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M7 10H13M13 10L10 7M13 10L10 13" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="consulting" class="btn-cta">도입 상담 신청<svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M7 10H13M13 10L10 7M13 10L10 13" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       <a href="journal-try" class="btn-outline-ghost">가입없이 써보기</a>
     </div>
   </div>
@@ -2244,7 +2345,7 @@ story.addEventListener('beatp',function(e){ if(BI<0) BI=[].indexOf.call(story.qu
     <p>10분 통화로, 우리 센터에 맞는 <br class="mo-br">도입 방법을 알려 드립니다.</p>
     <div class="cta-price"><b>팀 요금제 <em>월 4만 원대</em>부터</b></div>
     <div class="cta-actions">
-      <a href="consulting" class="btn btn-primary btn-lg">도입 상담 신청<span class="cta-new-badge">NEW 2.0</span></a>
+      <a href="consulting" class="btn btn-primary btn-lg">도입 상담 신청</a>
       <a href="journal-try" class="cta-ghost">가입없이 써보기</a>
     </div>
     <ol class="cta-steps">

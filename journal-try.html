@@ -214,7 +214,9 @@ img{display:block;max-width:100%}
 .media{display:flex;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:6px;padding:8px;overflow-x:auto}
 .thumb{flex:none;width:96px;aspect-ratio:3/4;border-radius:8px;overflow:hidden;position:relative;background:var(--main);animation:popin .35s cubic-bezier(.2,.9,.2,1)}
 @keyframes popin{from{transform:scale(.6);opacity:0}to{transform:none;opacity:1}}
-.thumb img{width:100%;height:100%;object-fit:cover}
+.thumb img,.thumb video{width:100%;height:100%;object-fit:cover;display:block}
+.vb{position:absolute;left:5px;top:5px;z-index:1;display:inline-flex;align-items:center;gap:4px;padding:2px 6px 2px 5px;border-radius:999px;background:rgba(0,0,0,.6);color:#fff;font-size:10px;font-weight:700;line-height:1.4;font-variant-numeric:tabular-nums;pointer-events:none}
+.vb::before{content:"";border-left:6px solid #fff;border-top:4px solid transparent;border-bottom:4px solid transparent}
 .thumb .ck{position:absolute;right:6px;bottom:6px;width:18px;height:18px;border-radius:50%;background:var(--ok);display:grid;place-items:center}
 .add-tile{flex:none;width:96px;aspect-ratio:3/4;border-radius:8px;border:0;background:var(--main);display:grid;place-content:center;justify-items:center;gap:6px;font-size:12px;color:var(--ink-2)}
 .add-tile i{width:36px;height:36px;border-radius:50%;background:var(--card);display:grid;place-items:center;font-style:normal;font-size:20px;color:var(--ink)}
@@ -251,7 +253,7 @@ img{display:block;max-width:100%}
 .sum li{display:flex;justify-content:space-between;font-size:15px}
 .sum li span{color:var(--ink-2)}
 .pick{display:flex;gap:8px;overflow-x:auto}
-.pick button{flex:none;width:72px;height:72px;border-radius:10px;overflow:hidden;padding:0;border:2px solid transparent;background:var(--main)}
+.pick button{position:relative;flex:none;width:72px;height:72px;border-radius:10px;overflow:hidden;padding:0;border:2px solid transparent;background:var(--main)}
 .pick button[aria-pressed="true"]{border-color:var(--mint)}
 .pick img{width:100%;height:100%;object-fit:cover}
 .sign{position:relative;border:1px solid var(--line);border-radius:10px;background:#fff;height:120px;touch-action:none}
@@ -668,6 +670,10 @@ img{display:block;max-width:100%}
 .m-tbl tr:last-child td{border-bottom:0}
 .m-media{display:flex;gap:6px}
 .m-media img{width:72px;height:72px;border-radius:8px;object-fit:cover}
+.m-media .mv{position:relative;flex:none;width:72px;height:72px;border-radius:8px;overflow:hidden}
+.m-media .mv video{width:100%;height:100%;object-fit:cover;display:block}
+#m-hero-v{position:relative;display:block}
+video.m-hero{display:block;background:#000}
 .m-sign{text-align:right;font-size:12px;color:var(--ink-2)}
 .m-hero{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:16px}
 
@@ -1142,12 +1148,12 @@ html.nos,html.nos body{overflow:hidden;height:100%}
     </header>
     <div class="rail pad" role="group" aria-label="운동 목록">
       <span class="list"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg><span id="rail-pos">1/3</span></span>
-      <button class="chip" data-ex="0" aria-pressed="true"><span class="ck"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></span>바벨 스쿼트</button>
-      <button class="chip" data-ex="1" aria-pressed="false"><span class="ck"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></span>벤치 프레스</button>
+      <button class="chip" data-ex="0" aria-pressed="true"><span class="ck"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></span>벤치 프레스</button>
+      <button class="chip" data-ex="1" aria-pressed="false"><span class="ck"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></span>바벨 스쿼트</button>
       <button class="chip" data-ex="2" aria-pressed="false"><span class="ck"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></span>런지</button>
     </div>
     <div class="rec-body pad">
-      <div class="ex-title"><span class="tag" id="ex-tag">하체</span><h3 id="ex-name">바벨 스쿼트</h3></div>
+      <div class="ex-title"><span class="tag" id="ex-tag">상체</span><h3 id="ex-name">벤치 프레스</h3></div>
       <div>
         <div class="sec-h"><h4>세트 기록</h4><button class="prev-btn" id="prev-btn" type="button">이전 기록</button></div>
         <div class="sets">
@@ -1243,6 +1249,7 @@ html.nos,html.nos body{overflow:hidden;height:100%}
     <div class="m-bar pad"><button class="icon-btn" id="back-home" aria-label="뒤로"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button><span>수업일지</span><span></span></div>
     <div class="m-wrap pad">
       <img id="m-hero" class="m-hero" alt="대표 사진" hidden>
+      <span id="m-hero-v" hidden></span>
       <div class="m-h"><b>개인 수업 6회차 · 박성훈 코치</b><span id="m-date">오늘</span></div>
       <div class="m-card" id="m-comment" hidden><span class="lb">코치 코멘트</span><p id="m-comment-t"></p></div>
       <div id="m-exs" style="display:grid;gap:12px"></div>
@@ -1427,7 +1434,7 @@ html.nos,html.nos body{overflow:hidden;height:100%}
   <!-- 이전 기록 다이얼로그(세로: 차트 위, 일지 카드 아래) -->
   <div class="scrim" id="prev" hidden>
     <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="pv-title">
-      <div class="sheet-h"><h3 id="pv-title">바벨 스쿼트 기록</h3><button class="icon-btn" id="pv-close" aria-label="닫기"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+      <div class="sheet-h"><h3 id="pv-title">벤치 프레스 기록</h3><button class="icon-btn" id="pv-close" aria-label="닫기"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
       <div class="pv-filter" id="pv-filter" role="group" aria-label="출처"></div>
       <div class="sheet-b" style="padding-top:14px">
         <div>
@@ -1567,12 +1574,25 @@ else if (window.innerWidth >= 700) {
   const wait = (ms) => new Promise((r) => setTimeout(r, ms));
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const IMG = { squat: 'assets/journal/thumb_squat.jpg', bench: 'assets/journal/thumb_bench.jpg', lunge: 'assets/journal/thumb_lunge.jpg' };
+  // 영상 기록: 재생은 mp4, 정지 화면이 필요한 곳(전달 카드·피드 등)은 poster
+  const VID = { bench: 'assets/journal/bench.mp4' };
+  const POSTER = { [VID.bench]: 'assets/journal/bench_poster.jpg' };
+  const VLEN = { [VID.bench]: '0:04' };
+  const isVid = (src) => !!POSTER[src];
+  const still = (src) => POSTER[src] || src;
 
   // 운동 3개. last = 지난 수업(10/24) 세트, hist = 이전 기록 시트용 4회분
   const state = {
     cur: 0,
     exercises: [
-      { name: '바벨 스쿼트', tag: '하체', img: IMG.squat, last: [[60, 12], [65, 10], [70, 8]], sets: [{ w: '', r: '' }], media: [], memo: '', words: '무릎 안쪽 모임 · 3세트 보조 1회 · 깊이 좋음',
+      { name: '벤치 프레스', tag: '상체', img: IMG.bench, last: [[25, 12], [30, 10], [32.5, 8]], sets: [{ w: '', r: '' }], media: [], add: [VID.bench, IMG.bench], memo: '', words: '견갑 고정 · 팔꿈치 각도 유지',
+        full: '벤치 프레스 {n}세트, 최고 {w}kg × {r}회예요. 견갑을 고정하고 팔꿈치 각도를 유지했어요. 좌우 흔들림 없이 안정적으로 올라갔어요.',
+        hist: [
+          { d: '10.14', w: '수', src: 'session', sets: [[20, 12], [20, 12], [20, 10]] },
+          { d: '10.17', w: '토', src: 'session', sets: [[20, 12], [25, 10], [25, 8]] },
+          { d: '10.21', w: '수', src: 'session', sets: [[22.5, 12], [27.5, 10], [27.5, 8]] },
+          { d: '10.24', w: '금', src: 'session', sets: [[25, 12], [30, 10], [32.5, 8]], media: [IMG.bench] } ] },
+      { name: '바벨 스쿼트', tag: '하체', img: IMG.squat, last: [[60, 12], [65, 10], [70, 8]], sets: [{ w: '60', r: '12' }, { w: '65', r: '10' }, { w: '70', r: '8' }, { w: '', r: '' }], media: [IMG.squat], memo: '', words: '무릎 안쪽 모임 · 3세트 보조 1회 · 깊이 좋음',
         full: '바벨 스쿼트 {n}세트, 최고 {w}kg × {r}회로 진행했어요. 깊이가 안정적이에요. 3세트째 무릎이 안쪽으로 모여 보조 1회 들어갔어요. 다음 수업은 같은 중량에서 횟수를 늘려 볼게요.',
         hist: [
           { d: '10.14', w: '수', src: 'session', sets: [[40, 12], [50, 10], [50, 10]] },
@@ -1580,13 +1600,6 @@ else if (window.innerWidth >= 700) {
           { d: '10.19', w: '월', src: 'self', sets: [[40, 12], [40, 12], [40, 12]] },
           { d: '10.21', w: '수', src: 'session', sets: [[55, 12], [60, 10], [65, 8]] },
           { d: '10.24', w: '금', src: 'session', sets: [[60, 12], [65, 10], [70, 8]], media: [IMG.squat] } ] },
-      { name: '벤치 프레스', tag: '상체', img: IMG.bench, last: [[25, 12], [30, 10], [32.5, 8]], sets: [{ w: '25', r: '12' }, { w: '30', r: '10' }, { w: '32.5', r: '8' }, { w: '', r: '' }], media: [IMG.bench], memo: '', words: '견갑 고정 · 팔꿈치 각도 유지',
-        full: '벤치 프레스 {n}세트, 최고 {w}kg × {r}회예요. 견갑을 고정하고 팔꿈치 각도를 유지했어요. 바가 흔들리지 않고 안정적으로 올라갔어요.',
-        hist: [
-          { d: '10.14', w: '수', src: 'session', sets: [[20, 12], [20, 12], [20, 10]] },
-          { d: '10.17', w: '토', src: 'session', sets: [[20, 12], [25, 10], [25, 8]] },
-          { d: '10.21', w: '수', src: 'session', sets: [[22.5, 12], [27.5, 10], [27.5, 8]] },
-          { d: '10.24', w: '금', src: 'session', sets: [[25, 12], [30, 10], [32.5, 8]], media: [IMG.bench] } ] },
       { name: '런지', tag: '하체', img: IMG.lunge, last: [[20, 12], [20, 12], [20, 10]], sets: [{ w: '', r: '' }], media: [IMG.lunge], memo: '', words: '왼발 앞 균형 흔들림 · 템포 천천히',
         full: '런지 {n}세트, {w}kg × {r}회로 마무리했어요. 왼발이 앞일 때 균형이 조금 흔들려 템포를 늦춰 진행했어요. 다음 수업에 밴드 보조를 넣어 볼게요.',
         hist: [
@@ -1635,7 +1648,7 @@ else if (window.innerWidth >= 700) {
   const buildLetter = () => {
     const done = state.exercises.filter((e) => setCount(e));
     const ex = done[0] || state.exercises[0];
-    const pic = state.hero || ex.img || IMG.squat;
+    const pic = still(state.hero || ex.img || IMG.squat);
     const sets = ex.sets.filter(filled).slice(0, 3);
     const cells = sets.map((x, i) => '<span>' + (i + 1) + '</span><span>' + (Number(x.w) ? x.w : '맨몸') + '</span><span>' + x.r + '</span>').join('');
     const more = done.length > 1 ? '<em>외 ' + (done.length - 1) + '종목</em>' : '';
@@ -1738,18 +1751,29 @@ else if (window.innerWidth >= 700) {
   $('#set-rows').addEventListener('focusout', () => setTimeout(renderAfterFill, 60));
 
   // ---------- 1막: 사진 ----------
+  // 화면에 보일 때만 재생(숨은 화면에서는 멈춤). 자동 재생이 막힌 기기는 누르면 재생.
+  const vidIO = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) e.target.play().catch(() => {}); else e.target.pause(); }), { threshold: .2 });
+  const mediaEl = (src, name) => {
+    if (!isVid(src)) { const im = document.createElement('img'); im.src = src; im.alt = name + ' 사진'; return im; }
+    const v = document.createElement('video'); v.src = src; v.poster = still(src); v.muted = true; v.loop = true; v.playsInline = true; v.preload = 'auto';
+    v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); v.setAttribute('aria-label', name + ' 영상');
+    v.addEventListener('click', () => { if (v.paused) v.play().catch(() => {}); else v.pause(); });
+    vidIO.observe(v); return v;
+  };
+  const vBadge = (src) => { const b = document.createElement('span'); b.className = 'vb'; b.textContent = VLEN[src] || ''; return b; };
+  const nextMedia = (ex) => (ex.add && ex.add[ex.media.length]) || ex.img;
   const renderMedia = () => {
     const ex = state.exercises[state.cur];
     const box = $('#media'); box.replaceChildren();
     ex.media.forEach((src) => {
       const d = document.createElement('div'); d.className = 'thumb';
-      const im = document.createElement('img'); im.src = src; im.alt = ex.name + ' 사진';
+      const im = mediaEl(src, ex.name);
       const ck = document.createElement('span'); ck.className = 'ck'; ck.innerHTML = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>';
-      d.append(im, ck); box.append(d);
+      d.append(im, ck); if (isVid(src)) d.append(vBadge(src)); box.append(d);
     });
     if (ex.media.length < 2) {
       const add = document.createElement('button'); add.type = 'button'; add.className = 'add-tile'; add.innerHTML = '<i>+</i>추가하기';
-      add.addEventListener('click', () => { ex.media.push(ex.img); renderMedia(); autosave(); if (state.cur === 0 && state.cm === 'media') coach('memo'); track('add_media', { ex: state.cur }); });
+      add.addEventListener('click', () => { ex.media.push(nextMedia(ex)); renderMedia(); autosave(); if (state.cur === 0 && state.cm === 'media') coach('memo'); track('add_media', { ex: state.cur }); });
       box.append(add);
     }
     $('#media-count').textContent = ex.media.length + '/5';
@@ -1850,7 +1874,7 @@ else if (window.innerWidth >= 700) {
       const hd = document.createElement('div'); hd.className = 'hd'; hd.innerHTML = '<i></i>' + (r.src === 'session' ? '수업 일지' : '개인운동 일지') + (r.live ? ' · 기록 중' : '') + '<span>' + (r.live ? '오늘' : r.d + ' (' + r.w + ')') + '</span>';
       c.append(hd);
       r.sets.forEach((st, k) => { const row = document.createElement('div'); row.className = 'row'; row.innerHTML = '<em>세트 ' + (k + 1) + '</em><i></i><b>' + (st[0] ? st[0] + 'kg × ' : '맨몸 ') + st[1] + '회</b>'; c.append(row); });
-      if (r.media && r.media.length) { const ms = document.createElement('div'); ms.className = 'ms'; r.media.forEach((src) => { const im = document.createElement('img'); im.src = src; im.alt = ''; ms.append(im); }); c.append(ms); }
+      if (r.media && r.media.length) { const ms = document.createElement('div'); ms.className = 'ms'; r.media.forEach((src) => { const im = document.createElement('img'); im.src = still(src); im.alt = ''; ms.append(im); }); c.append(ms); }
       c.addEventListener('click', () => { pvFocus = idx; renderPrev(); });
       cards.append(c);
     });
@@ -1867,18 +1891,18 @@ else if (window.innerWidth >= 700) {
     if (!state.hero && media.length) state.hero = media[0];
     media.forEach((src) => {
       const b = document.createElement('button'); b.type = 'button'; b.setAttribute('aria-pressed', String(src === state.hero));
-      const im = document.createElement('img'); im.src = src; im.alt = ''; b.append(im);
+      const im = document.createElement('img'); im.src = still(src); im.alt = ''; b.append(im); if (isVid(src)) b.append(vBadge(src));
       b.addEventListener('click', () => { state.hero = state.hero === src ? null : src; renderComplete(); });
       pick.append(b);
     });
     if (!media.length) {
       const b = document.createElement('button'); b.type = 'button'; b.setAttribute('aria-pressed', 'false');
       b.innerHTML = '<span style="font-size:12px;color:var(--ink-2)">+ 추가하기</span>';
-      b.addEventListener('click', () => { state.exercises[0].media.push(IMG.squat); state.hero = IMG.squat; renderComplete(); });
+      b.addEventListener('click', () => { const e0 = state.exercises[0]; const m = nextMedia(e0); e0.media.push(m); state.hero = m; renderComplete(); });
       pick.append(b);
     }
     const sum = $('#cp-sum'); sum.replaceChildren();
-    state.exercises.forEach((e) => { const li = document.createElement('li'); li.textContent = e.name; const sp = document.createElement('span'); sp.textContent = setCount(e) + '세트' + (e.media.length ? ' · 사진 ' + e.media.length : ''); li.append(sp); sum.append(li); });
+    state.exercises.forEach((e) => { const li = document.createElement('li'); li.textContent = e.name; const sp = document.createElement('span'); const nv = e.media.filter(isVid).length, np = e.media.length - nv; sp.textContent = setCount(e) + '세트' + (np ? ' · 사진 ' + np : '') + (nv ? ' · 영상 ' + nv : ''); li.append(sp); sum.append(li); });
     $('#cp-memo').value = state.summary; $('#cm-sum').hidden = !!state.summary;
   };
   const openComplete = () => { $('#toast').hidden = true; $('#cm-done').hidden = !state.summary; $('#cp-done').classList.toggle('pulse', !!state.summary); renderComplete(); $('#complete').hidden = false; $('#ai-sum').classList.toggle('pulse', !state.summary); sizeCanvas(); track('open_complete'); };
@@ -1962,7 +1986,9 @@ else if (window.innerWidth >= 700) {
   const renderMember = () => {
     const d = new Date(); const w = '일월화수목금토'[d.getDay()];
     $('#m-date').textContent = d.getFullYear() + '년 ' + (d.getMonth() + 1) + '월 ' + d.getDate() + '일 (' + w + ') 19:00';
-    const hero = $('#m-hero'); hero.hidden = !state.hero; if (state.hero) hero.src = state.hero;
+    const hero = $('#m-hero'), hv = $('#m-hero-v'); const hvid = !!state.hero && isVid(state.hero);
+    hero.hidden = !state.hero || hvid; if (state.hero && !hvid) hero.src = state.hero;
+    hv.hidden = !hvid; hv.replaceChildren(); if (hvid) { const v = mediaEl(state.hero, '대표'); v.className = 'm-hero'; hv.append(v); }
     $('#m-comment').hidden = !state.summary.trim(); $('#m-comment-t').textContent = state.summary.trim();
     const box = $('#m-exs'); box.replaceChildren();
     state.exercises.filter((e) => setCount(e) || e.media.length).forEach((e, i) => {
@@ -1975,7 +2001,7 @@ else if (window.innerWidth >= 700) {
         const thead = document.createElement('thead'); const th = document.createElement('tr'); ['세트', '무게(kg)', '횟수(회)'].forEach((x) => { const el = document.createElement('th'); el.textContent = x; th.append(el); }); thead.append(th); t.append(thead);
         const tb = document.createElement('tbody'); rows.forEach((s, k) => { const tr = document.createElement('tr'); [String(k + 1), Number(s.w) ? s.w : '맨몸', s.r].forEach((x) => { const td = document.createElement('td'); td.textContent = x; tr.append(td); }); tb.append(tr); }); t.append(tb); c.append(t);
       }
-      if (e.media.length) { const mm = document.createElement('div'); mm.className = 'm-media'; e.media.forEach((src) => { const im = document.createElement('img'); im.src = src; im.alt = e.name + ' 사진'; mm.append(im); }); c.append(mm); }
+      if (e.media.length) { const mm = document.createElement('div'); mm.className = 'm-media'; e.media.forEach((src) => { if (!isVid(src)) { mm.append(mediaEl(src, e.name)); return; } const w = document.createElement('span'); w.className = 'mv'; w.append(mediaEl(src, e.name), vBadge(src)); mm.append(w); }); c.append(mm); }
       box.append(c);
     });
   };
@@ -2088,7 +2114,7 @@ else if (window.innerWidth >= 700) {
   const renderFeed = () => {
     const g = $('#af-grid'); g.replaceChildren();
     [
-      { t: '수업', back: 0, img: state.hero || IMG.squat, me: true },
+      { t: '수업', back: 0, img: still(state.hero || IMG.squat), me: true },
       { t: '식단', back: 0, img: 'assets/journal/diet_lunch.jpg', kcal: 610 },
       { t: '식단', back: 1, img: 'assets/journal/diet_dinner.jpg', kcal: 520 },
       { t: '운동', back: 2, tx: '런지<br>힙 쓰러스트<br>플랭크' },
@@ -2431,9 +2457,9 @@ else if (window.innerWidth >= 700) {
   const W = {
     'w-spot': () => {},
     'w-media': () => fill0('media'),
-    'w-memo': () => { fill0('memo'); ex0.media = [ex0.img]; },
-    'w-ai': () => { fill0('ai'); ex0.media = [ex0.img]; ex0.memo = ex0.words; },
-    'w-next': () => { fill0('next'); ex0.media = [ex0.img]; ex0.memo = fullMemo(ex0); },
+    'w-memo': () => { fill0('memo'); ex0.media = [nextMedia({ add: ex0.add, media: [], img: ex0.img })]; },
+    'w-ai': () => { fill0('ai'); ex0.media = [nextMedia({ add: ex0.add, media: [], img: ex0.img })]; ex0.memo = ex0.words; },
+    'w-next': () => { fill0('next'); ex0.media = [nextMedia({ add: ex0.add, media: [], img: ex0.img })]; ex0.memo = fullMemo(ex0); },
     'w-ex2': () => { W['w-next'](); state.cur = 1; },
     'w-ex3': () => { W['w-next'](); state.cur = 2; },
     'w-ex3-done': () => { W['w-next'](); state.cur = 2; },
@@ -2444,15 +2470,15 @@ else if (window.innerWidth >= 700) {
     W[pk]();
     kinV.pause(); start();
     if (['w-ex3-done', 'w-done', 'w-done-ai'].includes(pk)) fillAll();
-    if (pk === 'w-done-ai') state.summary = '오늘은 하체 위주로 바벨 스쿼트, 벤치 프레스, 런지를 진행했습니다. 스쿼트 깊이가 안정적이라 다음 시간에는 중량을 조금 더 올려 볼게요.';
+    if (pk === 'w-done-ai') state.summary = '오늘은 하체 위주로 벤치 프레스, 바벨 스쿼트, 런지를 진행했습니다. 스쿼트 깊이가 안정적이라 다음 시간에는 중량을 조금 더 올려 볼게요.';
     if (pk === 'w-done' || pk === 'w-done-ai') setTimeout(openComplete, 300);
     return;
   }
   if (jump || tr || pk) {
     clearTimeout(introTimer);
-    state.exercises[0].sets = [{ w: '60', r: '12' }, { w: '65', r: '10' }, { w: '70', r: '8' }, { w: '', r: '' }]; state.exercises[0].media = [IMG.squat]; state.exercises[0].memo = fullMemo(state.exercises[0]);
+    ex0.sets = ex0.last.map(([w, r]) => ({ w: String(w), r: String(r) })); ex0.sets.push({ w: '', r: '' }); ex0.media = [nextMedia({ add: ex0.add, media: [], img: ex0.img })]; ex0.memo = fullMemo(ex0);
     
-    state.hero = IMG.squat; state.summary = '오늘은 하체 위주로 진행했어요. 스쿼트 자세가 많이 안정됐어요. 수고하셨어요!'; state.cm = 'none';
+    state.hero = ex0.media[0]; state.summary = '오늘은 하체 위주로 진행했어요. 스쿼트 자세가 많이 안정됐어요. 수고하셨어요!'; state.cm = 'none';
     renderEx(); renderWeek(); renderMember();
     if (tr) { const b = { send: '#cp-done', profile: '#go-detail', perf: '#go-admin' }[tr]; if (b) $(b).click(); }
     if (pk === 'send2') { $('#cp-done').click(); const t = $('#tr-send'); t.querySelector('#send-1').hidden = true; t.querySelector('#send-2').hidden = false; }

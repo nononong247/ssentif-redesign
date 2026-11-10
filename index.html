@@ -912,25 +912,88 @@
   .so-list i { font-size: 1.6rem; }
   .so-list b { font-size: 1.2rem; }
 }
+
+/* ── 문제 스토리 입체 다듬기(11-10): 선 그림은 그대로, 빛·깊이·그림자·원근을 더한다 ── */
+.why .beat[data-tone="dark"] .why-vis { background: radial-gradient(closest-side, rgba(255,255,255,0.07), rgba(255,255,255,0) 100%) 50% 46% / min(560px, 110%) 78% no-repeat; }
+@keyframes vFloat { 0%, 100% { transform: perspective(900px) rotateX(10deg) rotateY(-16deg) translateY(0); } 50% { transform: perspective(900px) rotateX(6deg) rotateY(-8deg) translateY(-10px); } }
+@keyframes vBob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+@keyframes vRise { from { opacity: 0; transform: translateY(18px) scale(.97); } to { opacity: 1; transform: none; } }
+@keyframes vGlow { 0%, 100% { filter: drop-shadow(0 0 3px rgba(255,138,76,.7)); } 50% { filter: drop-shadow(0 0 9px rgba(255,138,76,1)); } }
+/* 1) 말풍선: 유리 판 + 구슬 점, 떠서 천천히 기운다 */
+.v1 { animation: vFloat 7s ease-in-out infinite; filter: drop-shadow(0 34px 34px rgba(0,0,0,.6)) drop-shadow(0 0 22px rgba(255,255,255,.05)); }
+.v1 .bub { fill: url(#hxBub); stroke: url(#hxEdge); stroke-width: 1.6; }
+.v1 .hi { fill: none; stroke: rgba(255,255,255,.5); stroke-width: 1.2; stroke-linecap: round; }
+.v1 .d { fill: url(#hxSph); }
+/* 2) 사람 구슬: 바닥에 기울여 놓고, 한 명이 떠오르며 흐려진다 */
+.v2 { transform: perspective(700px) rotateX(22deg); transform-style: preserve-3d; padding-bottom: 14px; }
+.v2 span { background: radial-gradient(circle at 34% 26%, rgba(255,255,255,.24), rgba(255,255,255,.06) 52%, rgba(255,255,255,.02) 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,.22), inset 0 -12px 18px rgba(0,0,0,.38), 0 22px 24px -14px rgba(0,0,0,.85); animation: vBob 4.2s ease-in-out infinite; }
+.v2 span:nth-child(2) { animation-delay: -.8s; } .v2 span:nth-child(3) { animation-delay: -1.6s; } .v2 span:nth-child(4) { animation-delay: -2.4s; } .v2 span:nth-child(5) { animation-delay: -3.2s; }
+.v2 svg { fill: url(#hxSph); filter: drop-shadow(0 2px 2px rgba(0,0,0,.4)); }
+.v2 .gone { box-shadow: none; animation: none; }
+@keyframes vLeave { 0%, 18% { opacity: .9; transform: none; filter: blur(0); } 100% { opacity: 0; transform: translate(30px, -54px) scale(.78); filter: blur(3px); } }
+/* 3) 신호: 유리 카드가 한 장씩 올라오고, 선은 빛나고, 끝 점은 주황으로 숨 쉰다 */
+.v-signals { border-top: 0; transform: perspective(900px) rotateX(12deg); }
+.v-signals li { margin-bottom: 10px; padding: 14px 16px; border: 1px solid rgba(255,255,255,.09); border-radius: 16px; background: linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,.015)); box-shadow: inset 0 1px 0 rgba(255,255,255,.1), 0 22px 30px -20px rgba(0,0,0,.9); }
+.beat.is-on .v-signals li { animation: vRise .7s cubic-bezier(.2,.9,.2,1) both; }
+.beat.is-on .v-signals li:nth-child(2) { animation-delay: .12s; } .beat.is-on .v-signals li:nth-child(3) { animation-delay: .24s; }
+.v-signals .draw { filter: drop-shadow(0 0 4px rgba(255,255,255,.45)); }
+.v-signals .pop { fill: url(#hxSphAmber); }
+.beat.is-on .v-signals svg { animation: vGlow 2.4s ease-in-out 1.9s infinite; }
+/* 4·7) 얼굴 구슬: 바닥처럼 눕힌 격자 위에서 물결치듯 떠 있다 */
+.v-faces { transform: perspective(820px) rotateX(36deg); transform-style: preserve-3d; padding-bottom: 10px; }
+.v-faces svg { overflow: visible; filter: drop-shadow(0 9px 6px rgba(0,0,0,.55)); animation: vBob 3.6s ease-in-out infinite; }
+.v-faces svg:nth-child(2n) { animation-delay: -.6s; } .v-faces svg:nth-child(3n) { animation-delay: -1.2s; } .v-faces svg:nth-child(5n) { animation-delay: -1.8s; } .v-faces svg:nth-child(7n) { animation-delay: -2.4s; }
+.v-faces .f { fill: url(#hxSphDim); stroke: rgba(255,255,255,.22); stroke-width: 1; }
+.beat[data-tone="light"] .v-faces svg { filter: drop-shadow(0 8px 6px rgba(13,15,18,.16)); }
+.beat[data-tone="light"] .v-faces .f { fill: url(#hxSphLight); stroke: rgba(13,15,18,.08); }
+.beat[data-tone="light"] .v-faces .sig .f { fill: url(#hxSphAmber); stroke: none; }
+.beat[data-tone="light"] .v-faces .sig .e { fill: #6E2C08; } .beat[data-tone="light"] .v-faces .sig .m { stroke: #6E2C08; }
+.v-faces .sig { animation: none; transition: transform .6s cubic-bezier(.2,.9,.2,1.3) .5s, filter .6s ease .5s; }
+.beat.is-on .v-faces .sig { transform: translateY(-14px) scale(1.14); filter: drop-shadow(0 18px 10px rgba(194,88,31,.32)); }
+/* 5) 궤도: 판을 눕혀 회원들이 강사 주위를 실제로 도는 것처럼 */
+.v5w { position: relative; width: min(280px, 72vw); aspect-ratio: 1.55 / 1; perspective: 900px; }
+.v5w .v5 { position: absolute; left: 0; top: 50%; width: 100%; margin-top: -50%; transform: rotateX(64deg); }
+.v5 .r1 circle, .v5 .r2 circle { fill: url(#hxSph); }
+.v5 .ring { fill: none; stroke: rgba(255,255,255,.16); stroke-width: 1.2; }
+.v5 .plate { fill: url(#hxPlate); }
+.v5-me { position: absolute; left: 50%; top: 50%; width: 19%; aspect-ratio: 1; margin: -15% 0 0 -9.5%; border-radius: 50%; display: grid; place-items: center; background: radial-gradient(circle at 34% 28%, #fff, #D9DDE3 46%, #8A919C 100%); box-shadow: 0 16px 22px -8px rgba(0,0,0,.75), inset 0 -4px 8px rgba(0,0,0,.18); animation: vBob 3.4s ease-in-out infinite; }
+.v5-me svg { width: 56%; height: 56%; fill: #0B0D10; }
+/* 6) 시간: 레일을 눕혀 멀리서 다가오는 길처럼, 점은 구슬 */
+.v-time svg { transform: perspective(600px) rotateX(28deg) scale(1.04); overflow: visible; }
+.v-time .lab { margin-top: 18px; }
+.v-time .draw { filter: drop-shadow(0 0 5px rgba(255,255,255,.55)); }
+.v-time .n0 { fill: url(#hxSphAmber); } .v-time .n1 { fill: url(#hxSphDim); stroke: rgba(255,255,255,.4); } .v-time .n2 { fill: url(#hxSph); }
+@media (prefers-reduced-motion: reduce) { .v1, .v2 span, .v-faces svg, .v5-me, .beat.is-on .v-signals li, .beat.is-on .v-signals svg { animation: none; } }
+@media (min-width: 900px) { .v5w { width: 380px; } }
+@media (max-height: 700px) { .v5w { width: 200px; } }
 </style>
 
 <div class="hx">
 <section class="pin-story why" id="why" aria-label="회원이 말없이 떠나는 이유">
+<svg class="hx-defs" width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden"><defs>
+  <radialGradient id="hxSph" cx="34%" cy="28%" r="78%"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".45" stop-color="#D9DDE3"/><stop offset="1" stop-color="#7E8590"/></radialGradient>
+  <radialGradient id="hxSphDim" cx="34%" cy="26%" r="80%"><stop offset="0" stop-color="#4A505A"/><stop offset=".55" stop-color="#23272D"/><stop offset="1" stop-color="#131518"/></radialGradient>
+  <radialGradient id="hxSphLight" cx="34%" cy="26%" r="80%"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".6" stop-color="#F1F3F5"/><stop offset="1" stop-color="#D5DAE0"/></radialGradient>
+  <radialGradient id="hxSphAmber" cx="34%" cy="26%" r="80%"><stop offset="0" stop-color="#FFD9C2"/><stop offset=".5" stop-color="#FF8A4C"/><stop offset="1" stop-color="#B9521B"/></radialGradient>
+  <radialGradient id="hxPlate" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#FFFFFF" stop-opacity=".09"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/></radialGradient>
+  <linearGradient id="hxBub" x1="0" y1="0" x2=".35" y2="1"><stop offset="0" stop-color="#FFFFFF" stop-opacity=".2"/><stop offset=".55" stop-color="#FFFFFF" stop-opacity=".06"/><stop offset="1" stop-color="#FFFFFF" stop-opacity=".02"/></linearGradient>
+  <linearGradient id="hxEdge" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF" stop-opacity=".95"/><stop offset="1" stop-color="#FFFFFF" stop-opacity=".25"/></linearGradient>
+</defs></svg>
   <div class="pin">
     <ol class="pin-bars" aria-hidden="true"><li><b></b></li><li><b></b></li><li><b></b></li><li><b></b></li><li><b></b></li><li><b></b></li><li><b></b></li></ol>
 
     <article class="beat is-on" data-tone="dark">
       <div><h2>회원은<br>말이 없습니다.</h2></div>
-      <div class="why-vis"><svg class="v1" viewBox="0 0 300 190" aria-hidden="true"><path d="M40 22h220a24 24 0 0 1 24 24v70a24 24 0 0 1-24 24H124l-40 34v-34H40a24 24 0 0 1-24-24V46a24 24 0 0 1 24-24z" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.72)" stroke-width="2" stroke-linejoin="round"/><circle class="d" cx="112" cy="81" r="8"/><circle class="d d2" cx="150" cy="81" r="8"/><circle class="d d3" cx="188" cy="81" r="8"/></svg></div>
+      <div class="why-vis"><svg class="v1" viewBox="0 0 300 190" aria-hidden="true"><path class="bub" d="M40 22h220a24 24 0 0 1 24 24v70a24 24 0 0 1-24 24H124l-40 34v-34H40a24 24 0 0 1-24-24V46a24 24 0 0 1 24-24z" stroke-linejoin="round"/><path class="hi" d="M44 32h150"/><circle class="d" cx="112" cy="81" r="8"/><circle class="d d2" cx="150" cy="81" r="8"/><circle class="d d3" cx="188" cy="81" r="8"/></svg></div>
     </article>
 
     <article class="beat" data-tone="dark">
-      <div><h2>그냥,<br>조용히 떠납니다.</h2></div>
+      <div><h2>그냥, 지금도<br>조용히 떠납니다.</h2></div>
       <div class="why-vis"><div class="v2" aria-hidden="true"><span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8.2" r="4.2"/><path d="M3.6 21c.5-4.6 3.9-7.2 8.4-7.2s7.900 2.600 8.400 7.200z"/></svg></span><span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8.2" r="4.2"/><path d="M3.6 21c.5-4.6 3.9-7.2 8.4-7.2s7.900 2.600 8.400 7.200z"/></svg></span><span class="gone"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8.2" r="4.2"/><path d="M3.6 21c.5-4.6 3.9-7.2 8.4-7.2s7.900 2.600 8.400 7.200z"/></svg></span><span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8.2" r="4.2"/><path d="M3.6 21c.5-4.6 3.9-7.2 8.4-7.2s7.900 2.600 8.400 7.200z"/></svg></span><span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8.2" r="4.2"/><path d="M3.6 21c.5-4.6 3.9-7.2 8.4-7.2s7.900 2.600 8.400 7.200z"/></svg></span></div></div>
     </article>
 
     <article class="beat" data-tone="dark">
-      <div><h2>사실 현장에<br>신호는 많습니다.</h2></div>
+      <div><h2>사실 현장에<br>이탈 신호는 많습니다.</h2></div>
       <div class="why-vis">
         <ul class="v-signals">
           <li><b>출석률</b><svg viewBox="0 0 120 34" fill="none" preserveAspectRatio="none" aria-hidden="true"><path class="draw" pathLength="1" d="M2 7C26 7 36 9 54 14S88 26 114 28" stroke="#fff" stroke-width="2" stroke-linecap="round" vector-effect="non-scaling-stroke"/><circle class="pop" cx="114" cy="28" r="3.6" fill="#FF8A4C"/></svg><em>92% → <i>61%</i></em></li>
@@ -941,18 +1004,18 @@
     </article>
 
     <article class="beat" data-tone="dark">
-      <div><h2>하지만 대표님은<br>회원의 속마음을<br>알 수가 없습니다.</h2></div>
+      <div><h2>하지만 대표님은<br>회원의 속마음을<br>알 수가 없죠.</h2></div>
       <div class="why-vis"><div class="v-faces" aria-hidden="true"><svg viewBox="0 0 40 40"><circle class="f" cx="20" cy="20" r="18.5"/><circle class="e" cx="14" cy="17" r="1.9"/><circle class="e" cx="26" cy="17" r="1.9"/><path class="m" d="M14.5 26h11"/></svg><svg viewBox="0 0 40 40"><circle class="f" cx="20" cy="20" r="18.5"/><circle class="e" cx="14" cy="17" r="1.9"/><circle class="e" cx="26" cy="17" r="1.9"/><path class="m" d="M14.5 26h11"/></svg><svg viewBox="0 0 40 40"><circle class="f" cx="20" cy="20" r="18.5"/><circle class="e" cx="14" cy="17" r="1.9"/><circle class="e" cx="26" cy="17" r="1.9"/><path class="m" d="M14.5 26h11"/></svg><svg viewBox="0 0 40 40"><circle class="f" cx="20" cy="20" r="18.5"/><circle class="e" cx="14" cy="17" r="1.9"/><circle class="e" cx="26" cy="17" r="1.9"/><path class="m" d="M14.5 26h11"/></svg><svg viewBox="0 0 40 40"><circle class="f" cx="20" cy="20" r="18.5"/><circle class="e" cx="14" cy="17" r="1.9"/><circle class="e" cx="26" cy="17" r="1.9"/><path class="m" d="M14.5 26h11"/></svg><svg viewBox="0 0 40 40"><circle class="f" cx="20" cy="20" r="18.5"/><circle class="e" cx="14" cy="17" r="1.9"/><circle class="e" cx="26" cy="17" r="1.9"/><path class="m" d="M14.5 26h11"/></svg><svg viewBox="0 0 40 40"><circle class="f" cx="20" cy="20" r="18.5"/><circle class="e" cx="14" cy="17" r="1.9"/><circle class="e" cx="26" cy="17" r="1.9"/><path class="m" d="M14.5 26h11"/></svg><svg viewBox="0 0 40 40"><circle class="f" cx="20" cy="20" r="18.5"/><circle class="e" cx="14" cy="17" r="1.9"/><circle class="e" cx="26" cy="17" r="1.9"/><path class="m" d="M14.5 26h11"/></svg><svg viewBox="0 0 40 40"><circle class="f" cx="20" cy="20" r="18.5"/><circle class="e" cx="14" cy="17" r="1.9"/><circle class="e" cx="26" cy="17" r="1.9"/><path class="m" d="M14.5 26h11"/></svg><svg viewBox="0 0 40 40"><circle class="f" cx="20" cy="20" r="18.5"/><circle class="e" cx="14" cy="17" r="1.9"/><circle class="e" cx="26" cy="17" r="1.9"/><path class="m" d="M14.5 26h11"/></svg><svg viewBox="0 0 40 40"><circle class="f" cx="20" cy="20" r="18.5"/><circle class="e" cx="14" cy="17" r="1.9"/><circle class="e" cx="26" cy="17" r="1.9"/><path class="m" d="M14.5 26h11"/></svg><svg viewBox="0 0 40 40"><circle class="f" cx="20" cy="20" r="18.5"/><circle class="e" cx="14" cy="17" r="1.9"/><circle class="e" cx="26" cy="17" r="1.9"/><path class="m" d="M14.5 26h11"/></svg><svg viewBox="0 0 40 40"><circle class="f" cx="20" cy="20" r="18.5"/><circle class="e" cx="14" cy="17" r="1.9"/><circle class="e" cx="26" cy="17" r="1.9"/><path class="m" d="M14.5 26h11"/></svg><svg viewBox="0 0 40 40"><circle class="f" cx="20" cy="20" r="18.5"/><circle class="e" cx="14" cy="17" r="1.9"/><circle class="e" cx="26" cy="17" r="1.9"/><path class="m" d="M14.5 26h11"/></svg><svg viewBox="0 0 40 40"><circle class="f" cx="20" cy="20" r="18.5"/><circle class="e" cx="14" cy="17" r="1.9"/><circle class="e" cx="26" cy="17" r="1.9"/><path class="m" d="M14.5 26h11"/></svg><svg viewBox="0 0 40 40"><circle class="f" cx="20" cy="20" r="18.5"/><circle class="e" cx="14" cy="17" r="1.9"/><circle class="e" cx="26" cy="17" r="1.9"/><path class="m" d="M14.5 26h11"/></svg><svg viewBox="0 0 40 40"><circle class="f" cx="20" cy="20" r="18.5"/><circle class="e" cx="14" cy="17" r="1.9"/><circle class="e" cx="26" cy="17" r="1.9"/><path class="m" d="M14.5 26h11"/></svg><svg viewBox="0 0 40 40"><circle class="f" cx="20" cy="20" r="18.5"/><circle class="e" cx="14" cy="17" r="1.9"/><circle class="e" cx="26" cy="17" r="1.9"/><path class="m" d="M14.5 26h11"/></svg><svg viewBox="0 0 40 40"><circle class="f" cx="20" cy="20" r="18.5"/><circle class="e" cx="14" cy="17" r="1.9"/><circle class="e" cx="26" cy="17" r="1.9"/><path class="m" d="M14.5 26h11"/></svg><svg viewBox="0 0 40 40"><circle class="f" cx="20" cy="20" r="18.5"/><circle class="e" cx="14" cy="17" r="1.9"/><circle class="e" cx="26" cy="17" r="1.9"/><path class="m" d="M14.5 26h11"/></svg><svg viewBox="0 0 40 40"><circle class="f" cx="20" cy="20" r="18.5"/><circle class="e" cx="14" cy="17" r="1.9"/><circle class="e" cx="26" cy="17" r="1.9"/><path class="m" d="M14.5 26h11"/></svg><svg viewBox="0 0 40 40"><circle class="f" cx="20" cy="20" r="18.5"/><circle class="e" cx="14" cy="17" r="1.9"/><circle class="e" cx="26" cy="17" r="1.9"/><path class="m" d="M14.5 26h11"/></svg><svg viewBox="0 0 40 40"><circle class="f" cx="20" cy="20" r="18.5"/><circle class="e" cx="14" cy="17" r="1.9"/><circle class="e" cx="26" cy="17" r="1.9"/><path class="m" d="M14.5 26h11"/></svg><svg viewBox="0 0 40 40"><circle class="f" cx="20" cy="20" r="18.5"/><circle class="e" cx="14" cy="17" r="1.9"/><circle class="e" cx="26" cy="17" r="1.9"/><path class="m" d="M14.5 26h11"/></svg></div><span class="why-cap">대표님 눈에는 모두 같은 얼굴입니다</span></div>
     </article>
 
     <article class="beat" data-tone="dark">
       <div><h2>선생님 잘못이<br>아닙니다.</h2><p>강사 한 명이 스무 명 넘는 회원의 변화를<br>기억만으로 챙길 수는 없습니다.</p></div>
-      <div class="why-vis"><svg class="v5" viewBox="0 0 220 220" aria-hidden="true"><circle cx="110" cy="110" r="58" fill="none" stroke="rgba(255,255,255,.12)"/><circle cx="110" cy="110" r="94" fill="none" stroke="rgba(255,255,255,.12)"/><g class="r1"><circle cx="165.4" cy="127.1" r="5.500" fill="rgba(255,255,255,.6)"/><circle cx="141.4" cy="158.7" r="5.500" fill="rgba(255,255,255,.6)"/><circle cx="102.7" cy="167.5" r="5.500" fill="rgba(255,255,255,.6)"/><circle cx="67.5" cy="149.4" r="5.500" fill="rgba(255,255,255,.6)"/><circle cx="52.1" cy="112.8" r="5.500" fill="rgba(255,255,255,.6)"/><circle cx="63.8" cy="74.9" r="5.500" fill="rgba(255,255,255,.6)"/><circle cx="97.1" cy="53.4" r="5.500" fill="rgba(255,255,255,.6)"/><circle cx="136.5" cy="58.4" r="5.500" fill="rgba(255,255,255,.6)"/><circle cx="163.5" cy="87.5" r="5.500" fill="rgba(255,255,255,.6)"/></g><g class="r2"><circle cx="204.0" cy="110.0" r="5.500" fill="rgba(255,255,255,.6)"/><circle cx="193.2" cy="153.7" r="5.500" fill="rgba(255,255,255,.6)"/><circle cx="163.4" cy="187.4" r="5.500" fill="rgba(255,255,255,.6)"/><circle cx="121.3" cy="203.3" r="5.500" fill="rgba(255,255,255,.6)"/><circle cx="76.7" cy="197.9" r="5.500" fill="rgba(255,255,255,.6)"/><circle cx="39.6" cy="172.3" r="5.500" fill="rgba(255,255,255,.6)"/><circle cx="18.7" cy="132.5" r="5.500" fill="rgba(255,255,255,.6)"/><circle cx="18.7" cy="87.5" r="5.500" fill="rgba(255,255,255,.6)"/><circle cx="39.6" cy="47.7" r="5.500" fill="rgba(255,255,255,.6)"/><circle cx="76.7" cy="22.1" r="5.500" fill="rgba(255,255,255,.6)"/><circle cx="121.3" cy="16.7" r="5.500" fill="rgba(255,255,255,.6)"/><circle cx="163.4" cy="32.6" r="5.500" fill="rgba(255,255,255,.6)"/><circle cx="193.2" cy="66.3" r="5.500" fill="rgba(255,255,255,.6)"/></g><circle cx="110" cy="110" r="21" fill="#fff"/><g transform="translate(98 97) scale(1)" fill="#0B0D10"><circle cx="12" cy="8.2" r="4.2"/><path d="M3.6 21c.5-4.6 3.9-7.2 8.4-7.2s7.9 2.6 8.4 7.2z"/></g></svg><span class="why-cap">강사 1명 · 담당 회원 22명</span></div>
+      <div class="why-vis"><div class="v5w"><svg class="v5" viewBox="0 0 220 220" aria-hidden="true"><circle class="plate" cx="110" cy="110" r="108"/><circle class="ring" cx="110" cy="110" r="58"/><circle class="ring" cx="110" cy="110" r="94"/><g class="r1"><circle cx="165.4" cy="127.1" r="5.500" fill="rgba(255,255,255,.6)"/><circle cx="141.4" cy="158.7" r="5.500" fill="rgba(255,255,255,.6)"/><circle cx="102.7" cy="167.5" r="5.500" fill="rgba(255,255,255,.6)"/><circle cx="67.5" cy="149.4" r="5.500" fill="rgba(255,255,255,.6)"/><circle cx="52.1" cy="112.8" r="5.500" fill="rgba(255,255,255,.6)"/><circle cx="63.8" cy="74.9" r="5.500" fill="rgba(255,255,255,.6)"/><circle cx="97.1" cy="53.4" r="5.500" fill="rgba(255,255,255,.6)"/><circle cx="136.5" cy="58.4" r="5.500" fill="rgba(255,255,255,.6)"/><circle cx="163.5" cy="87.5" r="5.500" fill="rgba(255,255,255,.6)"/></g><g class="r2"><circle cx="204.0" cy="110.0" r="5.500" fill="rgba(255,255,255,.6)"/><circle cx="193.2" cy="153.7" r="5.500" fill="rgba(255,255,255,.6)"/><circle cx="163.4" cy="187.4" r="5.500" fill="rgba(255,255,255,.6)"/><circle cx="121.3" cy="203.3" r="5.500" fill="rgba(255,255,255,.6)"/><circle cx="76.7" cy="197.9" r="5.500" fill="rgba(255,255,255,.6)"/><circle cx="39.6" cy="172.3" r="5.500" fill="rgba(255,255,255,.6)"/><circle cx="18.7" cy="132.5" r="5.500" fill="rgba(255,255,255,.6)"/><circle cx="18.7" cy="87.5" r="5.500" fill="rgba(255,255,255,.6)"/><circle cx="39.6" cy="47.7" r="5.500" fill="rgba(255,255,255,.6)"/><circle cx="76.7" cy="22.1" r="5.500" fill="rgba(255,255,255,.6)"/><circle cx="121.3" cy="16.7" r="5.500" fill="rgba(255,255,255,.6)"/><circle cx="163.4" cy="32.6" r="5.500" fill="rgba(255,255,255,.6)"/><circle cx="193.2" cy="66.3" r="5.500" fill="rgba(255,255,255,.6)"/></g></svg><i class="v5-me" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8.2" r="4.2"/><path d="M3.6 21c.5-4.6 3.9-7.2 8.4-7.2s7.9 2.6 8.4 7.2z"/></svg></i></div><span class="why-cap">강사 1명 · 담당 회원 22명</span></div>
     </article>
 
     <article class="beat" data-tone="dark">
       <div><h2>항상 떠난 뒤에야<br>알게 되는 대표님,</h2></div>
-      <div class="why-vis"><div class="v-time"><svg viewBox="0 0 330 40" fill="none" aria-hidden="true"><path d="M12 20H318" stroke="rgba(255,255,255,.2)" stroke-width="2" stroke-dasharray="2 7" stroke-linecap="round"/><path class="draw" pathLength="1" d="M12 20H318" stroke="#fff" stroke-width="2" stroke-linecap="round" style="transition-duration:2.2s"/><circle cx="12" cy="20" r="5" fill="#FF8A4C"/><circle cx="165" cy="20" r="5" fill="rgba(255,255,255,.55)"/><circle class="ring" cx="318" cy="20" r="9" stroke="#fff" stroke-width="1.5"/><circle cx="318" cy="20" r="6" fill="#fff"/></svg><div class="lab"><span>첫 신호</span><span>마지막 수업</span><span>알게 된 날</span></div></div></div>
+      <div class="why-vis"><div class="v-time"><svg viewBox="0 0 330 40" fill="none" aria-hidden="true"><path d="M12 20H318" stroke="rgba(255,255,255,.2)" stroke-width="2" stroke-dasharray="2 7" stroke-linecap="round"/><path class="draw" pathLength="1" d="M12 20H318" stroke="#fff" stroke-width="2" stroke-linecap="round" style="transition-duration:2.2s"/><circle class="n0" cx="12" cy="20" r="6"/><circle class="n1" cx="165" cy="20" r="5.5"/><circle class="ring" cx="318" cy="20" r="9" stroke="#fff" stroke-width="1.5"/><circle class="n2" cx="318" cy="20" r="7"/></svg><div class="lab"><span>첫 신호</span><span>마지막 수업</span><span>알게 된 날</span></div></div></div>
     </article>
 
     <article class="beat" data-tone="light">

@@ -1232,6 +1232,33 @@
 
 .v67 { height: 140px; } .v67 .mk em { top: 48px; }
 @media (min-width: 900px) { .v67 { height: 160px; } .v67 .mk em { top: 58px; } }
+
+/* 2-7 딱 멈춤(11-10): 다가오는 건 스크롤(점점 빨라짐), 이탈 신호에 닿는 순간은 시간 재생 — 반동 정지 + 고리 조임 + 물결 + 체크. 스크롤을 올리면 풀림 */
+.pin-js.why .v7x { --a: clamp(0, (var(--p) - .06) / .32, 1); --m: calc(var(--a) * var(--a) * .22); }
+.pin-js.why .v7x .catch, .pin-js.why .v7x .ok { opacity: 0; transform: scale(2.2); }
+.pin-js.why .v7x .ok { transform: scale(.3); }
+.v7x .rip { position: absolute; top: 40px; left: 22%; width: 84px; height: 84px; margin: -42px 0 0 -42px; border-radius: 50%; border: 2px solid var(--mint, #1FDBA8); opacity: 0; pointer-events: none; }
+.v7x.caught .av { animation: v7Snap .55s cubic-bezier(.2,.9,.3,1) both; }
+.pin-js.why .v7x.caught .catch { animation: v7Clamp .5s cubic-bezier(.2,.9,.25,1) .04s both; }
+.v7x.caught .rip { animation: v7Rip .9s ease-out .12s both; }
+.pin-js.why .v7x.caught .ok { animation: v7Ok .4s cubic-bezier(.2,.9,.3,1.4) .3s both; }
+@keyframes v7Snap { 0% { transform: translateX(0) scale(1); } 28% { transform: translateX(10px) scale(1.06, .94); } 55% { transform: translateX(-4px) scale(.98, 1.02); } 78% { transform: translateX(2px); } 100% { transform: none; } }
+@keyframes v7Clamp { 0% { opacity: 0; transform: scale(2.2); } 55% { opacity: 1; transform: scale(.9); } 78% { transform: scale(1.04); } 100% { opacity: 1; transform: scale(1); } }
+@keyframes v7Rip { 0% { opacity: .7; transform: scale(.9); } 100% { opacity: 0; transform: scale(2.4); } }
+@keyframes v7Ok { 0% { opacity: 0; transform: scale(.3); } 100% { opacity: 1; transform: scale(1); } }
+@media (min-width: 900px) { .v7x .rip { width: 100px; height: 100px; margin: -50px 0 0 -50px; } }
+@media (prefers-reduced-motion: reduce) { .v7x.caught .av, .v7x.caught .rip { animation: none; } .v7x.caught .catch, .v7x.caught .ok { animation: none; opacity: 1; transform: none; } }
+
+/* 2-7 포커스 인(11-10): 딱 멈춘 뒤 이탈 신호 지점이 가운데로 오며 확대, 나머지는 흐려짐(스크롤 연동) */
+.pin-js.why .v7x { --f0: clamp(0, (var(--p) - .5) / .3, 1); --f: calc(var(--f0) * var(--f0) * (3 - 2 * var(--f0))); transform-origin: 22% 40px; transform: translateX(calc(28% * var(--f))) scale(calc(1 + var(--f) * .55)); }
+.pin-js.why .v7x .k2, .pin-js.why .v7x .k3 { opacity: max(0, 1 - var(--f) * 2.2); }
+.pin-js.why .v7x .rl { opacity: calc(1 - var(--f) * .7); }
+.pin-js.why .beat:has(.v7x) .why-vis { overflow: hidden; }
+
+/* 2-7: 포커스 인 하면서 '이탈 신호' → '재등록' 글자 교차 */
+.v7x .k1 em.alt { opacity: 0; }
+.pin-js.why .v7x .k1 em:not(.alt) { opacity: clamp(0, 1 - (var(--f) - .35) * 4, 1); filter: blur(calc(clamp(0, (var(--f) - .35) * 4, 1) * 3px)); }
+.pin-js.why .v7x .k1 em.alt { opacity: clamp(0, (var(--f) - .5) * 4, 1); filter: blur(calc((1 - clamp(0, (var(--f) - .5) * 4, 1)) * 3px)); }
 </style>
 
 <div class="hx">
@@ -1281,12 +1308,12 @@
 
     <article class="beat" data-tone="dark">
       <div><h2>떠나기 전에 먼저 알고<br>손을 쓸 수만 있다면</h2></div>
-      <div class="why-vis"><div class="v67 v6x" aria-hidden="true"><div class="rl"><i class="tr"></i></div><span class="mk k1"><b></b><em>이탈 신호</em></span><span class="mk k2"><b></b><em>마지막 수업</em></span><span class="mk k3"><b></b><em>알게 된 날</em></span><span class="av"><img src="assets/avatars/member-hanjiwoo.jpg" alt="" width="56" height="56"></span></div></div>
+      <div class="why-vis"><div class="v67 v6x" aria-hidden="true"><div class="rl"><i class="tr"></i></div><span class="mk k1"><b></b><em>이탈 신호</em></span><span class="mk k2"><b></b><em>마지막 날</em></span><span class="mk k3"><b></b><em>알게 된 날</em></span><span class="av"><img src="assets/avatars/member-hanjiwoo.jpg" alt="" width="56" height="56"></span></div></div>
     </article>
 
     <article class="beat" data-tone="light">
       <div><h2>그냥 보내는 회원은<br><em>없을 텐데요</em></h2></div>
-      <div class="why-vis"><div class="v67 v7x" aria-hidden="true"><div class="rl"><i class="tr"></i></div><span class="mk k1"><b></b><em>이탈 신호</em></span><span class="mk k2"><b></b><em>마지막 수업</em></span><span class="mk k3"><b></b><em>알게 된 날</em></span><i class="catch"></i><span class="av"><img src="assets/avatars/member-hanjiwoo.jpg" alt="" width="56" height="56"><i class="ok"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.5L12 5.4"/></svg></i></span></div></div>
+      <div class="why-vis"><div class="v67 v7x" aria-hidden="true"><div class="rl"><i class="tr"></i></div><span class="mk k1"><b></b><em>이탈 신호</em><em class="alt">재등록</em></span><span class="mk k2"><b></b><em>마지막 날</em></span><span class="mk k3"><b></b><em>알게 된 날</em></span><i class="catch"></i><i class="rip"></i><span class="av"><img src="assets/avatars/member-hanjiwoo.jpg" alt="" width="56" height="56"><i class="ok"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.5L12 5.4"/></svg></i></span></div></div>
     </article>
   </div>
 </section>
@@ -1315,6 +1342,12 @@ var BI=-1, last=-1; function upd(e){var pin=!!ul.closest('.pin-js'), p=1; if(pin
     if(k==='rate') v=Math.round(92-31*g)+'%'; else if(k==='freq') v='주 '+W[Math.min(3,Math.floor(g*4+1e-4))]+'회'; else v=(4.8-1.6*g).toFixed(1);
     var st=li.querySelector('strong'); if(st.textContent!==v) st.textContent=v; li.classList.toggle('down', g>.5); li.classList.toggle('alarm', g>=.999);});}
 if(story) story.addEventListener('beatp',upd); if(!ul.closest('.pin-js')) upd();})();
+</script>
+
+<script>
+// 2-7: 회원이 이탈 신호에 닿는 순간(--p ≥ .38) 'caught' → 딱 멈춤 연출, 되감으면 해제
+(function(){var v=document.querySelector('.v7x'); if(!v) return; var beat=v.closest('.beat'), story=v.closest('.pin-story'); if(!story) return; var BI=-1;
+story.addEventListener('beatp',function(e){ if(BI<0) BI=[].indexOf.call(story.querySelectorAll('.beat'),beat); var d=e.detail, n=+beat.getAttribute('data-steps')||1, p=d.beat>BI?1:d.beat<BI?0:(d.step+d.sp)/n; var on=p>=.38; if(on!==v.classList.contains('caught')) v.classList.toggle('caught',on); });})();
 </script>
 <style>
 /* ── 4. 앱 흐름: 고정 스크롤 + 실제 화면이 저절로 조작되는 연출(가로 화면은 전체 → 확대 → 이동 → 축소) ── */

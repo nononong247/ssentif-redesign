@@ -871,3 +871,12 @@ body .pf-hero    { padding-top: calc(150px + var(--notice-h)); }
 @media (max-width: 360px) {
   .nav-logo img { height: 12px; }
 }
+
+/* 11-10: 'NEW 2.0' 태그는 모든 페이지에서 숨김(다시 쓰려면 이 줄만 지우면 됨) */
+.cta-new-badge { display: none !important; }
+/* 11-10: 모바일 헤더 — 도입 상담 신청 버튼을 햄버거 메뉴 옆(오른쪽)으로, 간격 10px */
+@media (max-width: 900px) {
+  .nav-inner { gap: 10px; }
+  .nav-actions { margin-left: auto; }
+  .nav-hamburger { margin-left: 0; }
+}

@@ -724,7 +724,7 @@
     <div class="hero-scroll-title">
       <div class="hero-text">
         <h1>이제 <span class="hl">강사별</span> PT 성과가<br>눈에 보입니다</h1>
-        <p class="lead">수업일지, 식단, 개인운동 피드백으로 만족을 쌓고,<br>강사별로 확인합니다.</p>
+        <p class="lead">수업일지, 식단, 개인운동 피드백으로<br class="mo-br"> 회원 만족을 쌓습니다.</p>
         <div class="hero-btns">
           <a href="consulting" class="btn-cta">
             도입 상담 신청<span class="cta-new-badge">NEW 2.0</span>
@@ -733,9 +733,9 @@
           <a href="journal-try" class="btn-outline-ghost">가입없이 써보기</a>
         </div>
         <ul class="hero-vals">
-          <li><span>회원에게는</span><b>매 수업의 기록</b></li>
+          <li><span>회원에게는</span><b>센터에 남을 이유</b></li>
           <li><span>강사에게는</span><b>재등록 상담의 근거</b></li>
-          <li><span>대표님께는</span><b>강사별 회원관리 현황</b></li>
+          <li><span>대표님께는</span><b>강사별 PT 현황</b></li>
         </ul>
       </div>
     </div>
@@ -1121,6 +1121,117 @@
 .pin-js.why .beat .v2 .gone { --t: clamp(0, (var(--p) - .12) / .66, 1); --e: calc(var(--t) * var(--t) * (3 - 2 * var(--t))); background: radial-gradient(circle at 34% 26%, rgba(255,255,255,.24), rgba(255,255,255,.06) 52%, rgba(255,255,255,.02) 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,.22), inset 0 -12px 18px rgba(0,0,0,.38), 0 22px 24px -14px rgba(0,0,0,.85); width: calc(var(--sz) * (1 - var(--e))); margin-right: calc(var(--gp) * -1 * var(--e)); opacity: calc(1 - var(--e)); transform: translateY(calc(var(--e) * -10px)) scale(calc(1 - var(--e) * .45)); filter: blur(calc(var(--e) * 5px)); }
 .pin-js.why .beat .v2 .gone::before { display: none; }
 .pin-js.why .beat .v2 .gone svg { opacity: 1; transform: none; filter: drop-shadow(0 2px 2px rgba(0,0,0,.4)); flex: none; }
+
+/* 2-1 말풍선 글래스(11-10): 뒤에 무채색 빛망울 → 말풍선 모양으로 잘린 반투명 서리유리(backdrop blur) → 가는 유리 테두리. 빛망울은 스크롤로 천천히 흐름 */
+.v1g { position: relative; width: min(280px, 72vw); aspect-ratio: 300 / 190; animation: vFloat 7s ease-in-out infinite; }
+.v1g .v1 { position: relative; display: block; width: 100%; animation: none; filter: none; z-index: 2; }
+.v1g .v1 .bub { fill: url(#hxGlass); stroke: url(#hxGlassEdge); stroke-width: 1.2; }
+.v1g .v1 .hi { stroke: rgba(255,255,255,.45); stroke-width: 1; }
+.v1-glass { position: absolute; inset: 0; z-index: 1; -webkit-backdrop-filter: blur(18px) saturate(120%); backdrop-filter: blur(18px) saturate(120%); background: linear-gradient(160deg, rgba(255,255,255,.12), rgba(255,255,255,.03) 55%, rgba(255,255,255,.06)); -webkit-mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20300%20190%27%3E%3Cpath%20d%3D%27M40%2022h220a24%2024%200%200%201%2024%2024v70a24%2024%200%200%201-24%2024H124l-40%2034v-34H40a24%2024%200%200%201-24-24V46a24%2024%200%200%201%2024-24z%27%20fill%3D%27black%27/%3E%3C/svg%3E") center / 100% 100% no-repeat; mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20300%20190%27%3E%3Cpath%20d%3D%27M40%2022h220a24%2024%200%200%201%2024%2024v70a24%2024%200%200%201-24%2024H124l-40%2034v-34H40a24%2024%200%200%201-24-24V46a24%2024%200%200%201%2024-24z%27%20fill%3D%27black%27/%3E%3C/svg%3E") center / 100% 100% no-repeat; }
+.v1-blob { position: absolute; z-index: 0; border-radius: 50%; filter: blur(16px); }
+.v1-blob.b1 { width: 46%; aspect-ratio: 1; left: 2%; top: -6%; background: radial-gradient(circle at 40% 35%, rgba(255,255,255,.55), rgba(190,196,205,.25) 60%, transparent 72%); }
+.v1-blob.b2 { width: 38%; aspect-ratio: 1; right: 4%; top: 30%; background: radial-gradient(circle, rgba(150,157,168,.6), rgba(110,116,126,.2) 60%, transparent 72%); }
+.v1-blob.b3 { width: 24%; aspect-ratio: 1; left: 36%; top: 48%; background: radial-gradient(circle, rgba(235,238,242,.4), transparent 70%); }
+.v1-shadow { position: absolute; left: 14%; right: 10%; bottom: -8%; height: 16%; border-radius: 50%; background: radial-gradient(closest-side, rgba(0,0,0,.6), transparent); filter: blur(6px); z-index: 0; }
+@media (min-width: 900px) { .v1g { width: 340px; } }
+@media (max-height: 700px) { .v1g { width: 190px; } }
+@media (prefers-reduced-motion: reduce) { .v1g { animation: none; } }
+.pin-js.why .v1-blob.b1 { transform: translate(calc(var(--p) * 40px), calc(var(--p) * 14px)); }
+.pin-js.why .v1-blob.b2 { transform: translate(calc(var(--p) * -36px), calc(var(--p) * -10px)); }
+.pin-js.why .v1-blob.b3 { transform: translate(calc(var(--p) * 18px), calc(var(--p) * -18px)) scale(calc(1 + var(--p) * .3)); }
+
+/* 성능(11-10): 2-4 얼굴 48개의 그림자 필터·둥실 애니메이션 제거, 렌즈는 마스크 대신 clip-path, 바깥 어둡게는 filter 대신 opacity */
+.v4w .v-faces svg { filter: none; animation: none; }
+.v4w .v-faces .f { stroke: rgba(255,255,255,.16); }
+.v4w .v-faces:first-child { filter: none; opacity: calc(1 - var(--lo) * .4); }
+.v4w .v4-true { -webkit-mask-image: none; mask-image: none; clip-path: circle(calc(var(--lr) / 1.12) at var(--lx) var(--ly)); }
+.v4w::after { content: ""; position: absolute; left: 6%; right: 6%; bottom: -14%; height: 22%; border-radius: 50%; background: radial-gradient(closest-side, rgba(0,0,0,.55), transparent); z-index: -1; }
+.v4-lens { will-change: left, top; }
+
+/* 2-1 v3(11-10): 둥근 서리유리 말풍선 + 생각 방울 꼬리, 뒤에 또렷한 무채색 구슬 두 개(유리 너머로 번져 보임) */
+.v1x { position: relative; width: min(300px, 78vw); aspect-ratio: 300 / 210; animation: vBob 6s ease-in-out infinite; }
+.v1x .v1o { position: absolute; border-radius: 50%; }
+.v1x .o1 { width: 42%; aspect-ratio: 1; right: 4%; top: 0; background: radial-gradient(circle at 34% 28%, #fff, #C9CED6 38%, #5B616B 78%, #2A2E35 100%); box-shadow: 0 24px 40px -12px rgba(0,0,0,.7); }
+.v1x .o2 { width: 24%; aspect-ratio: 1; left: 6%; top: 46%; background: radial-gradient(circle at 34% 28%, #E9ECF0, #8A919C 55%, #30343B 100%); box-shadow: 0 16px 26px -10px rgba(0,0,0,.7); }
+.v1x .v1b { position: absolute; left: 8%; top: 16%; width: 80%; height: 52%; border-radius: 30px; display: flex; align-items: center; justify-content: center; gap: 14px; background: linear-gradient(155deg, rgba(255,255,255,.2), rgba(255,255,255,.05) 50%, rgba(255,255,255,.09)); -webkit-backdrop-filter: blur(22px) saturate(110%); backdrop-filter: blur(22px) saturate(110%); border: 1px solid rgba(255,255,255,.2); box-shadow: inset 0 1px 0 rgba(255,255,255,.4), inset 0 -1px 0 rgba(255,255,255,.06), 0 30px 50px -22px rgba(0,0,0,.85); animation: none; filter: none; }
+.v1x .v1t { position: absolute; border-radius: 50%; background: linear-gradient(155deg, rgba(255,255,255,.22), rgba(255,255,255,.06)); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border: 1px solid rgba(255,255,255,.2); box-shadow: inset 0 1px 0 rgba(255,255,255,.35), 0 10px 18px -8px rgba(0,0,0,.8); }
+.v1x .t1 { width: 9%; aspect-ratio: 1; left: 15%; top: 72%; }
+.v1x .t2 { width: 5%; aspect-ratio: 1; left: 9%; top: 85%; }
+.v1x .v1-sh { position: absolute; left: 14%; right: 14%; bottom: -2%; height: 10%; border-radius: 50%; background: radial-gradient(closest-side, rgba(0,0,0,.55), transparent); filter: blur(5px); }
+.v1x .d { width: 14px; height: 14px; border-radius: 50%; background: radial-gradient(circle at 34% 28%, #fff, #D9DDE3 46%, #8A919C 100%); box-shadow: 0 3px 6px rgba(0,0,0,.35); }
+@media (min-width: 900px) { .v1x { width: 380px; } .v1x .v1b { border-radius: 38px; gap: 18px; } .v1x .d { width: 18px; height: 18px; } }
+@media (max-height: 700px) { .v1x { width: 210px; } .v1x .d { width: 11px; height: 11px; } }
+@media (prefers-reduced-motion: reduce) { .v1x { animation: none; } }
+.pin-js.why .v1x .o1 { transform: translate(calc(var(--p) * -18px), calc(var(--p) * 10px)); }
+.pin-js.why .v1x .o2 { transform: translate(calc(var(--p) * 22px), calc(var(--p) * -8px)); }
+.pin-js.why .v1x .t1 { opacity: clamp(0, (var(--p) - .02) * 10, 1); }
+.pin-js.why .v1x .t2 { opacity: clamp(0, var(--p) * 10, 1); }
+
+.v1x .o1 { width: 38%; right: 6%; top: 2%; background: radial-gradient(circle at 34% 28%, #C4C9D0, #7A808A 40%, #3A3E46 78%, #1E2126 100%); }
+.v1x .o2 { background: radial-gradient(circle at 34% 28%, #B9BEC6, #666C76 55%, #24272D 100%); }
+.v1x .v1b { background: linear-gradient(155deg, rgba(255,255,255,.16), rgba(255,255,255,.04) 50%, rgba(255,255,255,.07)); }
+.v1x .d { box-shadow: 0 3px 8px rgba(0,0,0,.5), 0 0 10px rgba(255,255,255,.25); }
+
+/* 2-2 v3(11-10): 회원을 원형 프로필 사진으로. 사진이 찌그러지지 않게 기울임은 뺌 */
+.v2 { transform: none; padding-bottom: 0; }
+.v2 span { background: #2A2E35; box-shadow: 0 0 0 2px rgba(255,255,255,.14), 0 16px 22px -12px rgba(0,0,0,.85); overflow: hidden; }
+.v2 span img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 22%; display: block; border-radius: 50%; filter: grayscale(.15) brightness(.92); }
+.pin-js.why .beat .v2 .gone { background: #2A2E35; box-shadow: 0 0 0 2px rgba(255,255,255,.14), 0 16px 22px -12px rgba(0,0,0,.85); }
+.pin-js.why .beat .v2 .gone img { flex: none; width: var(--sz); height: var(--sz); max-width: none; }
+/* 2-1 v4(11-10): 덜어내기 — 뒤 구슬·꼬리 방울 없이 둥근 유리 말풍선 하나와 점 세 개만 */
+.v1x { width: min(220px, 60vw); aspect-ratio: auto; height: 120px; display: grid; place-items: center; }
+.v1x .v1o, .v1x .v1t { display: none; }
+.v1x .v1b { position: relative; left: auto; top: auto; width: 100%; height: 76px; border-radius: 38px; gap: 12px; background: linear-gradient(180deg, rgba(255,255,255,.1), rgba(255,255,255,.035)); -webkit-backdrop-filter: none; backdrop-filter: none; border: 1px solid rgba(255,255,255,.12); box-shadow: inset 0 1px 0 rgba(255,255,255,.22), 0 26px 40px -24px rgba(0,0,0,.9); }
+.v1x .v1-sh { display: none; }
+.v1x .d { width: 12px; height: 12px; background: #fff; box-shadow: none; }
+@media (min-width: 900px) { .v1x { width: 280px; height: 150px; } .v1x .v1b { height: 96px; border-radius: 48px; gap: 16px; } .v1x .d { width: 15px; height: 15px; } }
+@media (max-height: 700px) { .v1x { width: 180px; height: 100px; } .v1x .v1b { height: 62px; } }
+
+/* 2-1 v5(11-10): 꼬리 달린 밝은 메신저 말풍선(받은 메시지 느낌), 점은 어두운 회색 */
+.v1x { width: min(230px, 62vw); height: auto; display: block; }
+.v1x .v1b { position: relative; width: 100%; height: auto; aspect-ratio: 220 / 120; border: 0; border-radius: 0; background: none; box-shadow: none; display: block; filter: drop-shadow(0 22px 26px rgba(0,0,0,.55)) drop-shadow(0 0 30px rgba(255,255,255,.06)); }
+.v1x .v1s { display: block; width: 100%; height: 100%; }
+.v1x .v1dots { position: absolute; left: 4.5%; right: 4.5%; top: 8.3%; height: 66.7%; display: flex; align-items: center; justify-content: center; gap: 11px; }
+.v1x .d { width: 12px; height: 12px; background: #4A4F57; box-shadow: none; }
+@media (min-width: 900px) { .v1x { width: 300px; } .v1x .v1dots { gap: 14px; } .v1x .d { width: 15px; height: 15px; } }
+@media (max-height: 700px) { .v1x { width: 180px; } .v1x .d { width: 10px; height: 10px; } }
+
+/* 2-6·2-7 v3(11-10): 같은 타임라인. 2-6 = 첫 신호에서 아무도 손쓰지 못해 회원이 끝까지 가서 사라짐 / 2-7 = 첫 신호에서 민트 고리가 붙잡아 멈춤 */
+.v67 { --m: 1; position: relative; width: min(320px, 84vw); height: 120px; margin-top: 8px; }
+.v67 .rl { position: absolute; left: 0; right: 0; top: 40px; height: 2px; border-radius: 2px; background: rgba(255,255,255,.14); }
+.v67 .tr { position: absolute; left: 0; top: 0; bottom: 0; width: calc(var(--m) * 100%); border-radius: 2px; background: linear-gradient(90deg, rgba(255,255,255,.7), rgba(255,255,255,.25)); }
+.v67 .mk { position: absolute; top: 40px; width: 0; }
+.v67 .k1 { left: 22%; } .v67 .k2 { left: 62%; } .v67 .k3 { left: 100%; }
+.v67 .mk b { position: absolute; left: -5px; top: -5px; width: 10px; height: 10px; border-radius: 50%; background: #3A3F47; box-shadow: 0 0 0 3px #0E1013; }
+.v67 .mk em { position: absolute; top: 18px; left: 50%; transform: translateX(-50%); white-space: nowrap; font-style: normal; font-size: 12px; color: rgba(255,255,255,.45); }
+.v67 .k3 em { left: auto; right: -6px; transform: none; }
+.v67 .av { position: absolute; top: 40px; left: calc(var(--m) * 100%); width: 52px; height: 52px; margin: -26px 0 0 -26px; border-radius: 50%; overflow: visible; box-shadow: 0 0 0 2px rgba(255,255,255,.2), 0 14px 22px -10px rgba(0,0,0,.9); z-index: 2; }
+.v67 .av img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; object-position: 50% 22%; display: block; }
+@media (min-width: 900px) { .v67 { width: 480px; height: 140px; } .v67 .av { width: 64px; height: 64px; margin: -32px 0 0 -32px; } .v67 .mk em { font-size: 13.5px; } }
+/* 2-6: 첫 신호는 주황으로 깜빡이지만 그냥 지나침 → 끝에서 흐려지며 사라짐 */
+.v6x .k1 b { background: var(--amber); box-shadow: 0 0 0 3px #0E1013, 0 0 0 calc(3px + var(--sg, 0) * 8px) rgba(255,138,76,calc(var(--sg, 0) * .35)); }
+.v6x .k1 em { color: rgba(255,170,120,.9); }
+.pin-js.why .v6x { --m: clamp(0, (var(--p) - .06) / .78, 1); --sg: min(clamp(0, (var(--m) - .16) * 10, 1), clamp(0, (.5 - var(--m)) * 6, 1)); }
+.pin-js.why .v6x .av { opacity: calc(1 - clamp(0, (var(--m) - .7) / .3, 1) * .95); filter: grayscale(calc(clamp(0, (var(--m) - .3) / .5, 1))) blur(calc(clamp(0, (var(--m) - .8) / .2, 1) * 3px)); }
+.pin-js.why .v6x .k3 b { background: rgba(255,255,255,calc(.2 + clamp(0, (var(--m) - .95) * 20, 1) * .7)); }
+/* 2-7(밝은 배경): 같은 회원이 다시 출발 → 첫 신호에서 민트 고리가 붙잡음, 뒤 구간은 흐리게 */
+.v7x .rl { background: rgba(13,15,18,.1); }
+.v7x .tr { background: linear-gradient(90deg, rgba(13,15,18,.35), var(--mint-d, #12B886)); }
+.v7x .mk b { background: #C9CED6; box-shadow: 0 0 0 3px #F2FBF8; }
+.v7x .mk em { color: rgba(13,15,18,.4); }
+.v7x .k1 em { color: var(--mint-d, #12B886); font-weight: 700; }
+.v7x .av { box-shadow: 0 0 0 2px #fff, 0 14px 22px -10px rgba(13,15,18,.35); }
+.v7x .catch { position: absolute; top: 40px; left: 22%; width: 84px; height: 84px; margin: -42px 0 0 -42px; border-radius: 50%; border: 2px solid var(--mint, #1FDBA8); box-shadow: 0 0 0 6px rgba(31,219,168,.14), 0 0 28px rgba(31,219,168,.35); opacity: 0; transform: scale(1.6); z-index: 1; }
+.v7x .ok { position: absolute; right: -6px; bottom: -4px; width: 22px; height: 22px; border-radius: 50%; background: var(--mint, #1FDBA8); display: grid; place-items: center; box-shadow: 0 0 0 2px #fff; opacity: 0; transform: scale(.4); }
+.v7x .ok svg { width: 14px; height: 14px; fill: none; stroke: #fff; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.pin-js.why .v7x { --m: calc(clamp(0, (var(--p) - .06) / .34, 1) * .22); --c: clamp(0, (var(--p) - .42) * 6, 1); }
+.pin-js.why .v7x .catch { opacity: var(--c); transform: scale(calc(1.6 - var(--c) * .6)); }
+.pin-js.why .v7x .ok { opacity: clamp(0, (var(--p) - .56) * 8, 1); transform: scale(calc(.4 + clamp(0, (var(--p) - .56) * 8, 1) * .6)); }
+.pin-js.why .v7x .k2, .pin-js.why .v7x .k3 { opacity: calc(1 - clamp(0, (var(--p) - .6) * 4, 1) * .6); }
+@media (min-width: 900px) { .v7x .catch { width: 100px; height: 100px; margin: -50px 0 0 -50px; } }
+
+.v67 { height: 140px; } .v67 .mk em { top: 48px; }
+@media (min-width: 900px) { .v67 { height: 160px; } .v67 .mk em { top: 58px; } }
 </style>
 
 <div class="hx">
@@ -1129,7 +1240,7 @@
   <radialGradient id="hxSph" cx="34%" cy="28%" r="78%"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".45" stop-color="#D9DDE3"/><stop offset="1" stop-color="#7E8590"/></radialGradient>
   <radialGradient id="hxSphDim" cx="34%" cy="26%" r="80%"><stop offset="0" stop-color="#4A505A"/><stop offset=".55" stop-color="#23272D"/><stop offset="1" stop-color="#131518"/></radialGradient>
   <radialGradient id="hxSphLight" cx="34%" cy="26%" r="80%"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".6" stop-color="#F1F3F5"/><stop offset="1" stop-color="#D5DAE0"/></radialGradient>
-  <radialGradient id="hxSphRed" cx="34%" cy="26%" r="80%"><stop offset="0" stop-color="#FFC2BC"/><stop offset=".5" stop-color="#F0453A"/><stop offset="1" stop-color="#9A1D16"/></radialGradient><radialGradient id="hxSphAmber" cx="34%" cy="26%" r="80%"><stop offset="0" stop-color="#FFD9C2"/><stop offset=".5" stop-color="#FF8A4C"/><stop offset="1" stop-color="#B9521B"/></radialGradient>
+  <radialGradient id="hxSphRed" cx="34%" cy="26%" r="80%"><stop offset="0" stop-color="#FFC2BC"/><stop offset=".5" stop-color="#F0453A"/><stop offset="1" stop-color="#9A1D16"/></radialGradient><linearGradient id="hxGlass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".16"/><stop offset=".5" stop-color="#fff" stop-opacity=".03"/><stop offset="1" stop-color="#fff" stop-opacity=".07"/></linearGradient><linearGradient id="hxGlassEdge" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".75"/><stop offset=".45" stop-color="#fff" stop-opacity=".12"/><stop offset="1" stop-color="#fff" stop-opacity=".4"/></linearGradient><radialGradient id="hxSphAmber" cx="34%" cy="26%" r="80%"><stop offset="0" stop-color="#FFD9C2"/><stop offset=".5" stop-color="#FF8A4C"/><stop offset="1" stop-color="#B9521B"/></radialGradient>
   <radialGradient id="hxPlate" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#FFFFFF" stop-opacity=".09"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/></radialGradient>
   <linearGradient id="hxBub" x1="0" y1="0" x2=".35" y2="1"><stop offset="0" stop-color="#FFFFFF" stop-opacity=".2"/><stop offset=".55" stop-color="#FFFFFF" stop-opacity=".06"/><stop offset="1" stop-color="#FFFFFF" stop-opacity=".02"/></linearGradient>
   <linearGradient id="hxEdge" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF" stop-opacity=".95"/><stop offset="1" stop-color="#FFFFFF" stop-opacity=".25"/></linearGradient>
@@ -1139,12 +1250,12 @@
 
     <article class="beat is-on" data-tone="dark">
       <div><h2>회원은<br>말이 없습니다</h2></div>
-      <div class="why-vis"><svg class="v1" viewBox="0 0 300 190" aria-hidden="true"><path class="bub" d="M40 22h220a24 24 0 0 1 24 24v70a24 24 0 0 1-24 24H124l-40 34v-34H40a24 24 0 0 1-24-24V46a24 24 0 0 1 24-24z" stroke-linejoin="round"/><path class="hi" d="M44 32h150"/><circle class="d" cx="112" cy="81" r="8"/><circle class="d d2" cx="150" cy="81" r="8"/><circle class="d d3" cx="188" cy="81" r="8"/></svg></div>
+      <div class="why-vis"><div class="v1x" aria-hidden="true"><i class="v1o o1"></i><i class="v1o o2"></i><div class="v1 v1b"><svg class="v1s" viewBox="0 0 220 120"><defs><linearGradient id="v1Fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F6F7F9"/><stop offset="1" stop-color="#D5D9DF"/></linearGradient></defs><path d="M52 10H168a42 42 0 0 1 42 40v0a42 42 0 0 1-42 40H64C54 101 38 108 16 108C27 99 31 89 29 78C16 70 10 61 10 50A42 42 0 0 1 52 10Z" fill="url(#v1Fill)"/><path d="M60 13.5H166" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".9"/></svg><div class="v1dots"><span class="d"></span><span class="d d2"></span><span class="d d3"></span></div></div><i class="v1t t1"></i><i class="v1t t2"></i><i class="v1-sh"></i></div></div>
     </article>
 
     <article class="beat" data-tone="dark">
       <div><h2>그냥 조용히 떠납니다</h2></div>
-      <div class="why-vis"><div class="v2" aria-hidden="true"><span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8.2" r="4.2"/><path d="M3.6 21c.5-4.6 3.9-7.2 8.4-7.2s7.900 2.600 8.400 7.200z"/></svg></span><span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8.2" r="4.2"/><path d="M3.6 21c.5-4.6 3.9-7.2 8.4-7.2s7.900 2.600 8.400 7.200z"/></svg></span><span class="gone"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8.2" r="4.2"/><path d="M3.6 21c.5-4.6 3.9-7.2 8.4-7.2s7.900 2.600 8.400 7.200z"/></svg></span><span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8.2" r="4.2"/><path d="M3.6 21c.5-4.6 3.9-7.2 8.4-7.2s7.900 2.600 8.400 7.200z"/></svg></span><span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8.2" r="4.2"/><path d="M3.6 21c.5-4.6 3.9-7.2 8.4-7.2s7.900 2.600 8.400 7.200z"/></svg></span></div></div>
+      <div class="why-vis"><div class="v2" aria-hidden="true"><span><img src="assets/avatars/member-baesujin.jpg" alt="" loading="lazy" width="72" height="72"></span><span><img src="assets/avatars/member-jominseok.jpg" alt="" loading="lazy" width="72" height="72"></span><span class="gone"><img src="assets/avatars/member-hanjiwoo.jpg" alt="" loading="lazy" width="72" height="72"></span><span><img src="assets/avatars/member-kangtaeyun.jpg" alt="" loading="lazy" width="72" height="72"></span><span><img src="assets/avatars/member-oserim.jpg" alt="" loading="lazy" width="72" height="72"></span></div></div>
     </article>
 
     <article class="beat" data-tone="dark">
@@ -1169,13 +1280,13 @@
     </article>
 
     <article class="beat" data-tone="dark">
-      <div><h2>항상 회원이 떠난 다음에<br>수습하고 있다면</h2></div>
-      <div class="why-vis"><div class="v-time"><svg viewBox="0 0 330 40" fill="none" aria-hidden="true"><path d="M12 20H318" stroke="rgba(255,255,255,.2)" stroke-width="2" stroke-dasharray="2 7" stroke-linecap="round"/><path class="draw" pathLength="1" d="M12 20H318" stroke="#fff" stroke-width="2" stroke-linecap="round" style="transition-duration:2.2s"/><circle class="n0" cx="12" cy="20" r="6"/><circle class="n1" cx="165" cy="20" r="5.5"/><circle class="ring" cx="318" cy="20" r="9" stroke="#fff" stroke-width="1.5"/><circle class="n2" cx="318" cy="20" r="7"/></svg><div class="lab"><span>첫 신호</span><span>마지막 수업</span><span>알게 된 날</span></div></div></div>
+      <div><h2>떠나기 전에 먼저 알고<br>손을 쓸 수만 있다면</h2></div>
+      <div class="why-vis"><div class="v67 v6x" aria-hidden="true"><div class="rl"><i class="tr"></i></div><span class="mk k1"><b></b><em>이탈 신호</em></span><span class="mk k2"><b></b><em>마지막 수업</em></span><span class="mk k3"><b></b><em>알게 된 날</em></span><span class="av"><img src="assets/avatars/member-hanjiwoo.jpg" alt="" width="56" height="56"></span></div></div>
     </article>
 
     <article class="beat" data-tone="light">
-      <div><h2>이제 센티프로 PT 관리 현황을<br><em>실시간 확인하고 해결하세요</em></h2></div>
-      <div class="why-vis"><div class="v-faces" aria-hidden="true"><svg viewBox="0 0 40 40"><circle class="f" cx="20" cy="20" r="18.5"/><circle class="e" cx="14" cy="17" r="1.9"/><circle class="e" cx="26" cy="17" r="1.9"/><path class="m" d="M14.5 26h11"/></svg><svg viewBox="0 0 40 40"><circle class="f" cx="20" cy="20" r="18.5"/><circle class="e" cx="14" cy="17" r="1.9"/><circle class="e" cx="26" cy="17" r="1.9"/><path class="m" d="M14.5 26h11"/></svg><svg viewBox="0 0 40 40"><circle class="f" cx="20" cy="20" r="18.5"/><circle class="e" cx="14" cy="17" r="1.9"/><circle class="e" cx="26" cy="17" r="1.9"/><path class="m" d="M14.5 26h11"/></svg><svg viewBox="0 0 40 40" class="sig"><circle class="f" cx="20" cy="20" r="18.5"/><circle class="e" cx="14" cy="17" r="1.9"/><circle class="e" cx="26" cy="17" r="1.9"/><path class="m" d="M14.5 27.5q5.500-4 11 0"/></svg><svg viewBox="0 0 40 40"><circle class="f" cx="20" cy="20" r="18.5"/><circle class="e" cx="14" cy="17" r="1.9"/><circle class="e" cx="26" cy="17" r="1.9"/><path class="m" d="M14.5 26h11"/></svg><svg viewBox="0 0 40 40"><circle class="f" cx="20" cy="20" r="18.5"/><circle class="e" cx="14" cy="17" r="1.9"/><circle class="e" cx="26" cy="17" r="1.9"/><path class="m" d="M14.5 26h11"/></svg><svg viewBox="0 0 40 40"><circle class="f" cx="20" cy="20" r="18.5"/><circle class="e" cx="14" cy="17" r="1.9"/><circle class="e" cx="26" cy="17" r="1.9"/><path class="m" d="M14.5 26h11"/></svg><svg viewBox="0 0 40 40"><circle class="f" cx="20" cy="20" r="18.5"/><circle class="e" cx="14" cy="17" r="1.9"/><circle class="e" cx="26" cy="17" r="1.9"/><path class="m" d="M14.5 26h11"/></svg><svg viewBox="0 0 40 40"><circle class="f" cx="20" cy="20" r="18.5"/><circle class="e" cx="14" cy="17" r="1.9"/><circle class="e" cx="26" cy="17" r="1.9"/><path class="m" d="M14.5 26h11"/></svg><svg viewBox="0 0 40 40"><circle class="f" cx="20" cy="20" r="18.5"/><circle class="e" cx="14" cy="17" r="1.9"/><circle class="e" cx="26" cy="17" r="1.9"/><path class="m" d="M14.5 26h11"/></svg><svg viewBox="0 0 40 40" class="sig"><circle class="f" cx="20" cy="20" r="18.5"/><circle class="e" cx="14" cy="17" r="1.9"/><circle class="e" cx="26" cy="17" r="1.9"/><path class="m" d="M14.5 27.5q5.500-4 11 0"/></svg><svg viewBox="0 0 40 40"><circle class="f" cx="20" cy="20" r="18.5"/><circle class="e" cx="14" cy="17" r="1.9"/><circle class="e" cx="26" cy="17" r="1.9"/><path class="m" d="M14.5 26h11"/></svg><svg viewBox="0 0 40 40"><circle class="f" cx="20" cy="20" r="18.5"/><circle class="e" cx="14" cy="17" r="1.9"/><circle class="e" cx="26" cy="17" r="1.9"/><path class="m" d="M14.5 26h11"/></svg><svg viewBox="0 0 40 40"><circle class="f" cx="20" cy="20" r="18.5"/><circle class="e" cx="14" cy="17" r="1.9"/><circle class="e" cx="26" cy="17" r="1.9"/><path class="m" d="M14.5 26h11"/></svg><svg viewBox="0 0 40 40"><circle class="f" cx="20" cy="20" r="18.5"/><circle class="e" cx="14" cy="17" r="1.9"/><circle class="e" cx="26" cy="17" r="1.9"/><path class="m" d="M14.5 26h11"/></svg><svg viewBox="0 0 40 40"><circle class="f" cx="20" cy="20" r="18.5"/><circle class="e" cx="14" cy="17" r="1.9"/><circle class="e" cx="26" cy="17" r="1.9"/><path class="m" d="M14.5 26h11"/></svg><svg viewBox="0 0 40 40"><circle class="f" cx="20" cy="20" r="18.5"/><circle class="e" cx="14" cy="17" r="1.9"/><circle class="e" cx="26" cy="17" r="1.9"/><path class="m" d="M14.5 26h11"/></svg><svg viewBox="0 0 40 40"><circle class="f" cx="20" cy="20" r="18.5"/><circle class="e" cx="14" cy="17" r="1.9"/><circle class="e" cx="26" cy="17" r="1.9"/><path class="m" d="M14.5 26h11"/></svg><svg viewBox="0 0 40 40"><circle class="f" cx="20" cy="20" r="18.5"/><circle class="e" cx="14" cy="17" r="1.9"/><circle class="e" cx="26" cy="17" r="1.9"/><path class="m" d="M14.5 26h11"/></svg><svg viewBox="0 0 40 40"><circle class="f" cx="20" cy="20" r="18.5"/><circle class="e" cx="14" cy="17" r="1.9"/><circle class="e" cx="26" cy="17" r="1.9"/><path class="m" d="M14.5 26h11"/></svg><svg viewBox="0 0 40 40" class="sig"><circle class="f" cx="20" cy="20" r="18.5"/><circle class="e" cx="14" cy="17" r="1.9"/><circle class="e" cx="26" cy="17" r="1.9"/><path class="m" d="M14.5 27.5q5.500-4 11 0"/></svg><svg viewBox="0 0 40 40"><circle class="f" cx="20" cy="20" r="18.5"/><circle class="e" cx="14" cy="17" r="1.9"/><circle class="e" cx="26" cy="17" r="1.9"/><path class="m" d="M14.5 26h11"/></svg><svg viewBox="0 0 40 40"><circle class="f" cx="20" cy="20" r="18.5"/><circle class="e" cx="14" cy="17" r="1.9"/><circle class="e" cx="26" cy="17" r="1.9"/><path class="m" d="M14.5 26h11"/></svg><svg viewBox="0 0 40 40"><circle class="f" cx="20" cy="20" r="18.5"/><circle class="e" cx="14" cy="17" r="1.9"/><circle class="e" cx="26" cy="17" r="1.9"/><path class="m" d="M14.5 26h11"/></svg></div><div class="v-legend"><span>출석 빈도 감소</span><span>만족도 하락</span><span>만료 임박</span></div></div>
+      <div><h2>그냥 보내는 회원은<br><em>없을 텐데요</em></h2></div>
+      <div class="why-vis"><div class="v67 v7x" aria-hidden="true"><div class="rl"><i class="tr"></i></div><span class="mk k1"><b></b><em>이탈 신호</em></span><span class="mk k2"><b></b><em>마지막 수업</em></span><span class="mk k3"><b></b><em>알게 된 날</em></span><i class="catch"></i><span class="av"><img src="assets/avatars/member-hanjiwoo.jpg" alt="" width="56" height="56"><i class="ok"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.5L12 5.4"/></svg></i></span></div></div>
     </article>
   </div>
 </section>
@@ -1199,11 +1310,11 @@
 <script>
 // 2-3 지표 숫자: 스크롤 진행(--p)에 맞춰 92%→61%, 주 3회→1회, 4.8→3.2 (올리면 되돌아감)
 (function(){var ul=document.querySelector('.v-sig2'); if(!ul) return; var beat=ul.closest('.beat'), story=ul.closest('.pin-story'), rows=[].slice.call(ul.children), W=[3,3,2,1];
-function upd(){var pin=!!ul.closest('.pin-js'), p=parseFloat(getComputedStyle(beat).getPropertyValue('--p'))||0;
+var BI=-1, last=-1; function upd(e){var pin=!!ul.closest('.pin-js'), p=1; if(pin){ if(BI<0) BI=[].indexOf.call(story.querySelectorAll('.beat'),beat); var d=e&&e.detail; if(!d) return; var n=+beat.getAttribute('data-steps')||1; p=d.beat>BI?1:d.beat<BI?0:(d.step+d.sp)/n; if(p===last) return; last=p; }
   rows.forEach(function(li){var o=parseFloat(li.style.getPropertyValue('--o'))||0, g=pin?Math.max(0,Math.min(1,(p-o-.12)*2.2)):1, k=li.dataset.k, v;
     if(k==='rate') v=Math.round(92-31*g)+'%'; else if(k==='freq') v='주 '+W[Math.min(3,Math.floor(g*4+1e-4))]+'회'; else v=(4.8-1.6*g).toFixed(1);
     var st=li.querySelector('strong'); if(st.textContent!==v) st.textContent=v; li.classList.toggle('down', g>.5); li.classList.toggle('alarm', g>=.999);});}
-if(story) story.addEventListener('beatp',upd); addEventListener('load',upd); upd();})();
+if(story) story.addEventListener('beatp',upd); if(!ul.closest('.pin-js')) upd();})();
 </script>
 <style>
 /* ── 4. 앱 흐름: 고정 스크롤 + 실제 화면이 저절로 조작되는 연출(가로 화면은 전체 → 확대 → 이동 → 축소) ── */
@@ -2114,6 +2225,7 @@ if(story) story.addEventListener('beatp',upd); addEventListener('load',upd); upd
 </section>
 </div><!-- /.hx -->
 <style>
+@media (min-width: 600px) { .home-hero .mo-br { display: none; } }
 /* 첫 화면 버튼: 모바일에서는 위아래로, 더 넓게 */
 @media (max-width: 599px) {
   .home-hero .hero-btns { width: 100%; flex-direction: column; align-items: center; gap: 10px; }
@@ -2154,7 +2266,7 @@ if(story) story.addEventListener('beatp',upd); addEventListener('load',upd); upd
       var bi = steps[i][0], sk = steps[i][1], lp = Math.min(1, Math.max(0, x - i));
       if (i !== cur) { cur = i; beats.forEach(function (s, k) { s.classList.toggle('is-on', k === bi); s.classList.toggle('is-past', k < bi); }); beats[bi].setAttribute('data-step', sk); tone(bi); story.dispatchEvent(new CustomEvent('beat', { detail: { beat: bi, step: sk } })); }
       // 장면 안에서 스크롤한 정도: --p(장면 전체, 단계가 둘이면 둘을 합쳐 0~1), --sp(지금 단계)
-      beats.forEach(function (s, k) { var n = +s.getAttribute('data-steps') || 1; s.style.setProperty('--p', (k < bi ? 1 : k > bi ? 0 : (sk + lp) / n).toFixed(4)); });
+      beats.forEach(function (s, k) { var n = +s.getAttribute('data-steps') || 1, v = (k < bi ? 1 : k > bi ? 0 : (sk + lp) / n).toFixed(4); if (s._p !== v) { s._p = v; s.style.setProperty('--p', v); } }); // 바뀐 장면만 다시 계산
       beats[bi].style.setProperty('--sp', lp.toFixed(4));
       story.dispatchEvent(new CustomEvent('beatp', { detail: { beat: bi, step: sk, sp: lp } }));
     }

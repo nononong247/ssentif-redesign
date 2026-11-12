@@ -1341,6 +1341,11 @@
 @keyframes v7App { 0% { opacity: 0; transform: translate(-14px,-14px) scale(.5); } 60% { opacity: 1; transform: translate(2px,2px) scale(1.08); } 100% { opacity: 1; transform: none; } }
 @media (min-width: 900px) { .v7x .v7-app { width: 30px; height: 30px; margin: -50px 0 0 -50px; border-radius: 8px; } }
 @media (prefers-reduced-motion: reduce) { .v7x.caught .v7-app { animation: none; opacity: 1; transform: none; } }
+
+/* 성능(11-11): 스크롤마다 값이 바뀌는 흐림(blur)은 휴대폰에서 매 프레임 다시 그려져 버벅임의 원인 → 투명도·크기 변화만 남김 */
+.pin-js.why .beat .v2 .gone { filter: none; }
+.pin-js.why .v6x .av { filter: grayscale(calc(clamp(0, (var(--m) - .3) / .5, 1))); }
+.pin-js.why .v7x .k1 em:not(.alt), .pin-js.why .v7x .k1 em.alt { filter: none; }
 </style>
 
 <div class="hx">
@@ -1793,7 +1798,7 @@ story.addEventListener('beatp',function(e){ if(BI<0) BI=[].indexOf.call(story.qu
         <div class="tx"><div class="tx-s"><span class="fx-role"><i>4</i>강사 앱</span><h3>회원의 모든 기록이<br>한곳에 쌓입니다</h3><p>활동·피드·수업·신체변화·수강권까지<br>강사의 관리 전문성이 올라갑니다.</p></div></div>
         <div class="fx-vis">
           <div class="dm dm-tab dm-pad" data-loop="13100" role="img" aria-label="강사 앱의 회원 관리 화면: 회원 목록에서 한 회원을 열고 활동, 피드, 수업, 신체변화, 상품 탭을 차례로 누르는 모습">
-            <div class="dm-screen"><div class="dm-stage pd-shots" data-k="500:cam=15,32,.46;2000:cam=64,33,.72;3300:cam=64,50,.72;4300:cam=64,33,.72;5300:cam=47,66,.46;7000:cam=64,33,.72;8400:cam=64,76,.72;10000:cam=64,33,.72"><img src="assets/flow/pad-1.webp" alt="" width="1600" height="1112" loading="lazy"><img class="ov" src="assets/flow/pad-2.webp" alt="" width="1600" height="1112" loading="lazy" style="opacity:0" data-k="3070:opacity=1"><img class="ov" src="assets/flow/pad-3.webp" alt="" width="1600" height="1112" loading="lazy" style="opacity:0" data-k="5070:opacity=1"><img class="ov" src="assets/flow/pad-4.webp" alt="" width="1600" height="1112" loading="lazy" style="opacity:0" data-k="7770:opacity=1"><img class="ov" src="assets/flow/pad-5.webp" alt="" width="1600" height="1112" loading="lazy" style="opacity:0" data-k="10770:opacity=1"><i class="dm-hit" style="left:0;top:17.3%;width:28.8%;height:8%" data-k="1500:opacity=1;1500:press=1;2400:opacity=0"></i><i class="dm-tap" style="left:20%;top:40%;opacity:0" data-k="700:opacity=1;800:left=10%;800:top=21.2%;1500:press=1;2000:left=36.5%;2000:top=15.2%;3000:press=1;4300:left=46.75%;5000:press=1;7000:left=52.9%;7700:press=1;10000:left=59.1%;10700:press=1;12300:opacity=0"></i></div></div>
+            <div class="dm-screen"><div class="dm-stage pd-shots" data-k="500:cam=15,32,.46;2000:cam=64,33,.72;3300:cam=64,50,.72;4300:cam=64,33,.72;5300:cam=47,66,.46;7000:cam=64,33,.72;8400:cam=64,76,.72;10000:cam=64,33,.72"><img src="assets/flow/pad-1.webp" alt="" width="1600" height="1112" loading="lazy"><img class="ov" decoding="async" src="assets/flow/pad-2.webp" alt="" width="1600" height="1112" loading="lazy" style="opacity:0" data-k="3070:opacity=1"><img class="ov" decoding="async" src="assets/flow/pad-3.webp" alt="" width="1600" height="1112" loading="lazy" style="opacity:0" data-k="5070:opacity=1"><img class="ov" decoding="async" src="assets/flow/pad-4.webp" alt="" width="1600" height="1112" loading="lazy" style="opacity:0" data-k="7770:opacity=1"><img class="ov" decoding="async" src="assets/flow/pad-5.webp" alt="" width="1600" height="1112" loading="lazy" style="opacity:0" data-k="10770:opacity=1"><i class="dm-hit" style="left:0;top:17.3%;width:28.8%;height:8%" data-k="1500:opacity=1;1500:press=1;2400:opacity=0"></i><i class="dm-tap" style="left:20%;top:40%;opacity:0" data-k="700:opacity=1;800:left=10%;800:top=21.2%;1500:press=1;2000:left=36.5%;2000:top=15.2%;3000:press=1;4300:left=46.75%;5000:press=1;7000:left=52.9%;7700:press=1;10000:left=59.1%;10700:press=1;12300:opacity=0"></i></div></div>
           </div>
         </div>
       </article>
@@ -1874,8 +1879,22 @@ story.addEventListener('beatp',function(e){ if(BI<0) BI=[].indexOf.call(story.qu
       els.forEach(function (el) { el._k.forEach(function (ks, si) { ks.forEach(function (k) { evs[si].push({ t: k.t, el: el, k: k }); }); }); });
       evs.forEach(function (a) { a.sort(function (x, y) { return x.t - y.t; }); });
       var seek = function (si, t) {
-        if (si !== lastS || t < lastT) { reset(); dm.classList.add('dm-noanim'); evs[si].forEach(function (e) { if (e.t <= t && e.k.p !== 'press') set(e.el, e.k); }); void dm.offsetWidth; dm.classList.remove('dm-noanim'); }
-        else evs[si].forEach(function (e) { if (e.t > lastT && e.t <= t) set(e.el, e.k); });
+        if (si !== lastS) { reset(); dm.classList.add('dm-noanim'); evs[si].forEach(function (e) { if (e.t <= t && e.k.p !== 'press') set(e.el, e.k); }); void dm.offsetWidth; dm.classList.remove('dm-noanim'); }
+        else if (t < lastT) {
+          // 되감기: 지나온 구간 (t, lastT] 에 걸린 속성만 그 시점 값으로 되돌린다. 전체 초기화·강제 레이아웃 없음, 전환 효과는 그대로(카메라가 미끄러지듯 돌아감)
+          var A = evs[si], done = [];
+          for (var i = A.length - 1; i >= 0; i--) {
+            var e = A[i]; if (e.t > lastT || e.t <= t || e.k.p === 'press') continue;
+            var key = e.k.p, seen = false; for (var d0 = 0; d0 < done.length; d0++) if (done[d0][0] === e.el && done[d0][1] === key) { seen = true; break; }
+            if (seen) continue; done.push([e.el, key]);
+            var prev = null; for (var j = i - 1; j >= 0; j--) { var f = A[j]; if (f.el === e.el && f.k.p === key && f.t <= t) { prev = f; break; } }
+            if (prev) set(e.el, prev.k);
+            else if (key === 'cam') cam(e.el, 'full');
+            else if (key === 'chip') chip(-1);
+            else { var m = new RegExp('(?:^|;)\\s*' + key + '\\s*:\\s*([^;]+)').exec(e.el._init); if (m) e.el.style.setProperty(key, m[1].trim()); else e.el.style.removeProperty(key); }
+          }
+        }
+        else if (t > lastT) evs[si].forEach(function (e) { if (e.t > lastT && e.t <= t) set(e.el, e.k); });
         lastT = t; lastS = si;
       };
       story.addEventListener('beatp', function (e) {
@@ -1891,6 +1910,14 @@ story.addEventListener('beatp',function(e){ if(BI<0) BI=[].indexOf.call(story.qu
     }
     new IntersectionObserver(function (es) { es.forEach(function (e) { visible = e.isIntersecting; sync(); }); }, { threshold: 0.25 }).observe(dm);
   });
+})();
+</script>
+<script>
+// 성능(11-11): 실제 화면·리포트의 큰 이미지를 화면에 오기 전에 미리 받아 해독해 둔다(처음 보일 때 멈칫하는 것 방지)
+(function(){ if(!('IntersectionObserver' in window)) return;
+  [['#flow','.flow-pin img, .fc-dev img'],['#moments','#rv .rv-pg']].forEach(function(c){ var sec=document.querySelector(c[0]); if(!sec) return;
+    var io=new IntersectionObserver(function(es){ if(!es.some(function(e){return e.isIntersecting;})) return; io.disconnect();
+      [].forEach.call(document.querySelectorAll(c[1]),function(im){ im.loading='eager'; if(im.decode) im.decode().catch(function(){}); }); },{rootMargin:'150% 0px'}); io.observe(sec); });
 })();
 </script>
 <style>
@@ -2563,7 +2590,7 @@ go(3);})();
     function tone(i) { pin.classList.toggle('tone-light', beats[i].getAttribute('data-tone') === 'light'); }
     function update() {
       ticking = false;
-      var span = story.offsetHeight - window.innerHeight; if (span <= 0) return;
+      var span = story.offsetHeight - pin.offsetHeight; if (span <= 0) return; // 창 높이(innerHeight)는 휴대폰 주소창이 드나들 때 바뀌어 장면이 튄다 → svh 로 고정된 .pin 높이 기준
       var x = Math.min(1, Math.max(0, -story.getBoundingClientRect().top / span)) * W, i = 0; while (i < N - 1 && x >= cum[i + 1]) i++;
       bars.forEach(function (b, k) { b.style.transform = 'scaleX(' + (k < N ? Math.min(1, Math.max(0, (x - cum[k]) / steps[k][2])) : 0) + ')'; });
       var bi = steps[i][0], sk = steps[i][1], lp = Math.min(1, Math.max(0, (x - cum[i]) / steps[i][2]));

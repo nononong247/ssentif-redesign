@@ -1250,7 +1250,7 @@
 @media (prefers-reduced-motion: reduce) { .v7x.caught .av, .v7x.caught .rip { animation: none; } .v7x.caught .catch, .v7x.caught .ok { animation: none; opacity: 1; transform: none; } }
 
 /* 2-7 포커스 인(11-10): 딱 멈춘 뒤 이탈 신호 지점이 가운데로 오며 확대, 나머지는 흐려짐(스크롤 연동) */
-.pin-js.why .v7x { --f0: clamp(0, (var(--p) - .5) / .3, 1); --f: calc(var(--f0) * var(--f0) * (3 - 2 * var(--f0))); transform-origin: 22% 40px; transform: translateX(calc(28% * var(--f))) scale(calc(1 + var(--f) * .55)); }
+.pin-js.why .v7x { --f0: clamp(0, (var(--p) - .5) / .3, 1); --f: calc(var(--f0) * var(--f0) * (3 - 2 * var(--f0))); transform-origin: 22% 40px; transform: translateX(calc(28% * var(--f))) scale(calc(1 + var(--f) * var(--fz, .55))); }
 .pin-js.why .v7x .k2, .pin-js.why .v7x .k3 { opacity: max(0, 1 - var(--f) * 2.2); }
 .pin-js.why .v7x .rl { opacity: calc(1 - var(--f) * .7); }
 .pin-js.why .beat:has(.v7x) .why-vis { overflow: hidden; }
@@ -1346,6 +1346,13 @@
 .pin-js.why .beat .v2 .gone { filter: none; }
 .pin-js.why .v6x .av { filter: grayscale(calc(clamp(0, (var(--m) - .3) / .5, 1))); }
 .pin-js.why .v7x .k1 em:not(.alt), .pin-js.why .v7x .k1 em.alt { filter: none; }
+
+/* 화면 맞춤(11-13): 그림 영역이 남은 높이보다 크면(낮은 PC 화면 등) 그림을 그 높이에 맞게 줄인다 — 위로 넘쳐 제목을 덮던 문제 */
+.pin-js.why .why-vis.fit > * { zoom: var(--fit, 1); }
+
+/* 2-7 포커스 인: 낮은 화면에서는 확대를 줄여 제목을 덮지 않게(11-13) */
+@media (min-width: 900px) and (max-height: 760px) { .pin-js.why .v7x { --fz: .35; } }
+@media (min-width: 900px) and (max-height: 620px) { .pin-js.why .v7x { --fz: .15; } }
 </style>
 
 <div class="hx">
@@ -1454,6 +1461,24 @@ if(story) story.addEventListener('beatp',upd); if(!ul.closest('.pin-js')) upd();
 // 2-7: 회원이 이탈 신호에 닿는 순간(--p ≥ .38) 'caught' → 딱 멈춤 연출, 되감으면 해제
 (function(){var v=document.querySelector('.v7x'); if(!v) return; var beat=v.closest('.beat'), story=v.closest('.pin-story'); if(!story) return; var BI=-1;
 story.addEventListener('beatp',function(e){ if(BI<0) BI=[].indexOf.call(story.querySelectorAll('.beat'),beat); var d=e.detail, n=+beat.getAttribute('data-steps')||1, p=d.beat>BI?1:d.beat<BI?0:(d.step+d.sp)/n; var on=p>=.38; if(on!==v.classList.contains('caught')) v.classList.toggle('caught',on); });})();
+</script>
+<script>
+// 화면 맞춤(11-13): 문제 스토리 각 장면에서 그림 영역(.why-vis)에 실제로 남은 높이를 재고, 내용이 더 크면 그만큼 축소(zoom). 크기·회전 바뀌면 다시 계산
+(function(){ var story=document.getElementById('why'); if(!story) return;
+  function px(v){ return parseFloat(v)||0; }
+  function fit(){ if(!story.classList.contains('pin-js')) return;
+    [].forEach.call(story.querySelectorAll('.why-vis'),function(v){
+      v.classList.remove('fit'); v.style.removeProperty('--fit');
+      var cs=getComputedStyle(v), kids=[].filter.call(v.children,function(c){ var k=getComputedStyle(c); return k.display!=='none'&&k.position!=='absolute'; });
+      if(!kids.length) return;
+      var need=0; kids.forEach(function(c){ var k=getComputedStyle(c); need+=c.offsetHeight+px(k.marginTop)+px(k.marginBottom); }); need+=px(cs.rowGap)*(kids.length-1);
+      var avail=v.clientHeight-px(cs.paddingTop)-px(cs.paddingBottom);
+      if(avail>40&&need>avail+2){ v.style.setProperty('--fit',Math.max(.5,(avail-4)/need).toFixed(3)); v.classList.add('fit'); }
+    }); }
+  var t; function later(){ clearTimeout(t); t=setTimeout(fit,100); }
+  fit(); addEventListener('load',fit); addEventListener('resize',later); addEventListener('orientationchange',later);
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(fit);
+})();
 </script>
 <style>
 /* ── 4. 앱 흐름: 고정 스크롤 + 실제 화면이 저절로 조작되는 연출(가로 화면은 전체 → 확대 → 이동 → 축소) ── */
@@ -1749,8 +1774,12 @@ story.addEventListener('beatp',function(e){ if(BI<0) BI=[].indexOf.call(story.qu
 }
 
 /* 맺음 카드를 마지막 화면 가까이로(11-10): 고정 구간 끝의 빈 공간만큼 위로 당김. 기기 아래 약 80~96px 간격 */
-.flow-cta { position: relative; z-index: 3; margin-top: min(0px, calc(78px - 38.4svh)); }
-@media (min-width: 900px) { .flow-cta { margin-top: min(0px, calc(112px - 25svh)); } }
+.flow-cta { position: relative; z-index: 3; } /* 위로 당기는 양은 아래 스크립트가 실제 화면에서 재서 넣는다(화면 높이 비율로 어림하면 아이폰에서 겹침) */
+
+/* 맺음 카드 PC 화면 = 관리자 홈 대시보드(11-12). 화면이 더 세로로 길어져 진열 비율 조정 */
+.fc-dev { aspect-ratio: 520 / 300; }
+.fc-pad { top: 50%; } .fc-ph { top: 34%; }
+@media (min-width: 900px) { .fc-dev { aspect-ratio: 520 / 322; } .fc-pad { top: auto; } .fc-ph { top: auto; } }
 </style>
 <section class="flow" id="flow">
   <div class="hx-wrap flow-head fade-up">
@@ -1834,7 +1863,7 @@ story.addEventListener('beatp',function(e){ if(BI<0) BI=[].indexOf.call(story.qu
         <a href="journal-try" class="fc-btn">가입없이 써보기<svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M7 10H13M13 10L10 7M13 10L10 13" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
         <a href="consulting" class="flow-cta-sub">도입 상담 신청</a>
       </div>
-      <div class="fc-vis" aria-hidden="true"><div class="fc-dev"><div class="fc-mac"><i></i><img src="assets/flow/f6-staff-stats.webp" alt="" width="1222" height="654" loading="lazy"></div><div class="fc-pad"><img src="assets/flow/pad-4.webp" alt="" width="1600" height="1112" loading="lazy"></div><div class="fc-ph"><img src="assets/flow/w6.webp" alt="" width="640" height="1596" loading="lazy"></div></div></div>
+      <div class="fc-vis" aria-hidden="true"><div class="fc-dev"><div class="fc-mac"><i></i><img src="assets/flow/fc-dash.webp" alt="" width="1400" height="879" loading="lazy"></div><div class="fc-pad"><img src="assets/flow/pad-4.webp" alt="" width="1600" height="1112" loading="lazy"></div><div class="fc-ph"><img src="assets/flow/w6.webp" alt="" width="640" height="1596" loading="lazy"></div></div></div>
     </div>
   </div>
 </section>
@@ -1918,6 +1947,19 @@ story.addEventListener('beatp',function(e){ if(BI<0) BI=[].indexOf.call(story.qu
   [['#flow','.flow-pin img, .fc-dev img'],['#moments','#rv .rv-pg']].forEach(function(c){ var sec=document.querySelector(c[0]); if(!sec) return;
     var io=new IntersectionObserver(function(es){ if(!es.some(function(e){return e.isIntersecting;})) return; io.disconnect();
       [].forEach.call(document.querySelectorAll(c[1]),function(im){ im.loading='eager'; if(im.decode) im.decode().catch(function(){}); }); },{rootMargin:'150% 0px'}); io.observe(sec); });
+})();
+</script>
+<script>
+// 맺음 카드 위치(11-12): 고정 구간이 끝날 때 마지막 화면(6번) 아래에 남는 빈 공간을 실제로 재서, 그만큼만 카드를 위로 당긴다. 기기 아래 끝에서 항상 GAP 만큼 띄움 → 어떤 화면 높이에서도 겹치지 않음
+(function(){ var cta=document.querySelector('.flow-cta'), story=document.querySelector('.flow-pin'); if(!cta||!story) return;
+  var pin=story.querySelector('.pin'), beats=story.querySelectorAll('.beat'), last=beats[beats.length-1], dm=last&&last.querySelector('.dm'); if(!pin||!dm) return;
+  function fit(){ if(!story.classList.contains('pin-js')){ cta.style.marginTop=''; return; }
+    var GAP=innerWidth>=900?60:56, used=dm.getBoundingClientRect().bottom-last.getBoundingClientRect().top, free=pin.offsetHeight-used;
+    cta.style.marginTop=(free>GAP?-(free-GAP):0)+'px'; }
+  var t; function later(){ clearTimeout(t); t=setTimeout(fit,120); }
+  fit(); addEventListener('load',fit); addEventListener('resize',later); addEventListener('orientationchange',later);
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(fit);
+  if('ResizeObserver' in window){ var ro=new ResizeObserver(later); ro.observe(dm); ro.observe(pin); }
 })();
 </script>
 <style>
@@ -2062,15 +2104,38 @@ go(3);})();
 .cs-lead { margin-top: 10px !important; font-size: 17px !important; font-weight: 600; color: rgba(255,255,255,0.86) !important; }
 .cs-sub { margin-top: 28px !important; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.14); font-size: 14px !important; color: rgba(255,255,255,0.5) !important; }
 @media (min-width: 900px) { .cs-head { text-align: left; } .cs-count { font-size: 4rem !important; } .cs-lead { font-size: 21px !important; } .cs-sub { margin-top: 44px !important; } .cs-rail { margin-top: 28px !important; } }
+/* 도입 사례 v2(11-12): 사례 4장 + '더 많은 센터' 카드. 모바일은 옆으로 넘기기, PC는 화면 끝 밖으로 이어지며 천천히 흐름 */
+.cs-track { display: flex; gap: 14px; width: max-content; padding-right: 20px; }
+.cs-rail .cs-card { width: 80vw; }
+.cs-rail { display: block; }
+.cs-rail .cs-card { flex: 0 0 auto; }
+.cs-more { justify-content: center; align-items: center; text-align: center; background: linear-gradient(160deg, rgba(31,219,168,.16), rgba(31,219,168,.03) 60%), #17191D; border-color: rgba(31,219,168,.28); min-height: 300px; }
+.cs-more b { display: block; font-size: 4.2rem; line-height: 1; font-weight: 900; letter-spacing: -.05em; color: var(--mint); }
+.cs-more b i { font-style: normal; }
+.cs-card.cs-more p { margin-top: 14px; font-size: 16px; line-height: 1.55; font-weight: 600; color: rgba(255,255,255,.86); display: block; -webkit-line-clamp: unset; }
+@media (min-width: 900px) {
+  .cs-rail { max-width: none; margin: 28px 0 0 !important; padding: 0; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); }
+  .cs-track { gap: 18px; width: max-content; padding-right: 0; padding-left: max(48px, calc((100vw - 1120px) / 2 + 48px)); }
+  .cs-rail .cs-card { flex: 0 0 300px; width: 300px; }
+  .cs-track.mq { padding-left: 0; animation: csMq 56s linear infinite; }
+  .cs-track.mq > * { margin-right: 0; }
+  .cs-rail:hover .cs-track.mq { animation-play-state: paused; }
+  @keyframes csMq { from { transform: translateX(0); } to { transform: translateX(calc(-50% - 9px)); } }
+}
 </style>
 <section class="cs" id="cases">
   <div class="hx-wrap cs-head fade-up">
     <span class="hx-eyebrow" style="color:var(--mint)">도입 사례</span>
     <h2 class="cs-count">센터 <em>100+</em> 곳</h2>
-    <p class="cs-lead">센티프로 회원을 관리하는 센터입니다.</p>
+    <p class="cs-lead">센티프와 함께 변화한 센터</p>
     <p class="cs-sub">도입 센터의 말을 그대로 옮깁니다.</p>
   </div>
-  <div class="cs-rail"><article class="cs-card"><img src="assets/cases/case-wellngood.jpg" alt="웰앤굿피트니스 센터 전경" loading="lazy" width="900" height="600"><div class="cs-b"><h3>“PT 수업은 끝나도, 관리는 계속됩니다.”</h3><p>그동안 운동 일지와 식단, 과정 미팅을 네이버 밴드로 관리해왔습니다. 이 관리를 직관적인 데이터로 바꿔 회원에게 차별화된 경험을 드리고 싶어 센티프를 도입했습니다.</p><div class="cs-who"><b>웰앤굿피트니스</b><span>서울 영등포</span></div></div></article><article class="cs-card"><img src="assets/cases/withgym.jpg" alt="위드짐PT 하남미사 센터 전경" loading="lazy" width="900" height="600"><div class="cs-b"><h3>“형식적인 기록 말고, 꺼내 쓰는 기록이요.”</h3><p>형식적인 기록보다 쓸모 있는 기록을 남기고 싶었습니다. 기록이 수업 안에만 머물지 않고 회원의 일상으로 이어지도록 돕는 도구를 찾았고, 그래서 센티프를 선택했습니다.</p><div class="cs-who"><b>위드짐PT 하남미사</b><span>경기 하남</span></div></div></article><article class="cs-card"><img src="assets/cases/fitn.jpg" alt="핏앤피트니스 센터 전경" loading="lazy" width="900" height="600"><div class="cs-b"><h3>“트레이너가 바뀌어도 회원님의 기록이 끊기지 않는 시스템이 필요했습니다.”</h3><p>회원님의 식단과 개인 운동, PT 수업 내용을 체계적으로 기록하고 관리하기 위해서였습니다. 트레이너가 바뀌어도 회원님의 운동 과정이 한곳에서 끊기지 않고 이어지는 시스템이 필요했습니다.</p><div class="cs-who"><b>핏앤피트니스</b><span>강원도 원주</span></div></div></article><article class="cs-card"><img src="assets/cases/case-veritas.jpg" alt="베리타스피트니스 센터 전경" loading="lazy" width="900" height="600"><div class="cs-b"><h3>“더 체계적인 관리와 기록을 남기기 위해 센티프를 도입했습니다.”</h3><p>노트와 서류 대신 앱 하나로 회원님 한 분 한 분을 더 체계적으로 관리하고, 수업마다 기록을 빠짐없이 남기기 위해 센티프를 도입했습니다.</p><div class="cs-who"><b>베리타스피트니스</b><span>경기도 수원</span></div></div></article></div>
+  <div class="cs-rail"><div class="cs-track" id="csTrack"><article class="cs-card"><img src="assets/cases/case-wellngood.jpg" alt="웰앤굿피트니스 센터 전경" loading="lazy" width="900" height="600"><div class="cs-b"><h3>“PT 수업은 끝나도, 관리는 계속됩니다.”</h3><p>그동안 운동 일지와 식단, 과정 미팅을 네이버 밴드로 관리해왔습니다. 이 관리를 직관적인 데이터로 바꿔 회원에게 차별화된 경험을 드리고 싶어 센티프를 도입했습니다.</p><div class="cs-who"><b>웰앤굿피트니스</b><span>서울 영등포</span></div></div></article><article class="cs-card"><img src="assets/cases/withgym.jpg" alt="위드짐PT 하남미사 센터 전경" loading="lazy" width="900" height="600"><div class="cs-b"><h3>“형식적인 기록 말고, 꺼내 쓰는 기록이요.”</h3><p>형식적인 기록보다 쓸모 있는 기록을 남기고 싶었습니다. 기록이 수업 안에만 머물지 않고 회원의 일상으로 이어지도록 돕는 도구를 찾았고, 그래서 센티프를 선택했습니다.</p><div class="cs-who"><b>위드짐PT 하남미사</b><span>경기 하남</span></div></div></article><article class="cs-card"><img src="assets/cases/fitn.jpg" alt="핏앤피트니스 센터 전경" loading="lazy" width="900" height="600"><div class="cs-b"><h3>“트레이너가 바뀌어도 회원님의 기록이 끊기지 않는 시스템이 필요했습니다.”</h3><p>회원님의 식단과 개인 운동, PT 수업 내용을 체계적으로 기록하고 관리하기 위해서였습니다. 트레이너가 바뀌어도 회원님의 운동 과정이 한곳에서 끊기지 않고 이어지는 시스템이 필요했습니다.</p><div class="cs-who"><b>핏앤피트니스</b><span>강원도 원주</span></div></div></article><article class="cs-card"><img src="assets/cases/case-veritas.jpg" alt="베리타스피트니스 센터 전경" loading="lazy" width="900" height="600"><div class="cs-b"><h3>“더 체계적인 관리와 기록을 남기기 위해 센티프를 도입했습니다.”</h3><p>노트와 서류 대신 앱 하나로 회원님 한 분 한 분을 더 체계적으로 관리하고, 수업마다 기록을 빠짐없이 남기기 위해 센티프를 도입했습니다.</p><div class="cs-who"><b>베리타스피트니스</b><span>경기도 수원</span></div></div></article><article class="cs-card cs-more"><div><b>100<i>+</i></b><p>더 많은 센터가<br>센티프와 함께하고 있습니다</p></div></article></div></div>
+<script>
+// 도입 사례(11-12): PC에서는 카드 묶음을 한 번 더 이어 붙여 끊김 없이 천천히 흐르게 한다(마우스를 올리면 멈춤). 모바일은 손으로 넘기는 그대로.
+(function(){ var t=document.getElementById('csTrack'); if(!t) return; if(!matchMedia('(min-width: 900px)').matches||matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  [].slice.call(t.children).forEach(function(c){ var d=c.cloneNode(true); d.setAttribute('aria-hidden','true'); t.appendChild(d); }); t.classList.add('mq'); })();
+</script>
 </section>
 <style>
 /* ── Extras Strip — 센티프 2.0 UI 목업

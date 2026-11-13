@@ -2439,63 +2439,56 @@ go(3);})();
   .itv-play::after { animation: none; }
 }
 </style><style>
-/* ── 6. 현장의 목소리 ── */
-.vo { background: var(--soft); padding: 96px 0 0; overflow: hidden; }
-.vo-head h2 { font-size: 1.85rem; line-height: 1.34; font-weight: 800; }
-.vo-sub { margin: 44px 0 16px; font-size: 15px; font-weight: 800; letter-spacing: -0.02em; color: var(--ink); display: flex; align-items: center; gap: 10px; }
-.vo-sub::after { content: ""; flex: 1; height: 1px; background: var(--line); }
-.vo .itv-grid { margin-top: 0; }
-.vo-quotes { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; margin: 0 -20px; padding: 0 20px 6px; scroll-padding: 0 20px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
-.vo-quotes::-webkit-scrollbar { display: none; }
-.vo-quotes figure { flex: 0 0 82%; scroll-snap-align: start; display: flex; flex-direction: column; justify-content: space-between; }
-.vo-quotes figure.fade-up { opacity: 1; transform: none; }
-.vo-quotes figure { margin: 0; padding: 22px 22px 20px; border-radius: 18px; background: var(--paper); border: 1px solid var(--line); }
-.vo-quotes blockquote { margin: 0; font-size: 1.05rem; line-height: 1.65; font-weight: 600; letter-spacing: -0.025em; color: var(--ink); word-break: keep-all; }
-.vo-quotes figcaption { margin-top: 12px; font-size: 13px; color: var(--mute); }
-.vo-src { margin: 14px 0 0; font-size: 12.5px; color: var(--mute); }
-.vo-photos { margin-top: 56px; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
-.vo-track { display: flex; gap: 10px; width: max-content; animation: voMarquee 60s linear infinite; }
-.vo-track img { width: 120px; height: 150px; object-fit: cover; border-radius: 14px; display: block; }
-@keyframes voMarquee { to { transform: translateX(-50%); } }
-@media (prefers-reduced-motion: reduce) { .vo-track { animation: none; } }
-@media (min-width: 900px) {
-  .vo { padding-top: 150px; }
-  .vo-head h2 { font-size: clamp(2.4rem, 3.6vw, 3.1rem); line-height: 1.28; }
-  .vo-sub { margin: 72px 0 24px; font-size: 17px; }
-  .vo-quotes { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; overflow: visible; margin: 0; padding: 0; }
-  .vo-quotes figure { flex: none; }
-  .vo-quotes figure { padding: 30px 30px 26px; }
-  .vo-quotes blockquote { font-size: 1.25rem; }
-  .vo-photos { margin-top: 96px; }
-  .vo-track img { width: 170px; height: 212px; border-radius: 18px; }
-}
+/* ═ 7 회원관리 만족도 v2(11-13): 별점 제거 → 아이패드를 든 실제 회원 사진 벽 + '가장 많이 한 말' + 실제 후기 말풍선 + 인터뷰 영상 ═ */
+.vo { background: var(--soft); padding: 88px 0 96px; overflow: hidden; }
 .vo-head { text-align: center; }
+.vo-head h2 { font-size: 1.85rem; line-height: 1.34; font-weight: 800; }
 .vo-head h2 em { font-style: normal; color: var(--mint-d); }
 .vo-head p { margin-top: 16px; font-size: 15.5px; line-height: 1.7; color: var(--mute); }
-.vo-claim { margin-top: 44px; display: grid; gap: 36px; justify-items: center; }
-.vo-phones { position: relative; width: min(330px, 100%); height: 320px; }
-.vo-phones .ph { position: absolute; top: 0; width: 46%; border-radius: 22px; border: 5px solid var(--ink); overflow: hidden; background: #F4F4F5; box-shadow: 0 26px 50px -26px rgba(13,15,18,0.5); }
-.vo-phones .ph img { display: block; width: 100%; height: auto; }
-.vo-phones .l { left: 0; top: 34px; transform: rotate(-7deg); }
-.vo-phones .r { right: 0; top: 34px; transform: rotate(7deg); }
-.vo-phones .c { left: 27%; z-index: 2; }
-.vo-score { text-align: center; }
-.vo-stars { font-size: 22px; letter-spacing: 4px; color: var(--mint-d); }
-.vo-score b { display: block; margin-top: 4px; font-size: 4.4rem; line-height: 1.05; font-weight: 900; letter-spacing: -0.05em; color: var(--ink); font-variant-numeric: tabular-nums; }
-.vo-score b small { font-size: 1.3rem; font-weight: 700; color: var(--mute); letter-spacing: 0; }
-.vo-score p { margin-top: 10px; font-size: 15px; line-height: 1.6; font-weight: 600; color: var(--ink); }
-.vo-score span { display: block; margin-top: 6px; font-size: 12.5px; color: var(--mute); }
+/* 사진 벽 */
+.vo-wall { position: relative; margin-top: 40px; display: flex; flex-direction: column; gap: 10px; -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+.vw-row { overflow: hidden; }
+.vw-track { display: flex; gap: 10px; width: max-content; animation: vwL 90s linear infinite; }
+.vw-row.r2 .vw-track { animation-name: vwR; animation-duration: 110s; }
+.vw-row.r3 .vw-track { animation-duration: 100s; }
+.vw-track img { display: block; width: 104px; height: 130px; object-fit: cover; border-radius: 14px; }
+@keyframes vwL { from { transform: translateX(0); } to { transform: translateX(calc(-50% - 5px)); } }
+@keyframes vwR { from { transform: translateX(calc(-50% - 5px)); } to { transform: translateX(0); } }
+@media (prefers-reduced-motion: reduce) { .vw-track { animation: none; } }
+/* 가장 많이 한 말 */
+.vo-top { position: absolute; inset: 0; margin: auto; height: fit-content; z-index: 2; width: min(330px, calc(100% - 40px)); padding: 22px 22px 24px; border-radius: 22px; text-align: center; background: rgba(13,15,18,.86); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); color: #fff; box-shadow: 0 24px 50px -18px rgba(13,15,18,.6); }
+.vo-top span { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 700; letter-spacing: -.01em; color: var(--mint); }
+.vo-top span::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--mint); box-shadow: 0 0 0 4px rgba(31,219,168,.2); }
+.vo-top blockquote { margin: 12px 0 0; font-size: 1.42rem; line-height: 1.4; font-weight: 800; letter-spacing: -.035em; word-break: keep-all; }
+.vo-top blockquote b { color: var(--mint); font-weight: 800; }
+/* 실제 후기 말풍선 */
+.vo-qs { margin-top: 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.vq { position: relative; margin: 0; padding: 16px 16px 14px; border-radius: 18px 18px 18px 6px; background: #fff; box-shadow: 0 10px 24px -18px rgba(13,15,18,.4); display: flex; flex-direction: column; justify-content: space-between; gap: 10px; }
+.vq::before { content: "“"; position: absolute; right: 12px; top: 2px; font-size: 40px; line-height: 1; font-weight: 900; color: rgba(31,219,168,.35); font-family: Georgia, serif; }
+.vq blockquote { margin: 0; font-size: 14.5px; line-height: 1.55; font-weight: 700; letter-spacing: -.025em; color: var(--ink); word-break: keep-all; }
+.vq figcaption { font-size: 12px; font-weight: 600; color: var(--mint-d); }
+.vo-src { margin: 12px 0 0; font-size: 12.5px; color: var(--mute); text-align: center; }
+/* 인터뷰 영상 */
+.vo-sub { margin: 56px 0 16px; font-size: 15px; font-weight: 800; letter-spacing: -0.02em; color: var(--ink); display: flex; align-items: center; gap: 10px; }
+.vo-sub::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+.vo .itv-grid { margin-top: 0; }
 @media (min-width: 900px) {
+  .vo { padding: 140px 0 150px; }
+  .vo-head h2 { font-size: clamp(2.4rem, 3.6vw, 3.1rem); line-height: 1.28; }
   .vo-head p { font-size: 18px; }
-  .vo-claim { margin-top: 72px; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
-  .vo-phones { width: 480px; height: 470px; justify-self: end; }
-  .vo-phones .ph { border-width: 7px; border-radius: 30px; }
-  .vo-score { text-align: left; justify-self: start; }
-  .vo-stars { font-size: 28px; }
-  .vo-score b { font-size: 7rem; }
-  .vo-score b small { font-size: 1.8rem; }
-  .vo-score p { font-size: 18px; }
-  .vo-score span { font-size: 13.5px; }
+  .vo-wall { margin-top: 64px; gap: 14px; }
+  .vw-track { gap: 14px; } .vw-track img { width: 150px; height: 188px; border-radius: 18px; }
+  @keyframes vwL { from { transform: translateX(0); } to { transform: translateX(calc(-50% - 7px)); } }
+  @keyframes vwR { from { transform: translateX(calc(-50% - 7px)); } to { transform: translateX(0); } }
+  .vo-top { width: 520px; padding: 34px 40px 38px; border-radius: 28px; }
+  .vo-top span { font-size: 15px; }
+  .vo-top blockquote { margin-top: 14px; font-size: 2.3rem; }
+  .vo-qs { margin-top: 40px; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .vq { padding: 22px 22px 18px; border-radius: 22px 22px 22px 8px; }
+  .vq blockquote { font-size: 16.5px; }
+  .vq figcaption { font-size: 13px; }
+  .vo-src { margin-top: 16px; font-size: 13px; }
+  .vo-sub { margin: 88px 0 24px; font-size: 17px; }
 }
 </style>
 <section class="vo" id="voices">
@@ -2505,19 +2498,14 @@ go(3);})();
       <h2>다른 서비스와 비교해 보세요.<br><em>회원관리 만족도</em> 하나는<br>자신 있습니다.</h2>
       <p>강사도 회원도 매일 여는 화면입니다. 직접 비교해 보시면 차이가 보입니다.</p>
     </div>
-    <div class="vo-claim fade-up">
-      <div class="vo-phones" aria-hidden="true">
-        <span class="ph l"><img src="assets/flow/u-diet-feedback.webp" alt="" loading="lazy" width="624" height="928"></span>
-        <span class="ph c"><img src="assets/flow/u-stats.webp" alt="" loading="lazy" width="624" height="928"></span>
-        <span class="ph r"><img src="assets/flow/f2-home.webp" alt="" loading="lazy" width="780" height="1160"></span>
-      </div>
-      <div class="vo-score">
-        <div class="vo-stars" aria-hidden="true">★★★★★</div>
-        <b>4.97<small> / 5</small></b>
-        <p>센티프로 회원을 관리하는 센티프짐의<br>네이버 플레이스 별점</p>
-        <span>2026년 11월 기준</span>
-      </div>
-    </div>
+  </div>
+  <div class="vo-wall" aria-label="센티프로 PT를 받는 회원들">
+    <div class="vw-row r1"><div class="vw-track"><img src="assets/members/member-01.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-02.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-03.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-04.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-05.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-06.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-07.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-08.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-09.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-10.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-11.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-12.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-13.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-14.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-15.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-16.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-17.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-01.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-02.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-03.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-04.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-05.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-06.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-07.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-08.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-09.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-10.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-11.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-12.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-13.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-14.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-15.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-16.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-17.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"></div></div><div class="vw-row r2"><div class="vw-track"><img src="assets/members/member-18.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-19.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-20.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-21.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-22.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-23.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-24.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-25.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-26.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-27.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-28.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-29.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-30.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-31.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-32.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-33.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-18.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-19.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-20.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-21.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-22.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-23.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-24.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-25.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-26.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-27.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-28.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-29.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-30.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-31.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-32.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-33.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"></div></div><div class="vw-row r3"><div class="vw-track"><img src="assets/members/member-34.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-35.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-36.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-37.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-38.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-39.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-40.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-41.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-42.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-43.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-44.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-45.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-46.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-47.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-48.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-49.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-34.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-35.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-36.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-37.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-38.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-39.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-40.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-41.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-42.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-43.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-44.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-45.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-46.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-47.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-48.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-49.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"></div></div>
+    <figure class="vo-top"><span>센티프로 PT받은 회원이 가장 많이 한 말</span><blockquote>“여기서는 <b>관리받는다는 느낌</b>을 받아요”</blockquote></figure>
+  </div>
+  <div class="hx-wrap">
+    <div class="vo-qs"><figure class="vq fade-up"><blockquote>“어플로 식단관리 받으면서 체지방량이 눈에 보이게 감소했어요!!”</blockquote><figcaption>PT 회원 · 다이어트</figcaption></figure><figure class="vq fade-up"><blockquote>“항상 꼼꼼하고 섬세하게 PT를 봐주셔서 날이 갈수록 신뢰감 상승!!!”</blockquote><figcaption>PT 회원 · 인생 첫 PT</figcaption></figure><figure class="vq fade-up"><blockquote>“세 번째 PT쌤인데 드디어 인생쌤을 찾은 것 같아요!!”</blockquote><figcaption>PT 회원 · 통증 개선</figcaption></figure><figure class="vq fade-up"><blockquote>“피티를 받기 시작해 올해로 벌써 4년째입니다.”</blockquote><figcaption>PT 회원 · 동기부여와 습관</figcaption></figure></div>
+    <p class="vo-src">센티프로 관리받는 PT 회원이 직접 남긴 후기입니다.</p>
     <h3 class="vo-sub">써 본 강사와 회원의 말</h3>
 <div class="itv-grid">
       <a class="itv-card fade-up" data-yt="zOxrGWNv67Q" href="https://youtu.be/zOxrGWNv67Q" target="_blank" rel="noopener">
@@ -2568,16 +2556,7 @@ go(3);})();
       <div class="itv-modal-frame"><iframe id="itvFrame" src="" title="인터뷰 영상" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
     </div>
   </div>
-    <h3 class="vo-sub">회원 후기</h3>
-    <div class="vo-quotes">
-      <figure class="fade-up"><blockquote>“어플로 식단관리 받으면서 체지방량이 눈에 보이게 감소했어요!!”</blockquote><figcaption>센티프짐 회원 · 다이어트</figcaption></figure>
-      <figure class="fade-up"><blockquote>“항상 꼼꼼하고 섬세하게 PT를 봐주셔서 날이 갈수록 신뢰감 상승!!!”</blockquote><figcaption>센티프짐 회원 · 인생 첫 PT</figcaption></figure>
-      <figure class="fade-up"><blockquote>“세 번째 PT쌤인데 드디어 인생쌤을 찾은 것 같아요!!”</blockquote><figcaption>센티프짐 회원 · 통증 개선</figcaption></figure>
-      <figure class="fade-up"><blockquote>“피티를 받기 시작해 올해로 벌써 4년째입니다.”</blockquote><figcaption>센티프짐 회원 · 동기부여와 습관</figcaption></figure>
-    </div>
-    <p class="vo-src">센티프로 관리받는 센티프짐 회원이 직접 남긴 후기입니다.</p>
   </div>
-  <div class="vo-photos" aria-hidden="true"><div class="vo-track"><img src="assets/members/member-01.jpg" alt="" loading="lazy" decoding="async"><img src="assets/members/member-02.jpg" alt="" loading="lazy" decoding="async"><img src="assets/members/member-03.jpg" alt="" loading="lazy" decoding="async"><img src="assets/members/member-04.jpg" alt="" loading="lazy" decoding="async"><img src="assets/members/member-05.jpg" alt="" loading="lazy" decoding="async"><img src="assets/members/member-06.jpg" alt="" loading="lazy" decoding="async"><img src="assets/members/member-07.jpg" alt="" loading="lazy" decoding="async"><img src="assets/members/member-08.jpg" alt="" loading="lazy" decoding="async"><img src="assets/members/member-09.jpg" alt="" loading="lazy" decoding="async"><img src="assets/members/member-10.jpg" alt="" loading="lazy" decoding="async"><img src="assets/members/member-11.jpg" alt="" loading="lazy" decoding="async"><img src="assets/members/member-12.jpg" alt="" loading="lazy" decoding="async"><img src="assets/members/member-13.jpg" alt="" loading="lazy" decoding="async"><img src="assets/members/member-14.jpg" alt="" loading="lazy" decoding="async"><img src="assets/members/member-01.jpg" alt="" loading="lazy" decoding="async"><img src="assets/members/member-02.jpg" alt="" loading="lazy" decoding="async"><img src="assets/members/member-03.jpg" alt="" loading="lazy" decoding="async"><img src="assets/members/member-04.jpg" alt="" loading="lazy" decoding="async"><img src="assets/members/member-05.jpg" alt="" loading="lazy" decoding="async"><img src="assets/members/member-06.jpg" alt="" loading="lazy" decoding="async"><img src="assets/members/member-07.jpg" alt="" loading="lazy" decoding="async"><img src="assets/members/member-08.jpg" alt="" loading="lazy" decoding="async"><img src="assets/members/member-09.jpg" alt="" loading="lazy" decoding="async"><img src="assets/members/member-10.jpg" alt="" loading="lazy" decoding="async"><img src="assets/members/member-11.jpg" alt="" loading="lazy" decoding="async"><img src="assets/members/member-12.jpg" alt="" loading="lazy" decoding="async"><img src="assets/members/member-13.jpg" alt="" loading="lazy" decoding="async"><img src="assets/members/member-14.jpg" alt="" loading="lazy" decoding="async"></div></div>
 </section>
 <style>
 /* ── 8. 도입 문의 ── */

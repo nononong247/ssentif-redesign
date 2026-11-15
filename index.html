@@ -519,6 +519,7 @@
 
 </style>
 <style>.home-off { display: none !important; } /* 스크롤리텔링 개편(11-06)으로 홈에서 내린 섹션. 배포 전 삭제 여부 결정 */</style>
+<style>.home-hero .hero-text h1{font-weight:700;letter-spacing:-0.04em;line-height:1.2}.home-hero .hero-text h1 .hl{font-weight:700}@media (max-width:600px){.home-hero .hero-text h1{line-height:1.26}}</style>
 </head>
 <body class="notice-none">
 
@@ -723,8 +724,8 @@
     <!-- 상단 텍스트 -->
     <div class="hero-scroll-title">
       <div class="hero-text">
-        <h1>이제 <span class="hl">강사별</span> PT 성과가<br>눈에 보입니다</h1>
-        <p class="lead">수업일지, 식단, 개인운동 피드백으로<br class="mo-br"> 회원 만족을 쌓습니다.</p>
+        <h1><span class="hl">PT 회원 만족도</span>,<br>이제 눈으로 보고 관리하세요</h1>
+        <p class="lead">수업일지, 식단, 개인운동 피드백으로<br>회원 만족을 쌓고, 강사별 성과를 관리하세요.</p>
         <div class="hero-btns">
           <a href="consulting" class="btn-cta">
             도입 상담 신청
@@ -1405,8 +1406,8 @@
       <div class="why-vis"><div class="v67 v6x" aria-hidden="true"><div class="rl"><i class="tr"></i></div><span class="mk k1"><b></b><em>이탈 신호</em></span><span class="mk k2"><b></b><em>마지막 날</em></span><span class="mk k3"><b></b><em>알게 된 날</em></span><span class="av"><img src="assets/avatars/member-hanjiwoo.jpg" alt="" width="56" height="56"></span></div></div>
     </article>
 
-    <article class="beat" data-tone="light" data-w="1.3">
-      <div><h2>그냥 보내는 회원은<br><em>없을 텐데요</em></h2></div>
+    <article class="beat" data-tone="light" data-w="2">
+      <div><h2>그냥 이탈하는 회원은<br><em>없을 텐데요...</em></h2></div>
       <div class="why-vis"><div class="v67 v7x" aria-hidden="true"><div class="rl"><i class="tr"></i></div><span class="mk k1"><b></b><em>이탈 신호</em><em class="alt">재등록</em></span><span class="mk k2"><b></b><em>마지막 날</em></span><span class="mk k3"><b></b><em>알게 된 날</em></span><i class="catch"></i><i class="rip"></i><img class="v7-app" src="assets/app-icons/coach-new.png" alt="" width="26" height="26"><span class="av"><img src="assets/avatars/member-hanjiwoo.jpg" alt="" width="56" height="56"><i class="ok"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.5L12 5.4"/></svg></i></span></div></div>
     </article>
   </div>
@@ -1415,8 +1416,8 @@
 <section class="so so2" id="so">
   <div class="hx-wrap">
     <div class="so2-head fade-up">
-      <span class="hx-eyebrow">그래서, 센티프</span>
-      <h2>회원이 떠나기 전에<br><em>먼저 보여 줍니다</em></h2>
+      <span class="hx-eyebrow">회원만족도·재등록은 센티프</span>
+      <h2>회원이 떠나기 전에<br><em>먼저 알고, 먼저 챙깁니다</em></h2>
     </div>
     <ol class="so2-list">
       <li class="so2-card fade-up">
@@ -1484,7 +1485,9 @@ story.addEventListener('beatp',function(e){ if(BI<0) BI=[].indexOf.call(story.qu
 /* ── 4. 앱 흐름: 고정 스크롤 + 실제 화면이 저절로 조작되는 연출(가로 화면은 전체 → 확대 → 이동 → 축소) ── */
 .flow { background: var(--soft); }
 .flow-head { padding: 96px 0 12px; text-align: center; }
-.flow-head h2 { font-size: 1.85rem; line-height: 1.34; font-weight: 800; }
+.flow-head h2 { font-size: min(1.85rem, 7.2vw); line-height: 1.34; font-weight: 800; }
+.flow-head h2 em { font-style: normal; color: var(--mint-d); }
+@media (min-width: 600px) { .fh-br { display: none; } }
 .flow-head p { margin-top: 14px; font-size: 15.5px; line-height: 1.7; color: var(--mute); }
 .flow-pin .pin { background: var(--soft); }
 .flow-pin { --sh: 110vh; --sh2: 110svh; }
@@ -1784,8 +1787,8 @@ story.addEventListener('beatp',function(e){ if(BI<0) BI=[].indexOf.call(story.qu
 <section class="flow" id="flow">
   <div class="hx-wrap flow-head fade-up">
     <span class="hx-eyebrow">실제 화면</span>
-    <h2>수업 한 번이<br>대표님 화면에 닿기까지</h2>
-    <p>우리 센터의 PT 관리가 이렇게 바뀝니다.</p>
+    <h2>PT 수업 안에서 무슨 일이 있는지<br><em>대표님은 알고 계신가요?</em></h2>
+    <p>말이 아니라 기록으로<br>현장을 직접 확인합니다.</p>
   </div>
   <div class="pin-story flow-pin" aria-label="수업일지에서 관리자 화면까지">
     <div class="pin">
@@ -2496,60 +2499,81 @@ go(3);})();
   <div class="hx-wrap">
     <div class="vo-head fade-up">
       <span class="hx-eyebrow">회원관리 만족도</span>
-      <h2><em>회원관리 만족도</em>,<br>회원이 직접 증명합니다</h2>
-      <p>센티프로 PT를 받는 회원들이 <br class="vo-br">직접 보여 주고, 남긴 말입니다.</p>
+      <h2>센티프가 생각하는 본질은<br><em>결국 회원입니다</em></h2>
+      <p>센티프로 관리받은 PT 회원님들과 <br class="vo-br">함께 증명했습니다.</p>
     </div>
   </div>
   <div class="vo-wall" aria-label="센티프로 PT를 받는 회원들">
     <div class="vw-row r1"><div class="vw-track"><img src="assets/members/member-01.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-02.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-03.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-04.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-05.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-06.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-07.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-08.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-09.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-10.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-11.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-12.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-13.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-14.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-15.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-16.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-17.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-01.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-02.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-03.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-04.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-05.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-06.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-07.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-08.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-09.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-10.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-11.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-12.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-13.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-14.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-15.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-16.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-17.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"></div></div><div class="vw-row r2"><div class="vw-track"><img src="assets/members/member-18.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-19.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-20.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-21.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-22.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-23.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-24.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-25.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-26.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-27.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-28.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-29.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-30.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-31.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-32.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-33.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-18.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-19.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-20.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-21.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-22.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-23.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-24.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-25.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-26.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-27.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-28.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-29.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-30.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-31.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-32.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-33.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"></div></div><div class="vw-row r3"><div class="vw-track"><img src="assets/members/member-34.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-35.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-36.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-37.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-38.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-39.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-40.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-41.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-42.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-43.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-44.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-45.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-46.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-47.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-48.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-49.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-34.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-35.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-36.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-37.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-38.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-39.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-40.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-41.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-42.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-43.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-44.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-45.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-46.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-47.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-48.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"><img src="assets/members/member-49.jpg" alt="" loading="lazy" decoding="async" width="480" height="600"></div></div>
-    <figure class="vo-top"><span>센티프로 PT받은 회원이 가장 많이 한 말</span><blockquote>“여기서는 <b>관리받는다는 느낌</b>을 받아요”</blockquote></figure>
+    <figure class="vo-top"><span>회원님들이 가장 많이 한 말</span><blockquote>“여기서는<br><b>관리받는다는 느낌</b>을 받아요”</blockquote></figure>
   </div>
   <div class="hx-wrap">
     <div class="vo-qs"><figure class="vq fade-up"><blockquote>“어플로 식단관리 받으면서 체지방량이 눈에 보이게 감소했어요!!”</blockquote><figcaption>PT 회원 · 다이어트</figcaption></figure><figure class="vq fade-up"><blockquote>“항상 꼼꼼하고 섬세하게 PT를 봐주셔서 날이 갈수록 신뢰감 상승!!!”</blockquote><figcaption>PT 회원 · 인생 첫 PT</figcaption></figure><figure class="vq fade-up"><blockquote>“세 번째 PT쌤인데 드디어 인생쌤을 찾은 것 같아요!!”</blockquote><figcaption>PT 회원 · 통증 개선</figcaption></figure><figure class="vq fade-up"><blockquote>“피티를 받기 시작해 올해로 벌써 4년째입니다.”</blockquote><figcaption>PT 회원 · 동기부여와 습관</figcaption></figure></div>
     <p class="vo-src">센티프로 관리받는 PT 회원이 직접 남긴 후기입니다.</p>
-    <h3 class="vo-sub">써 본 강사와 회원의 말</h3>
-<div class="itv-grid">
-      <a class="itv-card fade-up" data-yt="zOxrGWNv67Q" href="https://youtu.be/zOxrGWNv67Q" target="_blank" rel="noopener">
+  </div>
+</section>
+<style>
+/* ═ 7-2 강사 인터뷰(11-15): '지금 쓰는 프로그램, 선생님들도 잘 쓰시나요?' → 센티프는 다르다는 근거로 강사 인터뷰 ═ */
+.ti { background: #fff; padding: 88px 0 96px; }
+.ti-head { text-align: center; }
+.ti-head .hx-eyebrow { font-size: 15px; }
+.ti-head h2 { font-size: min(1.85rem, 7.2vw); line-height: 1.34; font-weight: 800; letter-spacing: -0.035em; }
+.ti-head h2 em { font-style: normal; color: var(--mint-d); }
+.ti-head p { margin: 14px 0 0; color: var(--mute); font-size: 15px; line-height: 1.6; }
+.ti .itv-grid { margin-top: 36px; }
+.ti .itv-cta { margin-top: 32px; text-align: center; }
+@media (min-width: 600px) { .ti-br { display: none; } }
+/* 11-15 모바일: 가운데 맞춤 스냅 때문에 첫 카드 왼쪽이 잘리던 것 → 시작 맞춤 + 좌우 여백을 본문(20px)과 맞춤 */
+@media (max-width: 600px) {
+  .ti .itv-grid { margin: 32px -20px 0; padding: 0 20px; scroll-padding: 0 20px; overflow-y: hidden; overscroll-behavior-x: contain; }
+  .ti .itv-thumb img { transform: none !important; }
+  .ti .itv-card { scroll-snap-align: start; }
+}
+@media (min-width: 900px) {
+  .ti { padding: 128px 0 136px; }
+  .ti-head h2 { font-size: clamp(2.4rem, 3.6vw, 3.1rem); line-height: 1.28; }
+  .ti-head p { font-size: 17px; margin-top: 18px; }
+  .ti .itv-grid { margin-top: 56px; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+}
+</style>
+<section class="ti" id="trainers">
+  <div class="hx-wrap">
+    <div class="ti-head fade-up">
+      <span class="hx-eyebrow">잠깐! 대표님</span>
+      <h2>지금 쓰고 있는 프로그램,<br><em>선생님들도 잘 쓰시나요?</em></h2>
+      <p>강사가 쓰지 않으면 아무것도 남지 않습니다.<br>센티프를 쓰는 강사님들이 직접 이야기합니다.</p>
+    </div>
+<div class="itv-grid"><a class="itv-card fade-up" data-yt="zOxrGWNv67Q" href="https://youtu.be/zOxrGWNv67Q" target="_blank" rel="noopener">
         <div class="itv-thumb">
           <img src="https://i.ytimg.com/vi/zOxrGWNv67Q/hqdefault.jpg" alt="예이레 강사 인터뷰" loading="lazy">
           <span class="itv-play"></span>
         </div>
-      </a>
-      <a class="itv-card fade-up" style="transition-delay:.07s" data-yt="5hiJJo65QVU" href="https://youtu.be/5hiJJo65QVU" target="_blank" rel="noopener">
-        <div class="itv-thumb">
-          <img src="https://i.ytimg.com/vi/5hiJJo65QVU/hqdefault.jpg" alt="회원 반응 인터뷰" loading="lazy">
-          <span class="itv-play"></span>
-        </div>
-      </a>
-      <a class="itv-card fade-up" style="transition-delay:.14s" data-yt="o_k9EZnfVa4" href="https://youtu.be/o_k9EZnfVa4" target="_blank" rel="noopener">
+      </a><a class="itv-card fade-up" data-yt="o_k9EZnfVa4" href="https://youtu.be/o_k9EZnfVa4" target="_blank" rel="noopener">
         <div class="itv-thumb">
           <img src="https://i.ytimg.com/vi/o_k9EZnfVa4/hqdefault.jpg" alt="송종원 강사 인터뷰" loading="lazy">
           <span class="itv-play"></span>
         </div>
-      </a>
-      <a class="itv-card fade-up" style="transition-delay:.21s" data-yt="U87FpumJAkg" href="https://youtu.be/U87FpumJAkg" target="_blank" rel="noopener">
+      </a><a class="itv-card fade-up" data-yt="5hiJJo65QVU" href="https://youtu.be/5hiJJo65QVU" target="_blank" rel="noopener">
+        <div class="itv-thumb">
+          <img src="https://i.ytimg.com/vi/5hiJJo65QVU/hqdefault.jpg" alt="회원 반응 인터뷰" loading="lazy">
+          <span class="itv-play"></span>
+        </div>
+      </a><a class="itv-card fade-up" data-yt="eMK_hasso6M" href="https://youtu.be/eMK_hasso6M" target="_blank" rel="noopener"><div class="itv-thumb"><img src="https://i.ytimg.com/vi/eMK_hasso6M/hqdefault.jpg" alt="회원관리에 진심이 아니신 분들은 빼고, 모두 사용했으면 좋겠습니다" loading="lazy"><span class="itv-play"></span></div></a><a class="itv-card fade-up" data-yt="NrE_J-gR8C0" href="https://youtu.be/NrE_J-gR8C0" target="_blank" rel="noopener"><div class="itv-thumb"><img src="https://i.ytimg.com/vi/NrE_J-gR8C0/hqdefault.jpg" alt="솔직하게 다른 트레이너들은 안썼으면 좋겠어요" loading="lazy"><span class="itv-play"></span></div></a><a class="itv-card fade-up" data-yt="U87FpumJAkg" href="https://youtu.be/U87FpumJAkg" target="_blank" rel="noopener">
         <div class="itv-thumb">
           <img src="https://i.ytimg.com/vi/U87FpumJAkg/hqdefault.jpg" alt="강사 인터뷰" loading="lazy">
           <span class="itv-play"></span>
         </div>
-      </a>
-      <a class="itv-card fade-up" style="transition-delay:.28s" data-yt="KIVX2QPVGrk" href="https://youtu.be/KIVX2QPVGrk" target="_blank" rel="noopener">
+      </a><a class="itv-card fade-up" data-yt="KIVX2QPVGrk" href="https://youtu.be/KIVX2QPVGrk" target="_blank" rel="noopener">
         <div class="itv-thumb">
           <img src="https://i.ytimg.com/vi/KIVX2QPVGrk/hqdefault.jpg" alt="강사 인터뷰" loading="lazy">
           <span class="itv-play"></span>
         </div>
-      </a>
-      <a class="itv-card fade-up" style="transition-delay:.35s" data-yt="rOjFa-LjG64" href="https://youtu.be/rOjFa-LjG64" target="_blank" rel="noopener">
+      </a><a class="itv-card fade-up" data-yt="rOjFa-LjG64" href="https://youtu.be/rOjFa-LjG64" target="_blank" rel="noopener">
         <div class="itv-thumb">
           <img src="https://i.ytimg.com/vi/rOjFa-LjG64/hqdefault.jpg" alt="강사 인터뷰" loading="lazy">
           <span class="itv-play"></span>
         </div>
-      </a>
-    </div>
-
-    <div class="itv-cta fade-up">
-      <a href="https://www.youtube.com/@ssentif_official/videos" target="_blank" rel="noopener" class="btn btn-outline">더 많은 인터뷰 보러가기</a>
-    </div>
+      </a></div>
 <div class="itv-modal" id="itvModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="인터뷰 영상">
     <div class="itv-modal-backdrop" data-itv-close></div>
     <div class="itv-modal-inner">
@@ -2557,6 +2581,140 @@ go(3);})();
       <div class="itv-modal-frame"><iframe id="itvFrame" src="" title="인터뷰 영상" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
     </div>
   </div>
+  </div>
+</section>
+<script>
+/* 11-15 모바일 인터뷰 줄: 가만히 두면 3.5초마다 다음 영상으로 넘어가고, 끝에 닿으면 처음으로. 손대면 멈췄다가 6초 뒤 다시 */
+(function(){
+  var g=document.querySelector('.ti .itv-grid'); if(!g) return;
+  var idleUntil=0, seen=false;
+  function stop(){ idleUntil=Date.now()+6000; }
+  ['pointerdown','touchstart','wheel'].forEach(function(e){ g.addEventListener(e,stop,{passive:true}); });
+  if('IntersectionObserver' in window) new IntersectionObserver(function(es){ seen=es[0].isIntersecting; },{threshold:.5}).observe(g);
+  setInterval(function(){
+    if(!seen || Date.now()<idleUntil || document.hidden) return;
+    if(g.scrollWidth<=g.clientWidth+2) return; /* PC처럼 한 화면에 다 보이면 안 움직임 */
+    var c=g.querySelector('.itv-card'); if(!c) return;
+    var step=c.getBoundingClientRect().width+parseFloat(getComputedStyle(g).columnGap||12);
+    var atEnd=g.scrollLeft+g.clientWidth>=g.scrollWidth-4;
+    g.scrollTo({left: atEnd?0:g.scrollLeft+step, behavior:'smooth'});
+  },3500);
+})();
+</script>
+<style>
+/* ── 8. 센티프짐: 센티프를 믿을 수 있는 이유 ── */
+.gym-section { background: var(--soft); padding: 96px 0; }
+.gym-wrap { display: flex; flex-direction: column; gap: 32px; }
+.gym-l { display: contents; }
+.gym-head { order: 1; text-align: center; }
+.gym-head h2 { font-size: 1.85rem; line-height: 1.34; font-weight: 800; letter-spacing: -0.035em; word-break: keep-all; }
+.gym-head h2 em { font-style: normal; color: var(--accent-dark); }
+.gym-head p { margin-top: 16px; font-size: 15.5px; line-height: 1.75; color: var(--gray-500); word-break: keep-all; }
+.gym-photos { order: 2; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 0; }
+.gym-photos img { display: block; width: 100%; height: auto; object-fit: cover; border-radius: 16px; aspect-ratio: 1 / 1; }
+.gym-photos img:first-child { grid-column: 1 / -1; aspect-ratio: 16 / 10; }
+.gym-photos figcaption { grid-column: 1 / -1; font-size: 12.5px; color: var(--gray-400); text-align: center; }
+.gym-say { order: 3; margin: 0; padding: 22px 0; border-top: 1px solid var(--black); border-bottom: 1px solid var(--border); font-size: 1.3rem; line-height: 1.5; font-weight: 800; letter-spacing: -0.03em; text-align: center; word-break: keep-all; }
+.gym-stats { order: 4; list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); text-align: center; }
+.gym-stats li + li { border-left: 1px solid var(--border); }
+.gym-stats b { display: block; font-size: 1.5rem; font-weight: 800; letter-spacing: -0.03em; color: var(--black); font-variant-numeric: tabular-nums; }
+.gym-stats span { display: block; margin-top: 2px; font-size: 13px; color: var(--gray-500); }
+@media (min-width: 900px) {
+  .gym-section { padding: 150px 0; }
+  .gym-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .gym-l { display: flex; flex-direction: column; gap: 36px; }
+  .gym-head { text-align: left; }
+  .gym-head h2 { font-size: clamp(2.4rem, 3.6vw, 3.1rem); line-height: 1.28; }
+  .gym-head p { font-size: 18px; }
+  .gym-say { text-align: left; font-size: 1.6rem; padding: 28px 0; }
+  .gym-stats { text-align: left; }
+  .gym-stats li + li { padding-left: 24px; }
+  .gym-stats b { font-size: 1.9rem; }
+  .gym-photos { gap: 12px; }
+  .gym-photos img { border-radius: 20px; }
+  .gym-photos figcaption { text-align: left; }
+}
+.g-pc { display: none; }
+@media (min-width: 900px) { .g-pc { display: inline; } }
+/* 11-15 센티프짐 규모 태그 */
+.gym-tags { list-style: none; margin: 16px 0 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
+.gym-tags li { padding: 6px 12px; border-radius: 999px; background: #fff; border: 1px solid var(--border); font-size: 13px; font-weight: 700; letter-spacing: -0.02em; color: var(--black); }
+@media (min-width: 900px) { .gym-tags { justify-content: flex-start; margin-top: 20px; gap: 8px; } .gym-tags li { font-size: 14px; padding: 7px 14px; } }
+/* 11-15 사진 위 관점 라벨: 누구에게 무엇이 편한지 */
+.gym-photos .gp { position: relative; overflow: hidden; border-radius: 16px; }
+.gym-photos .gp:first-child { grid-column: 1 / -1; }
+.gym-photos .gp img { border-radius: 0; }
+.gym-photos .gp img { aspect-ratio: 1 / 1; height: 100%; }
+.gym-photos .gp:first-child img { aspect-ratio: 16 / 10; height: auto; object-position: center 30%; }
+.gym-photos .gp::after { content: ""; position: absolute; inset: 45% 0 0; background: linear-gradient(transparent, rgba(10,12,14,.72)); pointer-events: none; }
+.gym-photos .gp span { position: absolute; left: 14px; right: 12px; bottom: 12px; z-index: 1; color: #fff; font-size: 13px; font-weight: 700; line-height: 1.4; letter-spacing: -0.02em; word-break: keep-all; }
+.gym-photos .gp:first-child span { font-size: 15px; left: 16px; bottom: 14px; }
+.gym-photos .gp i { display: block; width: fit-content; margin-bottom: 5px; padding: 2px 8px; border-radius: 999px; background: var(--mint); color: #0b2a21; font-style: normal; font-size: 11px; font-weight: 800; }
+.gym-end { grid-column: 1 / -1; margin: 14px 0 0; text-align: center; font-size: 15.5px; line-height: 1.65; color: var(--gray-500); word-break: keep-all; }
+.gym-end b { color: var(--black); font-weight: 800; }
+@media (min-width: 600px) { .g-mo { display: none; } }
+@media (min-width: 900px) {
+  .gym-photos .gp { border-radius: 20px; }
+  .gym-photos .gp span { font-size: 15px; left: 18px; bottom: 16px; }
+  .gym-photos .gp:first-child span { font-size: 17px; left: 20px; bottom: 18px; }
+  .gym-end { text-align: left; font-size: 16px; }
+}
+/* 11-15 대표 카드: 사진 + 한마디 + 이름 */
+.gym-ceo { order: 3; margin: 0; display: flex; align-items: center; gap: 18px; padding: 18px; background: #fff; border: 1px solid var(--border); border-radius: 20px; }
+.gym-ceo img { flex: none; width: 92px; height: 115px; object-fit: cover; object-position: center 18%; border-radius: 14px; background: #d9d2c8; }
+.gym-ceo blockquote { margin: 0; font-size: 1.08rem; line-height: 1.5; font-weight: 800; letter-spacing: -0.03em; color: var(--black); word-break: keep-all; }
+.gym-ceo figcaption { margin-top: 10px; font-size: 13px; color: var(--gray-500); }
+.gym-ceo figcaption b { margin-right: 6px; color: var(--black); font-weight: 800; }
+@media (min-width: 900px) {
+  .gym-ceo { gap: 24px; padding: 22px; border-radius: 24px; }
+  .gym-ceo img { width: 120px; height: 150px; border-radius: 16px; }
+  .gym-ceo blockquote { font-size: 1.35rem; }
+  .gym-ceo figcaption { font-size: 14px; }
+}
+/* 11-15 대표 소개: 숫자 줄 빼고 센티프짐 바로 다음 섹션처럼, 사진 크게 */
+.gf { background: #fff; padding: 72px 0 80px; }
+.gf-in { display: flex; flex-direction: column; align-items: center; gap: 28px; text-align: center; }
+.gf-ph { display: block; width: min(260px, 70vw); aspect-ratio: 4 / 5; height: auto; object-fit: cover; border-radius: 24px; background: #d9d2c8; box-shadow: 0 24px 48px -24px rgba(20,24,28,.35); }
+.gf-t blockquote { margin: 12px 0 0; font-size: min(1.6rem, 6.4vw); line-height: 1.42; font-weight: 800; letter-spacing: -0.035em; color: var(--black); word-break: keep-all; }
+.gf-t p { margin: 18px 0 0; font-size: 14px; color: var(--gray-500); }
+.gf-t p b { margin-right: 8px; font-size: 16px; color: var(--black); font-weight: 800; }
+.gf-t .gf-sub { margin-top: 10px; font-size: 14px; line-height: 1.6; color: var(--gray-500); word-break: keep-all; }
+@media (min-width: 900px) {
+  .gf { padding: 120px 0 128px; }
+  .gf-in { flex-direction: row; justify-content: center; gap: 72px; text-align: left; }
+  .gf-ph { width: 340px; border-radius: 28px; }
+  .gf-t blockquote { font-size: clamp(2rem, 3vw, 2.6rem); line-height: 1.32; }
+  .gf-t p { margin-top: 24px; font-size: 15px; }
+  .gf-t p b { font-size: 18px; }
+}
+</style>
+<section class="gym-section" id="ssentifgym">
+  <div class="container gym-wrap">
+    <div class="gym-l">
+      <div class="gym-head fade-up">
+        <span class="hx-eyebrow">센티프를 믿을 수 있는 이유</span>
+        <h2><em>센티프짐</em>을 직접 운영하며<br>현장에서 검증하고 <br class="g-pc">만듭니다</h2>
+        <ul class="gym-tags"><li>100평 규모</li><li>PT 전문 스튜디오</li><li>전문 코치 8명</li></ul>
+        <p>대부분의 프로그램들이 기능은 비슷해 보여도,<br>막상 써 보면 불편한 곳이 많습니다.<br>센티프는 센티프짐에서 그 디테일까지 확인하고 만듭니다.</p>
+      </div>
+    </div>
+    <figure class="gym-photos fade-up">
+      <div class="gp"><img src="assets/gym/promo-owner.webp" alt="센터 운영자가 컴퓨터로 센티프를 확인하는 모습" loading="lazy" width="1280" height="800"><span><i>대표/관리자</i>PC, 모바일, 태블릿 모두 지원</span></div>
+      <div class="gp"><img src="assets/gym/promo-trainer.webp" alt="강사가 수업 중 태블릿에 수업 기록을 남기는 모습" loading="lazy" width="800" height="800"><span><i>강사/트레이너</i>수업 중에도 손쉽게 기록하게</span></div>
+      <div class="gp"><img src="assets/gym/promo-member.webp" alt="회원이 휴대폰으로 수업 기록을 받아 보는 모습" loading="lazy" width="800" height="800"><span><i>회원</i>받는 순간까지 만족스럽게</span></div>
+      <p class="gym-end">단순히 루틴을 적어 보내는 수업일지가 아닌,<br>기록부터 회원이 받는 순간까지 이어지는<br class="g-mo"> <b>차원이 다른 프로세스</b>를 만나 보세요.</p>
+    </figure>
+  </div>
+</section>
+<section class="gf" id="founder">
+  <div class="hx-wrap gf-in fade-up">
+    <img class="gf-ph" src="assets/gym/ceo.webp" alt="센티프 정진훈 대표" loading="lazy" width="480" height="600">
+    <div class="gf-t">
+      <span class="hx-eyebrow">센티프가 일하는 방식</span>
+      <blockquote>“책상 위의 기획이 아니라,<br>현장의 결과를 만듭니다.”</blockquote>
+      <p><b>정진훈</b>센티프 대표 · 센티프짐 운영</p>
+      <p class="gf-sub">현장을 아는 대표가 도입 상담부터 정착까지 <br class="g-mo">직접 안내해 드립니다.</p>
+    </div>
   </div>
 </section>
 <style>

@@ -18,6 +18,7 @@
 :root{
   --blue:#0033FF; --blue-d:#0029CC; --blue-t:#F2F5FF; --navy:#0A0E1A;
   --orange:#FF6B00; --orange-t:#FFF3EA;
+  --mint:#1FDBA8; --mint-ink:#003D2E;
   --ink:#111318; --ink2:#4B5160; --ink3:#8A909C; --line:#ECEEF2; --gap:#F4F5F7;
   --sab:env(safe-area-inset-bottom,0px);
 }
@@ -41,18 +42,18 @@ b,strong{font-weight:700}
 .brand{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--blue);letter-spacing:.06em}
 .brand i{font-style:normal;color:var(--ink3);font-weight:500;letter-spacing:0}
 h1{font-size:21px;line-height:1.38;font-weight:700;letter-spacing:-.02em;margin-top:8px}
-h1 .tag{display:inline-block;font-size:12px;font-weight:700;color:var(--orange);border:1px solid var(--orange);border-radius:4px;padding:0 5px;margin-right:6px;vertical-align:3px;line-height:19px}
+h1 .tag{display:inline-block;font-size:12.5px;font-weight:800;color:var(--mint-ink);background:var(--mint);border-radius:5px;padding:0 7px;margin-right:6px;vertical-align:3px;line-height:22px}
 .sub{font-size:14px;color:var(--ink2);margin-top:6px}
 .kw{font-size:13px;color:var(--ink3);margin-top:8px}
 .price{margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
-.price .lbl{font-size:13px;font-weight:700;color:var(--orange)}
+.price .lbl{display:inline-block;font-size:13px;font-weight:800;color:var(--mint-ink);background:var(--mint);border-radius:5px;padding:2px 8px}
 .price .row{display:flex;align-items:baseline;gap:8px;margin-top:2px}
 .price .pct{font-size:24px;font-weight:800;color:var(--orange);letter-spacing:-.02em}
 .price .now{font-size:26px;font-weight:800;letter-spacing:-.02em}
 .price .now small{font-size:18px;font-weight:700;margin-left:1px}
 .price .was{font-size:14px;color:var(--ink3);margin-top:4px}
 .price .was s{margin-left:4px}
-.price .lbl+.was{margin-top:2px}
+.price .lbl+.was{margin-top:8px}
 .perk{display:flex;align-items:center;gap:12px;margin-top:16px;padding:13px 14px;border-radius:10px;background:var(--blue-t)}
 .perk .ic{flex:none;width:34px;height:34px;border-radius:50%;background:var(--blue);display:grid;place-items:center}
 .perk .ic svg{width:18px;height:18px}
@@ -175,6 +176,7 @@ section{scroll-margin-top:48px}
 .tbl dt{flex:none;width:52px;color:var(--ink3);font-weight:600}
 .tbl dd{flex:1;font-weight:600}
 .tbl dd small{display:block;font-size:13px;color:var(--ink3);font-weight:500;margin-top:2px}
+.tbl dd small.mint{display:inline-block;color:var(--mint-ink);background:var(--mint);font-weight:800;border-radius:4px;padding:0 6px;margin-top:6px;line-height:20px}
 .tbl .pr{color:var(--orange)}
 .tbl .pr s{color:var(--ink3);font-weight:500;margin-right:6px;font-size:13.5px}
 .tbl .pr .arr{color:var(--ink3);font-weight:500;margin-right:6px}
@@ -186,7 +188,7 @@ section{scroll-margin-top:48px}
 .cta{position:fixed;left:0;right:0;bottom:0;z-index:50;pointer-events:none}
 .cta .in{max-width:480px;margin:0 auto;background:#fff;border-top:1px solid var(--line);padding:10px 14px calc(10px + var(--sab));display:flex;align-items:center;gap:12px;pointer-events:auto;box-shadow:0 -6px 20px rgba(0,0,0,.05)}
 .cta .pv{flex:none;line-height:1.25}
-.cta .pv small{display:block;font-size:11.5px;font-weight:700;color:var(--orange)}
+.cta .pv small{display:inline-block;font-size:11px;font-weight:800;color:var(--mint-ink);background:var(--mint);border-radius:4px;padding:0 5px;line-height:17px;margin-bottom:1px}
 .cta .pv s{display:block;font-size:12px;color:var(--ink3)}
 .cta .pv b{font-size:18px;font-weight:800;letter-spacing:-.02em}
 .cta a{flex:1;display:flex;align-items:center;justify-content:center;height:52px;border-radius:12px;background:var(--blue);color:#fff;font-size:17px;font-weight:700;text-decoration:none;letter-spacing:-.01em;-webkit-tap-highlight-color:transparent;transition:transform .12s,background .12s}
@@ -399,7 +401,7 @@ section{scroll-margin-top:48px}
       <dl class="tbl">
         <div><dt>일시</dt><dd>2026년 12월 20일(일)<br>오후 1시–4시</dd></div>
         <div><dt>장소</dt><dd>역삼역 도보 5분 거리 세미나룸<small>신청 후 문자로 정확한 주소를 보내드립니다</small></dd></div>
-        <div><dt>참가비</dt><dd class="pr"><s>100,000원</s><span class="arr">→</span>30,000원<small>센티프 유저 전용가</small></dd></div>
+        <div><dt>참가비</dt><dd class="pr"><s>100,000원</s><span class="arr">→</span>30,000원<br><small class="mint">센티프 유저 전용가</small></dd></div>
         <div><dt>대상</dt><dd>경력 2년 미만 트레이너 및<br>2027년 취업 예정 트레이너</dd></div>
         <div><dt>혜택</dt><dd>참가자 전원 50분 1:1 비대면 멘토링</dd></div>
       </dl>

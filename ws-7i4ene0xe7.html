@@ -30,11 +30,11 @@ img.wide,img.portrait{max-width:none}
 b,strong{font-weight:700}
 
 /* ---------- 사진 갤러리 ---------- */
-.gal{position:relative;aspect-ratio:1/1;background:#111;overflow:hidden}
+.gal{position:relative;aspect-ratio:4/5;background:#111;overflow:hidden}
 .gal .track{display:flex;height:100%;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
 .gal .track::-webkit-scrollbar{display:none}
-.gal .track img{flex:0 0 100%;width:100%;height:100%;object-fit:cover;scroll-snap-align:start}
-.gal .cnt{position:absolute;right:14px;bottom:14px;background:rgba(0,0,0,.48);color:#fff;font-size:12px;font-weight:600;padding:3px 10px;border-radius:99px;letter-spacing:.02em}
+.gal .track img{flex:0 0 100%;width:100%;height:100%;object-fit:contain;scroll-snap-align:start}
+.gal .cnt{position:absolute;left:50%;transform:translateX(-50%);bottom:14px;background:rgba(0,0,0,.48);color:#fff;font-size:12px;font-weight:600;padding:3px 10px;border-radius:99px;letter-spacing:.02em}
 
 /* ---------- 상품 정보 ---------- */
 .info{padding:20px 20px 4px}
@@ -201,13 +201,16 @@ section{scroll-margin-top:48px}
   <!-- 사진 -->
   <div class="gal">
     <div class="track" id="gal">
-      <img src="/assets/kyle-workshop/lecture-spoany.jpg" alt="카일 강의 현장" style="object-position:50% 72%">
-      <img src="/assets/kyle-workshop/lecture-concept.jpg" alt="카일 강의 — 나의 컨셉" style="object-position:50% 55%">
-      <img src="/assets/kyle-workshop/small-group.jpg" alt="소그룹 토론" style="object-position:50% 60%" loading="lazy">
-      <img src="/assets/kyle-workshop/group-revenue.jpg" alt="매출통제 워크샵 단체 사진" loading="lazy">
-      <img src="/assets/kyle-workshop/group-sales.jpg" alt="세일즈 워크샵 단체 사진" style="object-position:50% 40%" loading="lazy">
+      <img src="/assets/kyle-workshop/card-01.jpg" alt="표지 — 트레이너로 취업은 했는데, 이제 뭘 해야 할지 모르겠다면?">
+      <img src="/assets/kyle-workshop/card-02.jpg" alt="신입 트레이너의 현실">
+      <img src="/assets/kyle-workshop/card-03.jpg" alt="문제의 본질" loading="lazy">
+      <img src="/assets/kyle-workshop/card-04.jpg" alt="1교시 전문성" loading="lazy">
+      <img src="/assets/kyle-workshop/card-05.jpg" alt="2교시 세일즈" loading="lazy">
+      <img src="/assets/kyle-workshop/card-06.jpg" alt="3교시 매출관리" loading="lazy">
+      <img src="/assets/kyle-workshop/card-07.jpg" alt="센터 대표·관리자님께" loading="lazy">
+      <img src="/assets/kyle-workshop/card-08.jpg" alt="교육의 차별점" loading="lazy">
     </div>
-    <span class="cnt" id="cnt">1 / 5</span>
+    <span class="cnt" id="cnt">1 / 8</span>
   </div>
 
   <!-- 상품 정보 -->
